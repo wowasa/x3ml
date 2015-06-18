@@ -51,25 +51,43 @@ public class ModelOutput implements Output {
         if (typeElement == null) {
             throw exception("Missing qualified name");
         }
-        String typeUri = namespaceContext.getNamespaceURI(typeElement.getPrefix());
-        return model.createResource(uriString, model.createResource(typeUri + typeElement.getLocalName()));
+        if (typeElement.getLocalName().startsWith("http:")){
+            String typeElementNamespace = "";
+            return model.createResource(uriString, model.createResource(typeElementNamespace + typeElement.getLocalName()));
+        }else{
+            String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            return model.createResource(uriString, model.createResource(typeElementNamespace + typeElement.getLocalName()));
+        }
     }
 
     public Property createProperty(TypeElement typeElement) {
         if (typeElement == null) {
             throw exception("Missing qualified name");
         }
-        String propertyNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
-        return model.createProperty(propertyNamespace, typeElement.getLocalName());
+        
+        if (typeElement.getLocalName().startsWith("http:")){
+            String typeElementNamespace = "";
+            return model.createProperty(typeElementNamespace, typeElement.getLocalName());
+        }else{ 
+            String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            return model.createProperty(typeElementNamespace, typeElement.getLocalName());
+        }
+        
     }
 
     public Property createProperty(X3ML.Relationship relationship) {
         if (relationship == null) {
             throw exception("Missing qualified name");
         }
-        String propertyNamespace = namespaceContext.getNamespaceURI(relationship.getPrefix());
-        return model.createProperty(propertyNamespace, relationship.getLocalName());
+        if (relationship.getLocalName().startsWith("http:")){
+            String propertyNamespace = "";
+            return model.createProperty(propertyNamespace, relationship.getLocalName());
+        }else{ 
+            String propertyNamespace = namespaceContext.getNamespaceURI(relationship.getPrefix());
+            return model.createProperty(propertyNamespace, relationship.getLocalName());
+        }
     }
+    
 
     public Literal createLiteral(String value, String language) {
         return model.createLiteral(value, language);

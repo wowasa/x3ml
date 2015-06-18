@@ -463,19 +463,29 @@ public interface X3ML {
         public String tag;
 
         public String getPrefix() {
-            int colon = tag.indexOf(':');
-            if (colon < 0) {
-                throw exception("Unqualified tag " + tag);
+            if(tag.startsWith("http:")){
+                return "";
             }
-            return tag.substring(0, colon);
+            else{
+                int colon = tag.indexOf(':');
+                if (colon < 0) {
+                    throw exception("Unqualified tag " + tag);
+                }
+                return tag.substring(0, colon);
+            }
         }
 
         public String getLocalName() {
-            int colon = tag.indexOf(':');
-            if (colon < 0) {
-                throw exception("Unqualified tag " + tag);
+            if(tag.startsWith("http:")){
+                return tag;
             }
-            return tag.substring(colon + 1);
+            else{
+                int colon = tag.indexOf(':');
+                if (colon < 0) {
+                    throw exception("Unqualified tag " + tag);
+                }
+                return tag.substring(colon + 1);
+            }
         }
     }
 
@@ -532,20 +542,31 @@ public interface X3ML {
         }
 
         public String getPrefix() {
-            int colon = tag.indexOf(':');
-            if (colon < 0) {
-                throw exception("Unqualified tag " + tag);
+            if(tag.startsWith("http:")){
+                return "";
             }
-            return tag.substring(0, colon);
+            else{
+                int colon = tag.indexOf(':');
+                if (colon < 0) {
+                    throw exception("Unqualified tag " + tag);
+                }
+                return tag.substring(0, colon);
+            }
         }
 
         public String getLocalName() {
-            int colon = tag.indexOf(':');
-            if (colon < 0) {
-                throw exception("Unqualified tag " + tag);
+            if(tag.startsWith("http:")){
+                return tag;
             }
-            return tag.substring(colon + 1);
+            else{
+                int colon = tag.indexOf(':');
+                if (colon < 0) {
+                    throw exception("Unqualified tag " + tag);
+                }
+                return tag.substring(colon + 1);
+            }
         }
+    
     }
 
     @XStreamAlias("comments")
