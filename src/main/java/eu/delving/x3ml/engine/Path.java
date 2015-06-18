@@ -98,7 +98,7 @@ public class Path extends GeneratorContext {
         if (range.source_node == null) {
             throw exception("Range source absent: " + range);
         }
-        String expression = path.source_relation.relation.expression;
+        String expression = path.source_relation.relation.get(0).expression;
         if (range.source_node.expression.equals(expression)) {
             expression = "";
         }

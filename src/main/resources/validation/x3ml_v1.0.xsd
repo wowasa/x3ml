@@ -97,10 +97,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="source_relationType">
-		<xs:sequence>
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
 			<xs:element ref="relation"  minOccurs="1" maxOccurs="unbounded"/>
 			<xs:element ref="node"  minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="relation2"  minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="entity">
@@ -118,7 +117,6 @@
 	<xs:element name="relationship" type="xs:string"/>
 	<xs:element name="relation" type="xs:string"/>
 	<xs:element name="node" type="xs:string"/>
-	<xs:element name="relation2" type="xs:string"/>
 	<xs:element name="type" type="xs:string"/>
 	<xs:complexType name="commentsType">
 		<xs:sequence>

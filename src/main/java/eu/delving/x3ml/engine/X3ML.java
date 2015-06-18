@@ -31,6 +31,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+import eu.delving.x3ml.X3MLEngine;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -116,22 +117,17 @@ public interface X3ML {
         public RangeElement range;
 
         public void apply(Domain domain) {
-            String pathSource = this.path.source_relation.relation.expression;
+            String pathSource = this.path.source_relation.relation.get(0).expression;
             String pathSource2 = "";
             String node_inside = "";
 
-            System.out.println(pathSource);
-            if (this.path.source_relation.relation2 != null) {
-                pathSource2 = this.path.source_relation.relation2.expression;
+            if (this.path.source_relation.relation.size() > 1) {
+                pathSource2 = this.path.source_relation.relation.get(1).expression;
                 System.out.println("pathSource2: " + pathSource2);
             }
 
             if (this.path.source_relation.node != null) {
                 node_inside = this.path.source_relation.node.expression;
-                System.out.println("node: " + node_inside);
-            }
-
-            if (this.path.source_relation.node != null) {
 
                 int equals = pathSource.indexOf("==");
 
@@ -167,8 +163,13 @@ public interface X3ML {
                 System.out.println(this.path);
                 for (Path path : domain.createPathContexts(this.path)) {
                     System.out.println(this.path);
-                    for (Range range : path.createRangeContexts(this.range)) {
-                        range.link();
+                    try{
+                        for (Range range : path.createRangeContexts(this.range)) {
+                            range.link();
+                        }
+                    }catch(X3MLEngine.X3MLException ex){
+                        System.out.println("EXCEPTION: "+ex);
+                        
                     }
                 }
             }
@@ -288,11 +289,18 @@ public interface X3ML {
     @XStreamAlias("source_relation")
     public class SourceRelation extends Visible {
 
-        public Source relation2;
-        public Source relation;
+        @XStreamImplicit
+        public List<Relation> relation;
+          
         public Source node;
     }
 
+    @XStreamAlias("relation")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
+    public static class Relation extends Visible {
+         public String expression;
+    }
+    
     @XStreamAlias("range")
     public static class RangeElement extends Visible {
 

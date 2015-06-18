@@ -17,6 +17,7 @@ package eu.delving.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import eu.delving.x3ml.X3MLEngine;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -97,10 +98,14 @@ public class Root {
         int index = 1;
         for (Node domainNode : domainNodes) {
             Domain domainContext = new Domain(context, domain, domainNode, index++);
-            if (domainContext.resolve()) {
-                domains.add(domainContext);
-            } else {
-                System.out.println("Unresolved: " + domainContext);
+            try{
+                if (domainContext.resolve()) {
+                    domains.add(domainContext);
+                } else {
+                    System.out.println("Unresolved: " + domainContext);
+                }
+            }catch(X3MLEngine.X3MLException ex){
+                System.out.println("EXCEPTION: "+ex);
             }
         }
         return domains;

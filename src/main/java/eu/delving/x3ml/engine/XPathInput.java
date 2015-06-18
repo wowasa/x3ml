@@ -35,6 +35,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
+import static org.joox.JOOX.$;
 
 /**
  * The source data is accessed using xpath to fetch nodes from a DOM tree.
@@ -87,7 +88,8 @@ public class XPathInput {
                 if (!foundArg.value.isEmpty()) {
                     value = argVal(valueAt(node, foundArg.value), lang);
                     if (value.string.isEmpty()) {
-                        throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+//                        throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                        throw exception("Empty result for arg " + $(node).xpath() + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
                     }
                 }
                 break;

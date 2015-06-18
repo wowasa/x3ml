@@ -70,7 +70,7 @@ public class Domain extends GeneratorContext {
 
         System.out.println("Node Inside" + node_inside);
 
-        String pathExpression = pathElement.source_relation.relation.expression;
+        String pathExpression = pathElement.source_relation.relation.get(0).expression;
 
         RangeElement rangeElement = linkElement.range;
 
@@ -81,8 +81,7 @@ public class Domain extends GeneratorContext {
         }
         List<Link> links = new ArrayList<Link>();
         int index = 1;
-        int index1 = 1;
-        int index2 = 1;
+   
 
         int size = context.input().countNodes(node.getParentNode(), node_inside + "//" + intermediateFirst + "/text()");
 
@@ -123,7 +122,7 @@ public class Domain extends GeneratorContext {
     public List<Link> createLinkContexts(LinkElement linkElement, String domainForeignKey, String rangePrimaryKey) {
         PathElement pathElement = linkElement.path;
 
-        String pathExpression = pathElement.source_relation.relation.expression;
+        String pathExpression = pathElement.source_relation.relation.get(0).expression;
         RangeElement rangeElement = linkElement.range;
         String rangeExpression = rangeElement.source_node.expression;
         if (rangeExpression == null) {
@@ -156,7 +155,7 @@ public class Domain extends GeneratorContext {
         }
         List<Path> paths = new ArrayList<Path>();
         int index = 1;
-        for (Node pathNode : context.input().nodeList(node, path.source_relation.relation)) {
+        for (Node pathNode : context.input().nodeList(node, path.source_relation.relation.get(0).expression)) {
             Path pathContext = new Path(context, this, path, pathNode, index++);
             if (pathContext.resolve()) {
                 paths.add(pathContext);
