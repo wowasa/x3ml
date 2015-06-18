@@ -81,7 +81,7 @@ public class Domain extends GeneratorContext {
         }
         List<Link> links = new ArrayList<Link>();
         int index = 1;
-   
+
 
         int size = context.input().countNodes(node.getParentNode(), node_inside + "//" + intermediateFirst + "/text()");
 

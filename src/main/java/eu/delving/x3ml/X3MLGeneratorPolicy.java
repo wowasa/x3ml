@@ -169,9 +169,27 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             String value = instance.getValue();
             String returnType = instance.getValueType();
+          
+            //Custom Generator Prefix Addition
             if (returnType.equals("URI")) {
-                return uriValue(value);
+
+                if (generator.prefix != null) { // use URI template
+                    String namespaceUri = namespaceMap.get(generator.prefix);
+                    if (namespaceUri == null) {
+                        throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
+                    }
+
+                    return uriValue(namespaceUri + value);
+
+                } else {
+                    return uriValue(value);
+                }
+
+            
+            
+            
             }
+            
             else if (returnType.equals("UUID")) {
                 return uriValue(uuidSource.generateUUID());
             }

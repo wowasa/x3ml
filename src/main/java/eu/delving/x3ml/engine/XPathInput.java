@@ -88,8 +88,7 @@ public class XPathInput {
                 if (!foundArg.value.isEmpty()) {
                     value = argVal(valueAt(node, foundArg.value), lang);
                     if (value.string.isEmpty()) {
-//                        throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
-                        throw exception("Empty result for arg " + $(node).xpath() + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                        throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
                     }
                 }
                 break;
@@ -101,6 +100,10 @@ public class XPathInput {
                 break;
             case position:
                 value = argVal(String.valueOf(index), null);
+                break;
+             
+            case xpathPosition:
+                value = argVal(extractXPath(node), languageFromMapping);
                 break;
             default:
                 throw new RuntimeException("Not implemented");
@@ -125,6 +128,15 @@ public class XPathInput {
         return nodes.size();
     }
 
+    public static String extractXPath(Node node) {
+        String path = $(node).xpath();
+        String pathTemp[] = path.split("\\[");
+        String position = pathTemp[pathTemp.length-1].replace("]","");
+        return position;
+
+    }
+    
+    
     public List<Node> nodeList(Node node, X3ML.Source source) {
         if (source != null) {
             return nodeList(node, source.expression);

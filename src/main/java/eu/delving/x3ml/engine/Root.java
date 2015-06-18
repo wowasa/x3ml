@@ -99,14 +99,14 @@ public class Root {
         for (Node domainNode : domainNodes) {
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
-                if (domainContext.resolve()) {
-                    domains.add(domainContext);
-                } else {
-                    System.out.println("Unresolved: " + domainContext);
-                }
+            if (domainContext.resolve()) {
+                domains.add(domainContext);
+            } else {
+                System.out.println("Unresolved: " + domainContext);
+            }
             }catch(X3MLEngine.X3MLException ex){
                 System.out.println("EXCEPTION: "+ex);
-            }
+        }
         }
         return domains;
     }

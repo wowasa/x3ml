@@ -55,7 +55,8 @@ public interface X3ML {
 
         xpath,
         constant,
-        position
+        position,
+        xpathPosition
     }
 
     @XStreamAlias("x3ml")
@@ -123,7 +124,6 @@ public interface X3ML {
 
             if (this.path.source_relation.relation.size() > 1) {
                 pathSource2 = this.path.source_relation.relation.get(1).expression;
-                System.out.println("pathSource2: " + pathSource2);
             }
 
             if (this.path.source_relation.node != null) {
@@ -159,21 +159,22 @@ public interface X3ML {
                     }
                 }
 
-            } else {
+            } 
+            else {
                 System.out.println(this.path);
                 for (Path path : domain.createPathContexts(this.path)) {
                     System.out.println(this.path);
                     try{
-                        for (Range range : path.createRangeContexts(this.range)) {
-                            range.link();
-                        }
+                    for (Range range : path.createRangeContexts(this.range)) {
+                        range.link();
+                    }
                     }catch(X3MLEngine.X3MLException ex){
                         System.out.println("EXCEPTION: "+ex);
                         
-                    }
                 }
             }
         }
+    }
     }
 
     @XStreamAlias("namespace")
