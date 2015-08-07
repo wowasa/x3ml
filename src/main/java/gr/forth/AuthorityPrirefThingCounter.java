@@ -31,8 +31,10 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
     private String authority;
     private String priref;
     private static String prirefOld;
+    
 
     private String thing;
+    private static String thingOld;
 
     private static int counterInt = 0;
 
@@ -77,16 +79,16 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
         String counterObject = "";
 
         if (counterInt == 0) {
-            setOldPriref();
+            setOldValues();
         }
 
-        if (prirefOld.equals(priref)) {
-            counterInt++;
+        if (prirefOld.equals(priref) && thingOld.equals(thing)){
+                counterInt++;
         } 
         
         else {
             counterInt = 1;
-            setOldPriref();
+            setOldValues();
         }
         
         counterObject = authority + "/" + priref + "/" + thing + "/" + counterInt;
@@ -95,8 +97,9 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
 
     }
 
-    private void setOldPriref() {
+    private void setOldValues() {
         prirefOld = priref;
+        thingOld = thing;
     }
 
 }
