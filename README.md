@@ -2,27 +2,17 @@
 ---
 ## Introduction
 
-X3ML is an XML based language which describes schema mappings in such a way that they can be collaboratively created and discussed by experts.  Mappings have been done in very many custom ways in the past, so the emphasis is on establishing a standardized mapping description which lends itself to collaboration and the building of a mapping memory to accumulate knowledge and experience.
+The X3ML engine realizes the transformation of the source records to the target format. The engine takes as input the source data (currently in the form of an XML document), the description of the mappings in the X3ML mapping definition file and the URI generation policy file and is responsible for transforming the XML document into a valid RDF document which is equivalent with the XML input, with respect to the given mappings and policy. The engine has been originally implemented in the context of the CultureBrokers project co-funded by the Swedish Arts Council and the British Museum.
 
-The X3ML mappings which the project currently focuses on will be those for extracting **CIDOC-CRM** triples from **XML** source.  Eventually different source and target schemas will be explored.
+## X3ML Language
 
-## Background
-
-This X3ML Engine implementation makes up a part of the CultureBrokers project, co-funded by the Swedish Arts Council and the British Museum.  It is being developed by Delving BV in close coordination with Martin Doerr of the Foundation for Research and Technology Hellas (FORTH) in Crete, and it is a key part of the **Mapping Reference Model** that he has proposed to the CIDOC CRM-SIG.
-
-## Details: Language
-
-The most important aspects of this engine is its two main functions, and the careful separation between them:
-
-* **[View Prezi on prezi.com](http://prezi.com/0tor__p-a0kj/?utm_campaign=share&utm_medium=copy&rc=ex0share)** - basic structures visualized
+The X3ML mapping definition language is an XML based language which describes schema mappings in such a way that they can be collaboratively created and discussed by experts. The X3ML language was designed on the basis of work that started in FORTH in 2006 [9] and emphasizes on establishing a standardized mapping description which lends itself to collaboration and the building of a mapping memory to accumulate knowledge and experience. It was adapted primarily to be more according to the DRY principle (avoiding repetition) and to be more explicit in its contract with the URI Generating process. X3ML separates schema mapping from the concern of generating proper URIs so that different expertise can be applied to these two very different responsibilities.
 
 * **[X3ML Language](https://github.com/delving/x3ml/blob/master/docs/x3ml-language.md)** - the mapping language
 
 ## Development
 
 This project is a straightforward Maven 3 project, producing a single artifact in the form of a JAR file which contains the engine software.  The artifact will be used in a variety of different contexts, so the main focus of this project is to create exhaustively tested transformation engine.  Examples of input and expected output have been prepared by the participating organizations.
-
-As the project progresses, more information will be provided regarding integration and deployment of this engine.
 
 * **[Change Log](https://github.com/delving/x3ml/blob/master/docs/change-log.md)** - Changes between versions
 
@@ -36,14 +26,6 @@ As the project progresses, more information will be provided regarding integrati
 * **Transparency**
 
 	The most important feature of X3ML is its general application to mapping creation and execution and hopefully its longevity.  People must be able to easily understand how it works.  The **cleaner** the core design of this engine and X3ML language, and the clearer its documentation, the more readily it will get traction and become the basis for future mappings.
-
-* **Collaborative Mapping Memory**
-
-	The X3ML mapping descriptions must lend themselves to being stored and handled by collaborative tools, as well as potentially written by hand.  This was the motivation for choosing a simple syntax in XML, and one which does not depend on implicit knowledge.  This particular project is about developing an engine that executes X3ML to extract triples from XML, but related projects will focus on making the X3ML easy to build, discuss, and edit.
-
-* **Separation between Schema Mapping and URI Generation**
-
-	Schema mapping needs to be separated from the concern of generating proper URIs so that different expertise can be applied these two very different responsibilities.  The URI expert must ensure that the generated URIs match certain criteria such as consistency and uniqueness, while the Schema experts only need to concern themselves with the proper interpretation of the source.
 
 * **Re-use of Standards and Technologies**
 
@@ -61,7 +43,6 @@ As the project progresses, more information will be provided regarding integrati
 	
 	When [instance matching](http://prezi.com/povcuuboyyg5/culture-brokers-enrichment/) is performed and URIs are found, it must be explcitly known how to substitute them back into the source data.  The X3ML engine will decorate the source record tree with placeholders so that the results of the instance matching can find their way back to the right locations in the source.
 
-
 ---
 
-Contact: Gerald de Jong &lt;gerald@delving.eu&gt;
+Contacts: Martin Doerr &lt;martin@ics.forth.gr&gt; Minadakis Nikos &lt;minadakn@ics.forth.gr&gt; Contact: Marketakis Yannis &lt;marketak@ics.forth.gr&gt;
