@@ -169,6 +169,7 @@ public interface X3ML {
                         range.link();
                     }
                     }catch(X3MLEngine.X3MLException ex){
+                        X3MLEngine.exceptionMessagesList+=ex.toString();
                         System.out.println("EXCEPTION: "+ex);
                         
                 }

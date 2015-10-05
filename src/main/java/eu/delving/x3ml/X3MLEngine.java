@@ -66,6 +66,7 @@ public class X3MLEngine {
     private RootElement rootElement;
     private NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<String>();
+    public static String exceptionMessagesList="";
 
     public static List<String> validate(InputStream inputStream) {
         try {
@@ -108,6 +109,7 @@ public class X3MLEngine {
                 generator.setNamespace(mn.prefix, mn.uri);
             }
         }
+        X3MLEngine.exceptionMessagesList="";
         rootElement.apply(rootContext);
         return rootContext.getModelOutput();
     }
