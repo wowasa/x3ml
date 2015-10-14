@@ -194,7 +194,11 @@ public class EntityResolver {
         }
 
         public boolean resolve() {
-            property = modelOutput.createProperty(new TypeElement("rdfs:label", "http://www.w3.org/2000/01/rdf-schema#"));
+            if(generator.name.equals("prefLabel")){
+                property = modelOutput.createProperty(new TypeElement("skos:prefLabel", "http://www.w3.org/2004/02/skos/core#"));
+            }else{
+                property = modelOutput.createProperty(new TypeElement("rdfs:label", "http://www.w3.org/2000/01/rdf-schema#"));
+            }
             GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.name); //todo: are you sure?
             if (generatedValue == null) {
                 return false;

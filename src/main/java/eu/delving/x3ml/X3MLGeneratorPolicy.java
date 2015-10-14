@@ -127,6 +127,16 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
+        if ("prefLabel".equals(name)) {
+            ArgValue value = argValues.getArgValue("text", xpath);
+            if (value == null) {
+                throw exception("Argument failure: need one argument");
+            }
+            if (value.string == null || value.string.isEmpty()) {
+                throw exception("Argument failure: empty argument");
+            }
+            return literalValue(value.string, getLanguage(value.language, argValues));
+        }
         if ("Constant".equals(name)) {
             ArgValue value = argValues.getArgValue("text", constant);
             if (value == null) {
