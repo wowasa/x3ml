@@ -16,12 +16,10 @@
 package eu.delving.x3ml.engine;
 
 import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.DomainElement;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
@@ -67,8 +65,6 @@ public class Domain extends GeneratorContext {
             String intermediateFirst, String intermediateSecond, String node_inside) {
 
         PathElement pathElement = linkElement.path;
-
-        System.out.println("Node Inside" + node_inside);
 
         String pathExpression = pathElement.source_relation.relation.get(0).expression;
 

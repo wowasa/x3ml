@@ -32,11 +32,9 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import eu.delving.x3ml.X3MLEngine;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
@@ -161,9 +159,7 @@ public interface X3ML {
 
             } 
             else {
-                System.out.println(this.path);
                 for (Path path : domain.createPathContexts(this.path)) {
-                    System.out.println(this.path);
                     try{
                     for (Range range : path.createRangeContexts(this.range)) {
                         range.link();

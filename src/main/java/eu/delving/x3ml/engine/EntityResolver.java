@@ -19,10 +19,8 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import eu.delving.x3ml.X3MLEngine;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
@@ -109,7 +107,6 @@ public class EntityResolver {
 
     void link() {
         if (resources == null) {
-            System.out.println("No resources!");
             return;
         }
         for (Resource resource : resources) {
@@ -120,7 +117,6 @@ public class EntityResolver {
             }
             if (additionalNodes != null) {
                 for (AdditionalNode additionalNode : additionalNodes) {
-//                    System.out.println("Additional link " + additionalNode.additionalEntityResolver.resources + " from " + resource + additionalNode.additionalEntityResolver.entityElement);
                     additionalNode.linkFrom(resource);
                 }
             }

@@ -17,7 +17,6 @@ package gr.forth;
 
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
-
 import java.util.Date;
 
 /**
@@ -61,14 +60,10 @@ public class GermanDate implements CustomGenerator {
 
     private static String getFormatedDate(String bounds, String time_str) {
         String xsdDate = "";
-        System.out.println("German");
-
         try {
-            System.out.println("Input date: " + time_str);
             Date formatDate = UtilsTime.validate(time_str, bounds);
             if (formatDate != null) {
                 xsdDate = UtilsTime.convertStringoXSDString(formatDate);
-                System.out.println("xsdDate->" + xsdDate);
             } else {
                 xsdDate = "Unknown-Format";
             }

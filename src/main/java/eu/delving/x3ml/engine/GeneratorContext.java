@@ -16,7 +16,6 @@
 package eu.delving.x3ml.engine;
 
 import org.w3c.dom.Node;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.ArgValue;
 import static eu.delving.x3ml.engine.X3ML.Condition;
@@ -63,11 +62,11 @@ public abstract class GeneratorContext {
     }
 
     public GeneratedValue getInstance(final GeneratorElement generator, String variable, String unique) {
-        if (generator == null) {
+        if(generator == null){
             throw exception("Value generator missing");
         }
         GeneratedValue generatedValue;
-        if (variable != null) {
+        if(variable != null){
             generatedValue = get(variable);
             if (generatedValue == null) {
                 generatedValue = context.policy().generate(generator.name, new Generator.ArgValues() {
@@ -77,12 +76,8 @@ public abstract class GeneratorContext {
                     }
                 });
                 put(variable, generatedValue);
-//                System.out.println(generator.variable + " ===VAR==> " + generatedValue);
             }
-//            else {
-//                System.out.println(generator.variable + " <==VAR=== " + generatedValue);
-//            }
-        } else {
+        }else{
             String nodeName = extractXPath(node) + unique;
             generatedValue = context.getGeneratedValue(nodeName);
             if (generatedValue == null) {
@@ -93,11 +88,7 @@ public abstract class GeneratorContext {
                     }
                 });
                 context.putGeneratedValue(nodeName, generatedValue);
-//                System.out.println(nodeName + " ===CTX==> " + generatedValue);
             }
-//            else {
-//                System.out.println(nodeName + " <==CTX=== " + generatedValue);
-//            }
         }
         if (generatedValue == null) {
             throw exception("Empty value produced");

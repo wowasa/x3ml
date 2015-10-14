@@ -51,11 +51,9 @@ public class BMdates implements X3MLGeneratorPolicy.CustomGenerator {
         String xsdDate = "";
 
         try {
-            System.out.println("Input date: " + time_str);
             Date formatDate = UtilsTime.validate(time_str, bounds);
             if (formatDate != null) {
                 xsdDate = UtilsTime.convertStringoXSDString(formatDate);
-                System.out.println("xsdDate->" + xsdDate);
             } else {
                 xsdDate = "Unknown-Format";
             }

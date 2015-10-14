@@ -10,7 +10,7 @@
     <artifactId>x3ml</artifactId>
     <packaging>jar</packaging>
     <name>X3ML</name>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.6.1-SNAPSHOT</version>
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Delving B.V.</name>
@@ -20,6 +20,14 @@
         <developer>
             <name>Gerald de Jong</name>
             <email>gerald@delving.eu</email>
+        </developer>
+        <developer>
+            <name>Nikos Minadakis</name>
+            <email>minadakn@ics.forth.gr</email>
+        </developer>
+        <developer>
+            <name>Yannis Marketakis</name>
+            <email>marketak@ics.forth.gr</email>
         </developer>
     </developers>
     <build>

@@ -17,7 +17,6 @@ package eu.delving.x3ml;
 
 import eu.delving.x3ml.engine.Generator;
 import eu.delving.x3ml.engine.Root;
-
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.ls.LSInput;
@@ -25,16 +24,13 @@ import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
 import com.hp.hpl.jena.rdf.model.Model;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
@@ -69,13 +64,11 @@ public class X3MLEngine {
     public static String exceptionMessagesList="";
 
     public static List<String> validate(InputStream inputStream) {
-        try {
+        try{
             return validateStream(inputStream);
-        }
-        catch (SAXException e) {
+        }catch (SAXException e) {
             throw new X3MLException("Unable to validate: SAX", e);
-        }
-        catch (IOException e) {
+        }catch (IOException e) {
             throw new X3MLException("Unable to validate: IO", e);
         }
     }
@@ -114,6 +107,7 @@ public class X3MLEngine {
         return rootContext.getModelOutput();
     }
 
+    @Override
     public String toString() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + x3mlStream().toXML(rootElement);
     }
@@ -129,8 +123,6 @@ public class X3MLEngine {
         String[] toStringArray();
 
     }
-
-    // ====================
 
     private X3MLEngine(RootElement rootElement) {
         this.rootElement = rootElement;
@@ -205,7 +197,6 @@ public class X3MLEngine {
     private static SchemaFactory schemaFactory() {
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         try {
-//            schemaFactory.setFeature(Constants.XERCES_FEATURE_PREFIX + Constants.CTA_FULL_XPATH_CHECKING_FEATURE, true);
             schemaFactory.setResourceResolver(new ResourceResolver());
         }
         catch (Exception e) {
@@ -345,4 +336,3 @@ public class X3MLEngine {
         }
     }
 }
-

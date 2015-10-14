@@ -18,11 +18,9 @@ package eu.delving.x3ml.engine;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.PathElement;
 import static eu.delving.x3ml.engine.X3ML.RangeElement;

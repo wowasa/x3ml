@@ -20,13 +20,11 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import eu.delving.x3ml.X3MLEngine;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 import javax.xml.namespace.NamespaceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 
 /**
@@ -101,12 +99,10 @@ public class Root {
             try{
             if (domainContext.resolve()) {
                 domains.add(domainContext);
-            } else {
-                System.out.println("Unresolved: " + domainContext);
-            }
+            } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
-                System.out.println("EXCEPTION: "+ex);
+                System.out.println("EXCEPTION: "+ex.toString());
         }
         }
         return domains;

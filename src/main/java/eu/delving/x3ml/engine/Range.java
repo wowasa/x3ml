@@ -17,7 +17,6 @@ package eu.delving.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 import org.w3c.dom.Node;
-
 import static eu.delving.x3ml.engine.X3ML.RangeElement;
 
 /**

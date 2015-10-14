@@ -18,7 +18,6 @@ package gr.forth;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 
