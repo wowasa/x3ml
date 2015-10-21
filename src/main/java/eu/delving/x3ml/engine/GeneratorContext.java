@@ -22,6 +22,15 @@ import static eu.delving.x3ml.engine.X3ML.Condition;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
+import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTable;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import static org.joox.JOOX.$;
 
 /**
  * This abstract class is above Domain, Path, and Range and carries most of
@@ -79,6 +88,7 @@ public abstract class GeneratorContext {
             }
         }else{
             String nodeName = extractXPath(node) + unique;
+            String xpathProper=extractAssocTableXPath(node);
             generatedValue = context.getGeneratedValue(nodeName);
             if (generatedValue == null) {
                 generatedValue = context.policy().generate(generator.name, new Generator.ArgValues() {
@@ -87,7 +97,18 @@ public abstract class GeneratorContext {
                         return context.input().evaluateArgument(node, index, generator, name, sourceType);
                     }
                 });
+                GeneratedValue genArg=null;
+                if(generator.name.equalsIgnoreCase("Literal")){
+                    genArg = context.policy().generate(generator.name, new Generator.ArgValues() {
+                        @Override
+                        public ArgValue getArgValue(String name, SourceType sourceType) {
+                            return context.input().evaluateArgument2(node, index, generator, name, sourceType);
+
+                        }
+                    });
+                }
                 context.putGeneratedValue(nodeName, generatedValue);
+                this.createAssociationTable(generatedValue, genArg, xpathProper);
             }
         }
         if (generatedValue == null) {
@@ -100,10 +121,43 @@ public abstract class GeneratorContext {
         return condition != null && condition.failure(context);
     }
 
+    private void createAssociationTable(GeneratedValue generatedValue, GeneratedValue generatedArg, String xpathProper){
+        String value="";
+        if(generatedValue.type == X3ML.GeneratedType.LITERAL){
+            value="\""+generatedValue.text+"\"";
+            
+            if(generatedArg!=null)
+                xpathProper+="/"+generatedArg.text;
+            else
+                xpathProper+="/text()";
+        }
+        else if(generatedValue.type == X3ML.GeneratedType.URI)
+            value=generatedValue.text;
+            if(xpathProper==null){  //Needs a little more inspection this
+            AssociationTable.addEntry(xpathProper,value);
+            }
+    }
+    
+    public static void appendAssociationTable(String xpathEpxr, String key){
+        xpathEpxr=xpathEpxr.replace("///", "/").replaceAll("//", "/");
+        AssociationTable.addEntry(xpathEpxr,key);
+    }
+    
+    public static void exportAssociationTable() throws IOException{
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("AssociationTable.xml"), "UTF-8"));
+        writer.append(AssociationTable.exportAll());
+        writer.flush();
+        writer.close();
+    }
+    
     public String toString() {
         return extractXPath(node);
     }
 
+    public String toStringAssoc() {
+        return extractAssocTableXPath(node);
+    }
+        
     public static String extractXPath(Node node) {
         if (node == null || node.getNodeType() == Node.DOCUMENT_NODE) {
             return "/";
@@ -122,5 +176,9 @@ public abstract class GeneratorContext {
                     soFar, node.getNodeName(), sibNumber
             );
         }
+    }
+    
+    public static String extractAssocTableXPath(Node node) {
+        return $(node).xpath();
     }
 }

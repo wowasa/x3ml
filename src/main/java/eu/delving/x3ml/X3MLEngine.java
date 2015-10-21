@@ -37,12 +37,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import eu.delving.x3ml.engine.GeneratorContext;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
@@ -104,6 +107,11 @@ public class X3MLEngine {
         }
         X3MLEngine.exceptionMessagesList="";
         rootElement.apply(rootContext);
+        try{
+            GeneratorContext.exportAssociationTable();
+        }catch(IOException ex){
+            exception(ex.toString());
+        }
         return rootContext.getModelOutput();
     }
 

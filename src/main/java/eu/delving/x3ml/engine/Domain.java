@@ -101,6 +101,11 @@ public class Domain extends GeneratorContext {
 
                     Range range = new Range(context, path, rangeElement, rangeNode, index);
 
+                    GeneratorContext.appendAssociationTable("/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]/" + intermediateFirst.replaceAll("//", "/"), context.input().valueAt(node, domainForeignKey + "/text()"));
+                    GeneratorContext.appendAssociationTable("/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]//" + intermediateSecond.replaceAll("//", "/"), context.input().valueAt(rangeNode, rangePrimaryKey + "/text()"));
+                    GeneratorContext.appendAssociationTable(path.toStringAssoc()+"/"+domainForeignKey+"-FOREIGNKEY", context.input().valueAt(rangeNode, rangePrimaryKey + "/text()"));
+                    GeneratorContext.appendAssociationTable(range.toStringAssoc()+"/"+rangePrimaryKey+"-FOREIGNKEY", context.input().valueAt(node, domainForeignKey + "/text()"));
+                    
                     Link link = new Link(path, range);
                     if (link.resolve()) {
                         links.add(link);
@@ -136,6 +141,10 @@ public class Domain extends GeneratorContext {
         for (Node rangeNode : rangeNodes) {
             Path path = new Path(context, this, pathElement, node, index);
             Range range = new Range(context, path, rangeElement, rangeNode, index);
+            
+            GeneratorContext.appendAssociationTable(path.toStringAssoc()+"/"+domainForeignKey+"-FOREIGNKEY", context.input().valueAt(node, domainForeignKey + "/text()"));
+            GeneratorContext.appendAssociationTable(range.toStringAssoc()+"/"+rangePrimaryKey+"-FOREIGNKEY", context.input().valueAt(node, domainForeignKey + "/text()"));
+            
             Link link = new Link(path, range);
             if (link.resolve()) {
                 links.add(link);
