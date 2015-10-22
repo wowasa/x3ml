@@ -105,11 +105,12 @@ public class X3MLEngine {
         }
         X3MLEngine.exceptionMessagesList="";
         rootElement.apply(rootContext);
-        try{
-            GeneratorContext.exportAssociationTable();
-        }catch(IOException ex){
-            exception(ex.toString());
-        }
+        /*Uncomment the following block to export Association Table contents in XML format.*/
+//        try{
+//            GeneratorContext.exportAssociationTable();
+//        }catch(IOException ex){
+//            exception(ex.toString());
+//        }
         return rootContext.getModelOutput();
     }
 
