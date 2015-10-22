@@ -26,6 +26,8 @@ import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The entity resolver creates the related model elements by calling generator
@@ -61,8 +63,12 @@ public class EntityResolver {
         }
         if (resources == null) {
             StringBuilder unique = new StringBuilder();
+            Set<String> uniqueTypes=new TreeSet<String>();
             for (TypeElement typeElement : entityElement.typeElements) {
-                unique.append('-').append(typeElement.tag);
+                uniqueTypes.add(typeElement.tag);
+            }
+            for(String str: uniqueTypes){
+                unique.append("-").append(str);
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, unique.toString());
             if (generatedValue == null) {
