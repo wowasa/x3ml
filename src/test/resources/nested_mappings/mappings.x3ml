@@ -57,7 +57,7 @@
                     <source_node>name</source_node>
                     <target_node>
                         <entity>
-                            <type>crm:E39_Person</type>
+                            <type>crm:E39_Actor</type>
                             <instance_generator name="UUID"/>
 							<label_generator name="Literal">
 								<arg name="text" type="xpath">text()</arg>

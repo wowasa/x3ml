@@ -1,25 +1,22 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/">
-  <crm:E39_Actor rdf:about="uuid:I"/>
-  <crm:E39_Actor rdf:about="uuid:K"/>
-  <crm:E39_Actor rdf:about="uuid:J"/>
   <crm:E22_Man-Made_Object rdf:about="uuid:A">
     <crm:P108i_was_produced_by>
       <crm:E12_Production rdf:about="uuid:D">
         <crm:P14_carried_out_by>
-          <crm:E39_Person rdf:about="uuid:G">
+          <crm:E39_Actor rdf:about="uuid:G">
             <crm:label>Yannis</crm:label>
-          </crm:E39_Person>
+          </crm:E39_Actor>
         </crm:P14_carried_out_by>
       </crm:E12_Production>
     </crm:P108i_was_produced_by>
     <crm:P108i_was_produced_by>
       <crm:E12_Production rdf:about="uuid:C">
         <crm:P14_carried_out_by>
-          <crm:E39_Person rdf:about="uuid:F">
+          <crm:E39_Actor rdf:about="uuid:F">
             <crm:label>Nikos</crm:label>
-          </crm:E39_Person>
+          </crm:E39_Actor>
         </crm:P14_carried_out_by>
       </crm:E12_Production>
     </crm:P108i_was_produced_by>
@@ -28,9 +25,9 @@
     <crm:P108i_was_produced_by>
       <crm:E12_Production rdf:about="uuid:E">
         <crm:P14_carried_out_by>
-          <crm:E39_Person rdf:about="uuid:H">
+          <crm:E39_Actor rdf:about="uuid:H">
             <crm:label>Martin</crm:label>
-          </crm:E39_Person>
+          </crm:E39_Actor>
         </crm:P14_carried_out_by>
       </crm:E12_Production>
     </crm:P108i_was_produced_by>
