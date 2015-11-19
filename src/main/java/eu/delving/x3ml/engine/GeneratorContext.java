@@ -133,8 +133,8 @@ public abstract class GeneratorContext {
         }
         else if(generatedValue.type == X3ML.GeneratedType.URI)
             value=generatedValue.text;
-            if(xpathProper==null){  //Needs a little more inspection this
-            AssociationTable.addEntry(xpathProper,value);
+            if(xpathProper!=null){  //Needs a little more inspection this
+                AssociationTable.addEntry(xpathProper,value);
             }
     }
     
