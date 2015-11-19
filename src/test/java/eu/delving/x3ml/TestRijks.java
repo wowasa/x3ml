@@ -33,14 +33,14 @@ public class TestRijks {
     public void testRough() {
         X3MLEngine engine = engine("/rijks/rijks.x3ml");
         X3MLEngine.Output output = engine.execute(document("/rijks/rijks.xml"), policy("/rijks/rijks-policy.xml"));
-        output.writeXML(System.out);
+        //expected result ?
     }
 
     @Test
     public void testAttribute() {
         X3MLEngine engine = engine("/rijks/02-attribute.x3ml");
         X3MLEngine.Output output = engine.execute(document("/rijks/rijks.xml"), policy("/rijks/02-attribute-policy.xml"));
-        output.writeXML(System.out);
+        //expected result ?
     }
 
     @Test
