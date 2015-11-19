@@ -47,7 +47,7 @@ public class TestLido07 {
                 document("/lido07/lido07.xml"),
                 policy("/lido07/lido07-gen-policy.xml")
         );
-        output.writeXML(System.out);
+        //expected output?
 //        String [] mappingResult = context.toStringArray();
 //        String [] expectedResult = AllTests.xmlToNTriples("/coin/01-coin-simple-rdf.xml");
 //        log("result", mappingResult);
