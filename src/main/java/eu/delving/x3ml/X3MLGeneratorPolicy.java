@@ -186,18 +186,11 @@ public class X3MLGeneratorPolicy implements Generator {
                     if (namespaceUri == null) {
                         throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
                     }
-
                     return uriValue(namespaceUri + value);
-
                 } else {
                     return uriValue(value);
                 }
-
-            
-            
-            
             }
-            
             else if (returnType.equals("UUID")) {
                 return uriValue(uuidSource.generateUUID());
             }

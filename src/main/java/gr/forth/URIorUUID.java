@@ -22,7 +22,7 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 
 /**
- * an excample date interpreter
+ * an example date interpreter
  */
 public class URIorUUID implements CustomGenerator {
 
@@ -30,7 +30,7 @@ public class URIorUUID implements CustomGenerator {
 
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
-        if ("text".equals(name)) {
+        if("text".equals(name)){
             text = value;
         } else {
             throw new CustomGeneratorException("Unrecognized argument name: " + name);
@@ -39,7 +39,7 @@ public class URIorUUID implements CustomGenerator {
 
     @Override
     public String getValue() throws CustomGeneratorException {
-        if (text == null) {
+        if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
         return text;
@@ -47,54 +47,33 @@ public class URIorUUID implements CustomGenerator {
 
      @Override
     public String getValueType() throws CustomGeneratorException {
-        if (text == null) {
+        if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
         return isValidURL(text) || isValidURN(text) ? "URI" : "UUID";
     }
 
     private boolean isValidURL(String urlString) {
-
         URL url;
-
-        try {
+        try{
             url = new URL(urlString);
-        } catch (MalformedURLException e) {
+        }catch(MalformedURLException e) {
             return false;
         }
 
-        try {
+        try{
             url.toURI();
-        } catch (URISyntaxException e) {
+        }catch (URISyntaxException e) {
             return false;
         }
-
         return true;
     }
-
+    
     private boolean isValidURN(String urnString) {
-
-        if (urnString.startsWith("urn:")||urnString.startsWith("URN:")) {
+        if(urnString.startsWith("urn:")||urnString.startsWith("URN:")){
             return true;
-        } else {
+        }else{
             return false;
         }
-
     }
-
-//     private boolean isValidURI(String uri) {
-//        URI u = null;
-//        try {
-//
-//            u = new URI(uri);
-//
-//           
-//        } catch (URISyntaxException e) {
-//             System.out.println("3");
-//            e.printStackTrace();
-//            return false;
-//        } 
-//        return true;
-//    }
-
 }
