@@ -45,7 +45,7 @@ public class TestMultipleInstantiaton {
         X3MLEngine engine = engine("/multiple_instances/03-mappings-additional.x3ml");
         X3MLEngine.Output output = engine.execute(document("/multiple_instances/input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/multiple_instances/01-expectedResult.rdf");
+        String[] expectedResult = xmlToNTriples("/multiple_instances/03-expectedResult.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   

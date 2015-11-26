@@ -1,17 +1,18 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/">
+    xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <crm:E21_Person rdf:about="uuid:A">
     <crm:P76_has_contact_point>
       <crm:E51_Contact_Point rdf:about="uuid:C">
         <crm:P78_is_identified_by>
           <crm:E42_Identifier rdf:about="uuid:D">
-            <crm:label>ICS</crm:label>
+            <rdfs:label>ICS</rdfs:label>
           </crm:E42_Identifier>
         </crm:P78_is_identified_by>
       </crm:E51_Contact_Point>
     </crm:P76_has_contact_point>
-    <crm:label>Nikos</crm:label>
+    <rdfs:label>Nikos</rdfs:label>
     <rdf:type rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
   </crm:E21_Person>
   <crm:E21_Person rdf:about="uuid:B">
@@ -19,12 +20,12 @@
       <crm:E51_Contact_Point rdf:about="uuid:E">
         <crm:P78_is_identified_by>
           <crm:E42_Identifier rdf:about="uuid:F">
-            <crm:label>ICS</crm:label>
+            <rdfs:label>ICS</rdfs:label>
           </crm:E42_Identifier>
         </crm:P78_is_identified_by>
       </crm:E51_Contact_Point>
     </crm:P76_has_contact_point>
-    <crm:label>Yannis</crm:label>
+    <rdfs:label>Yannis</rdfs:label>
     <rdf:type rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
   </crm:E21_Person>
 </rdf:RDF>

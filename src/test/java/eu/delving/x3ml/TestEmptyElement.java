@@ -41,6 +41,17 @@ public class TestEmptyElement {
         String[] expectedResult = xmlToNTriples("/empty_element/00-coin-output.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+
+    @Test
+    public void testEmptyElement2() {
+        X3MLEngine engine = engine("/empty_element/02-coin-simple.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/empty_element/00-coin-input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        output.writeXML(System.out);
+//        String[] expectedResult = xmlToNTriples("/empty_element/00-coin-output.rdf");
+//        List<String> diff = compareNTriples(expectedResult, mappingResult);
+//        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
         assertTrue(true);
     }
 
