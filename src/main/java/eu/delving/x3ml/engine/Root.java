@@ -102,7 +102,7 @@ public class Root {
                 } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
-                System.out.println("EXCEPTION: "+ex.toString());
+                System.out.println("ERROR FOUND: "+ex.toString());
             }
         }
         return domains;

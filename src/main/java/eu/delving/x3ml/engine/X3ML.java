@@ -167,7 +167,7 @@ public interface X3ML {
                     }
                 }catch(X3MLEngine.X3MLException ex){
                         X3MLEngine.exceptionMessagesList+=ex.toString();
-                        System.out.println("EXCEPTION: "+ex);
+                        System.out.println("ERROR FOUND: "+ex.toString());
                 }
             }
         }
