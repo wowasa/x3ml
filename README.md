@@ -45,4 +45,8 @@ This project is a straightforward Maven 3 project, producing a single artifact i
 
 ---
 
-Contacts: Martin Doerr &lt;martin@ics.forth.gr&gt;, Minadakis Nikos &lt;minadakn@ics.forth.gr&gt;, Marketakis Yannis &lt;marketak@ics.forth.gr&gt;
+## Contacts
+
+* Martin Doerr &lt;martin@ics.forth.gr&gt;
+* Minadakis Nikos &lt;minadakn@ics.forth.gr&gt;
+* Marketakis Yannis &lt;marketak@ics.forth.gr&gt;

@@ -1,15 +1,62 @@
 # Change Log
 
 ---
+## 26 Nov 2015: V 1.6.2 (by FORTH-ICS)
 
-## 27 Mar 2014: Initial release v1.0
+* Support for multiple instatiations (fixed issue #1)
 
-* XSD Schema validation of X3ML integrated
-* Command line has -validation option
-* Multiple <class> within <entity> needs some work
-* Approach to define generator policy needs to be discussed
+## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 
-## 29 April 2014: V 1.1
+* Added an implementation of the association table
+* Added junit tests (for testing nested mappings, multiple instantiations, preflabels)
+* Removed System.out messages from junit tests
+* Merged previous branches.
+
+## 14 Oct 2015: V 1.6 (by FORTH-ICS)
+
+* Exceptions are also added in a static variable so that they can be exploited after the execution (i.e. by the 3M Editor)
+* Support for generation of skos:prefLabel labels
+* removed a lot of debug messages (completely useless)
+
+## 07 Aug 2015: V 1.5 (by FORTH-ICS)
+
+* Elimination of relation2 elements. Multiple joins are supported by simply using sequences of relation elements.
+* fixed bug with empty elements in the input.
+* Added support for AuthorityPrirefCounter and generators based on XPATH position
+* fixed bug to support fully qualified URIs
+
+## 27 Feb 2014: V 1.4 (by FORTH-ICS)
+
+* Added a new Relation (named relation2) to support double joins
+
+## 23 Oct 2014: V 1.3 (by Delving BV)
+
+* variables moved back to <entity> but passed into instance generator
+* incorporated changes regarding getValueType in CustomGenerator
+* integrated URIorUUID custom generator
+* fixed bug involving creating new path instances when doing a join
+
+## 2 Aug 2014: V 1.2.2 (by Delving BV)
+
+* variables moved to <instance-generator>
+
+## 21 July 2014: V 1.2.1 (by Delving BV)
+
+* fixed bug with variables - labels and additionals were ignored if not in the first var usage
+
+## 6 July 2014: V 1.2 (by Delving BV)
+
+* Entity element now has *instance_info* attribute 
+* *type* attribute added to instance_generator arg
+* *ArgValues* interface moved inside *Generator* interface
+* Introduced usage of *createTypedLiteral* 
+* For specialized instance generation code, introduced *CustomGenerator* interface
+* Added *custom* element to GeneratorPolicy, with *generatorClass* which implements *CustomGenerator*
+* Better generation of test UUIDs, command line can specify size.
+* *DomainContext(path)* syntax added to XPath for non-hierarchical source
+* Removed *namespaces* from generator policy, inheriting from X3ML namespaces instead
+
+## 29 April 2014: V 1.1 (by Delving BV)
 
 * Major refactor for code legibility, licensing, and javadoc
 * The *property* no longer contains *class* but instead itself holds the qualified name
@@ -24,36 +71,9 @@
 	* Generators can override using *language* attribute, language="" for none at all
 * Command line formats now "application/rdf+xml", "text/turtle" and "application/n-triples"
 
-## 6 July 2014: V 1.2
+## 27 Mar 2014: Initial release v1.0 (by Delving BV)
 
-* Entity element now has *instance_info* attribute 
-* *type* attribute added to instance_generator arg
-* *ArgValues* interface moved inside *Generator* interface
-* Introduced usage of *createTypedLiteral* 
-* For specialized instance generation code, introduced *CustomGenerator* interface
-* Added *custom* element to GeneratorPolicy, with *generatorClass* which implements *CustomGenerator*
-* Better generation of test UUIDs, command line can specify size.
-* *DomainContext(path)* syntax added to XPath for non-hierarchical source
-* Removed *namespaces* from generator policy, inheriting from X3ML namespaces instead
-
-## 21 July 2014: V 1.2.1
-
-* fixed bug with variables - labels and additionals were ignored if not in the first var usage
-
-## 2 Aug 2014: V 1.2.2
-
-* variables moved to <instance-generator>
-
-## 23 Oct 2014: V 1.3
-
-* variables moved back to <entity> but passed into instance generator
-* incorporated changes regarding getValueType in CustomGenerator
-* integrated URIorUUID custom generator
-* fixed bug involving creating new path instances when doing a join
-
----
-
-Contact: Gerald de Jong &lt;gerald@delving.eu&gt;
-
-
-
+* XSD Schema validation of X3ML integrated
+* Command line has -validation option
+* Multiple <class> within <entity> needs some work
+* Approach to define generator policy needs to be discussed
