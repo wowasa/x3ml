@@ -4,9 +4,11 @@
     <record>
 		<maker>
 			<name>Nikos</name>
+			<email>ICS</email>
 		</maker>
 		<maker>
 			<name>Yannis</name>
+			<email>ICS</email>
 		</maker>
     </record>
   </recordList>

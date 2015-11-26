@@ -21,11 +21,31 @@ public class TestMultipleInstantiaton {
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));
 
     @Test
-    public void testEmptyElement() {
-        X3MLEngine engine = engine("/multiple_instances/mappings.x3ml");
+    public void testManyTypes() {
+        X3MLEngine engine = engine("/multiple_instances/01-mappings-manyTypes.x3ml");
         X3MLEngine.Output output = engine.execute(document("/multiple_instances/input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/multiple_instances/expectedResult.rdf");
+        String[] expectedResult = xmlToNTriples("/multiple_instances/01-expectedResult.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testMultipleInstantations() {
+        X3MLEngine engine = engine("/multiple_instances/02-mappings-multiple.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/multiple_instances/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/multiple_instances/01-expectedResult.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testWithAdditional() {
+        X3MLEngine engine = engine("/multiple_instances/03-mappings-additional.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/multiple_instances/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/multiple_instances/01-expectedResult.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
