@@ -97,13 +97,13 @@ public class Root {
         for (Node domainNode : domainNodes) {
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
-            if (domainContext.resolve()) {
-                domains.add(domainContext);
-            } 
+                if (domainContext.resolve()) {
+                    domains.add(domainContext);
+                } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
                 System.out.println("EXCEPTION: "+ex.toString());
-        }
+            }
         }
         return domains;
     }
