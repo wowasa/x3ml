@@ -159,19 +159,18 @@ public interface X3ML {
 
             } 
             else {
-                for (Path path : domain.createPathContexts(this.path)) {
-                    try{
-                    for (Range range : path.createRangeContexts(this.range)) {
-                        range.link();
+                try{
+                    for (Path path : domain.createPathContexts(this.path)) {
+                        for (Range range : path.createRangeContexts(this.range)) {
+                            range.link();
+                        }
                     }
-                    }catch(X3MLEngine.X3MLException ex){
+                }catch(X3MLEngine.X3MLException ex){
                         X3MLEngine.exceptionMessagesList+=ex.toString();
                         System.out.println("EXCEPTION: "+ex);
-                        
                 }
             }
         }
-    }
     }
 
     @XStreamAlias("namespace")
