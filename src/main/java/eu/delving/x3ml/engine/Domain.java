@@ -58,7 +58,7 @@ public class Domain extends GeneratorContext {
             return false;
         }
         entityResolver = new EntityResolver(context.output(), domain.target_node.entityElement, this);
-        return entityResolver.resolve();
+        return entityResolver.resolve(false);
     }
 
     public List<Link> createLinkContexts(LinkElement linkElement, String domainForeignKey, String rangePrimaryKey,

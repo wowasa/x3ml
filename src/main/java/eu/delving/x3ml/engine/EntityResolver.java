@@ -54,7 +54,10 @@ public class EntityResolver {
         this.generatorContext = generatorContext;
     }
 
-    boolean resolve() {
+    /*It takes as input a boolean value declaring if the requst for resolving an entity has been derived 
+    from the PATH or from an ADDITIONAL ENTITY. In this apart from the XPATH we should use also the 
+    target type for cosntructing new URIs, instead of re-using the old ones (this is where we need the unique value) */
+    boolean resolve(boolean fromPath) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -70,7 +73,11 @@ public class EntityResolver {
             for(String str: uniqueTypes){
                 unique.append("-").append(str);
             }
-            GeneratedValue generatedValue = entityElement.getInstance(generatorContext, unique.toString());
+            String uniqueValue="";
+            if(fromPath){
+                uniqueValue=unique.toString();
+            }
+            GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
             if (generatedValue == null) {
                 failed = true;
                 return false;
@@ -159,7 +166,7 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve();
+            return property != null && additionalEntityResolver.resolve(true);
         }
 
         public void linkFrom(Resource fromResource) {
@@ -205,7 +212,7 @@ public class EntityResolver {
             }else{
                 property = modelOutput.createProperty(new TypeElement("rdfs:label", "http://www.w3.org/2000/01/rdf-schema#"));
             }
-            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.name); //todo: are you sure?
+            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.name);
             if (generatedValue == null) {
                 return false;
             }

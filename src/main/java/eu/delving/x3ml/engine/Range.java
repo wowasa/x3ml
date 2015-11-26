@@ -41,7 +41,7 @@ public class Range extends GeneratorContext {
             return false;
         }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        return rangeResolver.resolve();
+        return rangeResolver.resolve(false);
     }
 
     public void link() {
