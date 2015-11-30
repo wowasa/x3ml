@@ -155,9 +155,6 @@ public class X3MLEngine {
             if (prefix == null) {
                 throw new X3MLException("Null prefix!");
             }
-            if (prefixUri.size() == 1) {
-                return prefixUri.values().iterator().next();
-            }
             return prefixUri.get(prefix);
         }
 
