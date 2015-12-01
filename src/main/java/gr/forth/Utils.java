@@ -7,7 +7,7 @@ import eu.delving.x3ml.engine.X3ML;
  * @author Nikos Minadakis (minadakn 'at' ics 'dot' forth 'dot' gr)
  */
 public class Utils {
-    public static String produceLabelGeneratorArgument(X3ML.GeneratorElement generator, String expectedValue){
+    public static String produceLabelGeneratorMissingArgumentError(X3ML.GeneratorElement generator, String expectedValue){
         return new StringBuilder().append("The attribute ")
                                   .append("\"")
                                   .append(expectedValue)

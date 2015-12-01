@@ -124,27 +124,27 @@ public class X3MLGeneratorPolicy implements Generator {
         if ("Literal".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
+                throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
-                throw exception("Argument failure: empty argument");
+                throw exception("Argument failure: empty argument \t"+RootElement.mappingCounter+"\t"+RootElement.linkCounter);
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if ("prefLabel".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
+                throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
-                throw exception("Argument failure: empty argument");
+                throw exception("Argument failure: empty argument \t"+RootElement.mappingCounter+"\t"+RootElement.linkCounter);
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if ("Constant".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, constant);
             if (value == null) {
-                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
+                throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
