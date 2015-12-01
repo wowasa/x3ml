@@ -31,6 +31,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import eu.delving.x3ml.engine.GeneratorContext;
 import static eu.delving.x3ml.engine.X3ML.*;
 import static eu.delving.x3ml.engine.X3ML.Helper.generatorStream;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
@@ -110,7 +111,9 @@ public class X3MLGeneratorPolicy implements Generator {
     }
 
     @Override
-    public GeneratedValue generate(String name, ArgValues argValues) {
+    public GeneratedValue generate(GeneratorElement generatorElem, ArgValues argValues) {
+        String argDefaultValue="text";
+        String name=generatorElem.name;
         if (name == null) {
             throw exception("Value function name missing");
         }
@@ -118,9 +121,9 @@ public class X3MLGeneratorPolicy implements Generator {
             return uriValue(uuidSource.generateUUID());
         }
         if ("Literal".equals(name)) {
-            ArgValue value = argValues.getArgValue("text", xpath);
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception("Argument failure: need one argument");
+                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
             }
             if (value.string == null || value.string.isEmpty()) {
                 throw exception("Argument failure: empty argument");
@@ -128,9 +131,9 @@ public class X3MLGeneratorPolicy implements Generator {
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if ("prefLabel".equals(name)) {
-            ArgValue value = argValues.getArgValue("text", xpath);
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception("Argument failure: need one argument");
+                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
             }
             if (value.string == null || value.string.isEmpty()) {
                 throw exception("Argument failure: empty argument");
@@ -138,9 +141,9 @@ public class X3MLGeneratorPolicy implements Generator {
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if ("Constant".equals(name)) {
-            ArgValue value = argValues.getArgValue("text", constant);
+            ArgValue value = argValues.getArgValue(argDefaultValue, constant);
             if (value == null) {
-                throw exception("Argument failure: need one argument");
+                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }

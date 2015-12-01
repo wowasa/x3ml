@@ -17,6 +17,7 @@ package eu.delving.x3ml.engine;
 
 import static eu.delving.x3ml.engine.X3ML.ArgValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
+import eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
 
 /**
@@ -44,5 +45,5 @@ public interface Generator {
         ArgValue getArgValue(String name, SourceType sourceType);
     }
 
-    GeneratedValue generate(String name, ArgValues arguments);
+    GeneratedValue generate(GeneratorElement generator, ArgValues arguments);
 }

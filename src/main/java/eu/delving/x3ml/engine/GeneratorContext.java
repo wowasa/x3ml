@@ -44,7 +44,7 @@ public abstract class GeneratorContext {
     public final GeneratorContext parent;
     public final Node node;
     public final int index;
-
+    
     protected GeneratorContext(Root.Context context, GeneratorContext parent, Node node, int index) {
         this.context = context;
         this.parent = parent;
@@ -78,7 +78,7 @@ public abstract class GeneratorContext {
         if(variable != null){
             generatedValue = get(variable);
             if (generatedValue == null) {
-                generatedValue = context.policy().generate(generator.name, new Generator.ArgValues() {
+                generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                     @Override
                     public ArgValue getArgValue(String name, SourceType sourceType) {
                         return context.input().evaluateArgument(node, index, generator, name, sourceType);
@@ -91,7 +91,7 @@ public abstract class GeneratorContext {
             String xpathProper=extractAssocTableXPath(node);
             generatedValue = context.getGeneratedValue(nodeName);
             if (generatedValue == null) {
-                generatedValue = context.policy().generate(generator.name, new Generator.ArgValues() {
+                generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                     @Override
                     public ArgValue getArgValue(String name, SourceType sourceType) {
                         return context.input().evaluateArgument(node, index, generator, name, sourceType);
@@ -99,7 +99,7 @@ public abstract class GeneratorContext {
                 });
                 GeneratedValue genArg=null;
                 if(generator.name.equalsIgnoreCase("Literal")){
-                    genArg = context.policy().generate(generator.name, new Generator.ArgValues() {
+                    genArg = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType) {
                             return context.input().evaluateArgument2(node, index, generator, name, sourceType);
