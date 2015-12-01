@@ -39,6 +39,7 @@ import static eu.delving.x3ml.engine.X3ML.Helper.typedLiteralValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.uriValue;
 import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
 import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
+import gr.forth.Utils;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
@@ -123,7 +124,7 @@ public class X3MLGeneratorPolicy implements Generator {
         if ("Literal".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
+                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
                 throw exception("Argument failure: empty argument");
@@ -133,7 +134,7 @@ public class X3MLGeneratorPolicy implements Generator {
         if ("prefLabel".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
-                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
+                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
                 throw exception("Argument failure: empty argument");
@@ -143,7 +144,7 @@ public class X3MLGeneratorPolicy implements Generator {
         if ("Constant".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, constant);
             if (value == null) {
-                throw exception("The attribute \""+argDefaultValue+"\" is missing from the generator \t"+generatorElem);
+                throw exception(Utils.produceLabelGeneratorArgument(generatorElem, argDefaultValue));
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }

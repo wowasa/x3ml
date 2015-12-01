@@ -59,6 +59,8 @@ public interface X3ML {
 
     @XStreamAlias("x3ml")
     public static class RootElement extends Visible {
+        public static int mappingCounter=0;
+        public static int linkCounter=0;
 
         @XStreamAsAttribute
         public String version;
@@ -79,6 +81,8 @@ public interface X3ML {
 
         public void apply(Root context) {
             for (Mapping mapping : mappings) {
+                RootElement.mappingCounter+=1;
+                RootElement.linkCounter=0;
                 mapping.apply(context);
             }
         }
@@ -97,11 +101,13 @@ public interface X3ML {
 
         public void apply(Root context) {
             for (Domain domain : context.createDomainContexts(this.domain)) {
+                RootElement.linkCounter=0;
                 domain.resolve();
                 if (links == null) {
                     continue;
                 }
                 for (LinkElement linkElement : links) {
+                    RootElement.linkCounter+=1;
                     linkElement.apply(domain);
                 }
             }
