@@ -127,7 +127,7 @@ public class X3MLGeneratorPolicy implements Generator {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
-                throw exception("Argument failure: empty argument \t"+RootElement.mappingCounter+"\t"+RootElement.linkCounter);
+                throw exception(Utils.produceLabelGeneratorEmptyArgumentError(generatorElem, name));
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
@@ -137,7 +137,7 @@ public class X3MLGeneratorPolicy implements Generator {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
             if (value.string == null || value.string.isEmpty()) {
-                throw exception("Argument failure: empty argument \t"+RootElement.mappingCounter+"\t"+RootElement.linkCounter);
+                throw exception(Utils.produceLabelGeneratorEmptyArgumentError(generatorElem, name));
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }

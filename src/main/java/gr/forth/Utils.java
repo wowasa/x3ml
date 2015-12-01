@@ -23,8 +23,8 @@ public class Utils {
     }
     
     public static String produceLabelGeneratorEmptyArgumentError(X3ML.GeneratorElement generator, String attrValue){
-        return new StringBuilder().append("LabelGenerator Error: ")
-                                  .append("The argument with name ")
+        return new StringBuilder().append("LabelGenerator Error: ") 
+                                  .append("The label generator with name ")
                                   .append("\"")
                                   .append(attrValue)
                                   .append("\"")
