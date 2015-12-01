@@ -54,10 +54,14 @@ public class ModelOutput implements Output {
             return model.createResource(uriString, model.createResource(typeElementNamespace + typeElement.getLocalName()));
         }else{
             String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            if(typeElementNamespace==null){
+                throw exception("The namespace with prefix \""+typeElement.getPrefix()+"\" has not been declared");
+            }
             return model.createResource(uriString, model.createResource(typeElementNamespace + typeElement.getLocalName()));
         }
     }
-
+    
+    /* Used for creating labels (rdfs:label or skos:label) */
     public Property createProperty(TypeElement typeElement) {
         if (typeElement == null) {
             throw exception("Missing qualified name");
@@ -68,6 +72,9 @@ public class ModelOutput implements Output {
             return model.createProperty(typeElementNamespace, typeElement.getLocalName());
         }else{ 
             String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            if(typeElementNamespace==null){
+                throw exception("The namespace with prefix \""+typeElement.getPrefix()+"\" has not been declared");
+            }
             return model.createProperty(typeElementNamespace, typeElement.getLocalName());
         }
         
@@ -82,6 +89,9 @@ public class ModelOutput implements Output {
             return model.createProperty(propertyNamespace, relationship.getLocalName());
         }else{ 
             String propertyNamespace = namespaceContext.getNamespaceURI(relationship.getPrefix());
+            if(propertyNamespace==null){
+                throw exception("The namespace with prefix \""+relationship.getPrefix()+"\" has not been declared");
+            }
             return model.createProperty(propertyNamespace, relationship.getLocalName());
         }
     }
