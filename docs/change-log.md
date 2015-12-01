@@ -5,6 +5,7 @@
 
 * Support for multiple instatiations (fixed issue #1)
 * fixed bug with empty elements (issue #4)
+* fixed bug with namespaces not declared in the namespace section (issue #5)
 
 ## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 
