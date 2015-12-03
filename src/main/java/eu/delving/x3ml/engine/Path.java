@@ -117,8 +117,9 @@ public class Path extends GeneratorContext {
         if (entityList != null) {
             Iterator<Relationship> walkProperty = propertyList.iterator();
             walkProperty.next(); // ignore
+            int intermediateNodeCounter=1;
             for (X3ML.EntityElement entityElement : entityList) {
-                IntermediateNode intermediateNode = new IntermediateNode(entityElement, walkProperty.next(), generatorContext);
+                IntermediateNode intermediateNode = new IntermediateNode(entityElement, walkProperty.next(), generatorContext, intermediateNodeCounter++);
                 if (intermediateNode.resolve()) {
                     intermediateNodes.add(intermediateNode);
                 }
@@ -134,11 +135,13 @@ public class Path extends GeneratorContext {
         public final GeneratorContext generatorContext;
         public EntityResolver entityResolver;
         public Property property;
+        public final int intermediateNodeIndex;
 
-        private IntermediateNode(X3ML.EntityElement entityElement, Relationship relationship, GeneratorContext generatorContext) {
+        private IntermediateNode(X3ML.EntityElement entityElement, Relationship relationship, GeneratorContext generatorContext, int intermediateNodeIndex) {
             this.entityElement = entityElement;
             this.relationship = relationship;
             this.generatorContext = generatorContext;
+            this.intermediateNodeIndex=intermediateNodeIndex;
         }
 
         public boolean resolve() {
