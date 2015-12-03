@@ -113,7 +113,7 @@ public class Path extends GeneratorContext {
     }
 
     private List<IntermediateNode> createIntermediateNodes(List<X3ML.EntityElement> entityList, List<Relationship> propertyList, GeneratorContext generatorContext) {
-        List<IntermediateNode> intermediateNodes = new ArrayList<IntermediateNode>();
+        List<IntermediateNode> intermediateNodesFound = new ArrayList<IntermediateNode>();
         if (entityList != null) {
             Iterator<Relationship> walkProperty = propertyList.iterator();
             walkProperty.next(); // ignore
@@ -121,11 +121,11 @@ public class Path extends GeneratorContext {
             for (X3ML.EntityElement entityElement : entityList) {
                 IntermediateNode intermediateNode = new IntermediateNode(entityElement, walkProperty.next(), generatorContext, intermediateNodeCounter++);
                 if (intermediateNode.resolve()) {
-                    intermediateNodes.add(intermediateNode);
+                    intermediateNodesFound.add(intermediateNode);
                 }
             }
         }
-        return intermediateNodes;
+        return intermediateNodesFound;
     }
 
     private class IntermediateNode {
