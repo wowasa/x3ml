@@ -8,6 +8,7 @@
 * fixed bug with namespaces not declared in the namespace section (issue #5)
 * fixed bug with non-informative messages when a namespace is not declared in the namespaces section (issue #7)
 * fixed bug with non-informative messages when the label generators contain non-valid attributes (issue #9) or empty expressions (issue #11)
+* fixed bug with the creation of entities from additional nodes (issue #14 and #15)
 
 ## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 
