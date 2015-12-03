@@ -54,10 +54,13 @@ public class EntityResolver {
         this.generatorContext = generatorContext;
     }
 
-    /*It takes as input a boolean value declaring if the requst for resolving an entity has been derived 
-    from the PATH or from an ADDITIONAL ENTITY. In this apart from the XPATH we should use also the 
-    target type for cosntructing new URIs, instead of re-using the old ones (this is where we need the unique value) */
-    boolean resolve(int fromPathRangeIndex) {
+    /*It takes as input two int numbers, representing the index of the additional node
+      or the intermediate node that wants to be resolved. These indexes help us identify 
+    the cases where an entity resolve is requested from the link of a mapping and therefore 
+    keeping only the xapth input is not enough. We want to also keep the indexes 
+    We also use the indexes of the additional or intermediate node - in cases 
+    where we have "similar" nodes (with same target entity type). */
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -74,8 +77,12 @@ public class EntityResolver {
                 unique.append("-").append(str);
             }
             String uniqueValue="";
-            if(fromPathRangeIndex>0){
-                uniqueValue=unique.toString()+"-"+fromPathRangeIndex;
+            if(additionalNodeIndex>0 || indermediateNodeIndex>0){
+                if(additionalNodeIndex>0){
+                    uniqueValue=unique.toString()+"-additional-"+additionalNodeIndex;
+                }else{
+                    uniqueValue=unique.toString()+"-intermediate-"+indermediateNodeIndex;
+                }
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
             if (generatedValue == null) {
@@ -169,7 +176,7 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex);
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0);
         }
 
         public void linkFrom(Resource fromResource) {
