@@ -143,7 +143,7 @@ public class Path extends GeneratorContext {
 
         public boolean resolve() {
             entityResolver = new EntityResolver(context.output(), entityElement, generatorContext);
-            if (!entityResolver.resolve(true)) {
+            if (!entityResolver.resolve(1)) {   
                 return false;
             }
             property = context.output().createProperty(relationship);

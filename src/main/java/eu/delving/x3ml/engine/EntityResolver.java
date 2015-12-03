@@ -57,7 +57,7 @@ public class EntityResolver {
     /*It takes as input a boolean value declaring if the requst for resolving an entity has been derived 
     from the PATH or from an ADDITIONAL ENTITY. In this apart from the XPATH we should use also the 
     target type for cosntructing new URIs, instead of re-using the old ones (this is where we need the unique value) */
-    boolean resolve(boolean fromPath) {
+    boolean resolve(int fromPathRangeIndex) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -74,8 +74,8 @@ public class EntityResolver {
                 unique.append("-").append(str);
             }
             String uniqueValue="";
-            if(fromPath){
-                uniqueValue=unique.toString();
+            if(fromPathRangeIndex>0){
+                uniqueValue=unique.toString()+"-"+fromPathRangeIndex;
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
             if (generatedValue == null) {
@@ -139,8 +139,9 @@ public class EntityResolver {
     private List<AdditionalNode> createAdditionalNodes(List<Additional> additionalList) {
         List<AdditionalNode> additionalNodes = new ArrayList<AdditionalNode>();
         if (additionalList != null) {
+            int additionalCounter=1;
             for (Additional additional : additionalList) {
-                AdditionalNode additionalNode = new AdditionalNode(modelOutput, additional, generatorContext);
+                AdditionalNode additionalNode = new AdditionalNode(modelOutput, additional, generatorContext, additionalCounter++);
                 if (additionalNode.resolve()) {
                     additionalNodes.add(additionalNode);
                 }
@@ -156,17 +157,19 @@ public class EntityResolver {
         public final GeneratorContext generatorContext;
         public Property property;
         public EntityResolver additionalEntityResolver;
+        public final int additionalIndex;
 
-        private AdditionalNode(ModelOutput modelOutput, Additional additional, GeneratorContext generatorContext) {
+        private AdditionalNode(ModelOutput modelOutput, Additional additional, GeneratorContext generatorContext, int additionalIndex) {
             this.modelOutput = modelOutput;
             this.additional = additional;
             this.generatorContext = generatorContext;
+            this.additionalIndex=additionalIndex;
         }
 
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(true);
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex);
         }
 
         public void linkFrom(Resource fromResource) {
