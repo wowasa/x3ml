@@ -79,9 +79,9 @@ public class EntityResolver {
             String uniqueValue="";
             if(additionalNodeIndex>0 || indermediateNodeIndex>0){
                 if(additionalNodeIndex>0){
-                    uniqueValue=unique.toString()+"-additional-"+additionalNodeIndex;
+                    uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
                 }else{
-                    uniqueValue=unique.toString()+"-intermediate-"+indermediateNodeIndex;
+                    uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
                 }
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
