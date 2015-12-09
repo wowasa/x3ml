@@ -26,6 +26,7 @@ import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -194,16 +195,21 @@ public class EntityResolver {
     }
 
     private List<LabelNode> createLabelNodes(List<GeneratorElement> generatorList) {
-        List<LabelNode> labelNodes = new ArrayList<LabelNode>();
+        List<LabelNode> newLabelNodes = new ArrayList<LabelNode>();
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
                 LabelNode labelNode = new LabelNode(generator);
-                if (labelNode.resolve()) {
-                    labelNodes.add(labelNode);
-                }
+                try{
+                    if (labelNode.resolve()) {
+                        newLabelNodes.add(labelNode);
+                    }
+                    }catch(X3MLEngine.X3MLException ex){
+                        X3MLEngine.exceptionMessagesList+=ex.toString();
+                        Utils.printErrorMessages("ERROR FOUND: "+Utils.produceLabelGeneratorEmptyArgumentError(generator));
+                    }
             }
         }
-        return labelNodes;
+        return newLabelNodes;
     }
 
     private class LabelNode {

@@ -1,10 +1,10 @@
 # Change Log
 
 ---
-## 26 Nov 2015: V 1.6.2 (by FORTH-ICS)
+## 09 Dec 2015: V 1.6.2 (by FORTH-ICS)
 
 * Support for multiple instatiations (fixed issue #1)
-* fixed bug with empty elements (issue #4)
+* fixed bug with empty elements (issue #4, #21)
 * fixed bug with namespaces not declared in the namespace section (issue #5)
 * fixed bug with non-informative messages when a namespace is not declared in the namespaces section (issue #7)
 * fixed bug with non-informative messages when the label generators contain non-valid attributes (issue #9) or empty expressions (issue #11)
