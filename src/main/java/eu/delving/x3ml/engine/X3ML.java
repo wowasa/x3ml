@@ -159,14 +159,9 @@ public interface X3ML {
                 if (equals >= 0) {
                     String domainForeignKey = pathSource.substring(0, equals).trim();
                     String rangePrimaryKey = pathSource.substring(equals + 2).trim();
-                    try{
                         for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey)) {
                             link.range.link();
                         }
-                    }catch(X3MLEngine.X3MLException ex){
-                        X3MLEngine.exceptionMessagesList+=ex.toString();
-                        System.out.println("ERROR FOUND: "+ex.toString());
-                    }
                 }
             } 
             else {

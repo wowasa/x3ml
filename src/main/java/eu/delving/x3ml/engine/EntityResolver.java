@@ -198,9 +198,14 @@ public class EntityResolver {
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
                 LabelNode labelNode = new LabelNode(generator);
-                if (labelNode.resolve()) {
-                    labelNodes.add(labelNode);
-                }
+                try{
+                    if (labelNode.resolve()) {
+                        labelNodes.add(labelNode);
+                    }
+                    }catch(X3MLEngine.X3MLException ex){
+                        X3MLEngine.exceptionMessagesList+=ex.toString();
+                        System.out.println("ERROR FOUND: "+ex.toString());
+                    }
             }
         }
         return labelNodes;
