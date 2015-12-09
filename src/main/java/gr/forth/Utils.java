@@ -22,11 +22,11 @@ public class Utils {
                                   .append(generator).toString();
     }
     
-    public static String produceLabelGeneratorEmptyArgumentError(X3ML.GeneratorElement generator, String attrValue){
+    public static String produceLabelGeneratorEmptyArgumentError(X3ML.GeneratorElement generator){
         return new StringBuilder().append("LabelGenerator Error: ") 
                                   .append("The label generator with name ")
                                   .append("\"")
-                                  .append(attrValue)
+                                  .append(generator.name)
                                   .append("\"")
                                   .append(" does not containg any value. ")
                                   .append("[Mapping #: ")
