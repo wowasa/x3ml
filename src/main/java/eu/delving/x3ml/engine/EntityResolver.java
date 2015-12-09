@@ -26,6 +26,7 @@ import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -204,7 +205,7 @@ public class EntityResolver {
                     }
                     }catch(X3MLEngine.X3MLException ex){
                         X3MLEngine.exceptionMessagesList+=ex.toString();
-                        System.out.println("ERROR FOUND: "+ex.toString());
+                        System.out.println("ERROR FOUND: "+Utils.produceLabelGeneratorEmptyArgumentError(generator));
                     }
             }
         }
