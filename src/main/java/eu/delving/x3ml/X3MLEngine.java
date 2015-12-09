@@ -103,7 +103,7 @@ public class X3MLEngine {
                 generator.setNamespace(mn.prefix, mn.uri);
             }
         }
-        X3MLEngine.exceptionMessagesList="";
+        this.initializeAll();    
         rootElement.apply(rootContext);
         /*Uncomment the following block to export Association Table contents in XML format.*/
 //        try{
@@ -112,6 +112,12 @@ public class X3MLEngine {
 //            exception(ex.toString());
 //        }
         return rootContext.getModelOutput();
+    }
+    
+    private void initializeAll(){
+        X3MLEngine.exceptionMessagesList="";  
+        RootElement.mappingCounter=0;
+        RootElement.linkCounter=0;
     }
 
     @Override
