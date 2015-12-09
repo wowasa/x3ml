@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
+import gr.forth.Utils;
 
 /**
  * The root of the mapping is where the domain contexts are created. They then
@@ -102,7 +103,7 @@ public class Root {
                 } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
-                System.out.println("ERROR FOUND: "+ex.toString());
+                Utils.printErrorMessages("ERROR FOUND: "+ex.toString());
             }
         }
         return domains;

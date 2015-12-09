@@ -36,4 +36,10 @@ public class Utils {
                                   .append("]. ")
                                   .append(generator).toString();
     }
+    
+    public static void printErrorMessages(String ... messages){
+        for(String msg : messages){
+            System.out.println(msg);
+        }
+    }
 }

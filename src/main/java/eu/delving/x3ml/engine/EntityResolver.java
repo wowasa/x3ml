@@ -205,7 +205,7 @@ public class EntityResolver {
                     }
                     }catch(X3MLEngine.X3MLException ex){
                         X3MLEngine.exceptionMessagesList+=ex.toString();
-                        System.out.println("ERROR FOUND: "+Utils.produceLabelGeneratorEmptyArgumentError(generator));
+                        Utils.printErrorMessages("ERROR FOUND: "+Utils.produceLabelGeneratorEmptyArgumentError(generator));
                     }
             }
         }
