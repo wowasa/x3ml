@@ -194,13 +194,13 @@ public class EntityResolver {
     }
 
     private List<LabelNode> createLabelNodes(List<GeneratorElement> generatorList) {
-        List<LabelNode> labelNodes = new ArrayList<LabelNode>();
+        List<LabelNode> newLabelNodes = new ArrayList<LabelNode>();
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
                 LabelNode labelNode = new LabelNode(generator);
                 try{
                     if (labelNode.resolve()) {
-                        labelNodes.add(labelNode);
+                        newLabelNodes.add(labelNode);
                     }
                     }catch(X3MLEngine.X3MLException ex){
                         X3MLEngine.exceptionMessagesList+=ex.toString();
@@ -208,7 +208,7 @@ public class EntityResolver {
                     }
             }
         }
-        return labelNodes;
+        return newLabelNodes;
     }
 
     private class LabelNode {
