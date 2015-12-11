@@ -53,4 +53,15 @@ public class TestJoins {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    @Test
+    public void testMissingElementFromDoubleJoin() {
+        X3MLEngine engine = engine("/joins/03_mapping_missing_element_double_join.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/joins/03_input_missing_element_double_join.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        output.writeXML(System.out);
+        String[] expectedResult = xmlToNTriples("/joins/03_expectedResults.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
