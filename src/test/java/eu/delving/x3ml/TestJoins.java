@@ -44,5 +44,13 @@ public class TestJoins {
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
 
-
+    @Test
+    public void testBrokenJoin() {
+        X3MLEngine engine = engine("/joins/01_mappings_missing_element.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/joins/02_input_broken_join.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/joins/02_expectedResults.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
