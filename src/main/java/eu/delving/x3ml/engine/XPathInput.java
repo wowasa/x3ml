@@ -33,6 +33,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
+import gr.forth.Utils;
 import static org.joox.JOOX.$;
 
 /**
@@ -233,8 +234,8 @@ public class XPathInput {
                 rangeExpression,
                 rangeKeyPath
         );
-
-        return rangeMap.get(domainValue);
+        List<Node> retList=rangeMap.get(domainValue);
+        return (retList==null) ? new ArrayList<Node>() : retList;
     }
 
     private Map<String, List<Node>> getRangeMap(
@@ -252,14 +253,16 @@ public class XPathInput {
             rangeMapCache.put(mapName, map);
             for (Node node : nodeList(context, rangeExpression)) {
                 String key = valueAt(node, rangeKeyPath);
+                if(key.isEmpty()){
+                    Utils.printErrorMessages("ERROR FOUND: Empty value for \""+rangeExpression+"/"+rangeKeyPath+"\"\t The node from the input XML is: "+$(node).toString());
+                }
                 List<Node> value = map.get(key);
-
+                
                 if (value == null) {
                     value = new ArrayList<Node>();
                     map.put(key, value);
                 }
                 value.add(node);
-
             }
 //            Logger log = Logger.getLogger("getRangeMap");
 //            log.info("Built Map! " + mapName);
