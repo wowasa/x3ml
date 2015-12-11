@@ -26,6 +26,8 @@ import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.LinkElement;
 import static eu.delving.x3ml.engine.X3ML.PathElement;
 import static eu.delving.x3ml.engine.X3ML.RangeElement;
+import gr.forth.Utils;
+import static org.joox.JOOX.$;
 
 /**
  * The domain entity handled here. Resolution delegated. Holding variables here.
@@ -82,11 +84,14 @@ public class Domain extends GeneratorContext {
         int size = context.input().countNodes(node.getParentNode(), node_inside + "//" + intermediateFirst + "/text()");
 
         for (int count = 1; count <= size; count++) {
-
             if (context.input().valueAt(node.getParentNode(),
                     node_inside + "[" + count + "]//" + intermediateFirst + "/text()")
                     .equals(context.input().valueAt(node, domainForeignKey + "/text()"))) {
-
+                
+                String intermediateValue=context.input().valueAt(node, node_inside + "[" + count + "]//" + intermediateSecond + "/text()");
+                if(intermediateValue.isEmpty()){
+                    Utils.printErrorMessages("ERROR FOUND: Empty value for "+node_inside+"/"+intermediateSecond+". The node from the XML input is:\n"+$(node).toString());
+                }
                 List<Node> rangeNodes = context.input().rootNodeList(
                         domain.source_node.expression,
                         pathExpression,
