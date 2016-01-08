@@ -111,6 +111,10 @@ public interface X3ML {
                     RootElement.linkCounter+=1;
                     linkElement.apply(domain);
                 }
+                /*The following is necessary for the cases were there are no links or 
+                the links are not evaluated (the xpaths are note evaluated).
+                The following directive will link resources with labels found in the domain*/
+                domain.link();
             }
         }
     }
