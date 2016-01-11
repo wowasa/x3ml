@@ -105,12 +105,6 @@ public class X3MLEngine {
         }
         this.initializeAll();    
         rootElement.apply(rootContext);
-        /*Uncomment the following block to export Association Table contents in XML format.*/
-//        try{
-//            GeneratorContext.exportAssociationTable();
-//        }catch(IOException ex){
-//            exception(ex.toString());
-//        }
         return rootContext.getModelOutput();
     }
     
