@@ -4,7 +4,6 @@ import static eu.delving.x3ml.AllTests.compareNTriples;
 import static eu.delving.x3ml.AllTests.document;
 import static eu.delving.x3ml.AllTests.engine;
 import static eu.delving.x3ml.AllTests.errorFree;
-import static eu.delving.x3ml.AllTests.resource;
 import static eu.delving.x3ml.AllTests.xmlToNTriples;
 import eu.delving.x3ml.engine.Generator;
 import java.util.List;
@@ -27,6 +26,17 @@ public class TestLabels {
         X3MLEngine.Output output = engine.execute(document("/skos_preflabel/input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/skos_preflabel/expectedResult.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testLabelFromDomainOnly() {
+        X3MLEngine engine = engine("/labels/mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/labels/input.xml"),VALUE_POLICY);
+        output.writeXML(System.out);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/labels/expectedResult.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   

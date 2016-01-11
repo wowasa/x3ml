@@ -1,7 +1,7 @@
 # Change Log
 
 ---
-## 11 Dec 2015: V 1.6.2 (by FORTH-ICS)
+## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
 
 * Support for multiple instatiations (fixed issue #1)
 * fixed bug with empty elements (issue #4, #21)
@@ -10,6 +10,7 @@
 * fixed bug with non-informative messages when the label generators contain non-valid attributes (issue #9) or empty expressions (issue #11)
 * fixed bug with the creation of entities from additional and intermediate nodes (issue #14, #15, #16, #18)
 * fixed bugs with engine failure when join operations (both simple and double) refered to empty or non-existing elements (issues #23, #24, #25)
+* fixed issue with the creation of labels when they are found only in the domain (issue #3)
 
 ## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 

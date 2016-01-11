@@ -104,6 +104,10 @@ public interface X3ML {
             for (Domain domain : context.createDomainContexts(this.domain)) {
                 RootElement.linkCounter=0;
                 domain.resolve();
+                /*The following is necessary for the cases were there are no links or 
+                the links are not evaluated (the xpaths are note evaluated).
+                The following directive will link resources with labels found in the domain*/
+                domain.link();
                 if (links == null) {
                     continue;
                 }
@@ -111,6 +115,7 @@ public interface X3ML {
                     RootElement.linkCounter+=1;
                     linkElement.apply(domain);
                 }
+                
             }
         }
     }

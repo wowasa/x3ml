@@ -7,7 +7,9 @@
     xmlns:ariadne="http://www.ariadne-infrastructure.eu/"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-  <crm:E22_Man-Made_Object rdf:about="uuid:A"/>
+  <crm:E22_Man-Made_Object rdf:about="uuid:A">
+    <rdfs:label xml:lang="en">626</rdfs:label>
+  </crm:E22_Man-Made_Object>
   <crm:E22_Man-Made_Object rdf:about="uuid:B">
     <crm:P45_consists_of>
       <crm:E57_Material rdf:about="uuid:C">
