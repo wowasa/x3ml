@@ -218,7 +218,7 @@ public class X3MLCommandLine {
         );
         if(assocTableFilename!=null){
             try{
-                GeneratorContext.exportAssociationTable();
+                GeneratorContext.exportAssociationTable(assocTableFilename);
             }catch(IOException ex){
                 exception("cannot export the contents of the association table",ex);
             }

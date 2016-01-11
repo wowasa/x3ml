@@ -141,8 +141,8 @@ public abstract class GeneratorContext {
         AssociationTable.addEntry(xpathEpxr,key);
     }
     
-    public static void exportAssociationTable() throws IOException{
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("AssociationTable.xml"), "UTF-8"));
+    public static void exportAssociationTable(String filename) throws IOException{
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8"));
         writer.append(AssociationTable.exportAll());
         writer.flush();
         writer.close();
