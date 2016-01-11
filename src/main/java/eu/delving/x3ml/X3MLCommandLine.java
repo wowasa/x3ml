@@ -222,7 +222,7 @@ public class X3MLCommandLine {
             try{
                 GeneratorContext.exportAssociationTable();
             }catch(IOException ex){
-                exception(ex.toString());
+                exception("cannot export the contents of the association table",ex);
             }
         }
         output.write(rdf(rdf), rdfFormat);
