@@ -24,7 +24,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -33,8 +32,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
-
 import static eu.delving.x3ml.X3MLEngine.exception;
+import eu.delving.x3ml.engine.GeneratorContext;
+import java.io.IOException;
 
 /**
  * Using commons-cli to make the engine usable on the command line.
@@ -46,6 +46,7 @@ public class X3MLCommandLine {
     static final CommandLineParser PARSER = new PosixParser();
     static final HelpFormatter HELP = new HelpFormatter();
     static Options options = new Options();
+    private static final String ASSOCIATION_TABLE_PARAMETER_NAME="assocTable";
 
     static void error(String message) {
         HELP.setDescPadding(5);
@@ -91,8 +92,12 @@ public class X3MLCommandLine {
                 "uuidTestSize", true,
                 "Create a test UUID generator of the given size. Default is UUID from operating system"
         );
+        Option assocTable = new Option(
+                ASSOCIATION_TABLE_PARAMETER_NAME, true, 
+                "export the contents of the association table in XML format"
+        );
         options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
-                .addOption(validate).addOption(uuidTestSize);
+                .addOption(validate).addOption(uuidTestSize).addOption(assocTable);
         try {
             CommandLine cli = PARSER.parse(options, args);
             int uuidTestSizeValue = -1;
@@ -106,6 +111,7 @@ public class X3MLCommandLine {
                     cli.getOptionValue("policy"),
                     cli.getOptionValue("rdf"),
                     cli.getOptionValue("format"),
+                    cli.getOptionValue(ASSOCIATION_TABLE_PARAMETER_NAME),
                     cli.hasOption("validate"),
                     uuidTestSizeValue
             );
@@ -177,7 +183,7 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, boolean validate, int uuidTestSize) {
+    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean validate, int uuidTestSize) {
         Element xmlElement;
         if ("@".equals(xml)) {
             xmlElement = xml(System.in);
@@ -210,6 +216,13 @@ public class X3MLCommandLine {
                 xmlElement,
                 getValuePolicy(policy, X3MLGeneratorPolicy.createUUIDSource(uuidTestSize))
         );
+        if(assocTableFilename!=null){
+            try{
+                GeneratorContext.exportAssociationTable(assocTableFilename);
+            }catch(IOException ex){
+                exception("cannot export the contents of the association table",ex);
+            }
+        }
         output.write(rdf(rdf), rdfFormat);
     }
 }
