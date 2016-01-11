@@ -11,6 +11,7 @@
 * fixed bug with the creation of entities from additional and intermediate nodes (issue #14, #15, #16, #18)
 * fixed bugs with engine failure when join operations (both simple and double) refered to empty or non-existing elements (issues #23, #24, #25)
 * fixed issue with the creation of labels when they are found only in the domain (issue #3)
+* support exporting the contents of the association table during runtime (issue #30)
 
 ## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 
