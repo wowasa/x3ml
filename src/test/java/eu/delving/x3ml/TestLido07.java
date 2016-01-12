@@ -20,14 +20,14 @@ package eu.delving.x3ml;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import static eu.delving.x3ml.AllTests.*;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class TestLido07 {

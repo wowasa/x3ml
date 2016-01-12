@@ -23,7 +23,10 @@ import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.Date;
 
 /**
- * an excample date interpreter
+ * an date interpreter
+ * 
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class GermanDate implements CustomGenerator {
 

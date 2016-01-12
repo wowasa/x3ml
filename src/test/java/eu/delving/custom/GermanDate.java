@@ -22,7 +22,7 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 
 /**
- * an excample date interpreter
+ * a date interpreter
  */
 
 public class GermanDate implements CustomGenerator {

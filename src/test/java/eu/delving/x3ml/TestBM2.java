@@ -19,19 +19,9 @@ under the License.
 package eu.delving.x3ml;
 
 import org.junit.Test;
-
-import java.util.List;
-import java.io.ByteArrayInputStream;
-
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
-
 import static eu.delving.x3ml.AllTests.*;
 import static org.junit.Assert.assertTrue;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -39,6 +29,8 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class TestBM2 {

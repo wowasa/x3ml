@@ -50,6 +50,8 @@ import gr.forth.Utils;
  * The XSD definition is to be found in /src/main/resources.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public interface X3ML {
 

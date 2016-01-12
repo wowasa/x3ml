@@ -25,6 +25,10 @@ import static eu.delving.x3ml.AllTests.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ */
 public class TestNamespaces {
     private final Logger log = Logger.getLogger(getClass());
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));

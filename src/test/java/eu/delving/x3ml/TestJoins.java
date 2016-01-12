@@ -22,12 +22,9 @@ import eu.delving.x3ml.engine.Generator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import java.util.List;
-
 import static eu.delving.x3ml.AllTests.*;
 import static org.junit.Assert.assertTrue;
-
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)

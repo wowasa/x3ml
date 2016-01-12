@@ -35,6 +35,8 @@ import static eu.delving.x3ml.engine.X3ML.Relationship;
  * handled specially.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class Path extends GeneratorContext {
 

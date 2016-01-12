@@ -38,6 +38,8 @@ import static org.joox.JOOX.$;
  * their contextual information.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public abstract class GeneratorContext {
 

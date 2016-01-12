@@ -22,16 +22,15 @@ import eu.delving.x3ml.engine.Generator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import java.util.List;
-
 import static eu.delving.x3ml.AllTests.*;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
  */
-
 public class TestPosition {
     private final Logger log = Logger.getLogger(getClass());
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));

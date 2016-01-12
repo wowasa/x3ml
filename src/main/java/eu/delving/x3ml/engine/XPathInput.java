@@ -45,6 +45,8 @@ import static org.joox.JOOX.$;
  * Here we have tools for evaluating xpaths in various contexts.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class XPathInput {
 

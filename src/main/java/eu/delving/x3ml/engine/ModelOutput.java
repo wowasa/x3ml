@@ -33,6 +33,8 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
  * The output sent to a Jena graph model.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class ModelOutput implements Output {
 

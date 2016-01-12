@@ -26,6 +26,8 @@ import static eu.delving.x3ml.engine.X3ML.RangeElement;
  * The range entity handled here. Resolution delegated.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class Range extends GeneratorContext {
 

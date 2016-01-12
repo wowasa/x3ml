@@ -22,7 +22,10 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 
 /**
- * an excample date interpreter
+ * a date interpreter
+ * 
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class AuthorityPrirefThingCounter implements CustomGenerator {
 

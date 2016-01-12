@@ -19,8 +19,7 @@ under the License.
 package gr.forth;
 
 /**
- *
- * @author konsolak
+ * @author Konstantina Konsolaki <konsolak@ics.forth.gr>
  */
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

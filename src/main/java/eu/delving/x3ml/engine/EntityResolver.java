@@ -40,6 +40,8 @@ import java.util.TreeSet;
  * Handles label nodes and additional nodes with their properties
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class EntityResolver {
 

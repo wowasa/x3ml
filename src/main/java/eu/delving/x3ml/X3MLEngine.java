@@ -46,7 +46,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import eu.delving.x3ml.engine.GeneratorContext;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
@@ -58,6 +57,8 @@ import static eu.delving.x3ml.engine.X3ML.RootElement;
  * and produces a graph in its output.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class X3MLEngine {

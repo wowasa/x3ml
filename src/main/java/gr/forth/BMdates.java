@@ -23,7 +23,9 @@ import java.util.Date;
 
 /**
  *
- * @author konsolak
+ * @author Konstantina Konsolaki <konsolak@ics.forth.gr>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class BMdates implements X3MLGeneratorPolicy.CustomGenerator {
      private String text;

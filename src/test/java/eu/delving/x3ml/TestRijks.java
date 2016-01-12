@@ -28,8 +28,9 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
  */
-
 public class TestRijks {
 
     @Test

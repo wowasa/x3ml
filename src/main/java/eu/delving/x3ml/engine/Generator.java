@@ -27,6 +27,8 @@ import static eu.delving.x3ml.engine.X3ML.SourceType;
  * This is what a generator looks like to the internal code.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public interface Generator {
 

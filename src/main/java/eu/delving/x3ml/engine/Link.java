@@ -23,6 +23,8 @@ package eu.delving.x3ml.engine;
  * rather than xpath.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 public class Link {
 

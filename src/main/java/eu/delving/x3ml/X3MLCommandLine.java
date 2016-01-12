@@ -43,6 +43,8 @@ import java.io.IOException;
  * Using commons-cli to make the engine usable on the command line.
  *
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class X3MLCommandLine {

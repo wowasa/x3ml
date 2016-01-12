@@ -34,7 +34,6 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static eu.delving.x3ml.X3MLEngine.exception;
-import eu.delving.x3ml.engine.GeneratorContext;
 import static eu.delving.x3ml.engine.X3ML.*;
 import static eu.delving.x3ml.engine.X3ML.Helper.generatorStream;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
@@ -46,6 +45,8 @@ import gr.forth.Utils;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class X3MLGeneratorPolicy implements Generator {

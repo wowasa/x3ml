@@ -27,16 +27,16 @@ import eu.delving.x3ml.engine.X3ML;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
+ * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
 public class TestConditions implements X3ML {
