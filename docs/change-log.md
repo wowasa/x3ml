@@ -1,6 +1,9 @@
 # Change Log
 
 ---
+## 12 Jan 2016: V 1.7.0 (by FORTH-ICS)
+* Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance (#33)
+
 ## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
 
 * Support for multiple instatiations (fixed issue #1)
