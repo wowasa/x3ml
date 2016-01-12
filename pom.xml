@@ -67,7 +67,11 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>eu.delving.x3ml.X3MLCommandLine</mainClass>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <BuildTime>${maven.build.timestamp}</BuildTime>
+                        </manifestEntries>
                     </archive>
                     <descriptors>
                         <descriptor>src/main/assembly/exejar.xml</descriptor>
