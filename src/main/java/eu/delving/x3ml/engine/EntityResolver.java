@@ -83,12 +83,17 @@ public class EntityResolver {
                 unique.append("-").append(str);
             }
             String uniqueValue="";
+            /*If the type is going to be used for an additional or an intermediate node then do not re-use the old one*/
             if(additionalNodeIndex>0 || indermediateNodeIndex>0){
                 if(additionalNodeIndex>0){
                     uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
                 }else{
                     uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
                 }
+            }
+            /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances*/
+            if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal")){
+                uniqueValue="http://www.w3.org/2000/01/rdf-schema#Literal";
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
             if (generatedValue == null) {
