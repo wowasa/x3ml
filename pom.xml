@@ -13,33 +13,50 @@
     <version>1.6.2-SNAPSHOT</version>
     <inceptionYear>2013</inceptionYear>
     <organization>
-        <name>Delving B.V.</name>
-        <url>http://www.delving.eu</url>
+        <name>Institute of Computer Science - FORTH-ICS</name>
+        <url>https://www.ics.forth.gr/</url>
     </organization>
     <developers>
         <developer>
-            <name>Gerald de Jong</name>
-            <email>gerald@delving.eu</email>
-        </developer>
-        <developer>
+            <id>minadakn</id>
             <name>Nikos Minadakis</name>
             <email>minadakn@ics.forth.gr</email>
+            <organization>FORTH-ICS</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
         </developer>
         <developer>
+            <id>marketak</id>
             <name>Yannis Marketakis</name>
             <email>marketak@ics.forth.gr</email>
+            <url>http://www.ics.forth.gr/~marketak</url>
+            <organization>FORTH-ICS</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Gerald de Jong</name>
+            <email>gerald@delving.eu</email>
         </developer>
     </developers>
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>UTF-8</encoding>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <BuildTime>${maven.build.timestamp}</BuildTime>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
@@ -50,7 +67,11 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>eu.delving.x3ml.X3MLCommandLine</mainClass>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <BuildTime>${maven.build.timestamp}</BuildTime>
+                        </manifestEntries>
                     </archive>
                     <descriptors>
                         <descriptor>src/main/assembly/exejar.xml</descriptor>
