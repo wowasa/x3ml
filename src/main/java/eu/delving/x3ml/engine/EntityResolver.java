@@ -53,6 +53,7 @@ public class EntityResolver {
     public List<Resource> resources;
     public Literal literal;
     private boolean failed;
+    public static int additionalCounter=1;
 
     EntityResolver(ModelOutput modelOutput, X3ML.EntityElement entityElement, GeneratorContext generatorContext) {
         this.modelOutput = modelOutput;
@@ -157,7 +158,7 @@ public class EntityResolver {
     private List<AdditionalNode> createAdditionalNodes(List<Additional> additionalList) {
         List<AdditionalNode> additionalNodes = new ArrayList<AdditionalNode>();
         if (additionalList != null) {
-            int additionalCounter=1;
+           
             for (Additional additional : additionalList) {
                 AdditionalNode additionalNode = new AdditionalNode(modelOutput, additional, generatorContext, additionalCounter++);
                 if (additionalNode.resolve()) {
