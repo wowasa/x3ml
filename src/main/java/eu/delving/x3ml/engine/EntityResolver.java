@@ -93,7 +93,7 @@ public class EntityResolver {
                 }
             }
             /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances*/
-            if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal")){
+            if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal") || unique.toString().contains("rdfs:Literal")){
                 uniqueValue="http://www.w3.org/2000/01/rdf-schema#Literal";
             }
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
