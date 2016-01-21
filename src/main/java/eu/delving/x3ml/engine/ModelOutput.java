@@ -109,6 +109,9 @@ public class ModelOutput implements Output {
     public Literal createTypedLiteral(String value, TypeElement typeElement) {
         String literalNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
         String typeUri = literalNamespace + typeElement.getLocalName();
+        if(literalNamespace == null) {  //we have a fully qualified namespace (e.g. http://www.w3.org/2001/XMLSchema#dateTime)
+            typeUri=typeElement.getLocalName();
+        }
         return model.createTypedLiteral(value, typeUri);
     }
 
