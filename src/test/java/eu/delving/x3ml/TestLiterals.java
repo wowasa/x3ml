@@ -39,8 +39,17 @@ public class TestLiterals {
     private final Logger log = Logger.getLogger(getClass());
 
     @Test
-    public void testManyTypes() throws FileNotFoundException {
+    public void testLiteralTypeFullURI() throws FileNotFoundException {
         X3MLEngine engine = engine("/literals/mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/literals/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    public void testLiteralTypeUsingAbbre() throws FileNotFoundException {
+        X3MLEngine engine = engine("/literals/mappings2.x3ml");
         X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/literals/expectedOutput.rdf");
