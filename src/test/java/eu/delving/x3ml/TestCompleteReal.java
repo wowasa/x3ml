@@ -40,10 +40,20 @@ public class TestCompleteReal {
 
     @Test
     public void testdFMRO() throws FileNotFoundException {
-        X3MLEngine engine = engine("/completeTests_real/dFMRO-final/mappings.x3ml");
-        X3MLEngine.Output output = engine.execute(document("/completeTests_real/dFMRO-final/input.xml"),policy("/completeTests_real/dFMRO-final/generator-policy.xml",2));
+        X3MLEngine engine = engine("/completeTests_real/dFMRO/mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/completeTests_real/dFMRO/input.xml"),policy("/completeTests_real/dFMRO/generator-policy.xml",2));
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/completeTests_real/dFMRO-final/expectedOutput.rdf");
+        String[] expectedResult = xmlToNTriples("/completeTests_real/dFMRO/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+
+    @Test
+    public void testPergamon() throws FileNotFoundException {
+        X3MLEngine engine = engine("/completeTests_real/pergamon/mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/completeTests_real/pergamon/input.xml"),policy("/completeTests_real/pergamon/generator-policy.xml",2));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/completeTests_real/pergamon/expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
