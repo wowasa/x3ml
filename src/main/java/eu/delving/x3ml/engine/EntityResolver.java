@@ -250,6 +250,7 @@ public class EntityResolver {
                 case URI:
                     throw exception("Label node must produce a literal");
                 case LITERAL:
+				case TYPED_LITERAL:
                     literal = modelOutput.createLiteral(generatedValue.text, generatedValue.language);
                     return true;
             }
