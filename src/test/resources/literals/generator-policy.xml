@@ -49,4 +49,11 @@
     <pattern>{display1}::{display2}::{display3}</pattern>
 </generator>
 
+<generator name="BMdates">
+        <custom generatorClass="gr.forth.BMdates">
+            <set-arg name="bound" type="constant"/>
+            <set-arg name="text"/>
+        </custom>
+</generator>
+
 </generator_policy>

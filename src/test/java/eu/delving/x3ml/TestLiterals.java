@@ -48,11 +48,32 @@ public class TestLiterals {
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
     
-    public void testLiteralTypeUsingAbbre() throws FileNotFoundException {
+    @Test
+    public void testLiteralTypeUsingAbbrev() throws FileNotFoundException {
         X3MLEngine engine = engine("/literals/mappings2.x3ml");
         X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/literals/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testDateTypeFullURI() throws FileNotFoundException {
+        X3MLEngine engine = engine("/literals/mappings_Dates.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/literals/expectedOutputDates.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testDateTypeUsingAbbrev() throws FileNotFoundException {
+        X3MLEngine engine = engine("/literals/mappings_Dates2.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/literals/expectedOutputDates.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
