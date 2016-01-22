@@ -1,9 +1,11 @@
 # Change Log
 
 ---
-## 12 Jan 2016: V 1.7.0 (by FORTH-ICS)
+## 22 Jan 2016: V 1.7.0 (by FORTH-ICS)
 * Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance (#33)
+* Fixed bug with the creation of xsd:DateTime instances (i.e. text nodes) (issue #37)
 * Fixed issue with the type of custom generators (issue #36)
+
 
 ## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
 
