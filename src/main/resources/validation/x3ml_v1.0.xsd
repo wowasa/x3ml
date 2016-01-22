@@ -27,7 +27,6 @@
 						<xs:sequence>
 							<xs:element name="mapping" maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="skip"/>
 									<xs:sequence>
 										<xs:element name="domain">
 											<xs:complexType>
@@ -64,6 +63,7 @@
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
+									<xs:attribute name="skip"/>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
