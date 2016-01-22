@@ -62,6 +62,7 @@ public class Example {
                         case FILE:
                             output.write(new PrintStream(new File("output.rdf")), "application/rdf+xml");
                             break;
+                        default:    //don't output
                 }break;
             case NTRIPLES:
                 switch(OUT_STREAM){
@@ -71,6 +72,7 @@ public class Example {
                         case FILE:
                             output.write(new PrintStream(new File("output.nt")), "application/n-triples");
                             break;
+                        default:    //don't output
                 }break;
             case TURTLE:
                 switch(OUT_STREAM){
@@ -80,6 +82,7 @@ public class Example {
                         case FILE:
                             output.write(new PrintStream(new File("output.ttl")), "text/turtle");
                             break;
+                        default:    //don't output
                 }break;
         }
     }
@@ -92,7 +95,8 @@ public class Example {
     
     private enum outputStream{
         SYSTEM_OUT,
-        FILE
+        FILE,
+        DISABLED
     }
     
     private static X3MLEngine engine(String path) throws FileNotFoundException {
