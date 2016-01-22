@@ -92,7 +92,8 @@ public class EntityResolver {
                     uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
                 }
             }
-            /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances*/
+            /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances
+            Notice that in future we should support all *literal* values*/
             if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal") || unique.toString().contains("rdfs:Literal")){
                 uniqueValue="http://www.w3.org/2000/01/rdf-schema#Literal";
             }else if(unique.toString().contains("http://www.w3.org/2001/XMLSchema#dateTime") || unique.toString().contains("xsd:dateTime")){

@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Element;
 
@@ -37,12 +38,65 @@ public class Example {
     
     public static void main(String[] args) throws FileNotFoundException,  IOException{       
         
-        X3MLEngine engine = engine("example/mappings.x3ml");        
-        Generator policy = X3MLGeneratorPolicy.load(new FileInputStream(new File("example/generator-policy.xml")), X3MLGeneratorPolicy.createUUIDSource(4));
-        X3MLEngine.Output output = engine.execute(document("example/input.xml"), policy);
+        final String MAPPINGS_PATH="example/mappings.x3ml";
+        final String GENERATOR_POLICY_PATH="example/generator-policy.xml";  //if empty, the generator will not be used
+        final String INPUT_PATH="example/input.xml";
+        final int UUID_SIZE=2;
+        final outputFormat OUT_FORMAT=outputFormat.RDF_XML;
+        final outputStream OUT_STREAM=outputStream.SYSTEM_OUT;
         
-        String[] mappingResult = output.toStringArray();
-        output.writeXML(System.out);
+        X3MLEngine engine = engine(MAPPINGS_PATH);
+        Generator policy;
+        if(GENERATOR_POLICY_PATH.isEmpty()){
+            policy = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(UUID_SIZE));
+        }else{
+            policy = X3MLGeneratorPolicy.load(new FileInputStream(new File(GENERATOR_POLICY_PATH)), X3MLGeneratorPolicy.createUUIDSource(UUID_SIZE));
+        }
+        X3MLEngine.Output output = engine.execute(document(INPUT_PATH), policy);
+        switch(OUT_FORMAT){
+            case RDF_XML:
+                switch(OUT_STREAM){
+                        case SYSTEM_OUT:
+                            output.writeXML(System.out);
+                            break;
+                        case FILE:
+                            output.write(new PrintStream(new File("output.rdf")), "application/rdf+xml");
+                            break;
+                        default:    //don't output
+                }break;
+            case NTRIPLES:
+                switch(OUT_STREAM){
+                        case SYSTEM_OUT:
+                            output.write(System.out,"application/n-triples");
+                            break;
+                        case FILE:
+                            output.write(new PrintStream(new File("output.nt")), "application/n-triples");
+                            break;
+                        default:    //don't output
+                }break;
+            case TURTLE:
+                switch(OUT_STREAM){
+                        case SYSTEM_OUT:
+                            output.write(System.out,"text/turtle");
+                            break;
+                        case FILE:
+                            output.write(new PrintStream(new File("output.ttl")), "text/turtle");
+                            break;
+                        default:    //don't output
+                }break;
+        }
+    }
+    
+    private enum outputFormat{
+        RDF_XML,
+        NTRIPLES,
+        TURTLE
+    }
+    
+    private enum outputStream{
+        SYSTEM_OUT,
+        FILE,
+        DISABLED
     }
     
     private static X3MLEngine engine(String path) throws FileNotFoundException {
