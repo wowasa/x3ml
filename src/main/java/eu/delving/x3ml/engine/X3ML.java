@@ -89,7 +89,9 @@ public interface X3ML {
             for (Mapping mapping : mappings) {
                 RootElement.mappingCounter+=1;
                 RootElement.linkCounter=0;
-                mapping.apply(context);
+                if(!mapping.skipMapping()){
+                    mapping.apply(context);
+                }
             }
         }
 
@@ -100,6 +102,9 @@ public interface X3ML {
     @XStreamAlias("mapping")
     public static class Mapping extends Visible {
 
+        @XStreamAsAttribute
+        public String skip;
+        
         public DomainElement domain;
 
         @XStreamImplicit
@@ -122,6 +127,15 @@ public interface X3ML {
                 }
                 
             }
+        }
+        
+        public boolean skipMapping(){
+            if(skip!=null){
+                if(skip.equalsIgnoreCase("true")){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
