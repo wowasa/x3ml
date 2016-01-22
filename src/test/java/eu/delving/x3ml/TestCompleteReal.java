@@ -57,4 +57,14 @@ public class TestCompleteReal {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
+
+    @Test
+    public void testSAR() throws FileNotFoundException {
+        X3MLEngine engine = engine("/completeTests_real/SAR/mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/completeTests_real/SAR/input.xml"),policy("/completeTests_real/SAR/generator-policy.xml",2));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/completeTests_real/SAR/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
 }
