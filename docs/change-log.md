@@ -5,6 +5,7 @@
 * Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance (#33)
 * Fixed bug with the creation of xsd:DateTime instances (i.e. text nodes) (issue #37)
 * Fixed issue with the type of custom generators (issue #36)
+* Fixed issue with the exported values from a join operation in the association table (#38)
 
 
 ## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
