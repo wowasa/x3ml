@@ -94,6 +94,10 @@ public class AllTests {
     public static Generator policy(String path) {
         return X3MLGeneratorPolicy.load(resource(path), X3MLGeneratorPolicy.createUUIDSource(1));
     }
+    
+    public static Generator policy(String path, int uuidSize) {
+        return X3MLGeneratorPolicy.load(resource(path), X3MLGeneratorPolicy.createUUIDSource(uuidSize));
+    }
 
     public static Element document(String path) {
         try {
