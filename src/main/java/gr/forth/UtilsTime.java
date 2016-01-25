@@ -49,8 +49,8 @@ public class UtilsTime {
         "(Januari|Februari|Mars|April|Maj|Juni|Juli|Augusti|September|Oktober|November|December)([-/.\\s])(-?\\d{1,4})", /*(month in swedish) yy*/
         "(January|February|March|April|May|June|July|August|September|October|November|December)([-/.\\s])(-?\\d{1,4})", /*(month in english) yy*/
         "(-?\\d{1,4})([-/.])(0?[1-9]|1[012])\\2(0?[1-9]|[12][0-9]|3[01])([\\s]([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?)?$", /*(-)yy-mm-dd |(-)yy.mm.dd | (-)yy/mm/dd  (optional time hh:mm:?sec)*/
-        "(-?\\d{1,4})", /*(-)year */
-        "(-?\\d{1,4})([-/.])(1[012]|0?[1-9])" /*(-)year/mm */};
+        "(-?\\d{1,4})([-/.])(1[012]|0?[1-9])$" /*(-)year/mm */,
+        "(-?\\d{1,4})$", /*(-)year */};
 
     /**
      * Validate date format with regular expression
@@ -293,5 +293,5 @@ public class UtilsTime {
         }
         return lexicalForm.toString();
     }
-
+      
 }
