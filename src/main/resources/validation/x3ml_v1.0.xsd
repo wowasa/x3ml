@@ -60,6 +60,7 @@
 														</xs:complexType>
 													</xs:element>
 												</xs:sequence>
+												<xs:attribute name="skip"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
