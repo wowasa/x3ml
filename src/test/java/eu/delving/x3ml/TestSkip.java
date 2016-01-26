@@ -57,5 +57,25 @@ public class TestSkip {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
+    
+    @Test
+    public void testWithSkipLinkFalse() throws FileNotFoundException {
+        X3MLEngine engine = engine("/skip/mappings_skipLinkFalse.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/skip/input.xml"),policy("/skip/generator-policy.xml"));    
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/skip/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testWithSkipLink() throws FileNotFoundException {
+        X3MLEngine engine = engine("/skip/mappings_skipLink.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/skip/input.xml"),policy("/skip/generator-policy.xml"));    
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/skip/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
         
 }
