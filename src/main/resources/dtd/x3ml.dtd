@@ -17,6 +17,9 @@
 >
 <!ELEMENT mappings (mapping+)>
 <!ELEMENT mapping (domain, link+)>
+<!ATTLIST mapping
+	skip CDATA #IMPLIED
+>
 <!ELEMENT domain (source_node, target_node, comments?)>
 <!ATTLIST domain
 	repeated CDATA #IMPLIED
