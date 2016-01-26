@@ -123,7 +123,9 @@ public interface X3ML {
                 }
                 for (LinkElement linkElement : links) {
                     RootElement.linkCounter+=1;
-                    linkElement.apply(domain);
+                    if(!linkElement.skipLink()){
+                        linkElement.apply(domain);
+                    }
                 }
                 
             }
@@ -145,6 +147,9 @@ public interface X3ML {
         public PathElement path;
 
         public RangeElement range;
+        
+        @XStreamAsAttribute
+        public String skip;
 
         public void apply(Domain domain) {
             String pathSource = this.path.source_relation.relation.get(0).expression;
@@ -200,6 +205,15 @@ public interface X3ML {
                         Utils.printErrorMessages("ERROR FOUND: "+ex.toString());
                 }
             }
+        }
+        
+        public boolean skipLink(){
+            if(skip!=null){
+                if(skip.equalsIgnoreCase("true")){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

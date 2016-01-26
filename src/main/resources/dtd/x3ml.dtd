@@ -28,6 +28,9 @@
 <!ENTITY % comment SYSTEM "comment.dtd">
 %comment;
 <!ELEMENT link (path, range)>
+<!ATTLIST link
+	skip CDATA #IMPLIED
+>
 <!ELEMENT path (source_relation, target_relation, comments?)>
 <!ELEMENT source_relation ANY>
 <!ELEMENT target_relation (if*, property, (entity, property)*)>
