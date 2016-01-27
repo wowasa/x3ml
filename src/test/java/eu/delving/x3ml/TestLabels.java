@@ -57,4 +57,14 @@ public class TestLabels {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
+    
+    @Test
+    public void testLabelFromDomainOnlyWithoutRDFS() {
+        X3MLEngine engine = engine("/labels/mappings_withoutRDFS.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/labels/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/labels/expectedResult.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
 }
