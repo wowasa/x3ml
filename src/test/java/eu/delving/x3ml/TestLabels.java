@@ -52,7 +52,6 @@ public class TestLabels {
     public void testLabelFromDomainOnly() {
         X3MLEngine engine = engine("/labels/mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/labels/input.xml"),VALUE_POLICY);
-        output.writeXML(System.out);
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/labels/expectedResult.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
