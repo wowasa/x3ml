@@ -55,7 +55,6 @@ public class X3MLCommandLine {
     static final HelpFormatter HELP = new HelpFormatter();
     static Options options = new Options();
     private static final String ASSOCIATION_TABLE_PARAMETER_NAME="assocTable";
-    private static final String XML_MULTIPLE_INPUT_PARAMETER_NAME="xmlMany";
 
     static void error(String message) {
         HELP.setDescPadding(5);
