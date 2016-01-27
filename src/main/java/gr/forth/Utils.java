@@ -20,12 +20,15 @@ package gr.forth;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.atteo.xmlcombiner.XmlCombiner;
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -70,19 +73,21 @@ public class Utils {
         }
     }
     
-    public static Element parseMultipleXMLFiles(List<File> xmlFiles){
+    public static Element parseMultipleXMLFiles(List<File> xmlFiles) throws SAXException, ParserConfigurationException, IOException{
+        StringBuilder inputBuilder=new StringBuilder();
         try{
-            XmlCombiner combiner = new XmlCombiner();
             for(File file : xmlFiles){
-                combiner.combine(new FileInputStream(file));
+                BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+                String line;
+                while((line=br.readLine())!=null){
+                    inputBuilder.append(line).append("\n");
+                }
             }
-            return combiner.buildDocument().getDocumentElement();
-        }catch(ParserConfigurationException ex){
-            throw exception("an error occurred while initializing xml combiner (for multiple files)",ex);
         }catch(IOException ex){
-            throw exception("an error occured with the given input files", ex);
-        }catch(SAXException ex){
-            throw exception("an error occured while parsing XML input files",ex);
+            throw exception("Unable to read input file ",ex);
         }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        return factory.newDocumentBuilder().parse(IOUtils.toInputStream(inputBuilder.toString())).getDocumentElement();
     }
 }
