@@ -142,7 +142,15 @@ public class X3MLEngine {
                 ((XPathContext) namespaceContext).addNamespace(namespace.prefix, namespace.uri);
                 prefixes.add(namespace.prefix);
             }
+            this.addDefaultNamespaces();
         }
+    }
+    
+    private void addDefaultNamespaces(){
+        ((XPathContext) namespaceContext).addNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+        prefixes.add("rdf");
+        ((XPathContext) namespaceContext).addNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
+        prefixes.add("rdfs");
     }
 
     private class XPathContext implements NamespaceContext {
