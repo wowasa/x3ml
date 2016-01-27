@@ -20,10 +20,9 @@ package gr.forth;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Collection;
 import javax.xml.parsers.ParserConfigurationException;
 import org.atteo.xmlcombiner.XmlCombiner;
 import org.w3c.dom.Element;
@@ -70,7 +69,7 @@ public class Utils {
         }
     }
     
-    public static Element parseMultipleXMLFiles(List<InputStream> xmlFileInputStreams){
+    public static Element parseMultipleXMLFiles(Collection<InputStream> xmlFileInputStreams){
         try{
             XmlCombiner combiner = new XmlCombiner();
             for(InputStream xmlStream : xmlFileInputStreams){
