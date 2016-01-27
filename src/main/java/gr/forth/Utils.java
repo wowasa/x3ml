@@ -73,7 +73,7 @@ public class Utils {
         }
     }
     
-    public static Element parseMultipleXMLFiles(List<File> xmlFiles) throws SAXException, ParserConfigurationException, IOException{
+    public static Element parseMultipleXMLFiles(List<File> xmlFiles){
         StringBuilder inputBuilder=new StringBuilder();
         try{
             for(File file : xmlFiles){
@@ -83,11 +83,14 @@ public class Utils {
                     inputBuilder.append(line).append("\n");
                 }
             }
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            return factory.newDocumentBuilder().parse(IOUtils.toInputStream(inputBuilder.toString())).getDocumentElement();
         }catch(IOException ex){
             throw exception("Unable to read input file ",ex);
+        }catch(ParserConfigurationException | SAXException ex){
+            throw exception("Unable to parse input files ",ex);
         }
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        return factory.newDocumentBuilder().parse(IOUtils.toInputStream(inputBuilder.toString())).getDocumentElement();
+        
     }
 }
