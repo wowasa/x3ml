@@ -37,7 +37,10 @@ import java.io.PrintStream;
 import java.util.List;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
+import gr.forth.Utils;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Using commons-cli to make the engine usable on the command line.
@@ -69,8 +72,9 @@ public class X3MLCommandLine {
     public static void main(String[] args) {
         Option xml = new Option(
                 "xml", true,
-                "XML input records: -xml input.xml (@ = stdin)"
-        );
+                "XML input records.\n Option A-single file: -xml input.xml\n"
+                                   +" Option B-stdin: -xml @ \n"
+                                   +" Option C-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml");
         xml.setRequired(true);
         Option x3ml = new Option(
                 "x3ml", true,
@@ -87,7 +91,9 @@ public class X3MLCommandLine {
         );
         Option rdfFormat = new Option(
                 "format", true,
-                "Output format: -format application/n-triples, text/turtle, application/rdf+xml (default)"
+                "Output format. Options:\n -format application/n-triples\n "
+                                        +" -format text/turtle \n"
+                                        +" -format application/rdf+xml (default)"
         );
         Option validate = new Option(
                 "validate", false,
@@ -95,7 +101,7 @@ public class X3MLCommandLine {
         );
         Option uuidTestSize = new Option(
                 "uuidTestSize", true,
-                "Create a test UUID generator of the given size. Default is UUID from operating system"
+                "Create a test UUID generator of the given size. \n Default is UUID from operating system"
         );
         Option assocTable = new Option(
                 ASSOCIATION_TABLE_PARAMETER_NAME, true, 
@@ -193,7 +199,18 @@ public class X3MLCommandLine {
         if ("@".equals(xml)) {
             xmlElement = xml(System.in);
         }
-        else {
+        else if(xml.contains(",")){
+            Set<InputStream> listOfStreams=new HashSet<>();
+            try{
+                for(String filePath : xml.split(",")){
+                    listOfStreams.add(new FileInputStream(new File(filePath)));
+                }
+                xmlElement=Utils.parseMultipleXMLFiles(listOfStreams);
+            }catch(FileNotFoundException ex){
+                throw exception("Cannot find input files",ex);
+            }
+        }
+        else{
             xmlElement = xml(file(xml));
         }
         InputStream x3mlStream;
