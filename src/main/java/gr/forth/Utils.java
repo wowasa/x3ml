@@ -18,7 +18,19 @@ under the License.
 ==============================================================================*/
 package gr.forth;
 
+import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.apache.commons.io.IOUtils;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -59,5 +71,23 @@ public class Utils {
         for(String msg : messages){
             System.out.println(msg);
         }
+    }
+    
+    public static Element parseMultipleXMLFiles(List<File> xmlFiles) throws SAXException, ParserConfigurationException, IOException{
+        StringBuilder inputBuilder=new StringBuilder();
+        try{
+            for(File file : xmlFiles){
+                BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+                String line;
+                while((line=br.readLine())!=null){
+                    inputBuilder.append(line).append("\n");
+                }
+            }
+        }catch(IOException ex){
+            throw exception("Unable to read input file ",ex);
+        }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        return factory.newDocumentBuilder().parse(IOUtils.toInputStream(inputBuilder.toString())).getDocumentElement();
     }
 }
