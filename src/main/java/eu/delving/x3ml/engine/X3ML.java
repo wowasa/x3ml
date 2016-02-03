@@ -40,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import gr.forth.Utils;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
@@ -551,10 +552,10 @@ public interface X3ML {
         public InstanceInfo instanceInfo; // documentation purposes only
 
         @XStreamAlias("instance_generator")
-        public GeneratorElement instanceGenerator;
+        public InstanceGeneratorElement instanceGenerator;
 
         @XStreamImplicit
-        public List<GeneratorElement> labelGenerators;
+        public List<LabelGeneratorElement> labelGenerators;
 
         @XStreamImplicit
         public List<Additional> additionals;
@@ -627,14 +628,49 @@ public interface X3ML {
         public String content;
     }
 
+    public interface GeneratorElement{
+        public String getName();
+        public List<GeneratorArg> getArgs();
+    }
+    
     @XStreamAlias("label_generator")
-    public static class GeneratorElement extends Visible {
+    public static class LabelGeneratorElement extends Visible implements GeneratorElement {
 
         @XStreamAsAttribute
         public String name;
 
         @XStreamImplicit
         public List<GeneratorArg> args;
+        
+        @Override
+        public String getName(){
+            return this.name;
+        }
+        
+        @Override
+        public List<GeneratorArg> getArgs(){
+            return this.args;
+        }
+    }
+
+    @XStreamAlias("instance_generator")
+    public static class InstanceGeneratorElement extends Visible implements GeneratorElement{
+
+        @XStreamAsAttribute
+        public String name;
+
+        @XStreamImplicit
+        public List<GeneratorArg> args;
+        
+        @Override
+        public String getName(){
+            return this.name;
+        }
+        
+        @Override
+        public List<GeneratorArg> getArgs(){
+            return this.args;
+        }
     }
 
     @XStreamAlias("arg")

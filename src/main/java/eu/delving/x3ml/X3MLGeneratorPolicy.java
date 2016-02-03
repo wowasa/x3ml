@@ -118,7 +118,7 @@ public class X3MLGeneratorPolicy implements Generator {
     @Override
     public GeneratedValue generate(GeneratorElement generatorElem, ArgValues argValues) {
         String argDefaultValue="text";
-        String name=generatorElem.name;
+        String name=generatorElem.getName();
         if (name == null) {
             throw exception("Value function name missing");
         }

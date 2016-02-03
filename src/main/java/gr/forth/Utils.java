@@ -52,7 +52,7 @@ public class Utils {
         return new StringBuilder().append("LabelGenerator Error: ") 
                                   .append("The label generator with name ")
                                   .append("\"")
-                                  .append(generator.name)
+                                  .append(generator.getName())
                                   .append("\"")
                                   .append(" does not containg any value. ")
                                   .append("[Mapping #: ")

@@ -65,8 +65,8 @@ public class XPathInput {
     public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType) {
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
-        if (generatorElement.args != null) {
-            for (X3ML.GeneratorArg arg : generatorElement.args) {
+        if (generatorElement.getArgs() != null) {
+            for (X3ML.GeneratorArg arg : generatorElement.getArgs()) {
                 if (arg.name == null) {
 //                    throw exception("Argument needs a name in generator "+generatorElement.name);
                     arg.name = "text";
@@ -119,8 +119,8 @@ public class XPathInput {
         
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
-        if (generatorElement.args != null) {
-            for (X3ML.GeneratorArg arg : generatorElement.args) {
+        if (generatorElement.getArgs() != null) {
+            for (X3ML.GeneratorArg arg : generatorElement.getArgs()) {
                 if (arg.name == null) {
                     arg.name = "text";
                 }
