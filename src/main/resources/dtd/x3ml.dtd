@@ -38,6 +38,7 @@
 <!ELEMENT entity (class+, constant?, value_generator?, label_generator*, additional*)>
 <!ATTLIST entity
 	variable CDATA #IMPLIED
+	global_variable CDATA #IMPLIED
 >
 <!ELEMENT constant ANY>
 <!ELEMENT value_generator (arg*)>
