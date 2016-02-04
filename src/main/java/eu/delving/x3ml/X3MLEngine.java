@@ -28,6 +28,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import com.hp.hpl.jena.rdf.model.Model;
+import eu.delving.x3ml.engine.Domain;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.stream.StreamSource;
@@ -116,6 +117,7 @@ public class X3MLEngine {
         X3MLEngine.exceptionMessagesList="";  
         RootElement.mappingCounter=0;
         RootElement.linkCounter=0;
+        Domain.globalVariables.clear();
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import eu.delving.x3ml.engine.GeneratorContext;
+import eu.delving.x3ml.engine.VariableScope;
 import eu.delving.x3ml.engine.X3ML;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -152,12 +153,12 @@ public class TestConditions implements X3ML {
         }
 
         @Override
-        public GeneratedValue get(String variable) {
+        public GeneratedValue get(String variable, VariableScope scope) {
             return null;
         }
 
         @Override
-        public void put(String variable, GeneratedValue generatedValue) {
+        public void put(String variable, VariableScope scope, GeneratedValue generatedValue) {
         }
 
         @Override
