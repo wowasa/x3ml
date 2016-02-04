@@ -28,6 +28,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
+import eu.delving.x3ml.engine.X3ML.LabelGeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import gr.forth.Utils;
 import java.util.Set;
@@ -208,7 +209,7 @@ public class EntityResolver {
         }
     }
 
-    private List<LabelNode> createLabelNodes(List<GeneratorElement> generatorList) {
+    private List<LabelNode> createLabelNodes(List<LabelGeneratorElement> generatorList) {
         List<LabelNode> newLabelNodes = new ArrayList<LabelNode>();
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
@@ -237,12 +238,12 @@ public class EntityResolver {
         }
 
         public boolean resolve() {
-            if(generator.name.equals("prefLabel")){
+            if(generator.getName().equals("prefLabel")){
                 property = modelOutput.createProperty(new TypeElement("skos:prefLabel", "http://www.w3.org/2004/02/skos/core#"));
             }else{
                 property = modelOutput.createProperty(new TypeElement("rdfs:label", "http://www.w3.org/2000/01/rdf-schema#"));
             }
-            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.name);
+            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.getName());
             if (generatedValue == null) {
                 return false;
             }

@@ -101,7 +101,7 @@ public abstract class GeneratorContext {
                     }
                 });
                 GeneratedValue genArg=null;
-                if(generator.name.equalsIgnoreCase("Literal")){
+                if(generator.getName().equalsIgnoreCase("Literal")){
                     genArg = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType) {
