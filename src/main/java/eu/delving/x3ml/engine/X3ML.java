@@ -38,7 +38,6 @@ import eu.delving.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 
