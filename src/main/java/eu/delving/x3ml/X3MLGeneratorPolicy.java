@@ -181,6 +181,11 @@ public class X3MLGeneratorPolicy implements Generator {
                     sourceType = SourceType.valueOf(customArg.type);
                 }
                 ArgValue argValue = argValues.getArgValue(customArg.name, sourceType);
+                if(argValue==null){
+                    throw exception("Cannot find arg with name \""+customArg.name+"\""+
+                                    " in generator with name \""+generator.name+"\""+
+                                    "[Mapping: "+RootElement.mappingCounter+", Link: "+RootElement.linkCounter+"]");
+                }
                 instance.setArg(customArg.name, argValue.string);
             }
             String value = instance.getValue();
