@@ -38,7 +38,6 @@ import eu.delving.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 
@@ -544,6 +543,10 @@ public interface X3ML {
 
         @XStreamAsAttribute
         public String variable;
+        
+        @XStreamAsAttribute
+        @XStreamAlias("global_variable")
+        public String globalVariable;
 
         @XStreamImplicit
         public List<TypeElement> typeElements;
@@ -561,7 +564,7 @@ public interface X3ML {
         public List<Additional> additionals;
 
         public GeneratedValue getInstance(GeneratorContext context, String unique) {
-            return context.getInstance(instanceGenerator, variable, unique);
+            return context.getInstance(instanceGenerator, globalVariable, variable, unique);
         }
     }
 

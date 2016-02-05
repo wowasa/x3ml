@@ -114,6 +114,7 @@
 				<xs:element ref="additional" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute name="variable"/>
+			<xs:attribute name="global_variable"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="relationship" type="xs:string"/>

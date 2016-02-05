@@ -55,31 +55,31 @@ public abstract class GeneratorContext {
         this.index = index;
     }
 
-    public GeneratedValue get(String variable) {
+    public GeneratedValue get(String variable, VariableScope scope) {
         if (parent == null) {
             throw exception("Parent context missing");
         }
-        return parent.get(variable);
+        return parent.get(variable, scope);
     }
 
-    public void put(String variable, GeneratedValue generatedValue) {
+    public void put(String variable, VariableScope scope, GeneratedValue generatedValue) {
         if (parent == null) {
             throw exception("Parent context missing");
         }
-        parent.put(variable, generatedValue);
+        parent.put(variable, scope, generatedValue);
     }
 
     public String evaluate(String expression) {
         return context.input().valueAt(node, expression);
     }
 
-    public GeneratedValue getInstance(final GeneratorElement generator, String variable, String unique) {
+    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String unique) {
         if(generator == null){
             throw exception("Value generator missing");
         }
         GeneratedValue generatedValue;
-        if(variable != null){
-            generatedValue = get(variable);
+        if(globalVariable != null){
+            generatedValue = get(globalVariable, VariableScope.GLOBAL);
             if (generatedValue == null) {
                 generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                     @Override
@@ -87,7 +87,18 @@ public abstract class GeneratorContext {
                         return context.input().evaluateArgument(node, index, generator, name, sourceType);
                     }
                 });
-                put(variable, generatedValue);
+                put(globalVariable, VariableScope.GLOBAL, generatedValue);
+            }
+        }else if(variable != null){
+            generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
+            if (generatedValue == null) {
+                generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
+                    @Override
+                    public ArgValue getArgValue(String name, SourceType sourceType) {
+                        return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                    }
+                });
+                put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
             }
         }else{
             String nodeName = extractXPath(node) + unique;

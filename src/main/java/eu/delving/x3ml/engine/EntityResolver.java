@@ -243,7 +243,7 @@ public class EntityResolver {
             }else{
                 property = modelOutput.createProperty(new TypeElement("rdfs:label", "http://www.w3.org/2000/01/rdf-schema#"));
             }
-            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, "-" + generator.getName());
+            GeneratedValue generatedValue = generatorContext.getInstance(generator, null, null,"-" + generator.getName());
             if (generatedValue == null) {
                 return false;
             }

@@ -43,7 +43,8 @@ public class Domain extends GeneratorContext {
 
     public final DomainElement domain;
     public EntityResolver entityResolver;
-    private Map<String, X3ML.GeneratedValue> variables = new TreeMap<String, X3ML.GeneratedValue>();
+    private Map<String, X3ML.GeneratedValue> variables = new TreeMap<>();
+    public static Map<String, X3ML.GeneratedValue> globalVariables = new TreeMap<>();
 
     public Domain(Root.Context context, DomainElement domain, Node node, int index) {
         super(context, null, node, index);
@@ -51,13 +52,25 @@ public class Domain extends GeneratorContext {
     }
 
     @Override
-    public GeneratedValue get(String variable) {
-        return variables.get(variable);
+    public GeneratedValue get(String variable, VariableScope scope){
+        switch(scope){
+            case GLOBAL:
+                return globalVariables.get(variable);
+            case WITHIN_MAPPING:
+            default: 
+                return variables.get(variable);
+        }
     }
 
     @Override
-    public void put(String variable, GeneratedValue generatedValue) {
-        variables.put(variable, generatedValue);
+    public void put(String variable, VariableScope scope, GeneratedValue generatedValue){
+        switch(scope){
+            case GLOBAL:
+                globalVariables.put(variable, generatedValue);
+            case WITHIN_MAPPING:
+            default:
+                variables.put(variable, generatedValue);
+        }
     }
 
     public boolean resolve() {

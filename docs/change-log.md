@@ -1,7 +1,7 @@
 # Change Log
 
 ---
-## 27 Jan 2016: V 1.7.0 (by FORTH-ICS)
+## 05 Feb 2016: V 1.7.0 (by FORTH-ICS)
 * Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance (#33)
 * Fixed bug with the creation of xsd:DateTime instances (i.e. text nodes) (issue #37)
 * Fixed issue with the type of custom generators (issue #36)
@@ -12,7 +12,7 @@
 * NEW functionality for skipping entire mappings (issue #31) 
 * NEW functionality for skipping entire links (issue #39) 
 * NEW functionality for parsing multiple XML input files in a single run (issue #27)
-
+* NEW functionality - introduced global_variable for supporting global scope for variables (issue #34)
 
 
 ## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
