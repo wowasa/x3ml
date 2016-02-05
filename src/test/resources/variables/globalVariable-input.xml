@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot>
+    <COIN>
+        <ID>5</ID>
+        <MATERIAL_ID>SL1</MATERIAL_ID>
+    </COIN>
+	<MATERIAL>
+		<MATERIAL_NAME>Silver</MATERIAL_NAME>
+	</MATERIAL>
+</dataroot>
