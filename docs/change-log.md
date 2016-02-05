@@ -8,6 +8,7 @@
 * Fixed issue with the exported values from a join operation in the association table (issue #38)
 * Fixed issue with the generation of rdfs labels when the rdfs namespace is not declared  (issue #29)
 * Fixed issue with misleading messages with generators (confuses instance with label generators) (issue #42)
+* Fixed issue with NPE thrown when the arguments of a custom instance generator are invalid (issue #10)
 * Added a new LabelGenerator (for range of dates) and fixed some bugs with the date generators
 * NEW functionality for skipping entire mappings (issue #31) 
 * NEW functionality for skipping entire links (issue #39) 
