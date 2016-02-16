@@ -126,7 +126,8 @@ public class Domain extends GeneratorContext {
 
                     GeneratorContext.appendAssociationTable("/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]/" + intermediateFirst.replaceAll("//", "/"), context.input().valueAt(node, domainForeignKey + "/text()"));
                     GeneratorContext.appendAssociationTable("/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]//" + intermediateSecond.replaceAll("//", "/"), context.input().valueAt(rangeNode, rangePrimaryKey + "/text()"));
-                    GeneratorContext.appendAssociationTable(path.toStringAssoc()+"/"+domainForeignKey+"=="+range.toStringAssoc()+"/"+rangePrimaryKey+"-FOREIGNKEY", context.input().valueAt(rangeNode, rangePrimaryKey + "/text()"));
+                    GeneratorContext.appendAssociationTable(path.toStringAssoc()+"/"+domainForeignKey+"=="+"/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]/" + intermediateFirst.replaceAll("//", "/")+"-DJOIN_FOREIGNKEY", context.input().valueAt(node, domainForeignKey + "/text()"));
+                    GeneratorContext.appendAssociationTable("/"+node.getParentNode().getNodeName()+"[1]"+"/"+node_inside + "[" + count + "]//" + intermediateSecond.replaceAll("//", "/")+"=="+range.toStringAssoc()+"/"+rangePrimaryKey+"-DJOIN_FOREIGNKEY", context.input().valueAt(rangeNode, rangePrimaryKey + "/text()"));
                     
                     Link link = new Link(path, range);
                     if (link.resolve()) {
