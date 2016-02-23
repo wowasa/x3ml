@@ -547,6 +547,10 @@ public interface X3ML {
         @XStreamAsAttribute
         @XStreamAlias("global_variable")
         public String globalVariable;
+        
+        @XStreamAsAttribute
+        @XStreamAlias("type_aware_var")
+        public String type_aware_var;
 
         @XStreamImplicit
         public List<TypeElement> typeElements;
@@ -564,7 +568,7 @@ public interface X3ML {
         public List<Additional> additionals;
 
         public GeneratedValue getInstance(GeneratorContext context, String unique) {
-            return context.getInstance(instanceGenerator, globalVariable, variable, unique);
+            return context.getInstance(instanceGenerator, globalVariable, variable, type_aware_var, unique);
         }
     }
 
