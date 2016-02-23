@@ -22,7 +22,6 @@ import static eu.delving.x3ml.AllTests.compareNTriples;
 import static eu.delving.x3ml.AllTests.document;
 import static eu.delving.x3ml.AllTests.engine;
 import static eu.delving.x3ml.AllTests.errorFree;
-import static eu.delving.x3ml.AllTests.policy;
 import static eu.delving.x3ml.AllTests.xmlToNTriples;
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -42,9 +41,20 @@ public class TestVariables {
     public void testVariablesScopeWithinMapping() throws FileNotFoundException {
         X3MLEngine engine = engine("/variables/globalVariable-mappings.x3ml");
         X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
-        X3MLEngine.Output output = engine.execute(document("/variables/globalVariable-input.xml"),policy);
+        X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/variables/globalVariable-expectedOurput.rdf");
+        String[] expectedResult = xmlToNTriples("/variables/globalVariable-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testTypeAwareVars() throws FileNotFoundException {
+        X3MLEngine engine = engine("/variables/typeAwareVars-mappings.x3ml");
+        X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
+        X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/variables/typeAwareVars-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
