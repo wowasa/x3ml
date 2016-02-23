@@ -22,6 +22,7 @@ import eu.delving.x3ml.X3MLEngine;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.X3MLGeneratorPolicy;
 import eu.delving.x3ml.engine.Generator;
+import eu.delving.x3ml.engine.GeneratorContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,9 +39,10 @@ public class Example {
     
     public static void main(String[] args) throws FileNotFoundException,  IOException{       
         
-        final String MAPPINGS_PATH="example/mappings.x3ml";
-        final String GENERATOR_POLICY_PATH="example/generator-policy.xml";  //if empty, the generator will not be used
-        final String INPUT_PATH="example/input.xml";
+        final String MAPPINGS_PATH="example\\mappings.x3ml";
+        final String GENERATOR_POLICY_PATH="example\\generator-policy.xml";  //if empty, the generator will not be used
+        final String INPUT_PATH="example\\input.xml";
+        final String ASSOCIATION_TABLE_PATH="example\\association_table.xml"; ////if empty, the generator will not be used
         final int UUID_SIZE=2;
         final outputFormat OUT_FORMAT=outputFormat.RDF_XML;
         final outputStream OUT_STREAM=outputStream.SYSTEM_OUT;
@@ -84,6 +86,9 @@ public class Example {
                             break;
                         default:    //don't output
                 }break;
+        }
+        if(!ASSOCIATION_TABLE_PATH.isEmpty()){
+            GeneratorContext.exportAssociationTable(ASSOCIATION_TABLE_PATH);
         }
     }
     
