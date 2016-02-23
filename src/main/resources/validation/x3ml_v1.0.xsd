@@ -115,6 +115,7 @@
 			</xs:sequence>
 			<xs:attribute name="variable"/>
 			<xs:attribute name="global_variable"/>
+			<xs:attribute name="type_aware_var"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="relationship" type="xs:string"/>
