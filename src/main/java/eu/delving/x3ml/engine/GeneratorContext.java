@@ -73,7 +73,7 @@ public abstract class GeneratorContext {
         return context.input().valueAt(node, expression);
     }
 
-    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String unique) {
+    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {
         if(generator == null){
             throw exception("Value generator missing");
         }
@@ -89,40 +89,84 @@ public abstract class GeneratorContext {
                 });
                 put(globalVariable, VariableScope.GLOBAL, generatedValue);
             }
-        }else if(variable != null){
-            generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
-            if (generatedValue == null) {
-                generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
-                    @Override
-                    public ArgValue getArgValue(String name, SourceType sourceType) {
-                        return context.input().evaluateArgument(node, index, generator, name, sourceType);
-                    }
-                });
-                put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
-            }
-        }else{
-            String nodeName = extractXPath(node) + unique;
-            String xpathProper=extractAssocTableXPath(node);
-            generatedValue = context.getGeneratedValue(nodeName);
-            if (generatedValue == null) {
-                generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
-                    @Override
-                    public ArgValue getArgValue(String name, SourceType sourceType) {
-                        return context.input().evaluateArgument(node, index, generator, name, sourceType);
-                    }
-                });
-                GeneratedValue genArg=null;
-                if(generator.getName().equalsIgnoreCase("Literal")){
-                    genArg = context.policy().generate(generator, new Generator.ArgValues() {
+        }
+        else if(typeAwareVar != null){
+            if(variable!=null){
+                generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
+                if (generatedValue == null) {
+                    generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType) {
-                            return context.input().evaluateArgument2(node, index, generator, name, sourceType);
-
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
                         }
                     });
+                    put(variable,VariableScope.WITHIN_MAPPING, generatedValue);
+                    context.putGeneratedValue(extractXPath(node) + unique+"-"+typeAwareVar, generatedValue);
+                    this.createAssociationTable(generatedValue, null, extractAssocTableXPath(node));
                 }
-                context.putGeneratedValue(nodeName, generatedValue);
-                this.createAssociationTable(generatedValue, genArg, xpathProper);
+            }else{
+                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
+                String xpathProper=extractAssocTableXPath(node);
+                generatedValue = context.getGeneratedValue(nodeName);
+                if (generatedValue == null) {
+                    generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
+                        @Override
+                        public ArgValue getArgValue(String name, SourceType sourceType) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        }
+                    });
+                    GeneratedValue genArg=null;
+                    if(generator.getName().equalsIgnoreCase("Literal")){
+                        genArg = context.policy().generate(generator, new Generator.ArgValues() {
+                            @Override
+                            public ArgValue getArgValue(String name, SourceType sourceType) {
+                                return context.input().evaluateArgument2(node, index, generator, name, sourceType);
+
+                            }
+                        });
+                    }
+                    context.putGeneratedValue(nodeName, generatedValue);
+                    this.createAssociationTable(generatedValue, genArg, xpathProper);
+                }
+            }
+        }
+        else{
+            if(variable != null){
+                generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
+                if (generatedValue == null) {
+                    generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
+                        @Override
+                        public ArgValue getArgValue(String name, SourceType sourceType) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        }
+                    });
+                    put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
+                }
+            }
+            else{
+                String nodeName = extractXPath(node) + unique;
+                String xpathProper=extractAssocTableXPath(node);
+                generatedValue = context.getGeneratedValue(nodeName);
+                if (generatedValue == null) {
+                    generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
+                        @Override
+                        public ArgValue getArgValue(String name, SourceType sourceType) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        }
+                    });
+                    GeneratedValue genArg=null;
+                    if(generator.getName().equalsIgnoreCase("Literal")){
+                        genArg = context.policy().generate(generator, new Generator.ArgValues() {
+                            @Override
+                            public ArgValue getArgValue(String name, SourceType sourceType) {
+                                return context.input().evaluateArgument2(node, index, generator, name, sourceType);
+
+                            }
+                        });
+                    }
+                    context.putGeneratedValue(nodeName, generatedValue);
+                    this.createAssociationTable(generatedValue, genArg, xpathProper);
+                }
             }
         }
         if (generatedValue == null) {
