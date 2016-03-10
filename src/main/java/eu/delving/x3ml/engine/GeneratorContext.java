@@ -208,6 +208,10 @@ public abstract class GeneratorContext {
         writer.close();
     }
     
+    public static String exportAssociationTableToString(){
+        return AssociationTable.exportAll();
+    }
+    
     public String toString() {
         return extractXPath(node);
     }
