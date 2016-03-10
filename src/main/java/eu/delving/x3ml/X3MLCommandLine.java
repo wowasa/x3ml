@@ -38,6 +38,7 @@ import java.util.List;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
+import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,6 +56,7 @@ public class X3MLCommandLine {
     static final HelpFormatter HELP = new HelpFormatter();
     static Options options = new Options();
     private static final String ASSOCIATION_TABLE_PARAMETER_NAME="assocTable";
+    private static final String ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME="mergeAssocWithRDF";
 
     static void error(String message) {
         HELP.setDescPadding(5);
@@ -107,8 +109,12 @@ public class X3MLCommandLine {
                 ASSOCIATION_TABLE_PARAMETER_NAME, true, 
                 "export the contents of the association table in XML format"
         );
+        Option mergeAssocWithRDF = new Option(
+                ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME, false, 
+                "merge the contents of the association table with the RDF output"
+        );
         options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
-                .addOption(validate).addOption(uuidTestSize).addOption(assocTable);
+                .addOption(validate).addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
         try {
             CommandLine cli = PARSER.parse(options, args);
             int uuidTestSizeValue = -1;
@@ -123,6 +129,7 @@ public class X3MLCommandLine {
                     cli.getOptionValue("rdf"),
                     cli.getOptionValue("format"),
                     cli.getOptionValue(ASSOCIATION_TABLE_PARAMETER_NAME),
+                    cli.hasOption(ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME),
                     cli.hasOption("validate"),
                     uuidTestSizeValue
             );
@@ -194,7 +201,7 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean validate, int uuidTestSize) {
+    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean validate, int uuidTestSize) {
         Element xmlElement;
         if ("@".equals(xml)) {
             xmlElement = xml(System.in);
@@ -244,6 +251,13 @@ public class X3MLCommandLine {
             }catch(IOException ex){
                 exception("cannot export the contents of the association table",ex);
             }
+        }
+        if(mergeAssocTableWithRDF){
+            output.getModel().add(output.getModel().createResource(AssociationTableResources.ASSOCIATION_TABLE_ENTRY_URI,output.getModel().createResource(AssociationTableResources.ASSOCIATION_TABLE_ENTRY_CLASS)),
+                                  output.getModel().createProperty(AssociationTableResources.ASSOCIATION_TABLE_ENTRY_PROPERTY),
+                                  GeneratorContext.exportAssociationTableToString().replaceAll("\"", "'")
+                                                                                   .replace(AssociationTableResources.ASSOCIATION_TABLE_START_TAG, "")
+                                                                                   .replace(AssociationTableResources.ASSOCIATION_TABLE_END_TAG, ""));
         }
         output.write(rdf(rdf), rdfFormat);
     }
