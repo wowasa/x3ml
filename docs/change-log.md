@@ -1,6 +1,9 @@
 # Change Log
 
 ---
+## 10 Mar 2016: V 1.7.1 (by FORTH-ICS)
+* NEW functionality for merging the contents of the association table with the RDF output (#43)
+
 ## 23 Feb 2016: V 1.7.0 (by FORTH-ICS)
 * Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance (#33)
 * Fixed bug with the creation of xsd:DateTime instances (i.e. text nodes) (issue #37)
