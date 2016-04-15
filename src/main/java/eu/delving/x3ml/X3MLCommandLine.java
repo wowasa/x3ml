@@ -161,7 +161,8 @@ public class X3MLCommandLine {
             return document.getDocumentElement();
         }
         catch (Exception e) {
-            throw exception("Unable to parse XML input");
+            throw exception("Unable to parse XML input. \nDetailed log: "
+                            +e.toString()+"\n Please check that the XML Input file is valid");
         }
     }
 
