@@ -50,6 +50,10 @@ import java.util.TreeMap;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * The engine is created from an X3ML file which is loaded from an input stream.
@@ -80,11 +84,34 @@ public class X3MLEngine {
     }
 
     public static X3MLEngine load(InputStream inputStream) throws X3MLException {
-        RootElement rootElement = (RootElement) x3mlStream().fromXML(inputStream);
+        InputStream is=validateX3MLMappings(inputStream);
+        RootElement rootElement = (RootElement) x3mlStream().fromXML(is);
         if (!VERSION.equals(rootElement.version)) {
             throw exception("Incorrect X3ML Version "+rootElement.version+ ", expected "+VERSION);
         }
         return new X3MLEngine(rootElement);
+    }
+    
+    /*validate that the X3ML mappings file is a valid XML file */
+    private static InputStream validateX3MLMappings(InputStream inputStream) throws X3MLException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        try{
+            while ((len = inputStream.read(buffer)) > -1 ) {
+                baos.write(buffer, 0, len);
+            }
+            baos.flush();
+        }catch(IOException ex){
+            throw new X3MLException("Cannot read the contents of X3ML mappings file. Detailed log:\n"+ex.toString());
+        }
+        InputStream is = new ByteArrayInputStream(baos.toByteArray()); 
+        try{
+            DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+        }catch(IOException | ParserConfigurationException | SAXException ex){
+            throw new X3MLException("Cannot parse X3ML mappings file. Check that is is a valid XML file. Detailed log:\n"+ex.toString());
+        }
+        return new ByteArrayInputStream(baos.toByteArray());
     }
 
     public static void save(X3MLEngine engine, OutputStream outputStream) throws X3MLException {
