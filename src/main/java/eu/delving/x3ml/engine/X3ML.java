@@ -67,6 +67,7 @@ public interface X3ML {
     public static class RootElement extends Visible {
         public static int mappingCounter=0;
         public static int linkCounter=0;
+        public static boolean hasNamedGraphs=false;
 
         @XStreamAsAttribute
         public String version;
@@ -124,7 +125,7 @@ public interface X3ML {
                 for (LinkElement linkElement : links) {
                     RootElement.linkCounter+=1;
                     if(!linkElement.skipLink()){
-                        linkElement.apply(domain);
+                        linkElement.apply(domain,linkElement.namedgraph);
                     }
                 }
                 
@@ -150,8 +151,11 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String skip;
+        
+        @XStreamAsAttribute
+        public String namedgraph;
 
-        public void apply(Domain domain) {
+        public void apply(Domain domain,String namedgraph) {
             String pathSource = this.path.source_relation.relation.get(0).expression;
             String pathSource2 = "";
             String node_inside = "";
@@ -178,7 +182,7 @@ public interface X3ML {
 
                     for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey,
                             intermediateFirst, intermediateSecond, node_inside)) {
-                        link.range.link();
+                        link.range.link(namedgraph);
                     }
 
                 }
@@ -189,7 +193,7 @@ public interface X3ML {
                     String domainForeignKey = pathSource.substring(0, equals).trim();
                     String rangePrimaryKey = pathSource.substring(equals + 2).trim();
                         for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey)) {
-                            link.range.link();
+                            link.range.link(namedgraph);
                         }
                 }
             } 
@@ -197,7 +201,7 @@ public interface X3ML {
                 try{
                     for (Path path : domain.createPathContexts(this.path)) {
                         for (Range range : path.createRangeContexts(this.range)) {
-                            range.link();
+                            range.link(namedgraph);
                         }
                     }
                 }catch(X3MLEngine.X3MLException ex){
@@ -228,6 +232,9 @@ public interface X3ML {
 
     @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
     public static class Source extends Visible {
+        
+        @XStreamAsAttribute
+        public String skip;
 
         public String expression;
     }

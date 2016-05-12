@@ -73,8 +73,7 @@ public abstract class GeneratorContext {
         return context.input().valueAt(node, expression);
     }
 
-    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {
-        if(generator == null){
+    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {        if(generator == null){
             throw exception("Value generator missing");
         }
         GeneratedValue generatedValue;

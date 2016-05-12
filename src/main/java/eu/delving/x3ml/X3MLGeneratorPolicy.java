@@ -125,6 +125,9 @@ public class X3MLGeneratorPolicy implements Generator {
         if ("UUID".equals(name)) {
             return uriValue(uuidSource.generateUUID());
         }
+        if ("namedgraphURI".equals(name)) {
+            return uriValue(argValues.getArgValue("text", constant).string);
+        }
         if ("Literal".equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {

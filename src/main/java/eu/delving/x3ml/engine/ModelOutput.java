@@ -18,16 +18,25 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml.engine;
 
+import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
+import com.hp.hpl.jena.sparql.core.DatasetGraph;
+import com.hp.hpl.jena.sparql.core.DatasetGraphSimpleMem;
 import javax.xml.namespace.NamespaceContext;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static eu.delving.x3ml.X3MLEngine.Output;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * The output sent to a Jena graph model.
@@ -38,6 +47,7 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
  */
 public class ModelOutput implements Output {
 
+    public static final DatasetGraph quadGraph=new DatasetGraphSimpleMem();
     private final Model model;
     private final NamespaceContext namespaceContext;
 
@@ -116,7 +126,11 @@ public class ModelOutput implements Output {
     }
 
     public void writeXML(PrintStream out) {
-        model.write(out, "RDF/XML-ABBREV");
+        if(X3ML.RootElement.hasNamedGraphs){
+            this.writeQuads(out);
+        }else{
+            model.write(out, "RDF/XML-ABBREV");
+        }
     }
 
     public void writeNTRIPLE(PrintStream out) {
@@ -137,6 +151,17 @@ public class ModelOutput implements Output {
         } else {
             writeXML(out);
         }
+    }
+    
+    public void writeQuads(PrintStream out){
+        StmtIterator stIter=model.listStatements();
+        Node defgraph=new ResourceImpl("http://default").asNode();
+        while(stIter.hasNext()){
+            Statement st=stIter.next();
+            quadGraph.add(defgraph, st.getSubject().asNode(), st.getPredicate().asNode(), st.getObject().asNode());
+        }
+        RDFDataMgr.write(out, quadGraph, Lang.TRIG); // or NQUADS
+        
     }
 
     public String[] toStringArray() {

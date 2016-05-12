@@ -201,7 +201,6 @@ public class XPathInput {
     }
 
     public List<Node> nodeList(Node context, String expression) {
-
         if (expression == null || expression.length() == 0) {
             List<Node> list = new ArrayList<Node>(1);
             list.add(context);

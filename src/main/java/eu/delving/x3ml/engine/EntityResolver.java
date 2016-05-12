@@ -55,6 +55,7 @@ public class EntityResolver {
     public Literal literal;
     private boolean failed;
     public static int additionalCounter=1;
+    public static int namedGraphUriCounter=1;
 
     EntityResolver(ModelOutput modelOutput, X3ML.EntityElement entityElement, GeneratorContext generatorContext) {
         this.modelOutput = modelOutput;
@@ -68,7 +69,7 @@ public class EntityResolver {
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
     where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex) {
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -100,6 +101,10 @@ public class EntityResolver {
             }else if(unique.toString().contains("http://www.w3.org/2001/XMLSchema#dateTime") || unique.toString().contains("xsd:dateTime")){
                 uniqueValue="http://www.w3.org/2001/XMLSchema#dateTime";
             }
+            if(skip){
+                uniqueValue="NAMEDGRAPH_URI"+namedGraphUriCounter++;
+            }
+                
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
             if (generatedValue == null) {
                 failed = true;
@@ -192,7 +197,7 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0);
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false);
         }
 
         public void linkFrom(Resource fromResource) {

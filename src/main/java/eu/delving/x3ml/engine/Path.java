@@ -105,6 +105,9 @@ public class Path extends GeneratorContext {
         if (range.source_node.expression.equals(expression)) {
             expression = "";
         }
+        if(range.source_node.skip!=null && range.source_node.skip.equalsIgnoreCase("true")){    //namedgraphURI was given
+            expression="";
+        }
         List<Node> rangeNodes = context.input().nodeList(node, expression);
         List<Range> ranges = new ArrayList<Range>();
         int index = 1;
@@ -151,7 +154,7 @@ public class Path extends GeneratorContext {
 
         public boolean resolve() {
             entityResolver = new EntityResolver(context.output(), entityElement, generatorContext);
-            if (!entityResolver.resolve(0,this.intermediateNodeIndex)) {   
+            if (!entityResolver.resolve(0,this.intermediateNodeIndex, false)) {   
                 return false;
             }
             property = context.output().createProperty(relationship);

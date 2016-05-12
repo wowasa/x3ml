@@ -18,7 +18,9 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml.engine;
 
+import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import org.w3c.dom.Node;
 import static eu.delving.x3ml.engine.X3ML.RangeElement;
 
@@ -46,21 +48,31 @@ public class Range extends GeneratorContext {
             return false;
         }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        return rangeResolver.resolve(0,0);
+        return rangeResolver.resolve(0,0, false);
     }
 
-    public void link() {
+    public void link(String namedgraph) {
         path.link();
         if (rangeResolver.hasResources()) {
             rangeResolver.link();
             for (Resource lastResource : path.lastResources) {
                 for (Resource resolvedResource : rangeResolver.resources) {
                     lastResource.addProperty(path.lastProperty, resolvedResource);
+                    if(namedgraph!=null){
+                        X3ML.RootElement.hasNamedGraphs=true;
+                        ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
+                                lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
+                    }
                 }
             }
         } else if (rangeResolver.hasLiteral()) {
             for (Resource lastResource : path.lastResources) {
                 lastResource.addLiteral(path.lastProperty, rangeResolver.literal);
+                if(namedgraph!=null){
+                        X3ML.RootElement.hasNamedGraphs=true;
+                        ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
+                                lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
+                    }
             }
         }
     }
