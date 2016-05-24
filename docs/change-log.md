@@ -1,7 +1,8 @@
 # Change Log
 
 ---
-## 15 Apr 2016: V 1.7.1 (by FORTH-ICS)
+## 24 May 2016: V 1.7.1 (by FORTH-ICS)
+* Fixed bug with the generation of entities from attribute values in the XML input (#45)
 * Throw more infomative error messages if the XML input or the X3ML mappings file are not valid XML files (#44)
 * NEW functionality for merging the contents of the association table with the RDF output (#43)
 
