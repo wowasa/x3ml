@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot>
+    <COIN>
+        <ID key1="value100-1" key2="value100-2">100</ID>
+    </COIN>
+	<COIN>
+        <ID key1="value200-1" key2="value200-2">200</ID>
+    </COIN>
+</dataroot>
