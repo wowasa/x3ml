@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import static org.joox.JOOX.$;
+import org.w3c.dom.Attr;
 
 /**
  * This abstract class is above Domain, Path, and Range and carries most of
@@ -224,13 +225,19 @@ public abstract class GeneratorContext {
         if (node == null || node.getNodeType() == Node.DOCUMENT_NODE) {
             return "/";
         } else {
-            String soFar = extractXPath(node.getParentNode());
+            String soFar="";
             int sibNumber = 0;
-            Node sib = node;
-            while (sib.getPreviousSibling() != null) {
-                sib = sib.getPreviousSibling();
-                if (sib.getNodeType() == Node.ELEMENT_NODE) {
-                    sibNumber++;
+            if(node.getNodeType()==Node.ATTRIBUTE_NODE){
+                soFar= extractXPath(((Attr)node).getOwnerElement());
+            }else{
+                soFar = extractXPath(node.getParentNode());
+
+                Node sib = node;
+                while (sib.getPreviousSibling() != null) {
+                    sib = sib.getPreviousSibling();
+                    if (sib.getNodeType() == Node.ELEMENT_NODE) {
+                        sibNumber++;
+                    }
                 }
             }
             return String.format(
