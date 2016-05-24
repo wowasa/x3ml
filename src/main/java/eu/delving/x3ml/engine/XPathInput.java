@@ -116,7 +116,6 @@ public class XPathInput {
     }
     
     public X3ML.ArgValue evaluateArgument2(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType) {
-        
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
         if (generatorElement.getArgs() != null) {
