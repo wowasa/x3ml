@@ -6,10 +6,10 @@
         >
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>eu.delving</groupId>
-    <artifactId>x3ml</artifactId>
+    <groupId>gr.forth.ics.isl</groupId>
+    <artifactId>x3ml-engine</artifactId>
     <packaging>jar</packaging>
-    <name>X3ML</name>
+    <name>X3ML-Engine</name>
     <version>1.7.1-SNAPSHOT</version>
     <inceptionYear>2013</inceptionYear>
     <organization>
