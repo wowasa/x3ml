@@ -103,7 +103,7 @@ public class Root {
         for (Node domainNode : domainNodes) {
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
-                if (domainContext.resolve()) {
+                if (domainContext.resolve("")) {
                     domains.add(domainContext);
                 } 
             }catch(X3MLEngine.X3MLException ex){

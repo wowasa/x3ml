@@ -48,10 +48,10 @@ public class Range extends GeneratorContext {
             return false;
         }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        return rangeResolver.resolve(0,0, false,"");
+        return rangeResolver.resolve(0,0, false,"","");
     }
 
-    public void link(String namedgraph) {
+    public void link(String namedgraph, String mappingNamedgraph) {
         path.link();
         if (rangeResolver.hasResources()) {
             rangeResolver.link();
@@ -62,6 +62,20 @@ public class Range extends GeneratorContext {
                         X3ML.RootElement.hasNamedGraphs=true;
                         ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
                                 lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
+                        ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
+                                resolvedResource.asNode(), new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(), 
+//                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
+                                new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
+                    }
+                    if(mappingNamedgraph!=null){
+                        X3ML.RootElement.hasNamedGraphs=true;
+                        ModelOutput.quadGraph.add(new ResourceImpl(mappingNamedgraph).asNode(), 
+                                lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
+                        ModelOutput.quadGraph.add(new ResourceImpl(mappingNamedgraph).asNode(), 
+                                resolvedResource.asNode(), new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(), 
+                                
+//                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
+                                new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
                     }
                 }
             }
@@ -72,7 +86,12 @@ public class Range extends GeneratorContext {
                         X3ML.RootElement.hasNamedGraphs=true;
                         ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
                                 lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
-                    }
+                }
+                if(mappingNamedgraph!=null){
+                     X3ML.RootElement.hasNamedGraphs=true;
+                     ModelOutput.quadGraph.add(new ResourceImpl(namedgraph).asNode(), 
+                                lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
+                 }
             }
         }
     }

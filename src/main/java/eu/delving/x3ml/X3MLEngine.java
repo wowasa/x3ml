@@ -69,7 +69,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class X3MLEngine {
     private static final String VERSION = "1.0";
     private RootElement rootElement;
-    private NamespaceContext namespaceContext = new XPathContext();
+    public NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<String>();
     public static String exceptionMessagesList="";
 

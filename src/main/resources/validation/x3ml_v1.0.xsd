@@ -70,6 +70,7 @@
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
+						<xs:attribute name="namedgraph"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="comments" type="commentsType" minOccurs="0"/>

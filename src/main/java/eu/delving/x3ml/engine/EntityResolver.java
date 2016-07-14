@@ -47,7 +47,7 @@ import java.util.TreeSet;
  */
 public class EntityResolver {
 
-    public final ModelOutput modelOutput;
+    public static ModelOutput modelOutput;
     public final X3ML.EntityElement entityElement;
     public final GeneratorContext generatorContext;
     public List<LabelNode> labelNodes;
@@ -59,7 +59,7 @@ public class EntityResolver {
     public static int namedGraphUriCounter=1;
 
     EntityResolver(ModelOutput modelOutput, X3ML.EntityElement entityElement, GeneratorContext generatorContext) {
-        this.modelOutput = modelOutput;
+        EntityResolver.modelOutput = modelOutput;
         this.entityElement = entityElement;
         this.generatorContext = generatorContext;
     }
@@ -70,7 +70,7 @@ public class EntityResolver {
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
     where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, String domainNamedGraph) {
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, String domainNamedGraph, String mappingNamedGraph) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -118,7 +118,16 @@ public class EntityResolver {
                         for (TypeElement typeElement : entityElement.typeElements) {
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                             if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
-                                ModelOutput.quadGraph.add(new ResourceImpl(domainNamedGraph).asNode(), new ResourceImpl(generatedValue.text).asNode(), new ResourceImpl("rdf:type").asNode(), new ResourceImpl(typeElement.getPrefix()+typeElement.getLocalName()).asNode());
+                                ModelOutput.quadGraph.add(new ResourceImpl(domainNamedGraph).asNode(), 
+                                        new ResourceImpl(generatedValue.text).asNode(), 
+                                        new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
+                                        new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
+                            }
+                            if(mappingNamedGraph!=null && !mappingNamedGraph.isEmpty()){
+                                ModelOutput.quadGraph.add(new ResourceImpl(mappingNamedGraph).asNode(),
+                                        new ResourceImpl(generatedValue.text).asNode(), 
+                                        new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
+                                        new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
                             }
                         }
                     }
@@ -201,7 +210,7 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false,"");
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false,"","");
         }
 
         public void linkFrom(Resource fromResource) {

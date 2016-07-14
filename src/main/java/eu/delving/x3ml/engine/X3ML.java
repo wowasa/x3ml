@@ -106,6 +106,9 @@ public interface X3ML {
         @XStreamAsAttribute
         public String skip;
         
+        @XStreamAsAttribute
+        public String namedgraph;
+        
         public DomainElement domain;
 
         @XStreamImplicit
@@ -114,7 +117,7 @@ public interface X3ML {
         public void apply(Root context) {
             for (Domain domain : context.createDomainContexts(this.domain)) {
                 RootElement.linkCounter=0;
-                domain.resolve();
+                domain.resolve(namedgraph);
                 /*The following is necessary for the cases were there are no links or 
                 the links are not evaluated (the xpaths are note evaluated).
                 The following directive will link resources with labels found in the domain*/
@@ -125,7 +128,7 @@ public interface X3ML {
                 for (LinkElement linkElement : links) {
                     RootElement.linkCounter+=1;
                     if(!linkElement.skipLink()){
-                        linkElement.apply(domain,linkElement.namedgraph);
+                        linkElement.apply(domain,linkElement.namedgraph, namedgraph);
                     }
                 }
                 
@@ -155,7 +158,7 @@ public interface X3ML {
         @XStreamAsAttribute
         public String namedgraph;
 
-        public void apply(Domain domain,String namedgraph) {
+        public void apply(Domain domain,String namedgraph, String mappingNamedGraph) {
             String pathSource = this.path.source_relation.relation.get(0).expression;
             String pathSource2 = "";
             String node_inside = "";
@@ -182,7 +185,7 @@ public interface X3ML {
 
                     for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey,
                             intermediateFirst, intermediateSecond, node_inside)) {
-                        link.range.link(namedgraph);
+                        link.range.link(namedgraph, mappingNamedGraph);
                     }
 
                 }
@@ -193,7 +196,7 @@ public interface X3ML {
                     String domainForeignKey = pathSource.substring(0, equals).trim();
                     String rangePrimaryKey = pathSource.substring(equals + 2).trim();
                         for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey)) {
-                            link.range.link(namedgraph);
+                            link.range.link(namedgraph, mappingNamedGraph);
                         }
                 }
             } 
@@ -201,7 +204,7 @@ public interface X3ML {
                 try{
                     for (Path path : domain.createPathContexts(this.path)) {
                         for (Range range : path.createRangeContexts(this.range)) {
-                            range.link(namedgraph);
+                            range.link(namedgraph, mappingNamedGraph);
                         }
                     }
                 }catch(X3MLEngine.X3MLException ex){

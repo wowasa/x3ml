@@ -59,6 +59,18 @@ public class ModelOutput implements Output {
     public Model getModel() {
         return model;
     }
+    
+    public String getNamespace(TypeElement typeElement){
+        if (typeElement == null) {
+            throw exception("Missing qualified name");
+        }
+        if (typeElement.getLocalName().startsWith("http:")){
+            return typeElement.getLocalName();
+        }else{
+            String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            return typeElementNamespace+typeElement.getLocalName();
+        }
+    }
 
     public Resource createTypedResource(String uriString, TypeElement typeElement) {
         if (typeElement == null) {

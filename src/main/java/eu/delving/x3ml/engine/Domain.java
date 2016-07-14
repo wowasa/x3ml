@@ -73,13 +73,13 @@ public class Domain extends GeneratorContext {
         }
     }
 
-    public boolean resolve() {
+    public boolean resolve(String mappingNamedGraph) {
         if (conditionFails(domain.target_node.condition, this)) {
             return false;
         }
         entityResolver = new EntityResolver(context.output(), domain.target_node.entityElement, this);
         boolean skip=domain.source_node.skip!=null && domain.source_node.skip.equalsIgnoreCase("true");
-        return entityResolver.resolve(0,0, skip, this.domain.namedgraph);
+        return entityResolver.resolve(0,0, skip, this.domain.namedgraph, mappingNamedGraph);
     }
 
     public List<Link> createLinkContexts(LinkElement linkElement, String domainForeignKey, String rangePrimaryKey,

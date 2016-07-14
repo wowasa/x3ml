@@ -5,7 +5,7 @@
 		<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
 	</namespaces>
 	<mappings>
-		<mapping>
+		<mapping namedgraph="http://graph3">
 			<domain namedgraph="http://graph2">
 				<source_node>//book</source_node>
 				<target_node>
