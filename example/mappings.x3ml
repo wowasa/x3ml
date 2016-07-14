@@ -6,7 +6,7 @@
 	</namespaces>
 	<mappings>
 		<mapping>
-			<domain>
+			<domain namedgraph="http://graph2">
 				<source_node>//book</source_node>
 				<target_node>
                     <entity>

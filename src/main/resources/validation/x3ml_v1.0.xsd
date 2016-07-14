@@ -36,6 +36,7 @@
 													<xs:element name="comments" type="commentsType" minOccurs="0"/>
 												</xs:sequence>
 												<xs:attribute name="repeated"/>
+												<xs:attribute name="namedgraph"/>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="link" minOccurs="0" maxOccurs="unbounded">

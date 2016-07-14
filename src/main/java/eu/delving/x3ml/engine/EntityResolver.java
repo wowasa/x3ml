@@ -21,6 +21,7 @@ package eu.delving.x3ml.engine;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import eu.delving.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class EntityResolver {
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
     where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip) {
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, String domainNamedGraph) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -116,6 +117,9 @@ public class EntityResolver {
                         resources = new ArrayList<Resource>();
                         for (TypeElement typeElement : entityElement.typeElements) {
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
+                            if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
+                                ModelOutput.quadGraph.add(new ResourceImpl(domainNamedGraph).asNode(), new ResourceImpl(generatedValue.text).asNode(), new ResourceImpl("rdf:type").asNode(), new ResourceImpl(typeElement.getPrefix()+typeElement.getLocalName()).asNode());
+                            }
                         }
                     }
                     labelNodes = createLabelNodes(entityElement.labelGenerators);
@@ -197,7 +201,7 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false);
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false,"");
         }
 
         public void linkFrom(Resource fromResource) {

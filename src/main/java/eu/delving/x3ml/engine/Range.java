@@ -48,7 +48,7 @@ public class Range extends GeneratorContext {
             return false;
         }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        return rangeResolver.resolve(0,0, false);
+        return rangeResolver.resolve(0,0, false,"");
     }
 
     public void link(String namedgraph) {

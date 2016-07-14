@@ -247,6 +247,9 @@ public interface X3ML {
         public TargetNode target_node;
 
         public Comments comments;
+        
+        @XStreamAsAttribute
+        public String namedgraph;
     }
 
     @XStreamAlias("target_relation")
