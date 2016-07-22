@@ -76,7 +76,8 @@ public class X3MLCommandLine {
                 "xml", true,
                 "XML input records.\n Option A-single file: -xml input.xml\n"
                                    +" Option B-stdin: -xml @ \n"
-                                   +" Option C-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml");
+                                   +" Option C-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml\n"
+                                   +" Option D-folder: -xml #_folder_path\n");
         xml.setRequired(true);
         Option x3ml = new Option(
                 "x3ml", true,
@@ -202,9 +203,11 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean validate, int uuidTestSize) {
+    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean validate, int uuidTestSize) throws Exception {
+        final String INPUT_FOLDER_PREFIX="#_";
+        final String INPUT_PIPED="@";
         Element xmlElement;
-        if ("@".equals(xml)) {
+        if (INPUT_PIPED.equals(xml)) {
             xmlElement = xml(System.in);
         }
         else if(xml.contains(",")){
@@ -217,6 +220,8 @@ public class X3MLCommandLine {
             }catch(FileNotFoundException ex){
                 throw exception("Cannot find input files",ex);
             }
+        }else if(xml.startsWith(INPUT_FOLDER_PREFIX)){
+            xmlElement=Utils.parseFolderWithXmlFiles(xml.replace(INPUT_FOLDER_PREFIX, ""));
         }
         else{
             xmlElement = xml(file(xml));

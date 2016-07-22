@@ -20,9 +20,12 @@ package gr.forth;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.HashSet;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.atteo.xmlcombiner.XmlCombiner;
@@ -70,6 +73,22 @@ public class Utils {
         for(String msg : messages){
             LOGGER.error(msg.replaceAll("(?m)^[ \t]*\r?\n", ""));
         }
+    }
+    
+    public static Element parseFolderWithXmlFiles(String folderPath) throws Exception{
+        File folder=new File(folderPath);
+        if(!folder.isDirectory()){
+            throw new Exception("The given path (\""+folderPath+"\") does not correspond to a directory");
+        }
+        Collection<InputStream> xmlInputFilesCollection=new HashSet<>();
+        for(File file : folder.listFiles()){
+            if(file.getName().toLowerCase().endsWith("xml")){
+                xmlInputFilesCollection.add(new FileInputStream(file));
+            }else{
+                LOGGER.debug("Skipping file \""+file.getPath()+"\" - It might not be an XML file");
+            }
+        }
+        return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
     }
     
     public static Element parseMultipleXMLFiles(Collection<InputStream> xmlFileInputStreams){
