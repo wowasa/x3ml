@@ -85,7 +85,7 @@ public class Utils {
             if(file.getName().toLowerCase().endsWith("xml")){
                 xmlInputFilesCollection.add(new FileInputStream(file));
             }else{
-                //print debug message
+                LOGGER.debug("Skipping file \""+file.getPath()+"\" - It might not be an XML file");
             }
         }
         return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
