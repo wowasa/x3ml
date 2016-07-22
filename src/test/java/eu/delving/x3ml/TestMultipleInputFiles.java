@@ -66,4 +66,18 @@ public class TestMultipleInputFiles {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    /*Use this to avoid situations like the ones in #49 */
+    @Test
+    public void testUsingMultipleFilesAvoidMerging() throws FileNotFoundException {
+        List<InputStream> LIST_OF_INPUT_STREAMS=Arrays.asList(resource("/multiple_input_files/input3.xml"),
+                                                              resource("/multiple_input_files/input4.xml"));
+        X3MLEngine engine = engine("/multiple_input_files/mappings.x3ml");
+        X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
+        X3MLEngine.Output output = engine.execute(Utils.parseMultipleXMLFiles(LIST_OF_INPUT_STREAMS),policy);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/multiple_input_files/expectedOutput2.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
