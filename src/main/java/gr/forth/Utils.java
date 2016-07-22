@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.log4j.Logger;
 import org.atteo.xmlcombiner.XmlCombiner;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -33,6 +34,8 @@ import org.xml.sax.SAXException;
  * @author Nikos Minadakis (minadakn 'at' ics 'dot' forth 'dot' gr)
  */
 public class Utils {
+    private static final Logger LOGGER=Logger.getLogger(Utils.class);
+    
     public static String produceLabelGeneratorMissingArgumentError(X3ML.GeneratorElement generator, String expectedValue){
         return new StringBuilder().append("LabelGenerator Error: ")
                                   .append("The attribute ")
@@ -65,7 +68,7 @@ public class Utils {
     
     public static void printErrorMessages(String ... messages){
         for(String msg : messages){
-            System.out.println(msg);
+            LOGGER.error(msg);
         }
     }
     
