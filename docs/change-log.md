@@ -2,6 +2,7 @@
 
 ---
 ## 22 July 2016: V 1.7.2 (by FORTH-ICS)
+* Fixed a bug that was raised with multiple input files (#49)
 * Changed the hard-coded way of reporting error messages with a configurable that exploits loggers (#48)
 * NEW functionality for using an entire folder (contain XML files) as input  (#47)
 
