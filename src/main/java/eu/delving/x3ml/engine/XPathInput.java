@@ -258,7 +258,7 @@ public class XPathInput {
             for (Node node : nodeList(context, rangeExpression)) {
                 String key = valueAt(node, rangeKeyPath);
                 if(key.isEmpty()){
-                    Utils.printErrorMessages("ERROR FOUND: Empty value for \""+rangeExpression+"/"+rangeKeyPath+"\"\t The node from the input XML is:\n"+$(node).toString());
+                    Utils.printErrorMessages("Empty value for \""+rangeExpression+"/"+rangeKeyPath+"\"\t The node from the input XML is:\n"+$(node).toString());
                 }
                 List<Node> value = map.get(key);
                 

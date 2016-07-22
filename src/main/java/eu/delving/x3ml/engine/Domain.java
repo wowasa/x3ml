@@ -108,7 +108,7 @@ public class Domain extends GeneratorContext {
                 
                 String intermediateValue=context.input().valueAt(node, node_inside + "[" + count + "]//" + intermediateSecond + "/text()");
                 if(intermediateValue.isEmpty()){
-                    Utils.printErrorMessages("ERROR FOUND: Empty value for "+node_inside+"/"+intermediateSecond+". The node from the XML input is:\n"+$(node).toString());
+                    Utils.printErrorMessages("Empty value for "+node_inside+"/"+intermediateSecond+". The node from the XML input is:\n"+$(node).toString());
                 }
                 List<Node> rangeNodes = context.input().rootNodeList(
                         domain.source_node.expression,

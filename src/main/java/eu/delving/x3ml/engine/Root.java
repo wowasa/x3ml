@@ -108,7 +108,8 @@ public class Root {
                 } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
-                Utils.printErrorMessages("ERROR FOUND: "+ex.toString());
+               
+                Utils.printErrorMessages(ex.getMessage());
             }
         }
         return domains;
