@@ -1,6 +1,10 @@
 # Change Log
 
 ---
+## 22 July 2016: V 1.7.2 (by FORTH-ICS)
+* Changed the hard-coded way of reporting error messages with a configurable that exploits loggers (#48)
+* NEW functionality for using an entire folder (contain XML files) as input  (#47)
+
 ## 1 July 2016: V 1.7.1 (by FORTH-ICS)
 * Fixed bug with the generation of entities from attribute values in the XML input (#45)
 * Throw more infomative error messages if the XML input or the X3ML mappings file are not valid XML files (#44)
