@@ -175,11 +175,6 @@
             <artifactId>X3ML_reverse_utils</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.atteo</groupId>
-            <artifactId>xml-combiner</artifactId>
-            <version>2.2</version>
-        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
