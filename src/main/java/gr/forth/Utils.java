@@ -68,7 +68,7 @@ public class Utils {
     
     public static void printErrorMessages(String ... messages){
         for(String msg : messages){
-            LOGGER.error(msg);
+            LOGGER.error(msg.replaceAll("(?m)^[ \t]*\r?\n", ""));
         }
     }
     
