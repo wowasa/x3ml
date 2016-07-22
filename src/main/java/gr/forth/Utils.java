@@ -26,10 +26,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
-import org.atteo.xmlcombiner.XmlCombiner;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
@@ -93,17 +96,28 @@ public class Utils {
     
     public static Element parseMultipleXMLFiles(Collection<InputStream> xmlFileInputStreams){
         try{
-            XmlCombiner combiner = new XmlCombiner();
-            for(InputStream xmlStream : xmlFileInputStreams){
-                combiner.combine(xmlStream);
+            Document masterDoc=DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            for(InputStream is : xmlFileInputStreams){
+                if(masterDoc.getDocumentElement()==null){   //only for the first file
+                    masterDoc=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+                }else{
+                    Document singleDoc=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+                    Element rootElement=singleDoc.getDocumentElement();
+                    if(!rootElement.getNodeName().equals(masterDoc.getDocumentElement().getNodeName())){
+                        throw exception("The given XML input files have different root nodes: ["
+                                       +rootElement.getNodeName()+" , "+masterDoc.getDocumentElement().getNodeName()
+                                       +"]");
+                    }
+                    NodeList children=rootElement.getChildNodes();
+                    for(int i=0;i<children.getLength();i++){
+                        Node childClone=masterDoc.importNode(children.item(i), true);
+                        masterDoc.getDocumentElement().appendChild(childClone);
+                    }
+                }
             }
-            return combiner.buildDocument().getDocumentElement();
-        }catch(ParserConfigurationException ex){
-            throw exception("an error occurred while initializing xml combiner (for multiple files)",ex);
-        }catch(IOException ex){
-            throw exception("an error occured with the given input files", ex);
-        }catch(SAXException ex){
-            throw exception("an error occured while parsing XML input files",ex);
+            return masterDoc.getDocumentElement();
+        }catch(ParserConfigurationException | IOException | SAXException ex){
+            throw exception("An error occured while concatenating XML documents");
         }
     }
 }
