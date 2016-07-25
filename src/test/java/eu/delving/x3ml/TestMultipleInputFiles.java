@@ -33,6 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -79,5 +80,20 @@ public class TestMultipleInputFiles {
         String[] expectedResult = xmlToNTriples("/multiple_input_files/expectedOutput2.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    /*Concatenating multiple xml input files is valid only if the given xml input files have the same root element*/
+    @Test
+    public void testUsingMultipleFilesCheckError() throws FileNotFoundException {
+        List<InputStream> LIST_OF_INPUT_STREAMS=Arrays.asList(resource("/multiple_input_files/input1_err.xml"),
+                                                              resource("/multiple_input_files/input2_err.xml"));
+        X3MLEngine engine = engine("/multiple_input_files/mappings.x3ml");
+        X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
+        try{
+            X3MLEngine.Output output = engine.execute(Utils.parseMultipleXMLFiles(LIST_OF_INPUT_STREAMS),policy);
+            fail("Concatenating multiple xml input files is valid only if the given xml input files have the same root element");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Successfully caught excpetion",true);
+        }
     }
 }
