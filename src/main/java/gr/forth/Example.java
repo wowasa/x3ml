@@ -42,7 +42,7 @@ public class Example {
         final String MAPPINGS_PATH="example\\mappings.x3ml";
         final String GENERATOR_POLICY_PATH="example\\generator-policy.xml";  //if empty, the generator will not be used
         final String INPUT_PATH="example\\input.xml";
-        final String ASSOCIATION_TABLE_PATH="example\\association_table.xml"; ////if empty, the generator will not be used
+        final String ASSOCIATION_TABLE_PATH=""; ////if empty, the generator will not be used
         final int UUID_SIZE=2;
         final outputFormat OUT_FORMAT=outputFormat.RDF_XML;
         final outputStream OUT_STREAM=outputStream.SYSTEM_OUT;
