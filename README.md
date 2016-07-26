@@ -8,13 +8,13 @@ The X3ML engine handles the URI generation and the data transformation steps of 
 
 The X3ML mapping definition language is an XML based language which describes schema mappings in such a way that they can be collaboratively created and discussed by experts. The X3ML language was designed on the basis of work that started in FORTH in 2006 and emphasizes on establishing a standardized mapping description which lends itself to collaboration and the building of a mapping memory to accumulate knowledge and experience. It was adapted primarily to be more according to the DRY principle (avoiding repetition) and to be more explicit in its contract with the URI Generating process. X3ML separates schema mapping from the concern of generating proper URIs so that different expertise can be applied to these two very different responsibilities.
 
-* **[X3ML Language](https://github.com/delving/x3ml/blob/master/docs/x3ml-language.md)** - the mapping language
+* **[X3ML Language](https://github.com/isl/x3ml/blob/master/docs/x3ml-language.md)** - the mapping language
 
 ## Development
 
 This project is a straightforward Maven 3 project, producing a single artifact in the form of a JAR file which contains the engine software.  The artifact will be used in a variety of different contexts, so the main focus of this project is to create exhaustively tested transformation engine.  Examples of input and expected output have been prepared by the participating organizations.
 
-* **[Change Log](https://github.com/delving/x3ml/blob/master/docs/change-log.md)** - Changes between versions
+* **[Change Log](https://github.com/isl/x3ml/blob/master/docs/change-log.md)** - Changes between versions
 
 
 ## Design Principles
