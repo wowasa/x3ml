@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <book>
+	<book_id>Uka Obr. 47:38</book_id>
+	<book_title>IACOB(VS) FOROLIVIENSIS</book_title>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+  </book>
+    <book> 
+	<book_id>moglis</book_id>
+	<book_title>to vivlio tis zouglas</book_title>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+  </book> 
+    <textblock>
+    <libris_id>12098635</libris_id>
+    <author>Jacopo de Forlivio</author>
+	<title>Iacobi Foroliviensis medic singvlaris</title>
+	<printing_place>Venedig</printing_place>
+	<printer>Giunta</printer>
+	<printing_year>1547</printing_year>
+	<book_id>Uka Obr. 47:38</book_id>
+  </textblock>
+  <textblock>
+    <libris_id>1</libris_id>
+    <author>tarzan</author>
+	<title>o moglis kai to vilvio tis zouglas</title>
+	<printing_place>zougla</printing_place>
+	<printer>tarzan</printer>
+	<printing_year>2000</printing_year>
+	<book_id>moglis</book_id>
+  </textblock>
+  <origin>
+    <bookbinder>Jakob Preisger</bookbinder>
+    <signature>I P</signature>
+	<country>Germany</country>
+	<town>Wurzburg</town>
+	<date>1582</date>
+	<book_id>Uka Obr. 47:38</book_id> 
+  </origin>
+  <provenance>
+    <name>Echter von Mespelbrunn, Julius</name>
+    <role>former owner</role>
+	<book_id>Uka Obr. 47:38</book_id>
+  </provenance>
+  <exlibris>
+	<transcription>IVLIVS DEI GRA(TIA) DVX 1582</transcription>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+	<book_id>Uka Obr. 47:38</book_id>
+  </exlibris>
+</root>
