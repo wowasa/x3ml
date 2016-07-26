@@ -120,15 +120,32 @@ The relationship URI is specified either with a prefix (defined above in *namesp
 
 ### Variables
 
-**TODO: this has changed**
-
 Sometimes it is necessary to generate an instance in X3ML only once for a given input record, and re-use it in a number of locations in the mapping.  For example, in the example above for Intermediate Nodes there is a value **PRODUCTION** (a production event) introduced.  It could be that several different mappings in the same X3ML file need to re-use this single production event for attaching several things to it.  In these cases, an entity can be assigned to a variable:
+```
+<entity variable="p1">
+    [generate the value]
+</entity>
+```
+Entity blocks with their variables set will only generate the associated values once, and then re-use it whenever the variable name (in this cases *p1*) is used again, in the scope of the whole X3ML file.
 
-	<entity variable="p1">
-	    [generate the value]
-	</entity>
+X3ML supports 3 different types of variables: (a) simple variables, (b) global variables and (c) type-aware variables. Below we describe their functionality and their differences.
 
-Entity blocks with their variables set will only generate the associated values once, and then re-use it whenever the variable name (in this caes *p1*) is used again, in the scope of the whole X3ML file.
+#### Variables
+Variables are valid in the context of a mapping. Practically this means that whenever they are used inside a single mapping, the values of the corresponding entities will be generated only once and reused whenever it is required. However if a variable is used in two different mappings they will be treated independently in each mapping. Variables of this type are declared as follows:
+```
+<entity variable=”v1”>
+```
+#### Global variables
+Unlike simple variables that are valid only within the scope of the mapping they are declared, global variables are valid through all the mappings. This means that whenever they are used, the values of the corresponding entities will be generated only once and reused whenever it is required. Variables of this type are declared as follows:
+```
+<entity global_variable=”gv1”>
+```
+#### Type-aware variables
+Type-aware variables are used for the cases where we want to create (and reuse) different values for the same piece of input. For example an element from the input will be assigned a particular value, and if it is exploited in other location in the mappings, the generated value will be reused. This happens because the generation of URIs or UUIDs is bound to the input; in the sense that the same piece of input should be assigned the same URI or UUID no matter how many times it is being exploited or how many type it is mapped into. Sometimes this behavior is not the desired one, so we want a way to declare that we want a new value to be generated (and of course re-used if needed). Variables of this type are declared as follows:
+```
+<entity type_aware_var=”tv1”>
+```
+
 
 ### Conditions
 
