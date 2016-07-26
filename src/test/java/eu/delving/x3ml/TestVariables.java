@@ -38,6 +38,17 @@ public class TestVariables {
     private final Logger log = Logger.getLogger(getClass());
 
     @Test
+    public void testVariables() throws FileNotFoundException {
+        X3MLEngine engine = engine("/variables/variables-mappings.x3ml");
+        X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
+        X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/variables/variables-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+
+    @Test
     public void testVariablesScopeWithinMapping() throws FileNotFoundException {
         X3MLEngine engine = engine("/variables/globalVariable-mappings.x3ml");
         X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
