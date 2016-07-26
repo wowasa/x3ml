@@ -83,7 +83,7 @@ public class Path extends GeneratorContext {
         lastResources = domain.entityResolver.resources;
         lastProperty = property;
         for (IntermediateNode intermediateNode : intermediateNodes) {
-            intermediateNode.entityResolver.link();
+            intermediateNode.entityResolver.link(Derivation.Path);
             if (!intermediateNode.entityResolver.hasResources()) {
                 throw exception("Intermediate node has no resources");
             }
@@ -154,7 +154,7 @@ public class Path extends GeneratorContext {
 
         public boolean resolve() {
             entityResolver = new EntityResolver(context.output(), entityElement, generatorContext);
-            if (!entityResolver.resolve(0,this.intermediateNodeIndex, false,"","")) {   
+            if (!entityResolver.resolve(0,this.intermediateNodeIndex, false,Derivation.Path,"","")) {   
                 return false;
             }
             property = context.output().createProperty(relationship);

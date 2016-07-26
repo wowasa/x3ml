@@ -79,7 +79,7 @@ public class Domain extends GeneratorContext {
         }
         entityResolver = new EntityResolver(context.output(), domain.target_node.entityElement, this);
         boolean skip=domain.source_node.skip!=null && domain.source_node.skip.equalsIgnoreCase("true");
-        return entityResolver.resolve(0,0, skip, this.domain.namedgraph, mappingNamedGraph);
+        return entityResolver.resolve(0,0, skip, Derivation.Domain,this.domain.namedgraph, mappingNamedGraph);
     }
 
     public List<Link> createLinkContexts(LinkElement linkElement, String domainForeignKey, String rangePrimaryKey,
@@ -197,6 +197,6 @@ public class Domain extends GeneratorContext {
     }
 
     public void link() {
-        entityResolver.link();
+        entityResolver.link(Derivation.Domain);
     }
 }

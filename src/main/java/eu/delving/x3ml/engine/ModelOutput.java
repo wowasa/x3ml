@@ -167,7 +167,11 @@ public class ModelOutput implements Output {
     
     public void writeQuads(PrintStream out){
         StmtIterator stIter=model.listStatements();
-        Node defgraph=new ResourceImpl("http://default").asNode();
+        String defaultGraphSpace="http://default";
+        if(X3ML.Mappings.namedgraphProduced!=null && !X3ML.Mappings.namedgraphProduced.isEmpty()){
+            defaultGraphSpace=X3ML.Mappings.namedgraphProduced;
+        }
+        Node defgraph=new ResourceImpl(defaultGraphSpace).asNode();
         while(stIter.hasNext()){
             Statement st=stIter.next();
             quadGraph.add(defgraph, st.getSubject().asNode(), st.getPredicate().asNode(), st.getObject().asNode());

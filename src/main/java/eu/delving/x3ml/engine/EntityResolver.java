@@ -25,7 +25,6 @@ import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import eu.delving.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.List;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
@@ -34,6 +33,7 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * The entity resolver creates the related model elements by calling generator
@@ -70,7 +70,7 @@ public class EntityResolver {
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
     where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, String domainNamedGraph, String mappingNamedGraph) {
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, Derivation derivedBy, String domainNamedGraph, String mappingNamedGraph) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -116,15 +116,30 @@ public class EntityResolver {
                     if (resources == null) {
                         resources = new ArrayList<Resource>();
                         for (TypeElement typeElement : entityElement.typeElements) {
+                            String namedGraph=null;
+                            if(derivedBy==Derivation.Domain){
+                                if(mappingNamedGraph!=null){
+                                    namedGraph=(mappingNamedGraph.startsWith("http://") && !mappingNamedGraph.isEmpty())?mappingNamedGraph+"":"http://namedgraph/"+mappingNamedGraph;
+                                    namedGraph+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+                                    X3ML.Mapping.namedGraphProduced=namedGraph;
+                                }
+                            }else{
+                                namedGraph=X3ML.Mapping.namedGraphProduced;
+                            }
+                                
+                            
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                             if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
-                                ModelOutput.quadGraph.add(new ResourceImpl(domainNamedGraph).asNode(), 
+                                X3ML.DomainElement.namedGraphProduced=(domainNamedGraph.startsWith("http://") && !domainNamedGraph.isEmpty())?domainNamedGraph+"":"http://namedgraph/"+domainNamedGraph;
+                                X3ML.DomainElement.namedGraphProduced+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+                                X3ML.RootElement.hasNamedGraphs=true;
+                                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(), 
                                         new ResourceImpl(generatedValue.text).asNode(), 
                                         new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
                                         new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
                             }
-                            if(mappingNamedGraph!=null && !mappingNamedGraph.isEmpty()){
-                                ModelOutput.quadGraph.add(new ResourceImpl(mappingNamedGraph).asNode(),
+                            if(namedGraph!=null){
+                                ModelOutput.quadGraph.add(new ResourceImpl(namedGraph).asNode(),
                                         new ResourceImpl(generatedValue.text).asNode(), 
                                         new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
                                         new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
@@ -159,19 +174,19 @@ public class EntityResolver {
         return literal != null;
     }
 
-    void link() {
+    void link(Derivation derivedBy) {
         if (resources == null) {
             return;
         }
         for (Resource resource : resources) {
             if (labelNodes != null) {
                 for (LabelNode labelNode : labelNodes) {
-                    labelNode.linkFrom(resource);
+                    labelNode.linkFrom(resource, derivedBy);
                 }
             }
             if (additionalNodes != null) {
                 for (AdditionalNode additionalNode : additionalNodes) {
-                    additionalNode.linkFrom(resource);
+                    additionalNode.linkFrom(resource, derivedBy);
                 }
             }
         }
@@ -210,11 +225,11 @@ public class EntityResolver {
         public boolean resolve() {
             property = modelOutput.createProperty(additional.relationship);
             additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false,"","");
+            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0, false,Derivation.Additional,"","");
         }
 
-        public void linkFrom(Resource fromResource) {
-            additionalEntityResolver.link();
+        public void linkFrom(Resource fromResource, Derivation derivedBy) {
+            additionalEntityResolver.link(Derivation.Additional);
             if (additionalEntityResolver.hasResources()) {
                 for (Resource resource : additionalEntityResolver.resources) {
                     fromResource.addProperty(property, resource);
@@ -276,9 +291,34 @@ public class EntityResolver {
             return false;
         }
 
-        public void linkFrom(Resource fromResource) {
+        public void linkFrom(Resource fromResource, Derivation derivedBy) {
             fromResource.addLiteral(property, literal);
+            if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
+                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                                        fromResource.asNode(), 
+                                        property.asNode(),
+                                        literal.asNode());
+            }if(X3ML.DomainElement.namedGraphProduced!=null && !X3ML.DomainElement.namedGraphProduced.isEmpty() && derivedBy==Derivation.Domain){
+                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(),
+                                        fromResource.asNode(), 
+                                        property.asNode(),
+                                        literal.asNode());
+            }if(derivedBy==Derivation.Path || derivedBy==Derivation.Range){
+                if(X3ML.LinkElement.namedGraphProduced!=null && !X3ML.LinkElement.namedGraphProduced.isEmpty()){
+                    ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(),
+                                        fromResource.asNode(), 
+                                        property.asNode(),
+                                        literal.asNode());
+                }
+            }
         }
     }
 
+}
+
+enum Derivation{
+    Domain,
+    Path, 
+    Range, 
+    Additional
 }

@@ -40,6 +40,9 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
@@ -84,10 +87,21 @@ public interface X3ML {
 
         public List<MappingNamespace> namespaces;
 
-        public List<Mapping> mappings;
+        
+        
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        public Mappings mappings;
+        
+        
 
         public void apply(Root context) {
-            for (Mapping mapping : mappings) {
+            if(mappings.namedgraph!=null){
+                RootElement.hasNamedGraphs=true;
+                Mappings.namedgraphProduced=mappings.namedgraph;
+            }
+            for (Mapping mapping : mappings.mappings) {
                 RootElement.mappingCounter+=1;
                 RootElement.linkCounter=0;
                 if(!mapping.skipMapping()){
@@ -100,6 +114,18 @@ public interface X3ML {
         public String comments;
     }
 
+    @XStreamAlias("mappings")
+    public static class Mappings extends Visible {
+
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        @XStreamImplicit
+        public List<Mapping> mappings;
+        
+        public static String namedgraphProduced;
+    }
+    
     @XStreamAlias("mapping")
     public static class Mapping extends Visible {
 
@@ -113,19 +139,24 @@ public interface X3ML {
 
         @XStreamImplicit
         public List<LinkElement> links;
+        
+        public static String namedGraphProduced;
 
         public void apply(Root context) {
-            for (Domain domain : context.createDomainContexts(this.domain)) {
+            for (Domain domain : context.createDomainContexts(this.domain, namedgraph)) {
+                namedGraphProduced=null;
+                DomainElement.namedGraphProduced=null;
                 RootElement.linkCounter=0;
                 domain.resolve(namedgraph);
                 /*The following is necessary for the cases were there are no links or 
-                the links are not evaluated (the xpaths are note evaluated).
+                the links are not evaluated (the xpaths are not evaluated).
                 The following directive will link resources with labels found in the domain*/
                 domain.link();
                 if (links == null) {
                     continue;
                 }
                 for (LinkElement linkElement : links) {
+                    LinkElement.namedGraphProduced=null;
                     RootElement.linkCounter+=1;
                     if(!linkElement.skipLink()){
                         linkElement.apply(domain,linkElement.namedgraph, namedgraph);
@@ -157,6 +188,8 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String namedgraph;
+        
+        public static String namedGraphProduced;
 
         public void apply(Domain domain,String namedgraph, String mappingNamedGraph) {
             String pathSource = this.path.source_relation.relation.get(0).expression;
@@ -253,6 +286,8 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String namedgraph;
+        
+        public static String namedGraphProduced;
     }
 
     @XStreamAlias("target_relation")
