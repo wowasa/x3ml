@@ -154,8 +154,10 @@ public class Utils {
         for(Mapping mapping : initialElement.mappings){
             Multimap<String,X3ML.EntityElement> variablesVsEntity=HashMultimap.create();
             variablesVsEntity=retrieveEntitiesWithVariable(mapping.domain, variablesVsEntity);
-            for(X3ML.LinkElement linkEl : mapping.links){
-                variablesVsEntity=retrieveEntitiesWithVariable(linkEl, variablesVsEntity);
+            if(mapping.links != null){
+                for(X3ML.LinkElement linkEl : mapping.links){
+                    variablesVsEntity=retrieveEntitiesWithVariable(linkEl, variablesVsEntity);
+                }
             }
             validateVariablesAndEntities(variablesVsEntity);
         }
