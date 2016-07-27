@@ -130,6 +130,7 @@ public class Utils {
         }
     }
     
+    @Deprecated
     public static void normalizeX3ML(InputStream is){
         XStream xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new NoNameCoder()));
         xstream.setMode(XStream.NO_REFERENCES);
@@ -138,6 +139,17 @@ public class Utils {
         parseX3MLAgainstVariables(rootElement);
     }
     
+    /**The method validates the X3ML mappings file as regards the variables it contains.
+     * More specifically it validates that all the entities that have variables declared, 
+     * either contain the necessary details (i.e. type, instance and label generator) or there is 
+     * an entity with the same variable that contain those details. If there is a variable defined 
+     * but the corresponding details are missing, then an X3MLException is thrown.
+     * Upon the successful validation, the given X3ML mappings file is being updated 
+     * so that it contains the missing elements.
+     * 
+     * @param initialElement the root element of the X3ML mappings file
+     * @return the updated root element of the X3ML mappings file
+     */
     public static RootElement parseX3MLAgainstVariables(RootElement initialElement){
         for(Mapping mapping : initialElement.mappings){
             Multimap<String,X3ML.EntityElement> variablesVsEntity=HashMultimap.create();
@@ -180,7 +192,8 @@ public class Utils {
                 }
             }
             if(typeElementsFound==null){
-                LOGGER.error("There are missing type elements");
+                throw exception("The variable \""+variable+"\" has been declared however the details of the entity "
+                               +"(i.e. type, instance_generator, etc.) are missing");
             }else{
                 for(X3ML.EntityElement entityElem : multimap.get(variable)){
                     if(entityElem.typeElements==null){
