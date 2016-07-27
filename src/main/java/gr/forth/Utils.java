@@ -18,14 +18,23 @@ under the License.
 ==============================================================================*/
 package gr.forth;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
+import com.thoughtworks.xstream.io.naming.NoNameCoder;
+import com.thoughtworks.xstream.io.xml.XppDriver;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
+import eu.delving.x3ml.engine.X3ML.Mapping;
+import eu.delving.x3ml.engine.X3ML.RootElement;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
@@ -118,6 +127,69 @@ public class Utils {
             return masterDoc.getDocumentElement();
         }catch(ParserConfigurationException | IOException | SAXException ex){
             throw exception("An error occured while concatenating XML documents");
+        }
+    }
+    
+    public static void normalizeX3ML(InputStream is){
+        XStream xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new NoNameCoder()));
+        xstream.setMode(XStream.NO_REFERENCES);
+        xstream.processAnnotations(RootElement.class);
+        RootElement rootElement = (RootElement) xstream.fromXML(is);
+        parseX3MLAgainstVariables(rootElement);
+    }
+    
+    public static RootElement parseX3MLAgainstVariables(RootElement initialElement){
+        for(Mapping mapping : initialElement.mappings){
+            Multimap<String,X3ML.EntityElement> variablesVsEntity=HashMultimap.create();
+            variablesVsEntity=retrieveEntitiesWithVariable(mapping.domain, variablesVsEntity);
+            for(X3ML.LinkElement linkEl : mapping.links){
+                variablesVsEntity=retrieveEntitiesWithVariable(linkEl, variablesVsEntity);
+            }
+            validateVariablesAndEntities(variablesVsEntity);
+        }
+        return initialElement;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.DomainElement domain, Multimap<String, X3ML.EntityElement> multimap){
+        if(domain.target_node.entityElement.variable!=null){
+            multimap.put(domain.target_node.entityElement.variable, domain.target_node.entityElement);
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
+        if(link.range.target_node.entityElement.variable!=null){
+            multimap.put(link.range.target_node.entityElement.variable, link.range.target_node.entityElement);
+        }
+        return multimap;
+    }
+    
+    private static void validateVariablesAndEntities(Multimap<String,X3ML.EntityElement> multimap){
+        for(String variable : multimap.keySet()){
+            List<X3ML.TypeElement> typeElementsFound=null;
+            X3ML.InstanceGeneratorElement instanceGeneratorFound=null;
+            List<X3ML.LabelGeneratorElement> labelGeneratorFound=null;
+            for(X3ML.EntityElement entityElem : multimap.get(variable)){
+                if(entityElem.typeElements!=null && !entityElem.typeElements.isEmpty() && 
+                   entityElem.instanceGenerator!=null){
+                    if(typeElementsFound==null){
+                        typeElementsFound=entityElem.typeElements;
+                        instanceGeneratorFound=entityElem.instanceGenerator;
+                        labelGeneratorFound=entityElem.labelGenerators;
+                    }
+                }
+            }
+            if(typeElementsFound==null){
+                LOGGER.error("There are missing type elements");
+            }else{
+                for(X3ML.EntityElement entityElem : multimap.get(variable)){
+                    if(entityElem.typeElements==null){
+                        entityElem.typeElements=typeElementsFound;
+                        entityElem.instanceGenerator=instanceGeneratorFound;
+                        entityElem.labelGenerators=labelGeneratorFound;
+                    }
+                }
+            }
         }
     }
 }
