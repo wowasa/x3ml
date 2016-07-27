@@ -50,6 +50,7 @@ import java.util.TreeMap;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
+import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -86,6 +87,7 @@ public class X3MLEngine {
     public static X3MLEngine load(InputStream inputStream) throws X3MLException {
         InputStream is=validateX3MLMappings(inputStream);
         RootElement rootElement = (RootElement) x3mlStream().fromXML(is);
+        rootElement=Utils.parseX3MLAgainstVariables(rootElement);
         if (!VERSION.equals(rootElement.version)) {
             throw exception("Incorrect X3ML Version "+rootElement.version+ ", expected "+VERSION);
         }
