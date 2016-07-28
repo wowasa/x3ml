@@ -153,6 +153,19 @@ public class TestVariables {
     /* Test that the variables are working as expected, even if we ommit the details of a 
     particular entity (because we can find them through the variable elsewhere) */
     @Test
+    public void testGlobalVariablesOmmitEntityWithAdditionalDetails() throws FileNotFoundException {
+        X3MLEngine engine = engine("/variables/globalVariablesOmmitEntityDetailsWithAdditional-mappings.x3ml");
+        X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
+        X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/variables/globalVariablesOmmitEntityDetailsWithAdditional-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    /* Test that the variables are working as expected, even if we ommit the details of a 
+    particular entity (because we can find them through the variable elsewhere) */
+    @Test
     public void testGlobalVariablesOmmitEntityDetailsErr() throws FileNotFoundException {
         try{
             X3MLEngine engine = engine("/variables/globalVariablesOmmitEntityDetails-mappings_err.x3ml");
