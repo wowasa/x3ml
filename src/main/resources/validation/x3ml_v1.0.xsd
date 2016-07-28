@@ -107,7 +107,7 @@
 	<xs:element name="entity">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="type" maxOccurs="unbounded"/>
+				<xs:element ref="type" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="instance_info" minOccurs="0"/>
 				<xs:element ref="instance_generator" minOccurs="0"/>
 				<xs:element ref="label_generator" minOccurs="0" maxOccurs="unbounded"/>
