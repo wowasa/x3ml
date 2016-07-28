@@ -128,11 +128,11 @@ public class TestVariables {
     particular entity (because we can find them through the variable elsewhere) */
     @Test
     public void testGlobalVariablesOmmitEntityWithIntermediateDetails() throws FileNotFoundException {
-        X3MLEngine engine = engine("/variables/globalvariablesOmmitEntityDetailsWithIntermediate-mappings.x3ml");
+        X3MLEngine engine = engine("/variables/globalVariablesOmmitEntityDetailsWithIntermediate-mappings.x3ml");
         X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
         X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/variables/globalvariablesOmmitEntityDetailsWithIntermediate-expectedOutput.rdf");
+        String[] expectedResult = xmlToNTriples("/variables/globalVariablesOmmitEntityDetailsWithIntermediate-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
@@ -141,11 +141,11 @@ public class TestVariables {
     particular entity (because we can find them through the variable elsewhere) */
     @Test
     public void testGlobalVariablesOmmitEntityDetails() throws FileNotFoundException {
-        X3MLEngine engine = engine("/variables/globalvariablesOmmitEntityDetails-mappings.x3ml");
+        X3MLEngine engine = engine("/variables/globalVariablesOmmitEntityDetails-mappings.x3ml");
         X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
         X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/variables/globalvariablesOmmitEntityDetails-expectedOutput.rdf");
+        String[] expectedResult = xmlToNTriples("/variables/globalVariablesOmmitEntityDetails-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
@@ -155,7 +155,7 @@ public class TestVariables {
     @Test
     public void testGlobalVariablesOmmitEntityDetailsErr() throws FileNotFoundException {
         try{
-            X3MLEngine engine = engine("/variables/globalvariablesOmmitEntityDetails-mappings_err.x3ml");
+            X3MLEngine engine = engine("/variables/globalVariablesOmmitEntityDetails-mappings_err.x3ml");
             X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
             X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
             fail("At this point we should encounter an X3MLException - Global variable details are missing");
