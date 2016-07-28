@@ -158,6 +158,7 @@ public class Utils {
                 for(X3ML.LinkElement linkEl : mapping.links){
                     variablesVsEntity=retrieveEntitiesWithVariable(linkEl, variablesVsEntity);
                     variablesVsEntity=retrieveEntitiesWithVariable(linkEl.path, variablesVsEntity);
+                    variablesVsEntity=retrieveEntitiesWithVariable(linkEl.range, variablesVsEntity);
                 }
             }
             validateVariablesAndEntities(variablesVsEntity);
@@ -184,6 +185,17 @@ public class Utils {
             for(X3ML.EntityElement entityElem : path.target_relation.entities){
                 if(entityElem.variable!=null){
                     multimap.put(entityElem.variable, entityElem);
+                }
+            }
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
+        if(range.target_node.entityElement.additionals!=null){
+            for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
+                if(additionalElem.entityElement.variable!=null){
+                    multimap.put(additionalElem.entityElement.variable, additionalElem.entityElement);
                 }
             }
         }
