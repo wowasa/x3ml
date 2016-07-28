@@ -130,15 +130,6 @@ public class Utils {
         }
     }
     
-    @Deprecated
-    public static void normalizeX3ML(InputStream is){
-        XStream xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver(new NoNameCoder()));
-        xstream.setMode(XStream.NO_REFERENCES);
-        xstream.processAnnotations(RootElement.class);
-        RootElement rootElement = (RootElement) xstream.fromXML(is);
-        parseX3MLAgainstVariables(rootElement);
-    }
-    
     /**The method validates the X3ML mappings file as regards the variables it contains.
      * More specifically it validates that all the entities that have variables declared, 
      * either contain the necessary details (i.e. type, instance and label generator) or there is 
