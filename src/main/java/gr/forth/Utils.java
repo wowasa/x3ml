@@ -142,18 +142,22 @@ public class Utils {
      * @return the updated root element of the X3ML mappings file
      */
     public static RootElement parseX3MLAgainstVariables(RootElement initialElement){
+        Multimap<String, X3ML.EntityElement> globalVariablesVsEntity=HashMultimap.create();
         for(Mapping mapping : initialElement.mappings){
             Multimap<String,X3ML.EntityElement> variablesVsEntity=HashMultimap.create();
             variablesVsEntity=retrieveEntitiesWithVariable(mapping.domain, variablesVsEntity);
+            globalVariablesVsEntity=retrieveEntitiesWithGlobalVariable(mapping.domain, globalVariablesVsEntity);
             if(mapping.links != null){
                 for(X3ML.LinkElement linkEl : mapping.links){
                     variablesVsEntity=retrieveEntitiesWithVariable(linkEl, variablesVsEntity);
                     variablesVsEntity=retrieveEntitiesWithVariable(linkEl.path, variablesVsEntity);
                     variablesVsEntity=retrieveEntitiesWithVariable(linkEl.range, variablesVsEntity);
+                    globalVariablesVsEntity=retrieveEntitiesWithGlobalVariable(linkEl, globalVariablesVsEntity);
                 }
             }
             validateVariablesAndEntities(variablesVsEntity);
         }
+        validateVariablesAndEntities(globalVariablesVsEntity);
         return initialElement;
     }
     
@@ -189,6 +193,20 @@ public class Utils {
                     multimap.put(additionalElem.entityElement.variable, additionalElem.entityElement);
                 }
             }
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithGlobalVariable(X3ML.DomainElement domain, Multimap<String, X3ML.EntityElement> multimap){
+        if(domain.target_node.entityElement.globalVariable!=null){
+            multimap.put(domain.target_node.entityElement.globalVariable, domain.target_node.entityElement);
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithGlobalVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
+        if(link.range.target_node.entityElement.globalVariable!=null){
+            multimap.put(link.range.target_node.entityElement.globalVariable, link.range.target_node.entityElement);
         }
         return multimap;
     }
