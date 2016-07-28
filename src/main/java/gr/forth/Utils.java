@@ -20,10 +20,6 @@ package gr.forth;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
-import com.thoughtworks.xstream.io.naming.NoNameCoder;
-import com.thoughtworks.xstream.io.xml.XppDriver;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
 import eu.delving.x3ml.engine.X3ML.Mapping;
