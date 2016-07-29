@@ -47,5 +47,17 @@ public class TestAttributes {
         String[] expectedResult = xmlToNTriples("/attributes/expectedResult1.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    } 
+    
+    /* Examines if the correct elements are retrieved based on their attribute values*/
+    @Test
+    public void testEntityGenerationUsingAttributes() {
+        X3MLEngine engine = engine("/attributes/mappings2.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/attributes/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/attributes/expectedResult2.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        output.writeXML(System.out);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }     
 }
