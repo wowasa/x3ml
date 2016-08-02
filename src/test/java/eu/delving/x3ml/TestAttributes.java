@@ -38,13 +38,26 @@ public class TestAttributes {
     private final Logger log = Logger.getLogger(getClass());
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));
 
+    /* Examines if the generation of values taken from the values found as attributes in XML input. */
     @Test
-    public void testEmptyElement() {
-        X3MLEngine engine = engine("/attributes/mappings.x3ml");
+    public void testEntityGenerationFromAttributes() {
+        X3MLEngine engine = engine("/attributes/mappings1.x3ml");
         X3MLEngine.Output output = engine.execute(document("/attributes/input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/attributes/expectedResult.rdf");
+        String[] expectedResult = xmlToNTriples("/attributes/expectedResult1.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
-    }   
+    } 
+    
+    /* Examines if the correct elements are retrieved based on their attribute values*/
+    @Test
+    public void testEntityGenerationUsingAttributes() {
+        X3MLEngine engine = engine("/attributes/mappings2.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/attributes/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/attributes/expectedResult2.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        output.writeXML(System.out);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }     
 }
