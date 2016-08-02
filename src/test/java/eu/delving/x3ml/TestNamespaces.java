@@ -19,7 +19,6 @@ under the License.
 package eu.delving.x3ml;
 
 import eu.delving.x3ml.engine.Generator;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import static eu.delving.x3ml.AllTests.*;
 import java.util.List;
@@ -32,7 +31,6 @@ import static org.junit.Assert.assertTrue;
  * @author Nikos Minadakis <minadakn@ics.forth.gr>
  */
 public class TestNamespaces {
-    private final Logger log = Logger.getLogger(getClass());
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
 
     @Test
