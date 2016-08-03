@@ -41,12 +41,12 @@ import static org.joox.JOOX.$;
 
 /**
  * The source data is accessed using xpath to fetch nodes from a DOM tree.
- * <p/>
+ * <p>
  * Here we have tools for evaluating xpaths in various contexts.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class XPathInput {
 

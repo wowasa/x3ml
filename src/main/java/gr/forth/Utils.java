@@ -47,6 +47,16 @@ import org.xml.sax.SAXException;
 public class Utils {
     private static final Logger LOGGER=Logger.getLogger(Utils.class);
     
+    /**Produces an error message describing the missing argument from the given label generators.
+     * The method is being used for constructing the error message that will be shown to the user 
+     * when he wants to use a label generator with some arguments that do not exist in the XML input. 
+     * The messages contains a brief description (for humans), as well as the textual description 
+     * of the label generator and the missing argument name. 
+     * 
+     * @param generator the generator that is being used.
+     * @param expectedValue the name of the argument that cannot be found in the input
+     * @return a string representation of the error message.
+     */
     public static String produceLabelGeneratorMissingArgumentError(X3ML.GeneratorElement generator, String expectedValue){
         return new StringBuilder().append("LabelGenerator Error: ")
                                   .append("The attribute ")
@@ -62,6 +72,15 @@ public class Utils {
                                   .append(generator).toString();
     }
     
+    /**Produces an error message describing that the given label generator does not have any arguments.
+     * The method is being used for constructing the error message that will be shown to the user 
+     * when he wants to use a label generator without providing any arguments. 
+     * The messages contains a brief description (for humans), as well as the textual description of the 
+     * label generator . 
+     * 
+     * @param generator the generator that is being used.
+     * @return a string representation of the error message.
+     */
     public static String produceLabelGeneratorEmptyArgumentError(X3ML.GeneratorElement generator){
         return new StringBuilder().append("LabelGenerator Error: ") 
                                   .append("The label generator with name ")
@@ -77,12 +96,26 @@ public class Utils {
                                   .append(generator).toString();
     }
     
+    /** Output the error messages that are given using an error logger.
+     *  If the error logger is disabled (through the log4j.properties file then nothing will be reported)
+     * 
+     * @param messages the error messages to be reported
+     */
     public static void printErrorMessages(String ... messages){
         for(String msg : messages){
             LOGGER.error(msg.replaceAll("(?m)^[ \t]*\r?\n", ""));
         }
     }
     
+    /** It reads the contents of the given folder, it concatenates the contents of the XML documents 
+     * that exist in the folder and it produces the XML tree (using DOM structures) and returns the root element.
+     * The method searches for files only in the given folder and ignores any contents that might exist in sub-folders.
+     * Furthermore it takes into account only files with extension .xml.
+     * 
+     * @param folderPath the path of the corresponding folder containing XML input data
+     * @return the root element of the XML tree that is being created from the concatenation of the XML documents in the folder
+     * @throws Exception if the given path does not respond to a folder
+     */
     public static Element parseFolderWithXmlFiles(String folderPath) throws Exception{
         File folder=new File(folderPath);
         if(!folder.isDirectory()){
@@ -99,6 +132,13 @@ public class Utils {
         return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
     }
     
+    /** The method takes as input a set of XML input files and produces an XML tree (using DOM structures)
+     * that corresponds to the concatenation of the contents of the given XML input files. 
+     * If the root element of the given XML inputs is not the same then an exception is thrown.
+     * 
+     * @param xmlFileInputStreams a collection of XML input files as InputStreams
+     * @return the root element of the XML tree that is being created from the concatenation of the given XML InputStreams
+     */
     public static Element parseMultipleXMLFiles(Collection<InputStream> xmlFileInputStreams){
         try{
             Document masterDoc=DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();

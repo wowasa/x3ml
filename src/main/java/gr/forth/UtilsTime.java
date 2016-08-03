@@ -19,7 +19,7 @@ under the License.
 package gr.forth;
 
 /**
- * @author Konstantina Konsolaki <konsolak@ics.forth.gr>
+ * @author Konstantina Konsolaki &lt;konsolak@ics.forth.gr&gt;
  */
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -56,6 +56,7 @@ public class UtilsTime {
      * Validate date format with regular expression
      *
      * @param date date address for validation
+     * @param bound the bound (either upper or lower)
      * @return true valid date format, false invalid date format
      */
     public static Date validate(String date, String bound) {
