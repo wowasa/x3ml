@@ -21,6 +21,8 @@ package eu.delving.x3ml;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,9 +42,32 @@ import org.apache.commons.lang3.tuple.Pair;
  *                  .withMappings("mappings.x3ml")
  *                  .withInputFiles("input1.xml", "input2.xml")
  *                  .execute();
+ * 
+ * The following list enumerates the details that can be configured, their description, and if 
+ * they are mandatory or optional; mandatory resources should be provided for the proper execution 
+ * of the X3ML Engine, while for the optional resources their default values can be exploited.
+ * <ul>
+ * <li><b>X3ML mappings file</b>: it is the file that contains the X3ML mappings and 
+ * it exists in the form of an XML document. This resource is <u>mandatory</u></li>
+ * <li><b>input file or input folder</b>: X3ML engine uses as input a set of files in XML format. This 
+ * means that either a list of files or an entire folder should be used as input. 
+ * This resource is <u>mandatory</u></li>
+ * <li><b>generator policy file</b>: the XML file containing the details of the generator policies. 
+ * This resource is optional, unless the user defines a generator policy file, only the built-in
+ * generators will be exploited.</li>
+ * <li><b>UUID length</b>: the value of the length for the generated UUIDs. This resource is optional, 
+ * so unless the user defines a value the default value that will be used is 4. </li>
+ * <li><b>output file and format</b>: the name/path of the file containing the transformed results or 
+ * alternatively the System.out stream. The format can be one of the following (RDF/XML, NTRIPLES, TURTLE).
+ * This resource is optional, so unless the user defines them the results will be exported in the System.out stream 
+ * in RDF/XML format.</li>
+ * <li><b>association table contents</b>: the contents of the association table between the XML input and the 
+ * produced RDF output. The contents are exported as an XML file with a user-defined filename/path. 
+ * This resource is optional, so unless the user defines it the contents of the association will not be exported. </li>
+ * </ul>
  *
- * @author Yannis Marketakis <marketak@ics.forth.gr>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
 public class X3MLEngineFactory {
     private File mappingsFile;
@@ -132,7 +157,6 @@ public class X3MLEngineFactory {
      * format (one of RDF/XML, NTRIPLES, TURTLE).
      * If the filename is left intentionally or is left null then instead of exporting
      * the resources on a file, they will be exported @ System.out
-     * 
      * The default behavior is to export transformed data to System.out in RDF/XML format.
      * 
      * @param filename the name of the file containing the exported data
@@ -146,7 +170,6 @@ public class X3MLEngineFactory {
     /**Sets the name of the file where the contents of the association table will be exported, 
      * as a file in XML format. If the value is left intensionally left or null then the 
      * contents of the association table will not be exported. 
-     * 
      * The default behavior is NOT to export the contents of the association table 
      *
      * @param associationTableFilename the filename of the XML file containing the contents of the 
@@ -157,11 +180,27 @@ public class X3MLEngineFactory {
         return this;
     }
     
-    /*TODO*/
+    /** Execute the X3ML Engine with the given configuration. If the mandatory resources 
+     * have not been defined (the X3ML mappings file and the XML input file(s)/folder) then 
+     * an exception is thrown, and the execution is terminated.
+     * If the optional resources have not been defined then the default values are used 
+     * (for more information about the resources and their default values see the description of the
+     * X3MLEngineFactory class). */
     public void execute(){
         this.validateConfig();
+        X3MLEngine engine=this.createX3MLEngine();
+
     }
     
+    private X3MLEngine createX3MLEngine(){
+        try{
+            return X3MLEngine.load(new FileInputStream(this.mappingsFile));
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find the X3ML mappings file (\""+this.mappingsFile.getAbsolutePath()+"\")", ex);
+        }
+    }
+    
+    /* Validates that the mandatory elements (input and mappings) have been provided */
     private void validateConfig(){
         if(this.mappingsFile==null){
             throw exception("The mappings file (x3ml) is missing.");
