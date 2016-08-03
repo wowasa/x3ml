@@ -44,14 +44,14 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 /**
  * This interface defines the XML interpretation of the engine using the XStream
  * library.
- * <p/>
+ * <p>
  * There is also a helper class for encapsulating related functions.
- * <p/>
+ * <p>
  * The XSD definition is to be found in /src/main/resources.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public interface X3ML {
 
