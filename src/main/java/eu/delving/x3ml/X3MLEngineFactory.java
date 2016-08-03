@@ -1,12 +1,3 @@
-package eu.delving.x3ml;
-
-import static eu.delving.x3ml.X3MLEngine.exception;
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import org.apache.commons.lang3.tuple.Pair;
-
 /*==============================================================================
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -25,6 +16,15 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
+
+package eu.delving.x3ml;
+
+import static eu.delving.x3ml.X3MLEngine.exception;
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 
 /** This class instantiates X3ML Engine and handles the ingestion of user-defined details 
  * in a straightforward manner. Furthermore it can execute the X3ML engine for producing 
@@ -45,25 +45,23 @@ under the License.
  * @author Nikos Minadakis <minadakn@ics.forth.gr>
  */
 public class X3MLEngineFactory {
-    private static File mappingsFile;
-    private static Set<File> inputFiles;
-    private static String inputFolder;
-    private static String configurationFile;
-    private static int uuidSize;
-    private static String associationTableFile;
-    private static boolean associationTableMergeWithOutput;
-    private static Pair<String,OutputFormat> output;
+    private File mappingsFile;
+    private Set<File> inputFiles;
+    private File inputFolder;
+    private File generatorPolicyFile;
+    private int uuidSize;
+    private String associationTableFile;
+    private Pair<String,OutputFormat> output;
     
-    /* Instantiate it with the default values */
+    /* Instantiate the factory with the default values */
     private X3MLEngineFactory(){
-        mappingsFile=null;
-        inputFiles=new HashSet<>();
-        inputFolder=null;
-        configurationFile=null;
-        uuidSize=4;
-        associationTableFile=null;
-        associationTableMergeWithOutput=false;
-        output=null;
+        this.mappingsFile=null;
+        this.inputFiles=new HashSet<>();
+        this.inputFolder=null;
+        this.generatorPolicyFile=null;
+        this.uuidSize=4;
+        this.associationTableFile=null;
+        this.output=Pair.of(null, OutputFormat.RDF_XML);
     }
     
     /**Creates a new instance of the X3MLEngineFactory class. After the creation the new 
@@ -77,46 +75,98 @@ public class X3MLEngineFactory {
         return new X3MLEngineFactory();
     }
     
+    /**Adds the mappings file in the X3MLEngineFactory. 
+     * 
+     * @param mappingsFile the file with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
     public X3MLEngineFactory withMappings(File mappingsFile){
-        X3MLEngineFactory.mappingsFile=mappingsFile;
+        this.mappingsFile=mappingsFile;
         return this;
     }
     
+    /** Adds the input files in the X3MLEngineFactory. The methods accepts more than one files 
+     * that will be concatenated for producing a single input file. 
+     * 
+     * @param inputFiles the input (XML) files
+     * @return the updated X3MLEngineFactory instance
+     */
     public X3MLEngineFactory withInputFiles(File ... inputFiles){
-        X3MLEngineFactory.inputFiles.addAll(Arrays.asList(inputFiles));
+        this.inputFiles.addAll(Arrays.asList(inputFiles));
         return this;
     }
     
-    public X3MLEngineFactory withInputFolder(){
-        return null;
+    /**Adds the folder that contains the input files (in XML format). 
+     * 
+     * @param inputFolder the folder that contains the (XML) input files
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInputFolder(File inputFolder){
+        this.inputFolder=inputFolder;
+        return this;
     }
     
-    public X3MLEngineFactory withGeneratorPolicy(){
-        return null;
+    /**Adds the generator policy file.
+     * 
+     * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile){
+        this.generatorPolicyFile=generatorPolicyFile;
+        return this;
     }
     
-    public X3MLEngineFactory withUuidSize(){
-        return null;
+    /**Sets the size of the UUID generator. The value denotes the length of the generated UUID value. 
+     * For example if the value is set to 2 the it will generate UUIDs like uuid:AD, uuid:AY, 
+     * if it is set to 3, it will generate UUIDs like uuid:ACB, etc.
+     * The default value that is used is 4, if no other value is provided.
+     * 
+     * @param uuidLength value of the length for the produced UUIDs
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withUuidSize(int uuidLength){
+        this.uuidSize=uuidLength;
+        return this;
     }
     
-    public X3MLEngineFactory withOutput(){
-        return null;
+    /**Sets the details about the transformed resources. More specifically it allows 
+     * defining the name of the file that will be exported, as well as the desired 
+     * format (one of RDF/XML, NTRIPLES, TURTLE).
+     * If the filename is left intentionally or is left null then instead of exporting
+     * the resources on a file, they will be exported @ System.out
+     * 
+     * The default behavior is to export transformed data to System.out in RDF/XML format.
+     * 
+     * @param filename the name of the file containing the exported data
+     * @param format the format of the exported data 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withOutput(String filename, OutputFormat format){
+        this.output=Pair.of(filename, format);
+        return this;
     }
     
-    /*for general details (i.e. associaton table)*/
-    public X3MLEngineFactory with(){
-        return null;
+    /**Sets the name of the file where the contents of the association table will be exported, 
+     * as a file in XML format. If the value is left intensionally left or null then the 
+     * contents of the association table will not be exported. 
+     * 
+     * The default behavior is NOT to export the contents of the association table 
+     *
+     * @param associationTableFilename the filename of the XML file containing the contents of the 
+     * association table
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withAssociationTable(String associationTableFilename){
+        this.associationTableFile=associationTableFilename;
+        return this;
     }
     
+    /*TODO*/
     public void execute(){
         this.validateConfig();
     }
     
     private void validateConfig(){
-        if(X3MLEngineFactory.mappingsFile==null){
+        if(this.mappingsFile==null){
             throw exception("The mappings file (x3ml) is missing.");
         }
-        if(X3MLEngineFactory.inputFiles.isEmpty() && X3MLEngineFactory.inputFolder==null){
+        if(this.inputFiles.isEmpty() && this.inputFolder==null){
             throw exception("The input file(s) or folder is missing.");
         }
     }
