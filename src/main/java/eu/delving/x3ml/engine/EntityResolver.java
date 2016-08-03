@@ -37,12 +37,12 @@ import java.util.TreeSet;
 /**
  * The entity resolver creates the related model elements by calling generator
  * functions.
- * <p/>
+ * <p>
  * Handles label nodes and additional nodes with their properties
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class EntityResolver {
 

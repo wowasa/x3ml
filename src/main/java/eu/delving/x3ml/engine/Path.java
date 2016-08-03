@@ -34,9 +34,9 @@ import static eu.delving.x3ml.engine.X3ML.Relationship;
  * always one more path than entity, and they are interlaced. Marshalling
  * handled specially.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class Path extends GeneratorContext {
 

@@ -25,8 +25,8 @@ import java.util.Date;
 /**
  * an date interpreter
  * 
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class GermanDate implements CustomGenerator {
 

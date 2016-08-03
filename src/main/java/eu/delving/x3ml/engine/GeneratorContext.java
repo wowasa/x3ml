@@ -38,9 +38,9 @@ import org.w3c.dom.Attr;
  * This abstract class is above Domain, Path, and Range and carries most of
  * their contextual information.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public abstract class GeneratorContext {
 
