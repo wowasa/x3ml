@@ -56,6 +56,7 @@ public class UtilsTime {
      * Validate date format with regular expression
      *
      * @param date date address for validation
+     * @param bound the bound (either upper or lower)
      * @return true valid date format, false invalid date format
      */
     public static Date validate(String date, String bound) {
