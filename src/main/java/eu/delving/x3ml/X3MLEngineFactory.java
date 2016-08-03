@@ -20,9 +20,11 @@ under the License.
 package eu.delving.x3ml;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
+import eu.delving.x3ml.engine.Generator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -189,14 +191,26 @@ public class X3MLEngineFactory {
     public void execute(){
         this.validateConfig();
         X3MLEngine engine=this.createX3MLEngine();
+        Generator policy=X3MLGeneratorPolicy.load(this.getGeneratorPolicy(), X3MLGeneratorPolicy.createUUIDSource(this.uuidSize));
 
     }
     
+    /* creates an instance of the X3ML engine using the provided X3ML mappings file */
     private X3MLEngine createX3MLEngine(){
         try{
             return X3MLEngine.load(new FileInputStream(this.mappingsFile));
         }catch(FileNotFoundException ex){
             throw exception("Cannot find the X3ML mappings file (\""+this.mappingsFile.getAbsolutePath()+"\")", ex);
+        }
+    }
+    
+    /* creates an input stream using the provided generator policy otherwise null 
+    (no generator polixy file will be used)*/
+    private InputStream getGeneratorPolicy(){
+        try{
+            return this.generatorPolicyFile==null?null:new FileInputStream(this.generatorPolicyFile);
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find the generator policy file (\""+this.generatorPolicyFile.getAbsolutePath()+"\")", ex);
         }
     }
     
