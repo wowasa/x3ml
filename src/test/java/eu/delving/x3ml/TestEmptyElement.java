@@ -24,7 +24,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import java.util.List;
 import static eu.delving.x3ml.AllTests.*;
-import static org.junit.Assert.assertTrue;
+import junit.framework.TestCase;
+import org.apache.log4j.Level;
 
 /**
  * @author Gerald de Jong <gerald@delving.eu>
@@ -32,10 +33,14 @@ import static org.junit.Assert.assertTrue;
  * @author Yannis Marketakis <marketak@ics.forth.gr>
  */
 
-public class TestEmptyElement {
-    private final Logger log = Logger.getLogger(getClass());
+public class TestEmptyElement extends TestCase{
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));
 
+    @Override
+    public void setUp(){
+        Logger.getLogger(gr.forth.Utils.class).setLevel(Level.OFF);
+    }
+    
     @Test
     public void testEmptyElementInDomain() {
         X3MLEngine engine = engine("/empty_element/01_mapping_domain.x3ml");
