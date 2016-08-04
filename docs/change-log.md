@@ -7,6 +7,7 @@
 * NEW functionality for using an entire folder (contain XML files) as input  ([issue #47](https://github.com/isl/x3ml/issues/47))
 * NEW functionality for searching recursively for XML files in an input folder ([issue #62](https://github.com/isl/x3ml/issues/62))
 * NEW functionality for ommitting replicating entity generation details when variables are used ([issue #46](https://github.com/isl/x3ml/issues/46))
+* NEW functionality creation of an X3ML Engine factory to support easier injection of X3ML engine ([issue #50](https://github.com/isl/x3ml/issues/50))
 
 ## 1 July 2016: V 1.7.1 (by FORTH-ICS)
 * Fixed bug with the generation of entities from attribute values in the XML input ([issue #45](https://github.com/isl/x3ml/issues/45))
