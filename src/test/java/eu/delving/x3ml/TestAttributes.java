@@ -57,7 +57,6 @@ public class TestAttributes {
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/attributes/expectedResult2.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
-        output.writeXML(System.out);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }     
 }
