@@ -333,7 +333,6 @@ public class X3MLEngineFactory {
     
     /* prints - using logger - the configuration details */
     private void informUserAboutConfiguration(){
-        LOGGER.info("X3ML Engine configuration details");
         LOGGER.info("X3ML Engine Mappings file: "+this.mappingsFile.getAbsolutePath());
         LOGGER.info("Input files: "+this.getInputFilesListing());
         LOGGER.info("UUID size: "+this.uuidSize);
