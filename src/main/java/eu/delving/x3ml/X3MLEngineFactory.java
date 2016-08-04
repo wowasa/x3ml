@@ -21,13 +21,16 @@ package eu.delving.x3ml;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.Generator;
+import gr.forth.Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Level;
@@ -55,8 +58,8 @@ import org.w3c.dom.Element;
  * <ul>
  * <li><b>X3ML mappings file</b>: it is the file that contains the X3ML mappings and 
  * it exists in the form of an XML document. This resource is <u>mandatory</u></li>
- * <li><b>input file or input folder</b>: X3ML engine uses as input a set of files in XML format. This 
- * means that either a list of files or an entire folder should be used as input. 
+ * <li><b>input file(s) or input folder(s)</b>: X3ML engine uses as input a set of files in XML format. This 
+ * means that either a list of files or entire folders should be used as input. 
  * This resource is <u>mandatory</u></li>
  * <li><b>generator policy file</b>: the XML file containing the details of the generator policies. 
  * This resource is optional, unless the user defines a generator policy file, only the built-in
@@ -78,7 +81,7 @@ import org.w3c.dom.Element;
 public class X3MLEngineFactory {
     private File mappingsFile;
     private Set<File> inputFiles;
-    private File inputFolder;
+    private Set<Pair<File, Boolean>> inputFolders;
     private File generatorPolicyFile;
     private int uuidSize;
     private String associationTableFile;
@@ -89,7 +92,7 @@ public class X3MLEngineFactory {
     private X3MLEngineFactory(){
         this.mappingsFile=null;
         this.inputFiles=new HashSet<>();
-        this.inputFolder=null;
+        this.inputFolders=new HashSet<>();
         this.generatorPolicyFile=null;
         this.uuidSize=4;
         this.associationTableFile=null;
@@ -137,11 +140,12 @@ public class X3MLEngineFactory {
     /**Adds the folder that contains the input files (in XML format). 
      * 
      * @param inputFolder the folder that contains the (XML) input files
-     * @return the updated X3MLEngineFactory instance
-     */
-    public X3MLEngineFactory withInputFolder(File inputFolder){
-        LOGGER.debug("Added the XML input folder ("+inputFolder.getAbsolutePath()+")");
-        this.inputFolder=inputFolder;
+     * @param recursiveSearch if true it will search in the closure of the folder for XML files, 
+     * otherwise it will return only the direct contents of the given directory
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withInputFolder(File inputFolder, boolean recursiveSearch){
+        LOGGER.debug("Added the XML input folder ("+inputFolder.getAbsolutePath()+"), recursive search: "+recursiveSearch);
+        this.inputFolders.add(Pair.of(inputFolder, recursiveSearch));
         return this;
     }
     
@@ -246,20 +250,21 @@ public class X3MLEngineFactory {
         }
     }
     
-    /* parses the input (either it is a single file, multiple files, or a folder). 
+    /* parses the input (either it is a single file, multiple files, single folder or multiple folders).
     It uses all the given resources to produce a single input element (DOM) */
     private Element getInput(){
-        //TODO not yet implemented
-//        if(!this.inputFiles.isEmpty() && this.inputFolder==null){
-//            System.out.println("Provided only files");
-//        }else if(this.inputFiles.isEmpty() && this.inputFolder!=null){
-//            System.out.println("Provided only folder");
-//        }else if(!this.inputFiles.isEmpty() && this.inputFolder!=null){
-//            System.out.println("Provided both");
-//        }else{  // Although we do not expect to see this
-//            System.out.println("throw exc here");
-//        }
-        return null;
+        List<InputStream> inputCollections=new ArrayList<>();
+        try{
+            for(String filepath : this.getInputFilesListing()){
+                inputCollections.add(new FileInputStream(new File(filepath)));
+            }
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find XML input file",ex);
+        }
+        if(inputCollections.isEmpty()){
+            throw exception("The XML input file list is empty");
+        }
+        return Utils.parseMultipleXMLFiles(inputCollections);
     }
     
     /* Validates that the mandatory elements (input and mappings) have been provided */
@@ -267,8 +272,8 @@ public class X3MLEngineFactory {
         if(this.mappingsFile==null){
             throw exception("The mappings file (x3ml) is missing.");
         }
-        if(this.inputFiles.isEmpty() && this.inputFolder==null){
-            throw exception("The input file(s) or folder is missing.");
+        if(this.inputFiles.isEmpty() && this.inputFolders.isEmpty()){
+            throw exception("The input file(s) or folder(s) are missing.");
         }
     }
     
@@ -292,7 +297,11 @@ public class X3MLEngineFactory {
         for(File inputFile : this.inputFiles){
             retSet.add(inputFile.getAbsolutePath());
         }
-        //TODO listFiles from a folder here
+        for(Pair<File,Boolean> folder : this.inputFolders){
+            for(File f : Utils.retrieveXMLfiles(folder.getLeft(), folder.getRight())){
+                retSet.add(f.getAbsolutePath());
+            }
+        }
         return retSet;
     }
 }
