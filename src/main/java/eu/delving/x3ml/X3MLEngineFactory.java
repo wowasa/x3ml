@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,6 +89,12 @@ public class X3MLEngineFactory {
     private String associationTableFile;
     private Pair<String,OutputFormat> output;
     private static final Logger LOGGER=Logger.getLogger(X3MLEngineFactory.class);
+    
+    public enum OutputFormat{
+    RDF_XML, 
+    NTRIPLES, 
+    TURTLE
+    }
     
     /* Instantiate the factory with the default values */
     private X3MLEngineFactory(){
@@ -229,6 +237,8 @@ public class X3MLEngineFactory {
         X3MLEngine engine=this.createX3MLEngine();
         Generator policy=X3MLGeneratorPolicy.load(this.getGeneratorPolicy(), X3MLGeneratorPolicy.createUUIDSource(this.uuidSize));
         Element sourceRoot=this.getInput();
+        X3MLEngine.Output output = engine.execute(sourceRoot, policy);
+        this.outputResults(output);
     }
     
     /* creates an instance of the X3ML engine using the provided X3ML mappings file */
@@ -277,6 +287,36 @@ public class X3MLEngineFactory {
         }
     }
     
+    private void outputResults(X3MLEngine.Output output){
+        try{
+            switch(this.output.getRight()){
+                case RDF_XML:
+                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
+                        output.writeXML(System.out);
+                    }else{
+                        output.write(new PrintStream(new File(this.output.getLeft())), "application/rdf+xml");
+                    }
+                    break;
+                case NTRIPLES:
+                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
+                        output.write(System.out,"application/n-triples");
+                    }else{
+                        output.write(new PrintStream(new File(this.output.getLeft())), "application/n-triples");
+                    }
+                    break;
+                case TURTLE:
+                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
+                        output.write(System.out,"text/turtle");
+                    }else{
+                        output.write(new PrintStream(new File(this.output.getLeft())), "text/turtle");
+                    }
+                    break;
+            }
+        }catch(FileNotFoundException ex){
+            throw exception("An error occured while exporting results",ex);
+        }
+    }
+    
     /* prints - using logger - the configuration details */
     private void informUserAboutConfiguration(){
         LOGGER.info("X3ML Engine configuration details");
@@ -292,6 +332,8 @@ public class X3MLEngineFactory {
         LOGGER.info("Export sssociation table: "+associationTableExportMsg);
     }
     
+    /* returns the input files (their absolute paths) taking into account all the files and the folders
+    that has been provided by the user */
     private Collection<String> getInputFilesListing(){
         Set<String> retSet=new HashSet<>();
         for(File inputFile : this.inputFiles){
@@ -304,10 +346,4 @@ public class X3MLEngineFactory {
         }
         return retSet;
     }
-}
-
-enum OutputFormat{
-    RDF_XML, 
-    NTRIPLES, 
-    TURTLE
 }
