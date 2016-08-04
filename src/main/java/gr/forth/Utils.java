@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -109,27 +110,62 @@ public class Utils {
     
     /** It reads the contents of the given folder, it concatenates the contents of the XML documents 
      * that exist in the folder and it produces the XML tree (using DOM structures) and returns the root element.
-     * The method searches for files only in the given folder and ignores any contents that might exist in sub-folders.
+     * The method searches for files either in the given folder only or contents that might exist in sub-folders as well.
      * Furthermore it takes into account only files with extension .xml.
      * 
      * @param folderPath the path of the corresponding folder containing XML input data
+     * @param recursiveSearch if true it will search in the closure of the folder for XML files, 
+     * otherwise it will return only the direct contents of the given directory
      * @return the root element of the XML tree that is being created from the concatenation of the XML documents in the folder
      * @throws Exception if the given path does not respond to a folder
      */
-    public static Element parseFolderWithXmlFiles(String folderPath) throws Exception{
-        File folder=new File(folderPath);
-        if(!folder.isDirectory()){
-            throw new Exception("The given path (\""+folderPath+"\") does not correspond to a directory");
-        }
+    public static Element parseFolderWithXmlFiles(String folderPath, boolean recursiveSearch) throws Exception{
         Collection<InputStream> xmlInputFilesCollection=new HashSet<>();
+        for(File file : Utils.retrieveXMLfiles(new File(folderPath), recursiveSearch)){
+            xmlInputFilesCollection.add(new FileInputStream(file));
+        }
+        return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
+    }
+    
+    /** Returns the XML files that exist under the given folder. If the recursiveSearch parameter 
+     * is enabled the instead of listing the direct contents of the given directory, all the 
+     * XML files that are descendants of this directory will be returned.
+     * 
+     * @param folder the folder that contains XML input data
+     * @param recursiveSearch if true it will search in the closure of the folder for XML files, 
+     * otherwise it will return only the direct contents of the given directory
+     * @return the collection of the XML input files that exist in the given directory */
+    public static Collection<File> retrieveXMLfiles(File folder, boolean recursiveSearch){
+        if(!folder.isDirectory()){
+            throw exception("The given path (\""+folder.getAbsolutePath()+"\") does not correspond to a directory");
+        }
+        Collection<File> retCol=new HashSet<>();
+        List<File> foldersLeftToCheck=new ArrayList<>();
         for(File file : folder.listFiles()){
-            if(file.getName().toLowerCase().endsWith("xml")){
-                xmlInputFilesCollection.add(new FileInputStream(file));
+            if(file.isFile() && file.getName().toLowerCase().endsWith("xml")){
+                retCol.add(file);
+            }else if(file.isDirectory()){
+                foldersLeftToCheck.add(file);
             }else{
                 LOGGER.debug("Skipping file \""+file.getPath()+"\" - It might not be an XML file");
             }
         }
-        return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
+        if(recursiveSearch){
+            while(!foldersLeftToCheck.isEmpty()){
+                File subFolder=foldersLeftToCheck.remove(0);
+                File[] subFolderContents=subFolder.listFiles();
+                for(File f : subFolderContents){
+                    if(f.isFile() && f.getName().toLowerCase().endsWith("xml")){
+                        retCol.add(f);
+                    }else if(f.isDirectory()){
+                        foldersLeftToCheck.add(f);
+                    }else{
+                        LOGGER.debug("Skipping file \""+f.getPath()+"\" - It might not be an XML file");
+                    }
+                }
+            }
+        }
+        return retCol;
     }
     
     /** The method takes as input a set of XML input files and produces an XML tree (using DOM structures)
