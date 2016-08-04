@@ -53,8 +53,10 @@ import static eu.delving.x3ml.engine.X3ML.RootElement;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
 
 /**
  * The engine is created from an X3ML file which is loaded from an input stream.
@@ -69,9 +71,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class X3MLEngine {
     private static final String VERSION = "1.0";
+    private static final String X3ML_SCHEMA_LOCATION="/validation/x3ml_v1.0.xsd";
     private RootElement rootElement;
     private NamespaceContext namespaceContext = new XPathContext();
-    private List<String> prefixes = new ArrayList<String>();
+    private List<String> prefixes = new ArrayList<>();
     public static String exceptionMessagesList="";
 
     public static List<String> validate(InputStream inputStream) {
@@ -94,16 +97,24 @@ public class X3MLEngine {
         return new X3MLEngine(rootElement);
     }
     
-    /*validate that the X3ML mappings file is a valid XML file */
-    private static InputStream validateX3MLMappings(InputStream inputStream) throws X3MLException{
+    /** Validate that the X3ML mappings file is a valid XML file and is compliant with 
+     * the X3ML schema. 
+     * 
+     * @param inputStream the X3ML mappings file as an input stream
+     * @return the validated inputStream (returned because the offset of the initial inputStream has been moved to EOF)
+     * @throws eu.delving.x3ml.X3MLEngine.X3MLException if the X3ML mappings file is not valid */
+    public static InputStream validateX3MLMappings(InputStream inputStream) throws X3MLException{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baosForValidation = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len;
         try{
             while ((len = inputStream.read(buffer)) > -1 ) {
                 baos.write(buffer, 0, len);
+                baosForValidation.write(buffer, 0, len);
             }
             baos.flush();
+            baosForValidation.flush();
         }catch(IOException ex){
             throw new X3MLException("Cannot read the contents of X3ML mappings file. Detailed log:\n"+ex.toString());
         }
@@ -113,7 +124,22 @@ public class X3MLEngine {
         }catch(IOException | ParserConfigurationException | SAXException ex){
             throw new X3MLException("Cannot parse X3ML mappings file. Check that is is a valid XML file. Detailed log:\n"+ex.toString());
         }
+        X3MLEngine.validateX3MLMappingsWithSchema(new ByteArrayInputStream(baosForValidation.toByteArray()));
         return new ByteArrayInputStream(baos.toByteArray());
+    }
+    
+    /* validates the X3ML mappings with respect to X3ML schema */
+    private static void validateX3MLMappingsWithSchema(InputStream inputStream){
+        try{
+            URL schemaUrl=X3MLEngine.class.getResource(X3MLEngine.X3ML_SCHEMA_LOCATION);
+            Source x3mlFile=new StreamSource(inputStream);
+            SchemaFactory schemaFactory=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema=schemaFactory.newSchema(schemaUrl);
+            Validator validator=schema.newValidator();
+            validator.validate(x3mlFile);
+        }catch(SAXException | IOException ex){
+            throw exception("An error ocurred while validating X3ML mappings file", ex);
+        }
     }
 
     public static void save(X3MLEngine engine, OutputStream outputStream) throws X3MLException {
