@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -130,6 +131,43 @@ public class Utils {
             }
         }
         return Utils.parseMultipleXMLFiles(xmlInputFilesCollection);
+    }
+    
+    /** Returns the XML files that exist under the given folder. If the recursiveSearch parameter 
+     * is enabled the instead of listing the direct contents of the given directory, all the 
+     * XML files that are descendants of this directory will be returned.
+     * 
+     * @param folder the folder that contains XML input data
+     * @param recursiveSearch if true it will search in the closure of the folder for XML files, 
+     * otherwise it will return only the direct contents of the given directory
+     * @return the collection of the XML input files that exist in the given directory */
+    public static Collection<File> retrieveXMLfiles(File folder, boolean recursiveSearch){
+        if(!folder.isDirectory()){
+            throw exception("The given path (\""+folder.getAbsolutePath()+"\") does not correspond to a directory");
+        }
+        Collection<File> retCol=new HashSet<>();
+        List<File> foldersLeftToCheck=new ArrayList<>();
+        for(File file : folder.listFiles()){
+            if(file.isFile() && file.getName().toLowerCase().endsWith("xml")){
+                retCol.add(file);
+            }else if(file.isDirectory()){
+                foldersLeftToCheck.add(file);
+            }
+        }
+        if(recursiveSearch){
+            while(!foldersLeftToCheck.isEmpty()){
+                File subFolder=foldersLeftToCheck.remove(0);
+                File[] subFolderContents=subFolder.listFiles();
+                for(File f : subFolderContents){
+                    if(f.isFile() && f.getName().toLowerCase().endsWith("xml")){
+                        retCol.add(f);
+                    }else if(f.isDirectory()){
+                        foldersLeftToCheck.add(f);
+                    }
+                }
+            }
+        }
+        return retCol;
     }
     
     /** The method takes as input a set of XML input files and produces an XML tree (using DOM structures)
