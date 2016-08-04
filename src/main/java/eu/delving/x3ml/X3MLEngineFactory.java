@@ -26,9 +26,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.w3c.dom.Element;
 
 /** This class instantiates X3ML Engine and handles the ingestion of user-defined details 
  * in a straightforward manner. Furthermore it can execute the X3ML engine for producing 
@@ -79,6 +83,7 @@ public class X3MLEngineFactory {
     private int uuidSize;
     private String associationTableFile;
     private Pair<String,OutputFormat> output;
+    private static final Logger LOGGER=Logger.getLogger(X3MLEngineFactory.class);
     
     /* Instantiate the factory with the default values */
     private X3MLEngineFactory(){
@@ -99,6 +104,8 @@ public class X3MLEngineFactory {
      * @return a new instance of the X3MLEngineFactory class
      */
     public static X3MLEngineFactory create(){
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.debug("Created an instance of X3MLEngineFactory");
         return new X3MLEngineFactory();
     }
     
@@ -108,6 +115,7 @@ public class X3MLEngineFactory {
      * @return the updated X3MLEngineFactory instance
      */
     public X3MLEngineFactory withMappings(File mappingsFile){
+        LOGGER.debug("Added the X3ML mappings file ("+mappingsFile.getAbsolutePath()+")");
         this.mappingsFile=mappingsFile;
         return this;
     }
@@ -119,6 +127,9 @@ public class X3MLEngineFactory {
      * @return the updated X3MLEngineFactory instance
      */
     public X3MLEngineFactory withInputFiles(File ... inputFiles){
+        for(File f : inputFiles){
+            LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
+        }
         this.inputFiles.addAll(Arrays.asList(inputFiles));
         return this;
     }
@@ -129,6 +140,7 @@ public class X3MLEngineFactory {
      * @return the updated X3MLEngineFactory instance
      */
     public X3MLEngineFactory withInputFolder(File inputFolder){
+        LOGGER.debug("Added the XML input folder ("+inputFolder.getAbsolutePath()+")");
         this.inputFolder=inputFolder;
         return this;
     }
@@ -138,6 +150,7 @@ public class X3MLEngineFactory {
      * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile){
+        LOGGER.debug("Added the Generator policy file ("+generatorPolicyFile.getAbsolutePath()+")");
         this.generatorPolicyFile=generatorPolicyFile;
         return this;
     }
@@ -150,6 +163,7 @@ public class X3MLEngineFactory {
      * @param uuidLength value of the length for the produced UUIDs
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withUuidSize(int uuidLength){
+        LOGGER.debug("Set the UUID size to "+uuidLength);
         this.uuidSize=uuidLength;
         return this;
     }
@@ -165,6 +179,8 @@ public class X3MLEngineFactory {
      * @param format the format of the exported data 
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withOutput(String filename, OutputFormat format){
+        String output=(filename==null || filename.isEmpty())? "System.out":"File("+filename+")";
+        LOGGER.debug("Set the output to "+output+" and the format to "+format);
         this.output=Pair.of(filename, format);
         return this;
     }
@@ -178,7 +194,22 @@ public class X3MLEngineFactory {
      * association table
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withAssociationTable(String associationTableFilename){
+        if(associationTableFilename==null || associationTableFilename.isEmpty()){
+            LOGGER.debug("Disabled the export of the association table");
+        }else{
+            LOGGER.debug("Enabled the export of the association table in the file "+associationTableFilename);
+        }
         this.associationTableFile=associationTableFilename;
+        return this;
+    }
+    
+    /** Sets the level of logging to verbose for more informative logging messages.
+     * This option enables the debug messages to appear. 
+     * 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withVerboseLogging(){
+        LOGGER.debug("Changed the logging level to verbose");
+        LOGGER.setLevel(Level.DEBUG);
         return this;
     }
     
@@ -190,9 +221,10 @@ public class X3MLEngineFactory {
      * X3MLEngineFactory class). */
     public void execute(){
         this.validateConfig();
+        this.informUserAboutConfiguration();
         X3MLEngine engine=this.createX3MLEngine();
         Generator policy=X3MLGeneratorPolicy.load(this.getGeneratorPolicy(), X3MLGeneratorPolicy.createUUIDSource(this.uuidSize));
-
+        Element sourceRoot=this.getInput();
     }
     
     /* creates an instance of the X3ML engine using the provided X3ML mappings file */
@@ -214,6 +246,22 @@ public class X3MLEngineFactory {
         }
     }
     
+    /* parses the input (either it is a single file, multiple files, or a folder). 
+    It uses all the given resources to produce a single input element (DOM) */
+    private Element getInput(){
+        //TODO not yet implemented
+//        if(!this.inputFiles.isEmpty() && this.inputFolder==null){
+//            System.out.println("Provided only files");
+//        }else if(this.inputFiles.isEmpty() && this.inputFolder!=null){
+//            System.out.println("Provided only folder");
+//        }else if(!this.inputFiles.isEmpty() && this.inputFolder!=null){
+//            System.out.println("Provided both");
+//        }else{  // Although we do not expect to see this
+//            System.out.println("throw exc here");
+//        }
+        return null;
+    }
+    
     /* Validates that the mandatory elements (input and mappings) have been provided */
     private void validateConfig(){
         if(this.mappingsFile==null){
@@ -222,6 +270,30 @@ public class X3MLEngineFactory {
         if(this.inputFiles.isEmpty() && this.inputFolder==null){
             throw exception("The input file(s) or folder is missing.");
         }
+    }
+    
+    /* prints - using logger - the configuration details */
+    private void informUserAboutConfiguration(){
+        LOGGER.info("X3ML Engine configuration details");
+        LOGGER.info("X3ML Engine Mappings file: "+this.mappingsFile.getAbsolutePath());
+        LOGGER.info("Input files: "+this.getInputFilesListing());
+        LOGGER.info("UUID size: "+this.uuidSize);
+        String generatorPolicyMsg=(this.generatorPolicyFile==null)?"none":this.generatorPolicyFile.getAbsolutePath();
+        LOGGER.info("Generator policy file: "+generatorPolicyMsg);
+        String outputMsg=(this.output.getLeft()==null || !this.output.getLeft().isEmpty())?"System.out":this.output.getLeft();
+        LOGGER.info("Output: "+outputMsg);
+        LOGGER.info("Output format: "+this.output.getRight());
+        String associationTableExportMsg=(this.associationTableFile==null || !this.associationTableFile.isEmpty())?"Disabled":"Enabled, file: "+this.associationTableFile;
+        LOGGER.info("Export sssociation table: "+associationTableExportMsg);
+    }
+    
+    private Collection<String> getInputFilesListing(){
+        Set<String> retSet=new HashSet<>();
+        for(File inputFile : this.inputFiles){
+            retSet.add(inputFile.getAbsolutePath());
+        }
+        //TODO listFiles from a folder here
+        return retSet;
     }
 }
 
