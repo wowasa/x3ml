@@ -5,6 +5,7 @@
 * Fixed a bug that was raised with multiple input files ([issue #49](https://github.com/isl/x3ml/issues/49))
 * Changed the hard-coded way of reporting error messages with a configurable that exploits loggers ([issue #48](https://github.com/isl/x3ml/issues/48))
 * NEW functionality for using an entire folder (contain XML files) as input  ([issue #47](https://github.com/isl/x3ml/issues/47))
+* NEW functionality for searching recursively for XML files in an input folder ([issue #62](https://github.com/isl/x3ml/issues/62))
 * NEW functionality for ommitting replicating entity generation details when variables are used ([issue #46](https://github.com/isl/x3ml/issues/46))
 
 ## 1 July 2016: V 1.7.1 (by FORTH-ICS)
