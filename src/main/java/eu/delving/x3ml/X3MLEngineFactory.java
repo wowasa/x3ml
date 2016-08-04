@@ -21,13 +21,14 @@ package eu.delving.x3ml;
 
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.Generator;
+import eu.delving.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -191,8 +192,8 @@ public class X3MLEngineFactory {
      * @param format the format of the exported data 
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withOutput(String filename, OutputFormat format){
-        String output=(filename==null || filename.isEmpty())? "System.out":"File("+filename+")";
-        LOGGER.debug("Set the output to "+output+" and the format to "+format);
+        String outputMsg=(filename==null || filename.isEmpty())? "System.out":"File("+filename+")";
+        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
         this.output=Pair.of(filename, format);
         return this;
     }
@@ -237,8 +238,9 @@ public class X3MLEngineFactory {
         X3MLEngine engine=this.createX3MLEngine();
         Generator policy=X3MLGeneratorPolicy.load(this.getGeneratorPolicy(), X3MLGeneratorPolicy.createUUIDSource(this.uuidSize));
         Element sourceRoot=this.getInput();
-        X3MLEngine.Output output = engine.execute(sourceRoot, policy);
-        this.outputResults(output);
+        X3MLEngine.Output engineOutput = engine.execute(sourceRoot, policy);
+        this.outputResults(engineOutput);
+        this.outputAssociationTable();
     }
     
     /* creates an instance of the X3ML engine using the provided X3ML mappings file */
@@ -287,33 +289,45 @@ public class X3MLEngineFactory {
         }
     }
     
-    private void outputResults(X3MLEngine.Output output){
+    private void outputResults(X3MLEngine.Output engineOutput){
         try{
             switch(this.output.getRight()){
                 case RDF_XML:
                     if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        output.writeXML(System.out);
+                        engineOutput.writeXML(System.out);
                     }else{
-                        output.write(new PrintStream(new File(this.output.getLeft())), "application/rdf+xml");
+                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "application/rdf+xml");
                     }
                     break;
                 case NTRIPLES:
                     if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        output.write(System.out,"application/n-triples");
+                        engineOutput.write(System.out,"application/n-triples");
                     }else{
-                        output.write(new PrintStream(new File(this.output.getLeft())), "application/n-triples");
+                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "application/n-triples");
                     }
                     break;
                 case TURTLE:
                     if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        output.write(System.out,"text/turtle");
+                        engineOutput.write(System.out,"text/turtle");
                     }else{
-                        output.write(new PrintStream(new File(this.output.getLeft())), "text/turtle");
+                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "text/turtle");
                     }
                     break;
             }
         }catch(FileNotFoundException ex){
             throw exception("An error occured while exporting results",ex);
+        }
+    }
+    
+    /* Outputs (if configured to do so) the contents of the association table */
+    private void outputAssociationTable(){
+        try{
+            if(this.associationTableFile!=null && !this.associationTableFile.isEmpty()){
+                GeneratorContext.exportAssociationTable(this.associationTableFile);
+            }
+        }catch(IOException ex){
+            throw exception("An error occured while exporting the contens of the association table in "
+                           +"file "+this.associationTableFile, ex);
         }
     }
     
