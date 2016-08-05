@@ -28,6 +28,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import com.hp.hpl.jena.sparql.core.DatasetGraph;
 import com.hp.hpl.jena.sparql.core.DatasetGraphSimpleMem;
+import com.hp.hpl.jena.sparql.core.Quad;
 import javax.xml.namespace.NamespaceContext;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -37,6 +38,7 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import java.util.Iterator;
 
 /**
  * The output sent to a Jena graph model.
@@ -139,10 +141,20 @@ public class ModelOutput implements Output {
 
     public void writeXML(PrintStream out) {
         if(X3ML.RootElement.hasNamedGraphs){
+            this.updateNamedgraphRefs(XPathInput.entireInputExportedRefUri);
             this.writeQuads(out);
         }else{
             model.write(out, "RDF/XML-ABBREV");
         }
+    }
+    
+    private void updateNamedgraphRefs(String uri){
+        Iterator<Quad> qIter=quadGraph.find(Node.ANY, Node.ANY, Node.ANY, Node.ANY);
+        while(qIter.hasNext())
+            quadGraph.add(new ResourceImpl("http://default").asNode(), 
+                          new ResourceImpl(uri).asNode(), 
+                          new ResourceImpl("http://PX_is_refered_by").asNode(), 
+                          new ResourceImpl(qIter.next().getGraph().getURI()).asNode());
     }
 
     public void writeNTRIPLE(PrintStream out) {

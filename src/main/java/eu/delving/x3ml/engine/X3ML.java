@@ -63,6 +63,7 @@ public interface X3ML {
         xpath,
         constant,
         position,
+        entireInput,
         xpathPosition
     }
 

@@ -56,6 +56,7 @@ public class Range extends GeneratorContext {
         if (rangeResolver.hasResources()) {
             rangeResolver.link(Derivation.Range);
             for (Resource lastResource : path.lastResources) {
+                XPathInput.domainURIForNamedgraps=lastResource.getURI();
                 for (Resource resolvedResource : rangeResolver.resources) {
                     lastResource.addProperty(path.lastProperty, resolvedResource);
                     if(linkNamedgraph!=null){
@@ -63,7 +64,6 @@ public class Range extends GeneratorContext {
                         
                         X3ML.LinkElement.namedGraphProduced=(linkNamedgraph.startsWith("http://") && !linkNamedgraph.isEmpty())?linkNamedgraph+"":"http://namedgraph/"+linkNamedgraph;
                         X3ML.LinkElement.namedGraphProduced+=lastResource.getURI().replace("http://","_").replace("uuid:", "_");
-                        
                         
                         ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                 lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
