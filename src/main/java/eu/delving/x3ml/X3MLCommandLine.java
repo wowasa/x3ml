@@ -39,7 +39,10 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,14 +78,15 @@ public class X3MLCommandLine {
         Option xml = new Option(
                 "xml", true,
                 "XML input records.\n Option A-single file: -xml input.xml\n"
-                                   +" Option B-stdin: -xml @ \n"
-                                   +" Option C-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml\n"
+                                   +" Option B-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml\n"
+                                   +" Option C-stdin: -xml @\n"
                                    +" Option D-folder: -xml #_folder_path\n");
         xml.setRequired(true);
         Option x3ml = new Option(
                 "x3ml", true,
-                "X3ML mapping definition: -x3ml mapping.x3ml (@ = stdin)"
-        );
+                "X3ML mapping definition. \n Option A-single file: -x3ml mapping.x3ml \n"
+                                          +" Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml\n"
+                                          +" Option C-stdin: -x3ml @");
         x3ml.setRequired(true);
         Option rdf = new Option(
                 "rdf", true,
@@ -233,7 +237,13 @@ public class X3MLCommandLine {
             }
             x3mlStream = System.in;
         }
-        else {
+        else if(x3ml.contains(",")){
+            Set<InputStream> mappingInputStreams=new HashSet<>();
+            for(String mappingsFile : x3ml.split(",")){
+                mappingInputStreams.add(new FileInputStream(new File(mappingsFile)));
+            }
+            x3mlStream=new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingInputStreams).getBytes());
+        }else{
             if (validate) {
                 List<String> errors = X3MLEngine.validate(getStream(file(x3ml)));
                 if (!errors.isEmpty()) {

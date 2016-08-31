@@ -375,7 +375,7 @@ public class Utils {
      * 
      * @param mappingFiles the files containing X3ML mappings as inputStreams
      * @return the string representation of the merged X3ML mappings. */
-    public static String mergeMultipleMappingFiles(List<InputStream> mappingFiles){
+    public static String mergeMultipleMappingFiles(Collection<InputStream> mappingFiles){
         try{
             Document masterMappingsFile=null;
             List<InputStream> inputStreams=new ArrayList<>();
