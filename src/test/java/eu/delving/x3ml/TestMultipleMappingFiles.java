@@ -25,10 +25,7 @@ import static eu.delving.x3ml.AllTests.errorFree;
 import static eu.delving.x3ml.AllTests.xmlToNTriples;
 import eu.delving.x3ml.engine.Generator;
 import gr.forth.Utils;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -65,6 +62,21 @@ public class TestMultipleMappingFiles extends TestCase{
         String[] expectedResult = xmlToNTriples("/multiple_mapping_files/expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testUsingMultipleMappingFileError() {
+        try{
+            List<InputStream> mappingStreams=Arrays.asList(
+                                                TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple1.x3ml"),
+                                                TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple2.x3ml"),
+                                                TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple3.x3ml"), 
+                                                TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultipleWrong.x3ml"));
+            X3MLEngine engine=X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingStreams).getBytes()));            
+            fail("One of the given X3ML mappings is not correct. We should encounter an excepetion here");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Successfully caught X3MLException", true);
+        }
     }
     
 }
