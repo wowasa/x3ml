@@ -36,6 +36,14 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
+    /* Playing with multiple mapping files */
+    private static void multipleMappingFilesScenario(){
+        X3MLEngineFactory.create()
+                         .withMappings(new File("example/mappingsWithoutGenerator.x3ml"), new File("example/mappingsWithoutGenerator2.x3ml"))
+                         .withInputFiles(new File("example/input.xml"))
+                         .execute();
+    }
+    
     /* Playing with multiple folders */
     private static void multipleFilesAndFoldersScenario(){
         X3MLEngineFactory.create()
@@ -82,6 +90,7 @@ public class X3MLFactoryUser {
         simplestScenario();
         withGeneratorPolicyScenario();
         multipleFilesScenario();
+        multipleMappingFilesScenario();
         multipleFilesAndFoldersScenario();
         outputFormatsScenario();
         exportAssocTableScenario();
