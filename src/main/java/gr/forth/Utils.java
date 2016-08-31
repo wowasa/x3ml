@@ -20,20 +20,32 @@ package gr.forth;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import eu.delving.x3ml.X3MLEngine;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
 import eu.delving.x3ml.engine.X3ML.Mapping;
 import eu.delving.x3ml.engine.X3ML.RootElement;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -334,6 +346,104 @@ public class Utils {
                     }
                 }
             }
+        }
+    }
+    
+    /**Merges multiple mapping files and produces a single file containing the merged contents.
+     * The method validates that the contents of the corresponding files are valid and 
+     * consistent with respect to the X3ML schema and produces a single block of X3ML mappings.
+     * The method returns the X3ML representation of the merged X3ML mappings. 
+     * 
+     * @param mappingFiles the files containing X3ML mappings
+     * @return the string representation of the merged X3ML mappings. */
+    public static String mergeMultipleMappingFiles(File ... mappingFiles){
+        try{
+            List<InputStream> streams=new ArrayList<>();
+            for(File f : mappingFiles){
+                streams.add(new FileInputStream(f));
+            }
+            return Utils.mergeMultipleMappingFiles(streams);
+        }catch(FileNotFoundException ex){
+            throw exception("An error occured while merging the X3ML mapping files",ex);
+        }
+    }
+    
+    /**Merges multiple mapping files and produces a single file containing the merged contents.
+     * The method validates that the contents of the corresponding files are valid and 
+     * consistent with respect to the X3ML schema and produces a single block of X3ML mappings.
+     * The method returns the X3ML representation of the merged X3ML mappings. 
+     * 
+     * @param mappingFiles the files containing X3ML mappings as inputStreams
+     * @return the string representation of the merged X3ML mappings. */
+    public static String mergeMultipleMappingFiles(List<InputStream> mappingFiles){
+        try{
+            Document masterMappingsFile=null;
+            List<InputStream> inputStreams=new ArrayList<>();
+            // first validate the given X3ML mapping files
+            for(InputStream mappingFile : mappingFiles){
+                InputStream is=X3MLEngine.validateX3MLMappings(mappingFile);
+                inputStreams.add(is);
+            }
+            
+            for(InputStream inputMappingFile : inputStreams){
+                if(masterMappingsFile==null){   //the first mappings file will be the master doc
+                    masterMappingsFile=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputMappingFile);
+                }else{
+                    Document singleMappingsFile=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputMappingFile);
+                    masterMappingsFile=Utils.mergeNamespacesBlockFromX3mlFile(masterMappingsFile,singleMappingsFile.getElementsByTagName("namespace"));
+                    masterMappingsFile=Utils.concatMappingsBlockFromX3mlFile(masterMappingsFile,singleMappingsFile.getElementsByTagName("mapping"));
+                }
+            }
+            return Utils.exportMappingsFile(masterMappingsFile);
+        }catch(IOException | ParserConfigurationException | SAXException ex){
+            throw exception("An error occured while validating the X3ML mapping files",ex);
+        }
+    }
+    
+    /* merges the namespaces blocks that are given in the master doc that is provided. Returns the updated document*/
+    private static Document mergeNamespacesBlockFromX3mlFile(Document masterDoc, NodeList newNamespaceElems){
+        Map<String,String> existingNamespaces=new HashMap<>();
+        NodeList existingNamespaceElems=masterDoc.getElementsByTagName("namespace");
+        for(int i=0;i<existingNamespaceElems.getLength();i++){
+            existingNamespaces.put(existingNamespaceElems.item(i).getAttributes().getNamedItem("prefix").getNodeValue(),
+                                   existingNamespaceElems.item(i).getAttributes().getNamedItem("uri").getNodeValue());
+        }
+        for(int i=0;i<newNamespaceElems.getLength();i++){
+            String nsPrefix=newNamespaceElems.item(i).getAttributes().getNamedItem("prefix").getNodeValue();
+            String nsUri=newNamespaceElems.item(i).getAttributes().getNamedItem("uri").getNodeValue();
+            if(existingNamespaces.containsKey(nsPrefix)){
+                if(!existingNamespaces.get(nsPrefix).equals(nsUri)){
+                    throw exception("The declaration of the namespace with prefix \""+nsPrefix+"\" is not the same in all "+
+                                    "mapping  files. ("+existingNamespaces.get(nsPrefix)+" != "+nsUri+")");
+                }
+            }else{
+                existingNamespaces.put(nsPrefix, nsUri);
+                Node replicatedNamespace=masterDoc.importNode(newNamespaceElems.item(i), true);
+                masterDoc.getElementsByTagName("namespaces").item(0).appendChild(replicatedNamespace);
+            }
+        }
+        return masterDoc;
+    }
+    
+    /* concatenates the given mappings after the last existing mapping in the given master doc. Returns the updated document */
+    private static Document concatMappingsBlockFromX3mlFile(Document masterDoc, NodeList newMappingsElems){
+        for(int i=0;i<newMappingsElems.getLength();i++){
+            Node replMappingNode=masterDoc.importNode(newMappingsElems.item(i), true);
+            masterDoc.getElementsByTagName("mappings").item(0).appendChild(replMappingNode);
+        }
+        return masterDoc;
+    }
+    
+    private static String exportMappingsFile(Document doc){
+        try{
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            return writer.getBuffer().toString();
+        }catch(IllegalArgumentException |  TransformerException | TransformerFactoryConfigurationError ex){
+            throw exception("An error occured while exporting the contnets of the X3ML mappings file",ex);
         }
     }
 }
