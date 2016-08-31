@@ -27,6 +27,7 @@ import eu.delving.x3ml.engine.X3ML.Mapping;
 import eu.delving.x3ml.engine.X3ML.RootElement;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -357,13 +358,34 @@ public class Utils {
      * @return the string representation of the merged X3ML mappings. */
     public static String mergeMultipleMappingFiles(File ... mappingFiles){
         try{
+            List<InputStream> streams=new ArrayList<>();
+            for(File f : mappingFiles){
+                streams.add(new FileInputStream(f));
+            }
+            return Utils.mergeMultipleMappingFiles(streams);
+        }catch(FileNotFoundException ex){
+            throw exception("An error occured while merging the X3ML mapping files",ex);
+        }
+    }
+    
+    /**Merges multiple mapping files and produces a single file containing the merged contents.
+     * The method validates that the contents of the corresponding files are valid and 
+     * consistent with respect to the X3ML schema and produces a single block of X3ML mappings.
+     * The method returns the X3ML representation of the merged X3ML mappings. 
+     * 
+     * @param mappingFiles the files containing X3ML mappings as inputStreams
+     * @return the string representation of the merged X3ML mappings. */
+    public static String mergeMultipleMappingFiles(List<InputStream> mappingFiles){
+        try{
             Document masterMappingsFile=null;
+            List<InputStream> inputStreams=new ArrayList<>();
             // first validate the given X3ML mapping files
-            for(File mappingFile : mappingFiles){
-                X3MLEngine.validateX3MLMappings(new FileInputStream(mappingFile));
+            for(InputStream mappingFile : mappingFiles){
+                InputStream is=X3MLEngine.validateX3MLMappings(mappingFile);
+                inputStreams.add(is);
             }
             
-            for(File inputMappingFile : mappingFiles){
+            for(InputStream inputMappingFile : inputStreams){
                 if(masterMappingsFile==null){   //the first mappings file will be the master doc
                     masterMappingsFile=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputMappingFile);
                 }else{
