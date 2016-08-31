@@ -29,6 +29,8 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import junit.framework.TestCase;
 import org.apache.commons.lang3.StringUtils;
@@ -42,13 +44,27 @@ public class TestMultipleMappingFiles extends TestCase{
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
     
     @Test
-    public void testUsingSingleMappingFile() throws FileNotFoundException {
+    public void testUsingSingleMappingFile() {
         X3MLEngine engine = engine("/multiple_mapping_files/mappingsSingle.x3ml");
         X3MLEngine.Output output = engine.execute(document("/multiple_mapping_files/input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
-        output.writeXML(System.out);
         String[] expectedResult = xmlToNTriples("/multiple_mapping_files/expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    @Test
+    public void testUsingMultipleMappingFile() {
+        List<InputStream> mappingStreams=Arrays.asList(
+                                            TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple1.x3ml"),
+                                            TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple2.x3ml"),
+                                            TestMultipleMappingFiles.class.getResourceAsStream("/multiple_mapping_files/mappingsMultiple3.x3ml"));
+        X3MLEngine engine=X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingStreams).getBytes()));
+        X3MLEngine.Output output = engine.execute(document("/multiple_mapping_files/input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/multiple_mapping_files/expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
 }
