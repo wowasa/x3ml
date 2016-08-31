@@ -23,6 +23,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.Generator;
 import eu.delving.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -82,7 +83,7 @@ import org.w3c.dom.Element;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
 public class X3MLEngineFactory {
-    private File mappingsFile;
+    private Set<File> mappingsFiles;
     private Set<File> inputFiles;
     private Set<Pair<File, Boolean>> inputFolders;
     private File generatorPolicyFile;
@@ -99,7 +100,7 @@ public class X3MLEngineFactory {
     
     /* Instantiate the factory with the default values */
     private X3MLEngineFactory(){
-        this.mappingsFile=null;
+        this.mappingsFiles=new HashSet<>();
         this.inputFiles=new HashSet<>();
         this.inputFolders=new HashSet<>();
         this.generatorPolicyFile=null;
@@ -123,12 +124,14 @@ public class X3MLEngineFactory {
     
     /**Adds the mappings file in the X3MLEngineFactory. 
      * 
-     * @param mappingsFile the file with the mappings (X3ML)
+     * @param mappingsFiles the files with the mappings (X3ML)
      * @return the updated X3MLEngineFactory instance
      */
-    public X3MLEngineFactory withMappings(File mappingsFile){
-        LOGGER.debug("Added the X3ML mappings file ("+mappingsFile.getAbsolutePath()+")");
-        this.mappingsFile=mappingsFile;
+    public X3MLEngineFactory withMappings(File ... mappingsFiles){
+        for(File f : mappingsFiles){
+            LOGGER.debug("Added the X3ML mappings file ("+f.getAbsolutePath()+")");
+        }
+        this.mappingsFiles.addAll(Arrays.asList(mappingsFiles));
         return this;
     }
     
@@ -246,9 +249,13 @@ public class X3MLEngineFactory {
     /* creates an instance of the X3ML engine using the provided X3ML mappings file */
     private X3MLEngine createX3MLEngine(){
         try{
-            return X3MLEngine.load(new FileInputStream(this.mappingsFile));
+            List<InputStream> mappingsInputStream=new ArrayList<>();
+            for(File f : this.mappingsFiles){
+                mappingsInputStream.add(new FileInputStream(f));
+            }
+            return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingsInputStream).getBytes()));
         }catch(FileNotFoundException ex){
-            throw exception("Cannot find the X3ML mappings file (\""+this.mappingsFile.getAbsolutePath()+"\")", ex);
+            throw exception("Cannot find X3ML mappings file", ex);
         }
     }
     
@@ -281,7 +288,7 @@ public class X3MLEngineFactory {
     
     /* Validates that the mandatory elements (input and mappings) have been provided */
     private void validateConfig(){
-        if(this.mappingsFile==null){
+        if(this.mappingsFiles.isEmpty()){
             throw exception("The mappings file (x3ml) is missing.");
         }
         if(this.inputFiles.isEmpty() && this.inputFolders.isEmpty()){
@@ -333,7 +340,7 @@ public class X3MLEngineFactory {
     
     /* prints - using logger - the configuration details */
     private void informUserAboutConfiguration(){
-        LOGGER.info("X3ML Engine Mappings file: "+this.mappingsFile.getAbsolutePath());
+        LOGGER.info("X3ML Engine Mappings files: "+this.mappingsFiles);
         LOGGER.info("Input files: "+this.getInputFilesListing());
         LOGGER.info("UUID size: "+this.uuidSize);
         String generatorPolicyMsg=(this.generatorPolicyFile==null)?"none":this.generatorPolicyFile.getAbsolutePath();
