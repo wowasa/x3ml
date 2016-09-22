@@ -74,6 +74,15 @@ public abstract class GeneratorContext {
         return context.input().valueAt(node, expression);
     }
 
+    /** Creates or retrieves a value for the givn 
+     * 
+     * @param generator
+     * @param globalVariable
+     * @param variable
+     * @param typeAwareVar
+     * @param unique
+     * @return 
+     */
     public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {
         if(generator == null){
             throw exception("Value generator missing");
@@ -141,7 +150,12 @@ public abstract class GeneratorContext {
                             return context.input().evaluateArgument(node, index, generator, name, sourceType);
                         }
                     });
+                    /* After generating the value for the entity that has a variable associated with it, 
+                    we have to also add the generated value (so that the value can be re-used when the same 
+                    input is exploited). Related issue= #66 */
                     put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
+                    String nodeName = extractXPath(node) + unique;
+                    context.putGeneratedValue(nodeName, generatedValue);
                 }
             }
             else{
