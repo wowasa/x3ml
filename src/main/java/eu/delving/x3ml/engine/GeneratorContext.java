@@ -56,6 +56,12 @@ public abstract class GeneratorContext {
         this.index = index;
     }
 
+    /**Retrieves the value that has been generated for the given variable in the given scope.
+     * The scope can be either within the same mapping (WITHIN_MAPPING), or global (GLOBAL).
+     * 
+     * @param variable the name of the variable
+     * @param scope the scope (either WITHIN_MAPPING or GLOBAL)
+     * @return the generated value for the given variable */
     public GeneratedValue get(String variable, VariableScope scope) {
         if (parent == null) {
             throw exception("Parent context missing");
@@ -63,6 +69,12 @@ public abstract class GeneratorContext {
         return parent.get(variable, scope);
     }
 
+    /**Stores the value that has been generated for the given variable in the given scope.
+     * The scope can be either within the same mapping (WITHIN_MAPPING), or global (GLOBAL).
+     * 
+     * @param variable the name of the variable
+     * @param scope the scope (either WITHIN_MAPPING or GLOBAL) 
+     * @param generatedValue the generated value */
     public void put(String variable, VariableScope scope, GeneratedValue generatedValue) {
         if (parent == null) {
             throw exception("Parent context missing");
@@ -74,6 +86,22 @@ public abstract class GeneratorContext {
         return context.input().valueAt(node, expression);
     }
 
+    /** Creates or retrieves a value for the node of the input (which is part of this instance). 
+     * To this end it uses the given generator and variables declaration. The procedure is the following:
+     * - If a global variable has been declared for the entity then it searches if a value has already been 
+     * generated for this global variable. If not it generates the value.
+     * - If a type-aware variable has been declared for the entity then it searches if a value has already been 
+     * generated for this global variable. If not it generates the value.
+     * - If a variable has been declared for the entity then it searches if a value has already been 
+     * generated for this global variable. If not it generates the value.
+     * - It generates (or retrieves) the value for the particular node
+     * 
+     * @param generator the declared generator element
+     * @param globalVariable the name of the declared global variable
+     * @param variable the name of the declared variable
+     * @param typeAwareVar the name of the type-aware variable
+     * @param unique a unique value (usually the type of additional/intermediates) for creating always new instances
+     * @return the value that has been generated (either now, or previously )  */
     public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {
         if(generator == null){
             throw exception("Value generator missing");
@@ -141,7 +169,12 @@ public abstract class GeneratorContext {
                             return context.input().evaluateArgument(node, index, generator, name, sourceType);
                         }
                     });
+                    /* After generating the value for the entity that has a variable associated with it, 
+                    we have to also add the generated value (so that the value can be re-used when the same 
+                    input is exploited). Related issue= #66 */
                     put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
+                    String nodeName = extractXPath(node) + unique;
+                    context.putGeneratedValue(nodeName, generatedValue);
                 }
             }
             else{
@@ -197,11 +230,21 @@ public abstract class GeneratorContext {
             }
     }
     
+    /**Adds a new entry in the association table with the given XPATH expression and 
+     * the given key (It is used in the case of joins).
+     * 
+     * @param xpathEpxr the XPATH expression from one of the tables that are joined
+     * @param key the key that is being used for the join */
     public static void appendAssociationTable(String xpathEpxr, String key){
         xpathEpxr=xpathEpxr.replace("///", "/").replaceAll("//", "/");
         AssociationTable.addEntry(xpathEpxr,key);
     }
     
+    /** Exports the contents of the association table in XML format.
+     * The name of the file is defined from the given parameter.
+     * 
+     * @param filename the filename where the association table contents will be exported
+     * @throws IOException if any error occurs during the exporting.*/
     public static void exportAssociationTable(String filename) throws IOException{
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8"));
         writer.append(AssociationTable.exportAll());
@@ -209,6 +252,10 @@ public abstract class GeneratorContext {
         writer.close();
     }
     
+    /** Exports the contents of the association table in XML format, and returns their 
+     * String representation.
+     * 
+     * @return a string representation of the association table in XML format.*/
     public static String exportAssociationTableToString(){
         return AssociationTable.exportAll();
     }
