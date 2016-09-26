@@ -10,7 +10,10 @@
             <domain>
                 <source_node>//COIN</source_node>
                 <target_node>
-                    <entity global_variable="gvd1"/>
+                    <entity global_variable="gvd1">
+						<type>crm:E24_Physical_Man-Made_Thing</type>
+						<instance_generator name="UUID"/>
+					</entity>
                 </target_node>
             </domain>
 			<link>
@@ -23,7 +26,9 @@
                 <range>
                     <source_node>MATERIAL_ID</source_node>
                     <target_node>
-                        <entity global_variable="gvl1"/>
+                        <entity global_variable="gvl1">
+							<type>crm:E42_Identifier</type>
+						</entity>
                     </target_node>
                 </range>
             </link>
@@ -32,7 +37,10 @@
             <domain>
                 <source_node>//MATERIAL</source_node>
                 <target_node>
-                    <entity global_variable="gvd1"/>
+                    <entity>
+						<type>crm:E24_Physical_Man-Made_Thing</type>
+						<instance_generator name="UUID"/>
+					</entity>
                 </target_node>
             </domain>
 			<link>
@@ -47,9 +55,9 @@
                     <target_node>
                         <entity  global_variable="gvl1">
                             <type>crm:E42_Identifier</type>
-                            <instance_generator name="UUID">
+                            <!--<instance_generator name="UUID">
 								<arg name="text">text()</arg>
-							</instance_generator> 
+							</instance_generator>  -->
                         </entity>
                     </target_node>
                 </range>

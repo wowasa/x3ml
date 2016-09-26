@@ -21,7 +21,12 @@
                     <source_relation><relation>MATERIAL_ID</relation></source_relation>
                     <target_relation>
 						<relationship>crm:P30i_custody_transferred_through</relationship>
-                        <entity global_variable="gvi1"/>
+                        <entity global_variable="gvi1">
+							<type>crm:E42_Identifier</type>
+							<instance_generator name="UUID">
+								<arg name="text">text()</arg>
+							</instance_generator> 
+						</entity>
                         <relationship>crm:P1_is_identified_by</relationship>
                     </target_relation>
                 </path>
