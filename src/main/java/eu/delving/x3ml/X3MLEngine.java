@@ -71,7 +71,8 @@ import javax.xml.transform.Source;
 
 public class X3MLEngine {
     private static final String VERSION = "1.0";
-    private static final String X3ML_SCHEMA_LOCATION="/validation/x3ml_v1.0.xsd";
+    private static final String X3ML_SCHEMA_FOLDER="/schema/";
+    private static final String X3ML_SCHEMA_FILENAME="x3ml.xsd";
     private RootElement rootElement;
     private NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<>();
@@ -131,7 +132,7 @@ public class X3MLEngine {
     /* validates the X3ML mappings with respect to X3ML schema */
     private static void validateX3MLMappingsWithSchema(InputStream inputStream){
         try{
-            URL schemaUrl=X3MLEngine.class.getResource(X3MLEngine.X3ML_SCHEMA_LOCATION);
+            URL schemaUrl=X3MLEngine.class.getResource(X3MLEngine.X3ML_SCHEMA_FOLDER+X3MLEngine.X3ML_SCHEMA_FILENAME);
             Source x3mlFile=new StreamSource(inputStream);
             SchemaFactory schemaFactory=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema=schemaFactory.newSchema(schemaUrl);
@@ -243,7 +244,7 @@ public class X3MLEngine {
     }
 
     public static List<String> validateStream(InputStream inputStream) throws SAXException, IOException {
-        Schema schema = schemaFactory().newSchema(new StreamSource(inputStream("x3ml_v1.0.xsd")));
+        Schema schema = schemaFactory().newSchema(new StreamSource(inputStream(X3ML_SCHEMA_FILENAME)));
         Validator validator = schema.newValidator();
         final List<String> errors = new ArrayList<String>();
         validator.setErrorHandler(new ErrorHandler() {
@@ -395,7 +396,7 @@ public class X3MLEngine {
     }
 
     private static InputStream inputStream(String fileName) {
-        return X3MLEngine.class.getResourceAsStream("/validation/" + fileName);
+        return X3MLEngine.class.getResourceAsStream(X3ML_SCHEMA_FOLDER + fileName);
     }
 
     public static class X3MLException extends RuntimeException {
