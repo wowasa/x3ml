@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by End User (free.org) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
 	<xs:element name="info">
 		<xs:annotation>
 			<xs:documentation>root element</xs:documentation>
@@ -18,7 +18,7 @@
 						<xs:documentation/>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="source_info" type="source_infoComplexType">
+				<xs:element name="source_info" type="source_infoComplexType" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation/>
 					</xs:annotation>
