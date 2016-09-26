@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by End User (free.org) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
 	<xs:include schemaLocation="comment.xsd"/>
 	<xs:include schemaLocation="info.xsd"/>
 	<xs:element name="x3ml">
@@ -44,7 +44,17 @@
 													<xs:element name="path">
 														<xs:complexType>
 															<xs:sequence>
-																<xs:element name="source_relation" type="source_relationType"/>
+																<xs:element name="source_relation">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="relation" type="xs:string"/>
+																			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+																				<xs:element name="node" type="xs:string"/>
+																				<xs:element name="relation" type="xs:string"/>
+																			</xs:sequence>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 																<xs:element name="target_relation" type="target_relationType"/>
 																<xs:element name="comments" type="commentsType" minOccurs="0"/>
 															</xs:sequence>
@@ -74,6 +84,7 @@
 			</xs:sequence>
 			<xs:attribute name="version" use="required"/>
 			<xs:attribute name="source_type" use="required"/>
+			<xs:attribute name="editor"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="domain_target_nodeType">
@@ -98,16 +109,10 @@
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="source_relationType">
-		<xs:sequence minOccurs="1" maxOccurs="unbounded">
-			<xs:element ref="relation"  minOccurs="1" maxOccurs="unbounded"/>
-			<xs:element ref="node"  minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:element name="entity">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="type" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="type" maxOccurs="unbounded"/>
 				<xs:element ref="instance_info" minOccurs="0"/>
 				<xs:element ref="instance_generator" minOccurs="0"/>
 				<xs:element ref="label_generator" minOccurs="0" maxOccurs="unbounded"/>
@@ -115,12 +120,10 @@
 			</xs:sequence>
 			<xs:attribute name="variable"/>
 			<xs:attribute name="global_variable"/>
-			<xs:attribute name="type_aware_var"/>
+			<xs:attribute name="differentURI"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="relationship" type="xs:string"/>
-	<xs:element name="relation" type="xs:string"/>
-	<xs:element name="node" type="xs:string"/>
 	<xs:element name="type" type="xs:string"/>
 	<xs:complexType name="commentsType">
 		<xs:sequence>

@@ -26,7 +26,7 @@
                 <range>
                     <source_node>ID</source_node>
                     <target_node>
-                        <entity type_aware_var="tv1">
+                        <entity differentURI="tv1">
                             <type>crm:E42_Identifier</type>
                             <instance_generator name="UUID">
 								<arg name="text">text()</arg>
@@ -45,7 +45,7 @@
                 <range>
                     <source_node>ID</source_node>
                     <target_node>
-                        <entity type_aware_var="tv2">
+                        <entity differentURI="tv2">
                             <type>crm:E42_Identifier</type>
                             <instance_generator name="UUID">
 								<arg name="text">text()</arg>

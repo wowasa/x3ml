@@ -10,7 +10,10 @@
             <domain>
                 <source_node>//COIN</source_node>
                 <target_node>
-                    <entity global_variable="gva1"/>
+                    <entity global_variable="gva1">
+						<type>crm:E24_Physical_Man-Made_Thing</type>
+						<instance_generator name="UUID"/>
+					</entity>
                 </target_node>
             </domain>
 			<link>

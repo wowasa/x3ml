@@ -549,7 +549,7 @@ public interface X3ML {
         public String globalVariable;
         
         @XStreamAsAttribute
-        @XStreamAlias("type_aware_var")
+        @XStreamAlias("differentURI")
         public String type_aware_var;
 
         @XStreamImplicit

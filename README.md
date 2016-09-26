@@ -16,6 +16,14 @@ This project is a straightforward Maven 3 project, producing a single artifact i
 
 * **[Change Log](https://github.com/isl/x3ml/blob/master/docs/change-log.md)** - Changes between versions
 
+### Project Structure
+
+The project is structured with respect to Maven principles and any important or useful resources are categorized to different folders. More specifically it contains the following folders:
+
+* **src**: contains the source code of the X3ML engine and tests
+* **docs**: contains the corresponding documentation material for relevant resources (i.e. specification of the X3ML language, changelog of the X3ML engine, etc.)
+* **resources**: contains information about useful resources (i.e. the X3ML schema XSD files and their documentation)
+* **example**: contains examples (i.e. XML and X3ML files) that can be used for demonstrating the functionality of X3ML Engine
 
 ## Design Principles
 
