@@ -92,7 +92,9 @@ public class EntityResolver {
                         uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
                     }
                 }else{
-                    uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
+                    if(this.entityElement.type_aware_var==null){
+                        uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
+                    }
                 }
             }
             /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances
