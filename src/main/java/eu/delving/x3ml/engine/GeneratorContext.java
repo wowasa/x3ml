@@ -134,7 +134,8 @@ public abstract class GeneratorContext {
                     this.createAssociationTable(generatedValue, null, extractAssocTableXPath(node));
                 }
             }else{
-                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
+//                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
+                String nodeName = extractXPath(Domain.domainNode) + unique+"-"+typeAwareVar;
                 String xpathProper=extractAssocTableXPath(node);
                 generatedValue = context.getGeneratedValue(nodeName);
                 if (generatedValue == null) {

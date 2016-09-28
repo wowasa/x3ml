@@ -88,7 +88,9 @@ public class EntityResolver {
             /*If the type is going to be used for an additional or an intermediate node then do not re-use the old one*/
             if(additionalNodeIndex>0 || indermediateNodeIndex>0){
                 if(additionalNodeIndex>0){
-                    uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
+                    if(this.entityElement.type_aware_var==null){
+                        uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
+                    }
                 }else{
                     uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
                 }
