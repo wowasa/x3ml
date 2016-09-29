@@ -63,6 +63,15 @@
 					<xs:documentation/>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="generator_policy_info">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="generator_link" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
 			<xs:element ref="example_data_target_record"/>
 		</xs:sequence>
 	</xs:complexType>
