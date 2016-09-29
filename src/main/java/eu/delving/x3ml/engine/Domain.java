@@ -40,7 +40,7 @@ import static org.joox.JOOX.$;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class Domain extends GeneratorContext {
-
+    public static Node domainNode;
     public final DomainElement domain;
     public EntityResolver entityResolver;
     private Map<String, X3ML.GeneratedValue> variables = new TreeMap<>();
@@ -74,6 +74,7 @@ public class Domain extends GeneratorContext {
     }
 
     public boolean resolve() {
+        domainNode=node;
         if (conditionFails(domain.target_node.condition, this)) {
             return false;
         }
