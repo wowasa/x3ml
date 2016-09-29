@@ -321,26 +321,20 @@ public class Utils {
     
     private static void validateVariablesAndEntities(Multimap<String,X3ML.EntityElement> multimap){
         for(String variable : multimap.keySet()){
-            List<X3ML.TypeElement> typeElementsFound=null;
             X3ML.InstanceGeneratorElement instanceGeneratorFound=null;
             List<X3ML.LabelGeneratorElement> labelGeneratorFound=null;
             for(X3ML.EntityElement entityElem : multimap.get(variable)){
-                if(entityElem.typeElements!=null && !entityElem.typeElements.isEmpty() && 
-                   entityElem.instanceGenerator!=null){
-                    if(typeElementsFound==null){
-                        typeElementsFound=entityElem.typeElements;
-                        instanceGeneratorFound=entityElem.instanceGenerator;
-                        labelGeneratorFound=entityElem.labelGenerators;
-                    }
+                if(entityElem.instanceGenerator!=null){
+                    instanceGeneratorFound=entityElem.instanceGenerator;
+                    labelGeneratorFound=entityElem.labelGenerators;
                 }
             }
-            if(typeElementsFound==null){
+            if(instanceGeneratorFound==null){
                 throw exception("The variable \""+variable+"\" has been declared however the details of the entity "
-                               +"(i.e. type, instance_generator, etc.) are missing");
+                               +"(i.e.instance_generator, label generators, etc.) are missing");
             }else{
                 for(X3ML.EntityElement entityElem : multimap.get(variable)){
-                    if(entityElem.typeElements==null){
-                        entityElem.typeElements=typeElementsFound;
+                    if(entityElem.instanceGenerator==null){
                         entityElem.instanceGenerator=instanceGeneratorFound;
                         entityElem.labelGenerators=labelGeneratorFound;
                     }
