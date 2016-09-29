@@ -28,6 +28,7 @@
                     <target_node>
                         <entity global_variable="gvl1">
 							<type>crm:E42_Identifier</type>
+							<!-- <instance_generator name="UUID"/> -->
 						</entity>
                     </target_node>
                 </range>
@@ -55,9 +56,7 @@
                     <target_node>
                         <entity  global_variable="gvl1">
                             <type>crm:E42_Identifier</type>
-                            <!--<instance_generator name="UUID">
-								<arg name="text">text()</arg>
-							</instance_generator>  -->
+                            <!-- <instance_generator name="UUID"/> -->
                         </entity>
                     </target_node>
                 </range>

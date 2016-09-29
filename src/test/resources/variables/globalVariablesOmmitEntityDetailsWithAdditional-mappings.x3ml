@@ -63,7 +63,7 @@
 								<relationship>crm:P50_has_current_keeper</relationship>
 								<entity global_variable="gva1">
 									<type>crm:E24_Physical_Man-Made_Thing</type>
-									<instance_generator name="UUID"/>
+									<!-- <instance_generator name="UUID"/> -->
 								</entity>
 							</additional>
                         </entity>
