@@ -33,7 +33,7 @@
                     <target_node>
                         <entity variable="vl1">
 							<type>crm:E10_Transfer_of_Custody</type>
-							<instance_generator name="UUID"/> 
+							<!-- <instance_generator name="UUID"/> -->
                         </entity>
                     </target_node>
                 </range>

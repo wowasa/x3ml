@@ -47,9 +47,9 @@
                     <target_node>
                         <entity variable="vl1">
                           <type>crm:E42_Identifier</type>
-                            <instance_generator name="UUID">
+                          <!--  <instance_generator name="UUID">
 								<arg name="text">text()</arg>
-							</instance_generator>
+							</instance_generator> -->
                         </entity> 
                     </target_node>
                 </range>
