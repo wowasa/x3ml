@@ -7,6 +7,7 @@
 * Fixed a bug that was raised with the use of variables ([issue #66](https://github.com/isl/x3ml/issues/66))
 * Changed the hard-coded way of reporting error messages with a configurable that exploits loggers ([issue #48](https://github.com/isl/x3ml/issues/48))
 * Updates in the X3ML language specification schema ([issue #67](https://github.com/isl/x3ml/issues/67))
+* Changed the name of the type aware variable ([issue #68](https://github.com/isl/x3ml/issues/68))
 * NEW functionality for using an entire folder (contain XML files) as input  ([issue #47](https://github.com/isl/x3ml/issues/47))
 * NEW functionality for searching recursively for XML files in an input folder ([issue #62](https://github.com/isl/x3ml/issues/62))
 * NEW functionality for ommitting replicating entity generation details when variables are used ([issue #46](https://github.com/isl/x3ml/issues/46))
