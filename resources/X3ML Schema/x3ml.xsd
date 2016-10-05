@@ -35,7 +35,6 @@
 													<xs:element name="target_node" type="domain_target_nodeType"/>
 													<xs:element name="comments" type="commentsType" minOccurs="0"/>
 												</xs:sequence>
-												<xs:attribute name="repeated"/>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="link" minOccurs="0" maxOccurs="unbounded">
