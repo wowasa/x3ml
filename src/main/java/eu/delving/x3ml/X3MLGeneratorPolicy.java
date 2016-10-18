@@ -41,6 +41,7 @@ import static eu.delving.x3ml.engine.X3ML.Helper.typedLiteralValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.uriValue;
 import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
 import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
+import gr.forth.Labels;
 import gr.forth.Utils;
 
 /**
@@ -51,8 +52,8 @@ import gr.forth.Utils;
 
 public class X3MLGeneratorPolicy implements Generator {
     private static final Pattern BRACES = Pattern.compile("\\{[?;+#]?([^}]+)\\}");
-    private Map<String, GeneratorSpec> generatorMap = new TreeMap<String, GeneratorSpec>();
-    private Map<String, String> namespaceMap = new TreeMap<String, String>();
+    private Map<String, GeneratorSpec> generatorMap = new TreeMap<>();
+    private Map<String, String> namespaceMap = new TreeMap<>();
     private UUIDSource uuidSource;
     private SourceType defaultSourceType;
     private String languageFromMapping;
@@ -117,15 +118,15 @@ public class X3MLGeneratorPolicy implements Generator {
 
     @Override
     public GeneratedValue generate(GeneratorElement generatorElem, ArgValues argValues) {
-        String argDefaultValue="text";
+        String argDefaultValue=Labels.TEXT;
         String name=generatorElem.getName();
         if (name == null) {
             throw exception("Value function name missing");
         }
-        if ("UUID".equals(name)) {
+        if (Labels.UUID.equals(name)) {
             return uriValue(uuidSource.generateUUID());
         }
-        if ("Literal".equals(name)) {
+        if (Labels.LITERAL.equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
@@ -135,7 +136,7 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
-        if ("prefLabel".equals(name)) {
+        if (Labels.PREF_LABEL.equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
@@ -145,7 +146,7 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
-        if ("Constant".equals(name)) {
+        if (Labels.CONSTANT.equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, constant);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
@@ -192,7 +193,7 @@ public class X3MLGeneratorPolicy implements Generator {
             String returnType = instance.getValueType();
           
             //Custom Generator Prefix Addition
-            if (returnType.equals("URI")) {
+            if (returnType.equals(Labels.URI)) {
 
                 if (generator.prefix != null) { // use URI template
                     String namespaceUri = namespaceMap.get(generator.prefix);
@@ -204,7 +205,7 @@ public class X3MLGeneratorPolicy implements Generator {
                     return uriValue(value);
                 }
             }
-            else if (returnType.equals("UUID")) {
+            else if (returnType.equals(Labels.UUID)) {
                 return uriValue(uuidSource.generateUUID());
             }
             else {
@@ -313,7 +314,7 @@ public class X3MLGeneratorPolicy implements Generator {
 
     private static List<String> getVariables(String pattern) {
         Matcher braces = BRACES.matcher(pattern);
-        List<String> arguments = new ArrayList<String>();
+        List<String> arguments = new ArrayList<>();
         while (braces.find()) {
             Collections.addAll(arguments, braces.group(1).split(","));
         }
