@@ -18,65 +18,85 @@ under the License.
 ==============================================================================*/
 package gr.forth;
 
-import eu.delving.x3ml.X3MLGeneratorPolicy;
+import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.Date;
 
-/**
+/** The generator is responsible for generating a new timestamp value based on 
+ * the given date. It uses a date (i.e. 15/01/1984) and a parameter indicating whether
+ * the timestamp should be in the end of the day, or its beginning. The data is 
+ * given using the parameter "text" and supports many different formats for dates (e.g.
+ * 15/01/1984 or 15 Jan 1984, etc.); for more information check the corresponding method in the 
+ * class UtilsTime. The other parameter has the name and takes the values "upper" and 
+ * "lower", indicating whether the timestamp should be in the end of the given date, or
+ * in the beginning correspondingly.
  *
  * @author Konstantina Konsolaki &lt;konsolak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-public class BMdates implements X3MLGeneratorPolicy.CustomGenerator {
-     private String text;
+public class BMdates implements CustomGenerator {
+    private String text;
     private Bounds bounds;
 
     enum Bounds {
         Upper, Lower
     }
 
+    /** Sets the value of the argument with the given value.
+     * 
+     * @param name the name of the argument (the generator recognizes the arguments "text" and "bound")
+     * @param value the value of the corresponding argument
+     * @throws CustomGeneratorException it is thrown if the name of the argument is different 
+     * from the expected one ("text" or "bound") */
     @Override
-    public void setArg(String name, String value) throws X3MLGeneratorPolicy.CustomGeneratorException {
-        if ("text".equals(name)) {
-            text = value;
-        } else if ("bound".equals(name)) {
-            bounds = Bounds.valueOf(value);
-        } else {
-            throw new X3MLGeneratorPolicy.CustomGeneratorException("Unrecognized argument name: " + name);
+    public void setArg(String name, String value) throws CustomGeneratorException {
+        switch(name){
+            case Labels.TEXT:
+                text = value;    
+                break;
+            case Labels.BOUND:
+                bounds = Bounds.valueOf(value);    
+                break;
+            default:
+                throw new CustomGeneratorException("Unrecognized argument name: " + name);
         }
     }
 
+    /** Returns the value of the generated BMDate value 
+     * 
+     * @return the generated value 
+     * @throws CustomGeneratorException is thrown if any of the required arguments is missing 
+     * or is null */
     @Override
-    public String getValue() throws X3MLGeneratorPolicy.CustomGeneratorException {
-        if (text == null) {
-            throw new X3MLGeneratorPolicy.CustomGeneratorException("Missing text argument");
+    public String getValue() throws CustomGeneratorException {
+        if(text == null){
+            throw new CustomGeneratorException("Missing \""+Labels.TEXT+"\" argument");
         }
-        if (bounds == null) {
-            throw new X3MLGeneratorPolicy.CustomGeneratorException("Missing bounds argument");
+        if(bounds == null){
+            throw new CustomGeneratorException("Missing \""+Labels.BOUND+"\" argument");
         }
         return getFormatedDate(bounds.toString(), text);
     }
 
+    /** Returns the type of the generated value (It can be either a URI or a Literal value)
+     * 
+     * @return the type of the generated value 
+     * @throws CustomGeneratorException is thrown if any of the given types is missing or is null */
     @Override
-    public String getValueType() throws X3MLGeneratorPolicy.CustomGeneratorException {
-        return text.startsWith("http") ? "URI" : "Literal";
+    public String getValueType() throws CustomGeneratorException {
+        return text.startsWith("http") ? Labels.URI : Labels.LITERAL;
     }
 
+    /* Converts the date and returns the string representation of the date and the time */
     private static String getFormatedDate(String bounds, String time_str) {
         String xsdDate = "";
-
-        try {
             Date formatDate = UtilsTime.validate(time_str, bounds);
             if (formatDate != null) {
                 xsdDate = UtilsTime.convertStringoXSDString(formatDate);
             } else {
                 xsdDate = "Unknown-Format";
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-      
         return xsdDate;
-       
     }
 }

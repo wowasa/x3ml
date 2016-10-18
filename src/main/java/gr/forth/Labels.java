@@ -33,4 +33,5 @@ public class Labels {
     public static final String PREF_LABEL="prefLabel";
     public static final String TEXT="text";
     public static final String CONSTANT="Constant";
+    public static final String BOUND="bound";
 }
