@@ -80,24 +80,15 @@ public class URIorUUID implements CustomGenerator {
         URL url;
         try{
             url = new URL(urlString);
-        }catch(MalformedURLException e) {
-            return false;
-        }
-
-        try{
             url.toURI();
-        }catch (URISyntaxException e) {
+            return true;
+        }catch(MalformedURLException | URISyntaxException e) {
             return false;
         }
-        return true;
     }
     
     /* Checks if the given string corresponds to a valid URN */
     private boolean isValidURN(String urnString) {
-        if(urnString.startsWith(Labels.URN+":")||urnString.startsWith(Labels.URN+":".toLowerCase())){
-            return true;
-        }else{
-            return false;
-        }
+        return urnString.startsWith(Labels.URN+":")||urnString.startsWith(Labels.URN+":".toLowerCase());
     }
 }

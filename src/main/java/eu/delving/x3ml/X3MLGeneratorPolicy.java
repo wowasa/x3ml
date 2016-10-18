@@ -218,13 +218,7 @@ public class X3MLGeneratorPolicy implements Generator {
         catch (NoSuchMethodException e) {
             throw new X3MLEngine.X3MLException("Custom generator missing default constructor: " + className);
         }
-        catch (InvocationTargetException e) {
-            throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
-        }
-        catch (InstantiationException e) {
-            throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
-        }
-        catch (IllegalAccessException e) {
+        catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
         }
         catch (ClassCastException e) {
