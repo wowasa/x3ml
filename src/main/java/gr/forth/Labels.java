@@ -34,4 +34,8 @@ public class Labels {
     public static final String TEXT="text";
     public static final String CONSTANT="Constant";
     public static final String BOUND="bound";
+    public static final String PREFIX="prefix";
+    public static final String HTTP="http";
+    public static final String DELIMITER="delimiter";
+    public static final String MERGING_DELIMITER="<DELIM>";
 }
