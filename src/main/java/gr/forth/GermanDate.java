@@ -63,6 +63,16 @@ public class GermanDate implements CustomGenerator {
     public String getValueType() throws CustomGeneratorException {
         return text.startsWith("http") ? "URI" : "Literal";
     }
+    
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
 
     private static String getFormatedDate(String bounds, String time_str) {
         String xsdDate = "";
@@ -76,11 +86,6 @@ public class GermanDate implements CustomGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      
-        return xsdDate;
-       
+        return xsdDate;  
     }
-    
-    
-
 }

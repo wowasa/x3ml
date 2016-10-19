@@ -103,4 +103,13 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
         thingOld = thing;
     }
 
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
 }

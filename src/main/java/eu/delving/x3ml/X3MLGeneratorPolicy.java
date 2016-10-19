@@ -65,6 +65,7 @@ public class X3MLGeneratorPolicy implements Generator {
 
         String getValueType() throws CustomGeneratorException;
 
+        boolean mergeMultipleValues();
     }
 
     public static class CustomGeneratorException extends Exception {
@@ -127,7 +128,7 @@ public class X3MLGeneratorPolicy implements Generator {
             return uriValue(uuidSource.generateUUID());
         }
         if (Labels.LITERAL.equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath, false);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -137,7 +138,7 @@ public class X3MLGeneratorPolicy implements Generator {
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if (Labels.PREF_LABEL.equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath, false);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -147,7 +148,7 @@ public class X3MLGeneratorPolicy implements Generator {
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
         if (Labels.CONSTANT.equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, constant);
+            ArgValue value = argValues.getArgValue(argDefaultValue, constant, false);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -181,7 +182,7 @@ public class X3MLGeneratorPolicy implements Generator {
                 if (customArg.type != null) {
                     sourceType = SourceType.valueOf(customArg.type);
                 }
-                ArgValue argValue = argValues.getArgValue(customArg.name, sourceType);
+                ArgValue argValue = argValues.getArgValue(customArg.name, sourceType, instance.mergeMultipleValues());
                 if(argValue==null){
                     throw exception("Cannot find arg with name \""+customArg.name+"\""+
                                     " in generator with name \""+generator.name+"\""+
@@ -233,7 +234,7 @@ public class X3MLGeneratorPolicy implements Generator {
         try {
             UriTemplate uriTemplate = UriTemplate.fromTemplate(generator.pattern);
             for (String argument : getVariables(generator.pattern)) {
-                ArgValue argValue = argValues.getArgValue(argument, defaultSourceType);
+                ArgValue argValue = argValues.getArgValue(argument, defaultSourceType, false);
                 if (argValue == null || argValue.string == null) {
                     throw exception(String.format(
                             "Argument failure in generator %s: %s",
@@ -256,7 +257,7 @@ public class X3MLGeneratorPolicy implements Generator {
         String result = generator.pattern;
         String language = null;
         for (String argument : getVariables(generator.pattern)) {
-            ArgValue argValue = argValues.getArgValue(argument, defaultSourceType);
+            ArgValue argValue = argValues.getArgValue(argument, defaultSourceType, false);
             if (argValue == null || argValue.string == null) {
                 throw exception(String.format(
                         "Argument failure in simple template %s: %s",
@@ -316,7 +317,7 @@ public class X3MLGeneratorPolicy implements Generator {
     }
 
     private String getLanguage(String language, ArgValues argValues) {
-        ArgValue languageArg = argValues.getArgValue("language", defaultSourceType);
+        ArgValue languageArg = argValues.getArgValue("language", defaultSourceType, false);
         if (languageArg != null) {
             language = languageArg.string;
             if (language.isEmpty()) language = null; // to strip language

@@ -37,7 +37,6 @@ public class ConcatTermsMultiple implements CustomGenerator{
 
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
-        System.out.println("Setting name-value: "+name+"-"+value);
         if(name.equals(Labels.PREFIX)){
             this.prefix=value;
         }else if(name.startsWith(Labels.DELIMITER)){
@@ -56,8 +55,9 @@ public class ConcatTermsMultiple implements CustomGenerator{
         }
         String retValue="";
         for(String key : text.keySet()){
-            retValue+=text.get(key);
+            retValue+=text.get(key)+this.delimiter;
         }
+        retValue=retValue.substring(0, retValue.length()-this.delimiter.length());
         retValue=retValue.replaceAll(Labels.MERGING_DELIMITER, this.delimiter);
         if(this.getValueType().equals(Labels.URI)){
             return this.prefix+retValue;
@@ -73,5 +73,15 @@ public class ConcatTermsMultiple implements CustomGenerator{
         }else{
             return Labels.LITERAL;
         }
+    }
+
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator supports merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return true*/    
+    @Override
+    public boolean mergeMultipleValues(){
+        return true;
     }
 }

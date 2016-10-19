@@ -74,6 +74,16 @@ public class URIorUUID implements CustomGenerator {
         }
         return isValidURL(text) || isValidURN(text) ? Labels.URI : Labels.UUID;
     }
+    
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
 
     /* Checks of the given string corresponds to a valid URL */
     private boolean isValidURL(String urlString) {
