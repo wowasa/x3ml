@@ -65,7 +65,7 @@ public class XPathInput {
         this.languageFromMapping = languageFromMapping;
     }
 
-    public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType) {
+    public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType, boolean mergeMultipleValues) {
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
         if (generatorElement.getArgs() != null) {
@@ -93,13 +93,13 @@ public class XPathInput {
                     lang = languageFromMapping;
                 }
                 if (!foundArg.value.isEmpty()) {
-                    if(countNodes(node, foundArg.value)==1){
-                        value = argVal(valueAt(node, foundArg.value), lang);
+                    if(mergeMultipleValues && countNodes(node, foundArg.value)>1){
+                        value = argVal(valueMergedAt(node, foundArg.value), lang);
                         if (value.string.isEmpty()) {
                             throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
                         }
                     }else{
-                        value = argVal(valueMergedAt(node, foundArg.value), lang);
+                        value = argVal(valueAt(node, foundArg.value), lang);
                         if (value.string.isEmpty()) {
                             throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
                         }

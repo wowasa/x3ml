@@ -47,7 +47,7 @@ public interface Generator {
 
     public interface ArgValues {
 
-        ArgValue getArgValue(String name, SourceType sourceType);
+        ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues);
     }
 
     GeneratedValue generate(GeneratorElement generator, ArgValues arguments);

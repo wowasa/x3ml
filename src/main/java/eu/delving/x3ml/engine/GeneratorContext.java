@@ -112,8 +112,8 @@ public abstract class GeneratorContext {
             if (generatedValue == null) {
                 generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                     @Override
-                    public ArgValue getArgValue(String name, SourceType sourceType) {
-                        return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                    public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                        return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                     }
                 });
                 put(globalVariable, VariableScope.GLOBAL, generatedValue);
@@ -125,8 +125,8 @@ public abstract class GeneratorContext {
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
-                        public ArgValue getArgValue(String name, SourceType sourceType) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                         }
                     });
                     put(variable,VariableScope.WITHIN_MAPPING, generatedValue);
@@ -141,15 +141,15 @@ public abstract class GeneratorContext {
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
-                        public ArgValue getArgValue(String name, SourceType sourceType) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                         }
                     });
                     GeneratedValue genArg=null;
                     if(generator.getName().equalsIgnoreCase("Literal")){
                         genArg = context.policy().generate(generator, new Generator.ArgValues() {
                             @Override
-                            public ArgValue getArgValue(String name, SourceType sourceType) {
+                            public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
                                 return context.input().evaluateArgument2(node, index, generator, name, sourceType);
 
                             }
@@ -166,8 +166,8 @@ public abstract class GeneratorContext {
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
-                        public ArgValue getArgValue(String name, SourceType sourceType) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                         }
                     });
                     /* After generating the value for the entity that has a variable associated with it, 
@@ -185,15 +185,15 @@ public abstract class GeneratorContext {
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
-                        public ArgValue getArgValue(String name, SourceType sourceType) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType);
+                        public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                         }
                     });
                     GeneratedValue genArg=null;
                     if(generator.getName().equalsIgnoreCase("Literal")){
                         genArg = context.policy().generate(generator, new Generator.ArgValues() {
                             @Override
-                            public ArgValue getArgValue(String name, SourceType sourceType) {
+                            public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
                                 return context.input().evaluateArgument2(node, index, generator, name, sourceType);
 
                             }
