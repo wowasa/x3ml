@@ -25,7 +25,21 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /** The generator is responsible for constructing values (either URIs, or literals)
- *  by concatenating multiple elements (that have the same tag name). More specifically ...TODO
+ *  by concatenating multiple elements (that have the same tag name). More specifically 
+ * the generator defines that the values of a particular element should be used for 
+ * generating the value; they are defined in terms of appropriate XPath expressions 
+ * (i.e. ELEMENT_A/text()). If there are more than one such elements then then their values 
+ * will be concatenated, using a particular delimeter (which can also be specified by the user).
+ * The generator requires the following arguments:
+ * &lt;ul&gt;
+ * &lt;li&gt;prefix: It is the prefix that should be used before the merging of the values.
+ * It is defined as a constant and can be either the prefix of a URL, any String value, or empty &lt;/li&gt;
+ * &lt;li&gt; text# &lt;/li&gt; the text argument followed by a number (i.e. text1). The user can add
+ * multiple such arguments, by incrementing the number suffix (i.e. text2, text3, etc.). The number 
+ * suffixes indicate also the merging execution row.
+ * &lt;li&gt; delimiter: for indicating which is the string that will be used as a delimiter 
+ * between the merged values&lt;/li&gt;
+ * &lt;/ul&gt;
  * 
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
@@ -35,6 +49,12 @@ public class ConcatTermsMultiple implements CustomGenerator{
     private String delimiter;
     private Map<String,String> text=new TreeMap<>();
 
+    /** Sets the value of the argument with the given value.
+     * 
+     * @param name the name of the argument (the generator recognizes the arguments: prefix, delimiter, text#)
+     * @param value the value of the corresponding argument
+     * @throws CustomGeneratorException it is thrown if the name of the argument is different 
+     * from the expected ones */
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
         if(name.equals(Labels.PREFIX)){
@@ -48,6 +68,10 @@ public class ConcatTermsMultiple implements CustomGenerator{
         }
     }
     
+    /** Returns the value of the generator.
+     * 
+     * @return the value of the given generator
+     * @throws CustomGeneratorException if the argument of the generator is missing or null*/
     @Override
     public String getValue() throws CustomGeneratorException {
         if(text.isEmpty()){
@@ -66,6 +90,11 @@ public class ConcatTermsMultiple implements CustomGenerator{
         }
     }
 
+    /** Returns the type of the generated value. The generator is responsible for constructing 
+     * identifiers, and labels therefore it is expected to return either a URI or a Literal value
+     * 
+     * @return the type of the generated value (i.e. URI or UUID)
+     * @throws CustomGeneratorException if the argument is missing or null */
     @Override
     public String getValueType() throws CustomGeneratorException {
         if(this.prefix!=null && this.prefix.startsWith(Labels.HTTP+":")){
