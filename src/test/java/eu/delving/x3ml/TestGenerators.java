@@ -57,5 +57,14 @@ public class TestGenerators {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
- 
+    
+    @Test
+    public void testConcatMutipleTerms(){
+        X3MLEngine engine = engine("/generators/03_ConcatMultiple-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/03_ConcatMultiple-input.xml"),policy("/generators/03_ConcatMultiple-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/03_ConcatMultiple-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
