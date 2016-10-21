@@ -42,7 +42,7 @@ import java.util.TreeMap;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
-public class ConcatTermsMultiple implements CustomGenerator{
+public class ConcatMultipleTerms implements CustomGenerator{
     private String prefix;
     private String delimiter;
     private Map<String,String> text=new TreeMap<>();
