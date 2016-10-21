@@ -36,7 +36,10 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
+import gr.forth.Labels;
 import gr.forth.Utils;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
 import static org.joox.JOOX.$;
 
 /**
@@ -62,7 +65,7 @@ public class XPathInput {
         this.languageFromMapping = languageFromMapping;
     }
 
-    public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType) {
+    public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType, boolean mergeMultipleValues) {
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
         if (generatorElement.getArgs() != null) {
@@ -90,9 +93,16 @@ public class XPathInput {
                     lang = languageFromMapping;
                 }
                 if (!foundArg.value.isEmpty()) {
-                    value = argVal(valueAt(node, foundArg.value), lang);
-                    if (value.string.isEmpty()) {
-                        throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                    if(mergeMultipleValues && countNodes(node, foundArg.value)>1){
+                        value = argVal(valueMergedAt(node, foundArg.value), lang);
+                        if (value.string.isEmpty()) {
+                            throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                        }
+                    }else{
+                        value = argVal(valueAt(node, foundArg.value), lang);
+                        if (value.string.isEmpty()) {
+                            throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                        }
                     }
                 }
                 break;
@@ -163,6 +173,15 @@ public class XPathInput {
         return value;
     }
 
+    /** Returns the value that can be found in the corresponding node, after the evaluation 
+     * of the given XPath expression. More specifically it returns the results after 
+     * evaluating the XPath expression on the node. If the XPath expression cannot
+     * be evaluated, then an empty String is returned. If there are more than one results 
+     * for the given node and expression, then only the first one will be returned. 
+     *
+     * @param node the node that will be used for evaluating the given XPath expression  
+     * @param expression the XPath expression to be used for retrieving particular information from the node
+     * @return the value of the node, after evaluating the given XPath expression */
     public String valueAt(Node node, String expression) {
         List<Node> nodes = nodeList(node, expression);
         if (nodes.isEmpty()) {
@@ -175,6 +194,29 @@ public class XPathInput {
         return value.trim();
     }
 
+    /** Returns a merging of the values that can be found in the corresponding node, after the evaluation 
+     * of the given XPath expression. More specifically it returns the results after 
+     * evaluating the XPath expression on the node. If the XPath expression cannot
+     * be evaluated, then an empty String is returned. If there are more than one results 
+     * for the given node and expression, then their contents are merged and returned.  
+     *
+     * @param node the node that will be used for evaluating the given XPath expression  
+     * @param expression the XPath expression to be used for retrieving particular information from the node
+     * @return the merging of the values of the node, after evaluating the given XPath expression */
+    public String valueMergedAt(Node node, String expression){
+        String retValue="";
+        for(Node childNode : nodeList(node, expression)){
+            retValue+=childNode.getNodeValue()+Labels.MERGING_DELIMITER;
+        }
+        return retValue.substring(0, retValue.length()-Labels.MERGING_DELIMITER.length());
+    }
+    
+    /**Returns the number of results encountered after evaluating the given XPath expression 
+     * in the given node. 
+     * 
+     * @param node the node that will be used for evaluating the given XPath expression
+     * @param expression the XPath expression that will be evaluated on the given node
+     * @return the number of results */
     public int countNodes(Node node, String expression) {
         List<Node> nodes = nodeList(node, expression);
         return nodes.size();

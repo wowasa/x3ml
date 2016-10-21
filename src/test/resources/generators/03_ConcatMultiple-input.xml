@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot>
+    <COIN>
+        <ID country="gr">ID_GR_1</ID>
+		<ID country="uk">ID_UK_1</ID>
+        <TITLE country="gr">Nomisma1</TITLE>
+		<TITLE country="uk">Coin1</TITLE>
+    </COIN>
+	<COIN>
+        <ID country="gr">ID_GR_2</ID>
+		<ID country="uk">ID_UK_2</ID>
+        <TITLE country="gr">Nomisma2</TITLE>
+		<TITLE country="uk">Coin2</TITLE>
+    </COIN>
+	<SITE>
+		<SITE_ID>SITE_1</SITE_ID>
+		<DESCR>
+			<DESCRIPTION>Part 1 of the description of the site 1</DESCRIPTION>
+			<DESCRIPTION>Part 2 of the description of the site 1</DESCRIPTION>
+		</DESCR>		
+	</SITE>
+	<SITE>
+		<SITE_ID>SITE_2</SITE_ID>
+		<DESCR>
+			<DESCRIPTION>Part 1 of the description of the site 2</DESCRIPTION>
+			<DESCRIPTION>Part 2 of the description of the site 2</DESCRIPTION>
+		</DESCR>		
+	</SITE>
+</dataroot>
