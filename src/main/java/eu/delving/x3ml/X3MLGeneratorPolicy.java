@@ -59,12 +59,31 @@ public class X3MLGeneratorPolicy implements Generator {
     private String languageFromMapping;
 
     public interface CustomGenerator {
+        /**Updates the custom generator values. In particular it updates the argument 
+         * with the given name. 
+         * 
+         * @param name the name of the argument of the custom generator
+         * @param value the value of the argument (it can be taken from the input, defined by the user, etc.)
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         void setArg(String name, String value) throws CustomGeneratorException;
-
+        
+        /**Returns the value that has been generated from the custom generator
+         * 
+         * @return the generated value
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         String getValue() throws CustomGeneratorException;
 
+        /**Returns the type of the generated value (i.e. URI, UUID, Literal, etc.)
+         * 
+         * @return the type of the generated value 
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         String getValueType() throws CustomGeneratorException;
 
+        /**Indicates whether the custom generator supports merging when multiple values exist.
+         * This options refers to custom generators, that retrieve their values from the input 
+         * (i.e. using XPath expressions) and there are multiple results from the input (i.e. multiple elements)
+         * 
+         * @return true if the custom generator supports merging multiple values, otherwise false */
         boolean mergeMultipleValues();
     }
 
