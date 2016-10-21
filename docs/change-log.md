@@ -13,6 +13,7 @@
 * NEW functionality for ommitting replicating entity generation details when variables are used ([issue #46](https://github.com/isl/x3ml/issues/46))
 * NEW functionality creation of an X3ML Engine factory to support easier injection of X3ML engine ([issue #50](https://github.com/isl/x3ml/issues/50))
 * NEW functionality for parsing mulitple X3ML mapping files ([issue #61](https://github.com/isl/x3ml/issues/61), [issue #62](https://github.com/isl/x3ml/issues/62),[issue #65](https://github.com/isl/x3ml/issues/65))
+* NEW custom generator, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
 
 ## 1 July 2016: V 1.7.1 (by FORTH-ICS)
 * Fixed bug with the generation of entities from attribute values in the XML input ([issue #45](https://github.com/isl/x3ml/issues/45))
