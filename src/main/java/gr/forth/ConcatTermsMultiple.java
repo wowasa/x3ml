@@ -31,15 +31,13 @@ import java.util.TreeMap;
  * (i.e. ELEMENT_A/text()). If there are more than one such elements then then their values 
  * will be concatenated, using a particular delimeter (which can also be specified by the user).
  * The generator requires the following arguments:
- * &lt;ul&gt;
- * &lt;li&gt;prefix: It is the prefix that should be used before the merging of the values.
- * It is defined as a constant and can be either the prefix of a URL, any String value, or empty &lt;/li&gt;
- * &lt;li&gt; text# &lt;/li&gt; the text argument followed by a number (i.e. text1). The user can add
+ * <ul><li>prefix: It is the prefix that should be used before the merging of the values.
+ * It is defined as a constant and can be either the prefix of a URL, any String value, or empty </li>
+ * <li> text#: the text argument followed by a number (i.e. text1). The user can add
  * multiple such arguments, by incrementing the number suffix (i.e. text2, text3, etc.). The number 
- * suffixes indicate also the merging execution row.
- * &lt;li&gt; delimiter: for indicating which is the string that will be used as a delimiter 
- * between the merged values&lt;/li&gt;
- * &lt;/ul&gt;
+ * suffixes indicate also the merging execution row. </li>
+ * <li> delimiter: for indicating which is the string that will be used as a delimiter 
+ * between the merged values</li></ul>
  * 
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
