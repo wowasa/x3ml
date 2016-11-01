@@ -33,6 +33,12 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import static org.joox.JOOX.$;
 import org.w3c.dom.Attr;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
 
 /**
  * This abstract class is above Domain, Path, and Range and carries most of
@@ -98,11 +104,11 @@ public abstract class GeneratorContext {
      * 
      * @param generator the declared generator element
      * @param globalVariable the name of the declared global variable
-     * @param variable the name of the declared variable
-     * @param typeAwareVar the name of the type-aware variable
+     * @param variable_deprecated the name of the declared variable
+     * @param variable the name of the type-aware variable
      * @param unique a unique value (usually the type of additional/intermediates) for creating always new instances
      * @return the value that has been generated (either now, or previously )  */
-    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable, String typeAwareVar, String unique) {
+    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable_deprecated, String variable, String unique) {
         if(generator == null){
             throw exception("Value generator missing");
         }
@@ -119,9 +125,9 @@ public abstract class GeneratorContext {
                 put(globalVariable, VariableScope.GLOBAL, generatedValue);
             }
         }
-        else if(typeAwareVar != null){
-            if(variable!=null){
-                generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
+        else if(variable != null){
+            if(variable_deprecated!=null){
+                generatedValue = get(variable_deprecated, VariableScope.WITHIN_MAPPING);
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
@@ -129,13 +135,13 @@ public abstract class GeneratorContext {
                             return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
                         }
                     });
-                    put(variable,VariableScope.WITHIN_MAPPING, generatedValue);
-                    context.putGeneratedValue(extractXPath(node) + unique+"-"+typeAwareVar, generatedValue);
+                    put(variable_deprecated,VariableScope.WITHIN_MAPPING, generatedValue);
+                    context.putGeneratedValue(extractXPath(node) + unique+"-"+variable, generatedValue);
                     this.createAssociationTable(generatedValue, null, extractAssocTableXPath(node));
                 }
             }else{
 //                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
-                String nodeName = extractXPath(Domain.domainNode) + unique+"-"+typeAwareVar;
+                String nodeName = extractXPath(Domain.domainNode) + unique+"-"+variable;
                 String xpathProper=extractAssocTableXPath(node);
                 generatedValue = context.getGeneratedValue(nodeName);
                 if (generatedValue == null) {
@@ -161,8 +167,8 @@ public abstract class GeneratorContext {
             }
         }
         else{
-            if(variable != null){
-                generatedValue = get(variable, VariableScope.WITHIN_MAPPING);
+            if(variable_deprecated != null){
+                generatedValue = get(variable_deprecated, VariableScope.WITHIN_MAPPING);
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
@@ -173,7 +179,7 @@ public abstract class GeneratorContext {
                     /* After generating the value for the entity that has a variable associated with it, 
                     we have to also add the generated value (so that the value can be re-used when the same 
                     input is exploited). Related issue= #66 */
-                    put(variable, VariableScope.WITHIN_MAPPING, generatedValue);
+                    put(variable_deprecated, VariableScope.WITHIN_MAPPING, generatedValue);
                     String nodeName = extractXPath(node) + unique;
                     context.putGeneratedValue(nodeName, generatedValue);
                 }
