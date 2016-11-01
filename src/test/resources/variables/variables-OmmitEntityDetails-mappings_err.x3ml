@@ -23,7 +23,7 @@
 					</source_relation>
                     <target_relation>
                         <relationship>crm:PX_has_identifier_group</relationship>
-                        <entity differentURI="gvi1">
+                        <entity variable="gvi1">
 							<type>crm:EXX_IdentifierGroup</type>
 							<!-- <instance_generator name="UUID"/> -->
 						</entity>
@@ -47,7 +47,7 @@
 					</source_relation>
                     <target_relation>
                         <relationship>crm:PX_has_identifier_group</relationship>
-                        <entity differentURI="gvi1">
+                        <entity variable="gvi1">
 							<type>crm:EXX_IdentifierGroup</type>
 							<!-- <instance_generator name="UUID"/> -->
 						</entity>

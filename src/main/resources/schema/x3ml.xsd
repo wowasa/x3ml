@@ -119,7 +119,7 @@
 			</xs:sequence>
 			<xs:attribute name="variable"/>
 			<xs:attribute name="global_variable"/>
-			<xs:attribute name="differentURI"/>
+			<xs:attribute name="variable_deprecated"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="relationship" type="xs:string"/>
