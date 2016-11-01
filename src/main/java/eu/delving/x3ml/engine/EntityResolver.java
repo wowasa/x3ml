@@ -33,6 +33,9 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * The entity resolver creates the related model elements by calling generator
@@ -88,11 +91,11 @@ public class EntityResolver {
             /*If the type is going to be used for an additional or an intermediate node then do not re-use the old one*/
             if(additionalNodeIndex>0 || indermediateNodeIndex>0){
                 if(additionalNodeIndex>0){
-                    if(this.entityElement.type_aware_var==null){
+                    if(this.entityElement.variable==null){
                         uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
                     }
                 }else{
-                    if(this.entityElement.type_aware_var==null){
+                    if(this.entityElement.variable==null){
                         uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
                     }
                 }
@@ -112,7 +115,7 @@ public class EntityResolver {
             switch (generatedValue.type) {
                 case URI:
                     if (resources == null) {
-                        resources = new ArrayList<Resource>();
+                        resources = new ArrayList<>();
                         for (TypeElement typeElement : entityElement.typeElements) {
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                         }

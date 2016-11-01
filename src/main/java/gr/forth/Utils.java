@@ -52,6 +52,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -254,20 +257,56 @@ public class Utils {
     }
     
     private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.DomainElement domain, Multimap<String, X3ML.EntityElement> multimap){
+        if(domain.target_node.entityElement.variable_deprecated!=null){
+            multimap.put(domain.target_node.entityElement.variable_deprecated, domain.target_node.entityElement);
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
+        if(link.range.target_node.entityElement.variable_deprecated!=null){
+            multimap.put(link.range.target_node.entityElement.variable_deprecated, link.range.target_node.entityElement);
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.PathElement path, Multimap<String, X3ML.EntityElement> multimap) {
+        if(path.target_relation.entities!=null){
+            for(X3ML.EntityElement entityElem : path.target_relation.entities){
+                if(entityElem.variable_deprecated!=null){
+                    multimap.put(entityElem.variable_deprecated, entityElem);
+                }
+            }
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
+        if(range.target_node.entityElement.additionals!=null){
+            for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
+                if(additionalElem.entityElement.variable_deprecated!=null){
+                    multimap.put(additionalElem.entityElement.variable_deprecated, additionalElem.entityElement);
+                }
+            }
+        }
+        return multimap;
+    }
+    
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.DomainElement domain, Multimap<String, X3ML.EntityElement> multimap){
         if(domain.target_node.entityElement.variable!=null){
             multimap.put(domain.target_node.entityElement.variable, domain.target_node.entityElement);
         }
         return multimap;
     }
     
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
         if(link.range.target_node.entityElement.variable!=null){
             multimap.put(link.range.target_node.entityElement.variable, link.range.target_node.entityElement);
         }
         return multimap;
     }
     
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.PathElement path, Multimap<String, X3ML.EntityElement> multimap) {
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.PathElement path, Multimap<String, X3ML.EntityElement> multimap) {
         if(path.target_relation.entities!=null){
             for(X3ML.EntityElement entityElem : path.target_relation.entities){
                 if(entityElem.variable!=null){
@@ -278,47 +317,11 @@ public class Utils {
         return multimap;
     }
     
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
+    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
         if(range.target_node.entityElement.additionals!=null){
             for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
                 if(additionalElem.entityElement.variable!=null){
                     multimap.put(additionalElem.entityElement.variable, additionalElem.entityElement);
-                }
-            }
-        }
-        return multimap;
-    }
-    
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.DomainElement domain, Multimap<String, X3ML.EntityElement> multimap){
-        if(domain.target_node.entityElement.type_aware_var!=null){
-            multimap.put(domain.target_node.entityElement.type_aware_var, domain.target_node.entityElement);
-        }
-        return multimap;
-    }
-    
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.LinkElement link, Multimap<String, X3ML.EntityElement> multimap){
-        if(link.range.target_node.entityElement.type_aware_var!=null){
-            multimap.put(link.range.target_node.entityElement.type_aware_var, link.range.target_node.entityElement);
-        }
-        return multimap;
-    }
-    
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.PathElement path, Multimap<String, X3ML.EntityElement> multimap) {
-        if(path.target_relation.entities!=null){
-            for(X3ML.EntityElement entityElem : path.target_relation.entities){
-                if(entityElem.type_aware_var!=null){
-                    multimap.put(entityElem.type_aware_var, entityElem);
-                }
-            }
-        }
-        return multimap;
-    }
-    
-    private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
-        if(range.target_node.entityElement.additionals!=null){
-            for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
-                if(additionalElem.entityElement.type_aware_var!=null){
-                    multimap.put(additionalElem.entityElement.type_aware_var, additionalElem.entityElement);
                 }
             }
         }

@@ -40,6 +40,9 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
@@ -542,15 +545,16 @@ public interface X3ML {
     public static class EntityElement extends Visible {
 
         @XStreamAsAttribute
-        public String variable;
+        @XStreamAlias("variable_deprecated")
+        public String variable_deprecated;
         
         @XStreamAsAttribute
         @XStreamAlias("global_variable")
         public String globalVariable;
         
         @XStreamAsAttribute
-        @XStreamAlias("differentURI")
-        public String type_aware_var;
+        @XStreamAlias("variable")
+        public String variable;
 
         @XStreamImplicit
         public List<TypeElement> typeElements;
@@ -568,7 +572,7 @@ public interface X3ML {
         public List<Additional> additionals;
 
         public GeneratedValue getInstance(GeneratorContext context, String unique) {
-            return context.getInstance(instanceGenerator, globalVariable, variable, type_aware_var, unique);
+            return context.getInstance(instanceGenerator, globalVariable, variable_deprecated, variable, unique);
         }
     }
 
