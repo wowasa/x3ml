@@ -18,15 +18,15 @@
             </domain>
 			<link>
                 <path>
-                    <source_relation><relation>MATERIAL_ID</relation></source_relation>
+                    <source_relation><relation>ID</relation></source_relation>
                     <target_relation>
                         <relationship>crm:P1_is_identified_by</relationship>
                     </target_relation>
                 </path>
                 <range>
-                    <source_node>MATERIAL_ID</source_node>
+                    <source_node>ID</source_node>
                     <target_node>
-                        <entity variable="v1">
+                        <entity variable="tv1">
                             <type>crm:E42_Identifier</type>
                             <instance_generator name="UUID">
 								<arg name="text">text()</arg>
@@ -37,15 +37,15 @@
             </link>
 			<link>
                 <path>
-                    <source_relation><relation>MATERIAL_ID_ALT</relation></source_relation>
+                    <source_relation><relation>ID</relation></source_relation>
                     <target_relation>
-                        <relationship>crm:P48_has_preferred_identifier</relationship>
+                        <relationship>crm:P1_is_identified_by</relationship>
                     </target_relation>
                 </path>
                 <range>
-                    <source_node>MATERIAL_ID_ALT</source_node>
+                    <source_node>ID</source_node>
                     <target_node>
-                        <entity variable="v1">
+                        <entity variable="tv2">
                             <type>crm:E42_Identifier</type>
                             <instance_generator name="UUID">
 								<arg name="text">text()</arg>
