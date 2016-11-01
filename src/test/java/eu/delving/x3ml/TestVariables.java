@@ -50,7 +50,7 @@ public class TestVariables {
     }   
     
     @Test
-    public void tesVariables() throws FileNotFoundException {
+    public void testVariables() throws FileNotFoundException {
         X3MLEngine engine = engine("/variables/variables-mappings.x3ml");
         X3MLGeneratorPolicy policy=X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(2));
         X3MLEngine.Output output = engine.execute(document("/variables/variables-input.xml"),policy);
