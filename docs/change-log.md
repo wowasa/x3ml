@@ -1,6 +1,9 @@
 # Change Log
 
 ---
+## 1 Nov 2016: V 1.7.3 (by FORTH-ICS)
+* Changed the names of the variables ([issue #70](https://github.com/isl/x3ml/issues/70))
+
 ## 21 Oct 2016: V 1.7.2 (by FORTH-ICS)
 * Fixed a bug that was raised with multiple input files ([issue #49](https://github.com/isl/x3ml/issues/49))
 * Fixed a bug with NullPointerException that is thrown when the X3ML mappings file is not valid with respect to the X3ML schema ([issue #63](https://github.com/isl/x3ml/issues/63))
