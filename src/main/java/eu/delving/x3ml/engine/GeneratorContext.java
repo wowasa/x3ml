@@ -19,7 +19,6 @@ under the License.
 package eu.delving.x3ml.engine;
 
 import org.w3c.dom.Node;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.ArgValue;
 import static eu.delving.x3ml.engine.X3ML.Condition;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
@@ -31,12 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import static org.joox.JOOX.$;
 import org.w3c.dom.Attr;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static org.joox.JOOX.$;
 

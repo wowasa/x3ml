@@ -24,7 +24,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import eu.delving.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.List;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Additional;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
@@ -33,8 +32,6 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
