@@ -18,8 +18,15 @@
                             <arg name="text1" type="xpath">ID/text()</arg>
                             <arg name="text2" type="xpath">TITLE/text()</arg>
                             <arg name="sameTermsDelim" type="constant">_</arg>
-                            <arg name="diffTermsDelim" type="constant">--</arg>
+                            <arg name="diffTermsDelim" type="constant">/</arg>
                         </instance_generator>
+                        <label_generator name="ConcatMultipleTerms">
+                            <arg name="prefix" type="constant"></arg>
+                            <arg name="text1" type="xpath">ID/text()</arg>
+                            <arg name="text2" type="xpath">TITLE/text()</arg>
+                            <arg name="sameTermsDelim" type="constant"> </arg>
+                            <arg name="diffTermsDelim" type="constant"> - </arg>
+                        </label_generator>
                     </entity>
                 </target_node>
             </domain>
