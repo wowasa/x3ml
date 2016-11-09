@@ -43,6 +43,12 @@ import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
 import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
 import gr.forth.Labels;
 import gr.forth.Utils;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;

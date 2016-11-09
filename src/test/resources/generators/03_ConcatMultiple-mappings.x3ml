@@ -4,7 +4,7 @@
         <namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
         <namespace prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
         <namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
-		<namespace prefix="vre" uri="http://www.vre4eic.eu/"/>
+        <namespace prefix="vre" uri="http://www.vre4eic.eu/"/>
     </namespaces>
     <mappings>
         <mapping>
@@ -14,28 +14,31 @@
                     <entity>
                         <type>crm:E22_Man-Made_Object</type>
                         <instance_generator name="ConcatMultipleTerms">
-							<arg name="prefix" type="constant">http://www.ics.forth.gr/isl/</arg>
-							<arg name="text1" type="xpath">ID/text()</arg>
-							<arg name="text2" type="xpath">TITLE/text()</arg>
-							<arg name="sameTermsDelim" type="constant">_</arg>
-						</instance_generator>
+                            <arg name="prefix" type="constant">http://www.ics.forth.gr/isl/</arg>
+                            <arg name="text1" type="xpath">ID/text()</arg>
+                            <arg name="text2" type="xpath">TITLE/text()</arg>
+                            <arg name="sameTermsDelim" type="constant">_</arg>
+                            <arg name="diffTermsDelim" type="constant">--</arg>
+                        </instance_generator>
                     </entity>
                 </target_node>
             </domain>
         </mapping>
-		<mapping>
+        <mapping>
             <domain>
                 <source_node>//SITE</source_node>
                 <target_node>
                     <entity>
                         <type>crm:E44_Place_Appellation</type>
-						<instance_generator name="UUID"/>
+                        <instance_generator name="UUID"/>
                     </entity>
                 </target_node>
             </domain>
-			<link>
+            <link>
                 <path>
-                    <source_relation><relation>DESCR</relation></source_relation>
+                    <source_relation>
+                        <relation>DESCR</relation>
+                    </source_relation>
                     <target_relation>
                         <relationship>crm:P3_has_note</relationship>
                     </target_relation>
@@ -46,10 +49,11 @@
                         <entity>
                             <type>crm:E62_String</type>
                             <instance_generator name="ConcatMultipleTermsSingle">
-								<arg name="prefix" type="constant"></arg>
-								<arg name="text1" type="xpath">DESCRIPTION/text()</arg>
-								<arg name="sameTermsDelim" type="constant"> </arg>
-							</instance_generator>
+                                <arg name="prefix" type="constant"></arg>
+                                <arg name="text1" type="xpath">DESCRIPTION/text()</arg>
+                                <arg name="sameTermsDelim" type="constant"> </arg>
+                                <arg name="diffTermsDelim" type="constant">-</arg>
+                            </instance_generator>
                         </entity>
                     </target_node>
                 </range>

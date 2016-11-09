@@ -41,6 +41,18 @@ import gr.forth.Utils;
 import static org.joox.JOOX.$;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static org.joox.JOOX.$;
 
 /**
  * The source data is accessed using xpath to fetch nodes from a DOM tree.
@@ -206,9 +218,9 @@ public class XPathInput {
     public String valueMergedAt(Node node, String expression){
         String retValue="";
         for(Node childNode : nodeList(node, expression)){
-            retValue+=childNode.getNodeValue()+Labels.MERGING_DELIMITER;
+            retValue+=childNode.getNodeValue()+Labels.SAME_MERGING_DELIMITER;
         }
-        return retValue.substring(0, retValue.length()-Labels.MERGING_DELIMITER.length());
+        return retValue.substring(0, retValue.length()-Labels.SAME_MERGING_DELIMITER.length());
     }
     
     /**Returns the number of results encountered after evaluating the given XPath expression 
