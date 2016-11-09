@@ -19,6 +19,7 @@ under the License.
 
 package gr.forth;
 
+import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import java.util.Map;
@@ -44,7 +45,8 @@ import java.util.TreeMap;
  */
 public class ConcatMultipleTerms implements CustomGenerator{
     private String prefix;
-    private String delimiter;
+    private String sameTermsDelim;
+    private String diffTermsDelim;
     private Map<String,String> text=new TreeMap<>();
 
     /** Sets the value of the argument with the given value.
@@ -57,8 +59,10 @@ public class ConcatMultipleTerms implements CustomGenerator{
     public void setArg(String name, String value) throws CustomGeneratorException {
         if(name.equals(Labels.PREFIX)){
             this.prefix=value;
-        }else if(name.startsWith(Labels.DELIMITER)){
-            this.delimiter=value;
+        }else if(name.startsWith(Labels.SAME_TERM_DELIMITER)){
+            this.sameTermsDelim=value;
+        }else if(name.startsWith(Labels.DIFF_TERMS_DELIMITER)){
+            this.diffTermsDelim=value;
         }else if(name.startsWith(Labels.TEXT)){
             this.text.put(name, value);
         }else{
@@ -77,10 +81,14 @@ public class ConcatMultipleTerms implements CustomGenerator{
         }
         String retValue="";
         for(String key : text.keySet()){
-            retValue+=text.get(key)+this.delimiter;
+            if(!text.get(key).isEmpty()){
+                retValue+=text.get(key)+this.diffTermsDelim;
+            }
+        }if(retValue.isEmpty()){
+            throw exception("No value has been generated for custom generator "+this.getClass().getCanonicalName()+" because all values are missing");
         }
-        retValue=retValue.substring(0, retValue.length()-this.delimiter.length());
-        retValue=retValue.replaceAll(Labels.MERGING_DELIMITER, this.delimiter);
+        retValue=retValue.substring(0, retValue.length()-this.diffTermsDelim.length());
+        retValue=retValue.replaceAll(Labels.SAME_MERGING_DELIMITER, this.sameTermsDelim);
         if(this.getValueType().equals(Labels.URI)){
             return this.prefix+retValue;
         }else{

@@ -43,6 +43,12 @@ import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
 import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
 import gr.forth.Labels;
 import gr.forth.Utils;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
@@ -203,9 +209,13 @@ public class X3MLGeneratorPolicy implements Generator {
                 }
                 ArgValue argValue = argValues.getArgValue(customArg.name, sourceType, instance.mergeMultipleValues());
                 if(argValue==null){
-                    throw exception("Cannot find arg with name \""+customArg.name+"\""+
+                    if(instance.mergeMultipleValues()){ /*Do not stop if there are elements missing only for specific generators (i.e.  ConcatMultipleTerms)*/
+                        argValue=new ArgValue("", "en");
+                    }else{
+                        throw exception("Cannot find arg with name \""+customArg.name+"\""+
                                     " in generator with name \""+generator.name+"\""+
                                     "[Mapping: "+RootElement.mappingCounter+", Link: "+RootElement.linkCounter+"]");
+                    }
                 }
                 instance.setArg(customArg.name, argValue.string);
             }
