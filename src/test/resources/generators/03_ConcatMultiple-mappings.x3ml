@@ -17,7 +17,7 @@
 							<arg name="prefix" type="constant">http://www.ics.forth.gr/isl/</arg>
 							<arg name="text1" type="xpath">ID/text()</arg>
 							<arg name="text2" type="xpath">TITLE/text()</arg>
-							<arg name="delimiter" type="constant">_</arg>
+							<arg name="sameTermsDelim" type="constant">_</arg>
 						</instance_generator>
                     </entity>
                 </target_node>
@@ -48,7 +48,7 @@
                             <instance_generator name="ConcatMultipleTermsSingle">
 								<arg name="prefix" type="constant"></arg>
 								<arg name="text1" type="xpath">DESCRIPTION/text()</arg>
-								<arg name="delimiter" type="constant"> </arg>
+								<arg name="sameTermsDelim" type="constant"> </arg>
 							</instance_generator>
                         </entity>
                     </target_node>

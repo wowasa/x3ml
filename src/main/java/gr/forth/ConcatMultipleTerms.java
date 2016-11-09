@@ -44,7 +44,7 @@ import java.util.TreeMap;
  */
 public class ConcatMultipleTerms implements CustomGenerator{
     private String prefix;
-    private String delimiter;
+    private String sameTermsDelim;
     private Map<String,String> text=new TreeMap<>();
 
     /** Sets the value of the argument with the given value.
@@ -58,7 +58,7 @@ public class ConcatMultipleTerms implements CustomGenerator{
         if(name.equals(Labels.PREFIX)){
             this.prefix=value;
         }else if(name.startsWith(Labels.DELIMITER)){
-            this.delimiter=value;
+            this.sameTermsDelim=value;
         }else if(name.startsWith(Labels.TEXT)){
             this.text.put(name, value);
         }else{
@@ -77,10 +77,10 @@ public class ConcatMultipleTerms implements CustomGenerator{
         }
         String retValue="";
         for(String key : text.keySet()){
-            retValue+=text.get(key)+this.delimiter;
+            retValue+=text.get(key)+this.sameTermsDelim;
         }
-        retValue=retValue.substring(0, retValue.length()-this.delimiter.length());
-        retValue=retValue.replaceAll(Labels.MERGING_DELIMITER, this.delimiter);
+        retValue=retValue.substring(0, retValue.length()-this.sameTermsDelim.length());
+        retValue=retValue.replaceAll(Labels.MERGING_DELIMITER, this.sameTermsDelim);
         if(this.getValueType().equals(Labels.URI)){
             return this.prefix+retValue;
         }else{
