@@ -19,6 +19,7 @@ under the License.
 
 package gr.forth;
 
+import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import java.util.Map;
@@ -80,7 +81,11 @@ public class ConcatMultipleTerms implements CustomGenerator{
         }
         String retValue="";
         for(String key : text.keySet()){
-            retValue+=text.get(key)+this.diffTermsDelim;
+            if(!text.get(key).isEmpty()){
+                retValue+=text.get(key)+this.diffTermsDelim;
+            }
+        }if(retValue.isEmpty()){
+            throw exception("No value has been generated for custom generator "+this.getClass().getCanonicalName()+" because all values are missing");
         }
         retValue=retValue.substring(0, retValue.length()-this.diffTermsDelim.length());
         retValue=retValue.replaceAll(Labels.SAME_MERGING_DELIMITER, this.sameTermsDelim);

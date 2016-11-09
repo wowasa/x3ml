@@ -105,10 +105,13 @@ public class XPathInput {
                     lang = languageFromMapping;
                 }
                 if (!foundArg.value.isEmpty()) {
-                    if(mergeMultipleValues && countNodes(node, foundArg.value)>1){
-                        value = argVal(valueMergedAt(node, foundArg.value), lang);
-                        if (value.string.isEmpty()) {
-                            throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                    
+                    if(mergeMultipleValues){
+                        if(countNodes(node, foundArg.value)>=1){
+                            value = argVal(valueMergedAt(node, foundArg.value), lang);
+                            if (value.string.isEmpty()) {
+                                value=new X3ML.ArgValue("", "en");
+                            }
                         }
                     }else{
                         value = argVal(valueAt(node, foundArg.value), lang);
