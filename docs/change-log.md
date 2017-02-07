@@ -2,7 +2,8 @@
 
 ---
 ## 9 Nov 2016: V 1.7.4 (by FORTH-ICS)
-* Uptdaed the functionality of the custom generator MultipleConcatTerms, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
+* Updated the functionality of the custom generator MultipleConcatTerms, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
+* Changed the dependencies of the X3ML-Engine (([issue #73](https://github.com/isl/x3ml/issues/73)))
 
 ## 1 Nov 2016: V 1.7.3 (by FORTH-ICS)
 * Changed the names of the variables ([issue #70](https://github.com/isl/x3ml/issues/70))
