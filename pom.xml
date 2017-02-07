@@ -161,9 +161,14 @@
             <version>1.2.0</version>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
             <groupId>gr.forth.ics.isl</groupId>
             <artifactId>X3ML_reverse_utils</artifactId>
-            <version>1.4</version>
+            <version>1.5</version>
         </dependency>
     </dependencies>
     <properties>
