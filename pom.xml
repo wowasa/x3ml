@@ -112,33 +112,23 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <version>1.2.17</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.2.1</version>
+            <version>3.5</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>woodstox-core-asl</artifactId>
-            <version>4.0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.11.0</version>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
@@ -148,7 +138,7 @@
         <dependency>
             <groupId>com.damnhandy</groupId>
             <artifactId>handy-uri-templates</artifactId>
-            <version>2.0.1</version>
+            <version>2.1.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>
@@ -171,9 +161,14 @@
             <version>1.2.0</version>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
             <groupId>gr.forth.ics.isl</groupId>
             <artifactId>X3ML_reverse_utils</artifactId>
-            <version>1.4</version>
+            <version>1.5</version>
         </dependency>
     </dependencies>
     <properties>

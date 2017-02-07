@@ -41,8 +41,6 @@ import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
