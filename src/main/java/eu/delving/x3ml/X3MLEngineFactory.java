@@ -84,6 +84,7 @@ import org.w3c.dom.Element;
  */
 public class X3MLEngineFactory {
     private Set<File> mappingsFiles;
+    private List<InputStream> mappingStreams;
     private Set<File> inputFiles;
     private Set<Pair<File, Boolean>> inputFolders;
     private File generatorPolicyFile;
@@ -101,6 +102,7 @@ public class X3MLEngineFactory {
     /* Instantiate the factory with the default values */
     private X3MLEngineFactory(){
         this.mappingsFiles=new HashSet<>();
+        this.mappingStreams=new ArrayList<>();
         this.inputFiles=new HashSet<>();
         this.inputFolders=new HashSet<>();
         this.generatorPolicyFile=null;
@@ -168,6 +170,35 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile){
         LOGGER.debug("Added the Generator policy file ("+generatorPolicyFile.getAbsolutePath()+")");
         this.generatorPolicyFile=generatorPolicyFile;
+        return this;
+    }
+    
+    /**Adds the mappings streams in the X3MLEngineFactory. 
+     * 
+     * @param mappingsStreams the input streams with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappings(InputStream ... mappingsStreams){
+        LOGGER.debug("Added "+mappingsStreams.length+" X3ML mappings input stream");
+        this.mappingStreams.addAll(Arrays.asList(mappingsStreams));
+        return this;
+    }
+    
+    /** Adds the input files in the X3MLEngineFactory. The methods accepts more than one files 
+     * that will be concatenated for producing a single input file. 
+     * 
+     * @param inputFiles the input (XML) files
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInput(File ... inputStreams){
+        return this;
+    }
+    
+    /**Adds the generator policy file.
+     * 
+     * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withGeneratorPolicy(InputStream generatorPolicyStream){
         return this;
     }
     
@@ -249,13 +280,12 @@ public class X3MLEngineFactory {
     /* creates an instance of the X3ML engine using the provided X3ML mappings file */
     private X3MLEngine createX3MLEngine(){
         try{
-            List<InputStream> mappingsInputStream=new ArrayList<>();
             for(File f : this.mappingsFiles){
-                mappingsInputStream.add(new FileInputStream(f));
+                this.mappingStreams.add(new FileInputStream(f));
             }
-            return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingsInputStream).getBytes()));
+            return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(this.mappingStreams).getBytes()));
         }catch(FileNotFoundException ex){
-            throw exception("Cannot find X3ML mappings file", ex);
+            throw exception("Cannot find X3ML mappings resources", ex);
         }
     }
     
@@ -288,8 +318,8 @@ public class X3MLEngineFactory {
     
     /* Validates that the mandatory elements (input and mappings) have been provided */
     private void validateConfig(){
-        if(this.mappingsFiles.isEmpty()){
-            throw exception("The mappings file (x3ml) is missing.");
+        if(this.mappingsFiles.isEmpty() && this.mappingStreams.isEmpty()){
+            throw exception("The X3ML mappings x3ml are missing.");
         }
         if(this.inputFiles.isEmpty() && this.inputFolders.isEmpty()){
             throw exception("The input file(s) or folder(s) are missing.");
