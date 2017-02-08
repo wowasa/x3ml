@@ -87,7 +87,7 @@ public class X3MLEngineFactory {
     private List<InputStream> mappingStreams;
     private Set<File> inputFiles;
     private Set<Pair<File, Boolean>> inputFolders;
-    private File generatorPolicyFile;
+    private InputStream generatorPolicyStream;
     private int uuidSize;
     private String associationTableFile;
     private Pair<String,OutputFormat> output;
@@ -105,7 +105,7 @@ public class X3MLEngineFactory {
         this.mappingStreams=new ArrayList<>();
         this.inputFiles=new HashSet<>();
         this.inputFolders=new HashSet<>();
-        this.generatorPolicyFile=null;
+        this.generatorPolicyStream=null;
         this.uuidSize=4;
         this.associationTableFile=null;
         this.output=Pair.of(null, OutputFormat.RDF_XML);
@@ -167,9 +167,9 @@ public class X3MLEngineFactory {
      * 
      * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
      * @return the updated X3MLEngineFactory instance */
-    public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile){
+    public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile) throws FileNotFoundException{
         LOGGER.debug("Added the Generator policy file ("+generatorPolicyFile.getAbsolutePath()+")");
-        this.generatorPolicyFile=generatorPolicyFile;
+        this.generatorPolicyStream=new FileInputStream(generatorPolicyFile);
         return this;
     }
     
@@ -194,11 +194,12 @@ public class X3MLEngineFactory {
         return this;
     }
     
-    /**Adds the generator policy file.
+    /**Adds the generator policy resources.
      * 
-     * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
+     * @param generatorPolicyStream the stream that contains the generator policy (for URIs and Literals)
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withGeneratorPolicy(InputStream generatorPolicyStream){
+        this.generatorPolicyStream=generatorPolicyStream;
         return this;
     }
     
@@ -292,11 +293,7 @@ public class X3MLEngineFactory {
     /* creates an input stream using the provided generator policy otherwise null 
     (no generator polixy file will be used)*/
     private InputStream getGeneratorPolicy(){
-        try{
-            return this.generatorPolicyFile==null?null:new FileInputStream(this.generatorPolicyFile);
-        }catch(FileNotFoundException ex){
-            throw exception("Cannot find the generator policy file (\""+this.generatorPolicyFile.getAbsolutePath()+"\")", ex);
-        }
+        return this.generatorPolicyStream;
     }
     
     /* parses the input (either it is a single file, multiple files, single folder or multiple folders).
@@ -373,8 +370,7 @@ public class X3MLEngineFactory {
         LOGGER.info("X3ML Engine Mappings files: "+this.mappingsFiles);
         LOGGER.info("Input files: "+this.getInputFilesListing());
         LOGGER.info("UUID size: "+this.uuidSize);
-        String generatorPolicyMsg=(this.generatorPolicyFile==null)?"none":this.generatorPolicyFile.getAbsolutePath();
-        LOGGER.info("Generator policy file: "+generatorPolicyMsg);
+        LOGGER.info("Generator policy used: "+(this.getGeneratorPolicy()==null));
         String outputMsg=(this.output.getLeft()==null || !this.output.getLeft().isEmpty())?"System.out":this.output.getLeft();
         LOGGER.info("Output: "+outputMsg);
         LOGGER.info("Output format: "+this.output.getRight());
