@@ -2,6 +2,8 @@ package gr.forth.ics.isl.example;
 
 import eu.delving.x3ml.X3MLEngineFactory;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -17,8 +19,8 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
-    /* Plaing with generator policies and UUID sizes */
-    private static void withGeneratorPolicyScenario(){
+    /* Playing with generator policies and UUID sizes */
+    private static void withGeneratorPolicyScenario() throws FileNotFoundException{
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappings.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
@@ -28,7 +30,7 @@ public class X3MLFactoryUser {
     }
     
     /* Playing with multiple files */
-    private static void multipleFilesScenario(){
+    private static void multipleInputFilesScenario(){
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
@@ -86,14 +88,57 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
-    public static void main(String[] args){
+    /* The simplest possible senario. Add only the mandatory details */
+    private static void simplestStreamScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new FileInputStream(new File("example/mappingsWithoutGenerator.x3ml")))
+                         .withInput(new FileInputStream(new File("example/input.xml")))
+                         .execute();
+    }
+    
+    /* Playing with generator policies and UUID sizes */
+    private static void withGeneratorPolicyStreamScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new FileInputStream(new File("example/mappings.x3ml")))
+                         .withInput(new FileInputStream(new File("example/input.xml")))
+                         .withUuidSize(2)
+                         .withGeneratorPolicy(new FileInputStream(new File("example/generator-policy.xml")))
+                         .execute();
+    }
+    
+    /* Playing with multiple files */
+    private static void multipleInputStreamsScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new FileInputStream(new File("example/mappingsWithoutGenerator.x3ml")))
+                         .withInput(new FileInputStream(new File("example/input.xml")))
+                         .withInput(new FileInputStream(new File("example/moreExamples/input1.xml")),
+                                    new FileInputStream(new File("example/moreExamples/input2.xml")))
+                         .execute();
+    }
+    
+        
+    /* Playing with multiple mapping files */
+    private static void multipleMappingStreamsScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new FileInputStream(new File("example/mappingsWithoutGenerator.x3ml")),
+                                       new FileInputStream(new File("example/mappingsWithoutGenerator2.x3ml")))
+                         .withInput(new FileInputStream(new File("example/input.xml")))
+                         .execute();
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
         simplestScenario();
         withGeneratorPolicyScenario();
-        multipleFilesScenario();
+        multipleInputFilesScenario();
         multipleMappingFilesScenario();
         multipleFilesAndFoldersScenario();
         outputFormatsScenario();
         exportAssocTableScenario();
         verboseOutputScenario();
+        /* Using Streams */
+        simplestStreamScenario();
+        withGeneratorPolicyStreamScenario();
+        multipleInputStreamsScenario();
+        multipleMappingStreamsScenario();
     }
 }
