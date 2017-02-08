@@ -85,7 +85,7 @@ import org.w3c.dom.Element;
 public class X3MLEngineFactory {
     private Set<File> mappingsFiles;
     private List<InputStream> mappingStreams;
-    private Set<File> inputFiles;
+    private Set<InputStream> inputStreams;
     private Set<Pair<File, Boolean>> inputFolders;
     private InputStream generatorPolicyStream;
     private int uuidSize;
@@ -103,7 +103,7 @@ public class X3MLEngineFactory {
     private X3MLEngineFactory(){
         this.mappingsFiles=new HashSet<>();
         this.mappingStreams=new ArrayList<>();
-        this.inputFiles=new HashSet<>();
+        this.inputStreams=new HashSet<>();
         this.inputFolders=new HashSet<>();
         this.generatorPolicyStream=null;
         this.uuidSize=4;
@@ -144,11 +144,15 @@ public class X3MLEngineFactory {
      * @return the updated X3MLEngineFactory instance
      */
     public X3MLEngineFactory withInputFiles(File ... inputFiles){
-        for(File f : inputFiles){
-            LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
+        try{
+            for(File f : inputFiles){
+                LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
+                this.inputStreams.add(new FileInputStream(f));
+            }
+            return this;
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find input file",ex);
         }
-        this.inputFiles.addAll(Arrays.asList(inputFiles));
-        return this;
     }
     
     /**Adds the folder that contains the input files (in XML format). 
@@ -167,10 +171,14 @@ public class X3MLEngineFactory {
      * 
      * @param generatorPolicyFile the file (in XML) that contains the generator policy (for URIs and Literals)
      * @return the updated X3MLEngineFactory instance */
-    public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile) throws FileNotFoundException{
+    public X3MLEngineFactory withGeneratorPolicy(File generatorPolicyFile){
         LOGGER.debug("Added the Generator policy file ("+generatorPolicyFile.getAbsolutePath()+")");
-        this.generatorPolicyStream=new FileInputStream(generatorPolicyFile);
-        return this;
+        try{
+            this.generatorPolicyStream=new FileInputStream(generatorPolicyFile);
+            return this;
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find generator policy file",ex);
+        }
     }
     
     /**Adds the mappings streams in the X3MLEngineFactory. 
@@ -184,13 +192,15 @@ public class X3MLEngineFactory {
         return this;
     }
     
-    /** Adds the input files in the X3MLEngineFactory. The methods accepts more than one files 
-     * that will be concatenated for producing a single input file. 
+    /** Adds the input resources in the X3MLEngineFactory. The methods accepts more than one input resources
+     * that will be concatenated for producing a single input resource. 
      * 
-     * @param inputFiles the input (XML) files
+     * @param inputStreams the input (XML) streams
      * @return the updated X3MLEngineFactory instance
      */
-    public X3MLEngineFactory withInput(File ... inputStreams){
+    public X3MLEngineFactory withInput(InputStream ... inputStreams){
+        LOGGER.debug("Added "+inputStreams.length+" input streams");
+        this.inputStreams.addAll(Arrays.asList(inputStreams));
         return this;
     }
     
@@ -299,18 +309,17 @@ public class X3MLEngineFactory {
     /* parses the input (either it is a single file, multiple files, single folder or multiple folders).
     It uses all the given resources to produce a single input element (DOM) */
     private Element getInput(){
-        List<InputStream> inputCollections=new ArrayList<>();
         try{
             for(String filepath : this.getInputFilesListing()){
-                inputCollections.add(new FileInputStream(new File(filepath)));
+                this.inputStreams.add(new FileInputStream(new File(filepath)));
             }
         }catch(FileNotFoundException ex){
             throw exception("Cannot find XML input file",ex);
         }
-        if(inputCollections.isEmpty()){
+        if(inputStreams.isEmpty()){
             throw exception("The XML input file list is empty");
         }
-        return Utils.parseMultipleXMLFiles(inputCollections);
+        return Utils.parseMultipleXMLFiles(this.inputStreams);
     }
     
     /* Validates that the mandatory elements (input and mappings) have been provided */
@@ -318,7 +327,7 @@ public class X3MLEngineFactory {
         if(this.mappingsFiles.isEmpty() && this.mappingStreams.isEmpty()){
             throw exception("The X3ML mappings x3ml are missing.");
         }
-        if(this.inputFiles.isEmpty() && this.inputFolders.isEmpty()){
+        if(this.inputStreams.isEmpty() && this.inputFolders.isEmpty()){
             throw exception("The input file(s) or folder(s) are missing.");
         }
     }
@@ -382,9 +391,6 @@ public class X3MLEngineFactory {
     that has been provided by the user */
     private Collection<String> getInputFilesListing(){
         Set<String> retSet=new HashSet<>();
-        for(File inputFile : this.inputFiles){
-            retSet.add(inputFile.getAbsolutePath());
-        }
         for(Pair<File,Boolean> folder : this.inputFolders){
             for(File f : Utils.retrieveXMLfiles(folder.getLeft(), folder.getRight())){
                 retSet.add(f.getAbsolutePath());
