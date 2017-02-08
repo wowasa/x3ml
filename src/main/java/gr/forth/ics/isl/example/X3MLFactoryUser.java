@@ -127,18 +127,18 @@ public class X3MLFactoryUser {
     }
     
     public static void main(String[] args) throws FileNotFoundException{
-//        simplestScenario();
-//        withGeneratorPolicyScenario();
-//        multipleInputFilesScenario();
+        simplestScenario();
+        withGeneratorPolicyScenario();
+        multipleInputFilesScenario();
         multipleMappingFilesScenario();
-//        multipleFilesAndFoldersScenario();
-//        outputFormatsScenario();
-//        exportAssocTableScenario();
-//        verboseOutputScenario();
+        multipleFilesAndFoldersScenario();
+        outputFormatsScenario();
+        exportAssocTableScenario();
+        verboseOutputScenario();
         /* Using Streams */
-//        simplestStreamScenario();
-//        withGeneratorPolicyStreamScenario();
-//        multipleInputStreamsScenario();
+        simplestStreamScenario();
+        withGeneratorPolicyStreamScenario();
+        multipleInputStreamsScenario();
         multipleMappingStreamsScenario();
     }
 }
