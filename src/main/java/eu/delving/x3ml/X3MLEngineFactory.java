@@ -376,8 +376,8 @@ public class X3MLEngineFactory {
     
     /* prints - using logger - the configuration details */
     private void informUserAboutConfiguration(){
-        LOGGER.info("X3ML Engine Mappings files: "+this.mappingsFiles);
-        LOGGER.info("Input files: "+this.getInputFilesListing());
+        LOGGER.info("# X3ML Engine Mappings Files/Streams: "+this.mappingStreams.size());
+        LOGGER.info("# Input Files/Streams: "+(this.inputStreams.size()+this.getInputFilesListing().size()));
         LOGGER.info("UUID size: "+this.uuidSize);
         LOGGER.info("Generator policy used: "+(this.getGeneratorPolicy()==null));
         String outputMsg=(this.output.getLeft()==null || !this.output.getLeft().isEmpty())?"System.out":this.output.getLeft();
