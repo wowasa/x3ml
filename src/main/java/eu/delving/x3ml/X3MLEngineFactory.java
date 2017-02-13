@@ -274,18 +274,21 @@ public class X3MLEngineFactory {
         return this;
     }
     
-//    /**Sets the details about the transformed resources. More specifically it specifies 
-//     * the output stream to be used for exporting the transformed contents, 
-//     * as well as the desired  format (one of RDF/XML, NTRIPLES, TURTLE).
-//     * 
-//     * @param outputStream the stream to be used for exporting the transformed data
-//     * @param format the format of the exported data 
-//     * @return the updated X3MLEngineFactory instance */
-//    public X3MLEngineFactory withOutput(OutputStream outputStream, OutputFormat format){
-//        LOGGER.debug("Using an output stream to export data and setting the format to "+format);
-//        this.output=Pair.of(filename, format);
-//        return this;
-//    }
+    /**Sets the details about the transformed resources. More specifically it specifies 
+     * the output stream to be used for exporting the transformed contents, 
+     * as well as the desired  format (one of RDF/XML, NTRIPLES, TURTLE).
+     * 
+     * @param outputStream the stream to be used for exporting the transformed data
+     * @param format the format of the exported data 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withOutput(OutputStream outputStream, OutputFormat format){
+        String outputMsg=(outputStream==null)? "System.out":"OutputStream";
+        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
+        if(outputStream!=null){
+            this.output=Pair.of(outputStream, format);    
+        }
+        return this;
+    }
     
     /**Sets the name of the file where the contents of the association table will be exported, 
      * as a file in XML format. If the value is left intensionally left or null then the 
