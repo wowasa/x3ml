@@ -32,6 +32,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import org.w3c.dom.Attr;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import gr.forth.Labels;
 import static org.joox.JOOX.$;
 
 /**
@@ -113,7 +114,18 @@ public abstract class GeneratorContext {
                 generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                     @Override
                     public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
-                        return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                        try{
+                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                        }catch(Exception ex){   
+                            /*We are doing this for the cases where the XPATH expression does not hold (i.e. 
+                            the elemennt is missing or is empty). In this case we should construct a UUID instead 
+                            of simply throwing an error message. Related issue: #72 */
+                            if(generator.getName().equals(Labels.URIorUUID)){
+                                return new ArgValue("X", "en"); 
+                            }else{
+                                throw exception(ex.getMessage(),ex);
+                            } 
+                        }
                     }
                 });
                 put(globalVariable, VariableScope.GLOBAL, generatedValue);
@@ -126,7 +138,18 @@ public abstract class GeneratorContext {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            try{
+                                return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            }catch(Exception ex){   
+                                /*We are doing this for the cases where the XPATH expression does not hold (i.e. 
+                                the elemennt is missing or is empty). In this case we should construct a UUID instead 
+                                of simply throwing an error message. Related issue: #72 */
+                                if(generator.getName().equals(Labels.URIorUUID)){
+                                    return new ArgValue("X", "en"); 
+                                }else{
+                                    throw exception(ex.getMessage(),ex);
+                                } 
+                            }
                         }
                     });
                     put(variable_deprecated,VariableScope.WITHIN_MAPPING, generatedValue);
@@ -142,7 +165,18 @@ public abstract class GeneratorContext {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            try{
+                                return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            }catch(Exception ex){   
+                                /*We are doing this for the cases where the XPATH expression does not hold (i.e. 
+                                the elemennt is missing or is empty). In this case we should construct a UUID instead 
+                                of simply throwing an error message. Related issue: #72 */
+                                if(generator.getName().equals(Labels.URIorUUID)){
+                                    return new ArgValue("X", "en"); 
+                                }else{
+                                    throw exception(ex.getMessage(),ex);
+                                } 
+                            }
                         }
                     });
                     GeneratedValue genArg=null;
@@ -186,7 +220,18 @@ public abstract class GeneratorContext {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
                         public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
-                            return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            try{
+                                return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                            }catch(Exception ex){   
+                                /*We are doing this for the cases where the XPATH expression does not hold (i.e. 
+                                the elemennt is missing or is empty). In this case we should construct a UUID instead 
+                                of simply throwing an error message. Related issue: #72 */
+                                if(generator.getName().equals(Labels.URIorUUID)){
+                                    return new ArgValue("X", "en"); 
+                                }else{
+                                    throw exception(ex.getMessage(),ex);
+                                } 
+                            }
                         }
                     });
                     GeneratedValue genArg=null;

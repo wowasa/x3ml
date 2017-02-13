@@ -1,6 +1,10 @@
 # Change Log
 
 ---
+## 13 Feb 2017: V 1.7.5 (by FORTH-ICS)
+* Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
+
+
 ## 8 Feb 2017: V 1.7.4 (by FORTH-ICS)
 * Updated the functionality of the custom generator MultipleConcatTerms, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
 * Changed the dependencies of the X3ML-Engine (([issue #73](https://github.com/isl/x3ml/issues/73)))
