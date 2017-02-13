@@ -50,6 +50,7 @@ import java.util.TreeMap;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
+import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -205,10 +206,12 @@ public class X3MLEngine {
     }
     
     private void addDefaultNamespaces(){
-        ((XPathContext) namespaceContext).addNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-        prefixes.add("rdf");
-        ((XPathContext) namespaceContext).addNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
-        prefixes.add("rdfs");
+        ((XPathContext) namespaceContext).addNamespace(Labels.RDF, Labels.RDF_NAMESPACE);
+        prefixes.add(Labels.RDF);
+        ((XPathContext) namespaceContext).addNamespace(Labels.RDFS, Labels.RDFS_NAMESPACE);
+        prefixes.add(Labels.RDFS);
+        ((XPathContext) namespaceContext).addNamespace(Labels.XML, Labels.XML_NAMESPACE);
+        prefixes.add(Labels.XML);
     }
 
     private class XPathContext implements NamespaceContext {

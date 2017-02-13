@@ -32,25 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
 import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
 import gr.forth.Labels;
 import gr.forth.Utils;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static org.joox.JOOX.$;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static org.joox.JOOX.$;
 
@@ -277,7 +263,7 @@ public class XPathInput {
             throw new RuntimeException("XPath Problem: " + expression, e);
         }
     }
-
+    
     public List<Node> rootNodeList(
             String domainExpression,
             String pathExpression,
