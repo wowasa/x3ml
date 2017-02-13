@@ -38,7 +38,6 @@ import static eu.delving.x3ml.engine.X3ML.SourceType;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
-import java.util.Iterator;
 import static org.joox.JOOX.$;
 
 /**
