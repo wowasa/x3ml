@@ -28,6 +28,12 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
  * where it is not valid it generates a UUID. It takes a single parameter (with name "text") 
  * which can be given either from the input, or through a constant. If the given value is not 
  * a valid URI or URN, it generates a UUID. 
+ * The generator is also applicable for the cases where the corresponding value does not exist. 
+ * For example given the input &lt;FOO:gt;&lt;BAR/:gt;&lt;/FOO:gt; if we want to 
+ * generate a value using the XPATH expression BAR/text() then in this case the value 
+ * does not exist for the given XPATH expression, however this should NOT trigger an error; instead
+ * it should generate a UUID value for the given entity (based on the fact that 
+ * the source_node exists (i.e. FOO).
  * 
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
