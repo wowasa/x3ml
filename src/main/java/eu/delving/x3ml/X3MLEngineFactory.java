@@ -250,28 +250,29 @@ public class X3MLEngineFactory {
         }
         return this;
     }
-//    
-//    /**Sets the details about the transformed resources. More specifically it allows 
-//     * defining the name of the file that will be exported, as well as the desired 
-//     * format (one of RDF/XML, NTRIPLES, TURTLE).
-//     * If the filename is left intentionally or is left null then instead of exporting
-//     * the resources on a file, they will be exported @ System.out
-//     * The default behavior is to export transformed data to System.out in RDF/XML format.
-//     * 
-//     * @param filename the name of the file containing the exported data
-//     * @param format the format of the exported data 
-//     * @return the updated X3MLEngineFactory instance */
-//    public X3MLEngineFactory withOutput(String filename, OutputFormat format){
-//        String outputMsg=(filename==null || filename.isEmpty())? "System.out":"File("+filename+")";
-//        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
-//        try{
-//            OutputStream os=new PrintStream(new File(filename));
-//            this.output=Pair.of(os, format);
-//        }catch(FileNotFoundException ex){
-//            throw exception("Cannot find the output file, "+filename,ex);
-//        }
-//        return this;
-//    }
+    
+    /**Sets the details about the transformed resources. More specifically it allows 
+     * defining the file that will be exported, as well as the desired 
+     * format (one of RDF/XML, NTRIPLES, TURTLE).
+     * If the file is left null then instead of exporting
+     * the resources on a file, they will be exported @ System.out
+     * 
+     * @param outputFile the file where the exported data will be exported
+     * @param format the format of the exported data 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withOutput(File outputFile, OutputFormat format){
+        String outputMsg=(outputFile==null)? "System.out":"File("+outputFile.getAbsolutePath()+")";
+        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
+        if(outputFile!=null){
+            try{
+                OutputStream os=new PrintStream(outputFile);
+                this.output=Pair.of(os, format);
+            }catch(FileNotFoundException ex){
+                throw exception("Cannot find the output file, "+outputFile.getAbsolutePath(),ex);
+            }
+        }
+        return this;
+    }
     
 //    /**Sets the details about the transformed resources. More specifically it specifies 
 //     * the output stream to be used for exporting the transformed contents, 

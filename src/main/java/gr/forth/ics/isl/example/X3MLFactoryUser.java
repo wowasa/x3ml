@@ -60,7 +60,7 @@ public class X3MLFactoryUser {
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
-                         .withOutput(null, X3MLEngineFactory.OutputFormat.NTRIPLES)
+                         .withOutput("output.ntriples", X3MLEngineFactory.OutputFormat.NTRIPLES)
                          .execute();
         
         X3MLEngineFactory.create()
@@ -135,7 +135,7 @@ public class X3MLFactoryUser {
         outputFormatsScenario();
         exportAssocTableScenario();
         verboseOutputScenario();
-        /* Using Streams */
+//        /* Using Streams */
         simplestStreamScenario();
         withGeneratorPolicyStreamScenario();
         multipleInputStreamsScenario();
