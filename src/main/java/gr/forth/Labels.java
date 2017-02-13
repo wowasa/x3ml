@@ -27,6 +27,7 @@ package gr.forth;
  */
 public class Labels {
     public static final String URI="URI";
+    public static final String URIorUUID="URIorUUID";
     public static final String URN="URN";
     public static final String UUID="UUID";
     public static final String LITERAL="Literal";
