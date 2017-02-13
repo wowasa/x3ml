@@ -29,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,7 +91,7 @@ public class X3MLEngineFactory {
     private InputStream generatorPolicyStream;
     private int uuidSize;
     private String associationTableFile;
-    private Pair<String,OutputFormat> output;
+    private Pair<OutputStream,OutputFormat> output;
     private static final Logger LOGGER=Logger.getLogger(X3MLEngineFactory.class);
     
     public enum OutputFormat{
@@ -239,7 +240,53 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withOutput(String filename, OutputFormat format){
         String outputMsg=(filename==null || filename.isEmpty())? "System.out":"File("+filename+")";
         LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
-        this.output=Pair.of(filename, format);
+        if(filename!=null){
+            try{
+                OutputStream os=new PrintStream(new File(filename));
+                this.output=Pair.of(os, format);
+            }catch(FileNotFoundException ex){
+                throw exception("Cannot find the output file, "+filename,ex);
+            }
+        }
+        return this;
+    }
+    
+    /**Sets the details about the transformed resources. More specifically it allows 
+     * defining the file that will be exported, as well as the desired 
+     * format (one of RDF/XML, NTRIPLES, TURTLE).
+     * If the file is left null then instead of exporting
+     * the resources on a file, they will be exported @ System.out
+     * 
+     * @param outputFile the file where the exported data will be exported
+     * @param format the format of the exported data 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withOutput(File outputFile, OutputFormat format){
+        String outputMsg=(outputFile==null)? "System.out":"File("+outputFile.getAbsolutePath()+")";
+        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
+        if(outputFile!=null){
+            try{
+                OutputStream os=new PrintStream(outputFile);
+                this.output=Pair.of(os, format);
+            }catch(FileNotFoundException ex){
+                throw exception("Cannot find the output file, "+outputFile.getAbsolutePath(),ex);
+            }
+        }
+        return this;
+    }
+    
+    /**Sets the details about the transformed resources. More specifically it specifies 
+     * the output stream to be used for exporting the transformed contents, 
+     * as well as the desired  format (one of RDF/XML, NTRIPLES, TURTLE).
+     * 
+     * @param outputStream the stream to be used for exporting the transformed data
+     * @param format the format of the exported data 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withOutput(OutputStream outputStream, OutputFormat format){
+        String outputMsg=(outputStream==null)? "System.out":"OutputStream";
+        LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
+        if(outputStream!=null){
+            this.output=Pair.of(outputStream, format);    
+        }
         return this;
     }
     
@@ -333,32 +380,28 @@ public class X3MLEngineFactory {
     }
     
     private void outputResults(X3MLEngine.Output engineOutput){
-        try{
-            switch(this.output.getRight()){
-                case RDF_XML:
-                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        engineOutput.writeXML(System.out);
-                    }else{
-                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "application/rdf+xml");
-                    }
-                    break;
-                case NTRIPLES:
-                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        engineOutput.write(System.out,"application/n-triples");
-                    }else{
-                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "application/n-triples");
-                    }
-                    break;
-                case TURTLE:
-                    if(this.output.getLeft()==null || this.output.getLeft().isEmpty()){
-                        engineOutput.write(System.out,"text/turtle");
-                    }else{
-                        engineOutput.write(new PrintStream(new File(this.output.getLeft())), "text/turtle");
-                    }
-                    break;
-            }
-        }catch(FileNotFoundException ex){
-            throw exception("An error occured while exporting results",ex);
+        switch(this.output.getRight()){
+            case RDF_XML:
+                if(this.output.getLeft()==null){
+                    engineOutput.writeXML(System.out);
+                }else{
+                    engineOutput.write((PrintStream)this.output.getLeft(), "application/rdf+xml");
+                }
+                break;
+            case NTRIPLES:
+                if(this.output.getLeft()==null){
+                    engineOutput.write(System.out,"application/n-triples");
+                }else{
+                    engineOutput.write((PrintStream)this.output.getLeft(), "application/n-triples");
+                }
+                break;
+            case TURTLE:
+                if(this.output.getLeft()==null){
+                    engineOutput.write(System.out,"text/turtle");
+                }else{
+                    engineOutput.write((PrintStream)this.output.getLeft(), "text/turtle");
+                }
+                break;
         }
     }
     
@@ -380,7 +423,7 @@ public class X3MLEngineFactory {
         LOGGER.info("# Input Files/Streams: "+(this.inputStreams.size()+this.getInputFilesListing().size()));
         LOGGER.info("UUID size: "+this.uuidSize);
         LOGGER.info("Generator policy used: "+(this.getGeneratorPolicy()==null));
-        String outputMsg=(this.output.getLeft()==null || !this.output.getLeft().isEmpty())?"System.out":this.output.getLeft();
+        String outputMsg=(this.output.getLeft()==null)?"System.out":"OutputStream";
         LOGGER.info("Output: "+outputMsg);
         LOGGER.info("Output format: "+this.output.getRight());
         String associationTableExportMsg=(this.associationTableFile==null || !this.associationTableFile.isEmpty())?"Disabled":"Enabled, file: "+this.associationTableFile;

@@ -4,6 +4,7 @@ import eu.delving.x3ml.X3MLEngineFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -60,13 +61,13 @@ public class X3MLFactoryUser {
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
-                         .withOutput(null, X3MLEngineFactory.OutputFormat.NTRIPLES)
+                         .withOutput("output.ntriples", X3MLEngineFactory.OutputFormat.NTRIPLES)
                          .execute();
         
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
-                         .withOutput("target/output.rdf", X3MLEngineFactory.OutputFormat.RDF_XML)
+                         .withOutput(new File("output.rdf"), X3MLEngineFactory.OutputFormat.RDF_XML)
                          .execute();
     }
     
@@ -126,6 +127,21 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
+    /* Playing with different output and output formats using streams */
+    private static void outputFormatsStreamsScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
+                         .withInputFiles(new File("example/input.xml"))
+                         .withOutput(System.out, X3MLEngineFactory.OutputFormat.RDF_XML)
+                         .execute();
+        
+        X3MLEngineFactory.create()
+                         .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
+                         .withInputFiles(new File("example/input.xml"))
+                         .withOutput(new PrintStream(new File("output.rdf")), X3MLEngineFactory.OutputFormat.RDF_XML)
+                         .execute();
+    }
+    
     public static void main(String[] args) throws FileNotFoundException{
         simplestScenario();
         withGeneratorPolicyScenario();
@@ -135,10 +151,11 @@ public class X3MLFactoryUser {
         outputFormatsScenario();
         exportAssocTableScenario();
         verboseOutputScenario();
-        /* Using Streams */
+//        /* Using Streams */
         simplestStreamScenario();
         withGeneratorPolicyStreamScenario();
         multipleInputStreamsScenario();
         multipleMappingStreamsScenario();
+        outputFormatsStreamsScenario();
     }
 }
