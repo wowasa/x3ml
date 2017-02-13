@@ -209,6 +209,8 @@ public class X3MLEngine {
         prefixes.add("rdf");
         ((XPathContext) namespaceContext).addNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
         prefixes.add("rdfs");
+        ((XPathContext) namespaceContext).addNamespace("xml", "http://www.w3.org/XML/1998/namespace");
+        prefixes.add("xml");
     }
 
     private class XPathContext implements NamespaceContext {
