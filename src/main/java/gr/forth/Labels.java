@@ -26,18 +26,18 @@ package gr.forth;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
 public class Labels {
+    public static final String BOUND="bound";
+    public static final String CONSTANT="Constant";
+    public static final String DIFF_TERMS_DELIMITER="diffTermsDelim";
+    public static final String HTTP="http";
+    public static final String LITERAL="Literal";
+    public static final String PREF_LABEL="prefLabel";
+    public static final String PREFIX="prefix";
+    public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
+    public static final String SAME_TERM_DELIMITER="sameTermsDelim";
+    public static final String TEXT="text";
     public static final String URI="URI";
     public static final String URIorUUID="URIorUUID";
     public static final String URN="URN";
     public static final String UUID="UUID";
-    public static final String LITERAL="Literal";
-    public static final String PREF_LABEL="prefLabel";
-    public static final String TEXT="text";
-    public static final String CONSTANT="Constant";
-    public static final String BOUND="bound";
-    public static final String PREFIX="prefix";
-    public static final String HTTP="http";
-    public static final String SAME_TERM_DELIMITER="sameTermsDelim";
-    public static final String DIFF_TERMS_DELIMITER="diffTermsDelim";
-    public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
 }
