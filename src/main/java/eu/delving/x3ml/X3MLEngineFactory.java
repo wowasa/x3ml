@@ -223,6 +223,24 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /** Adds the remote input resources in the X3MLEngineFactory. The methods accepts more than one input resources
+     * that will be concatenated for producing a single input resource. 
+     * 
+     * @param urls the remote input (XML) resources
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInput(URL ... urls){
+        try{
+            for(URL url : urls){
+                LOGGER.debug("Added remote input resource with URL "+url);
+                this.inputStreams.add(url.openStream());
+            }
+        }catch(IOException ex){
+            throw exception("Cannot find/fetch input resources from remote location",ex);
+        }
+        return this;
+    }
+    
     /**Adds the generator policy resources.
      * 
      * @param generatorPolicyStream the stream that contains the generator policy (for URIs and Literals)
