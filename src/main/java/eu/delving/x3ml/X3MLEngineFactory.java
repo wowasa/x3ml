@@ -250,6 +250,19 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /**Adds the generator policy resources from a remote location
+     * 
+     * @param url the URL pointing to the location of the the generator policy (for URIs and Literals)
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withGeneratorPolicy(URL url){
+        try{
+            this.generatorPolicyStream=url.openStream();
+        }catch(IOException ex){
+            throw exception("Unable to find/fetch the remote generator policy resources",ex);
+        }
+        return this;
+    }
+    
     /**Sets the size of the UUID generator. The value denotes the length of the generated UUID value. 
      * For example if the value is set to 2 the it will generate UUIDs like uuid:AD, uuid:AY, 
      * if it is set to 3, it will generate UUIDs like uuid:ACB, etc.
