@@ -47,6 +47,7 @@ public class ModelOutput implements Output {
         this.namespaceContext = namespaceContext;
     }
 
+    @Override
     public Model getModel() {
         return model;
     }
@@ -115,7 +116,8 @@ public class ModelOutput implements Output {
         }
         return model.createTypedLiteral(value, typeUri);
     }
-
+    
+    @Override
     public void writeXML(OutputStream out) {
         model.write(out, "RDF/XML-ABBREV");
     }
@@ -128,6 +130,7 @@ public class ModelOutput implements Output {
         model.write(out, "TURTLE");
     }
 
+    @Override
     public void write(OutputStream out, String format) {
         if ("application/n-triples".equalsIgnoreCase(format)) {
             writeNTRIPLE(out);
@@ -140,10 +143,12 @@ public class ModelOutput implements Output {
         }
     }
 
+    @Override
     public String[] toStringArray() {
         return toString().split("\n");
     }
 
+    @Override
     public String toString() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         writeNTRIPLE(new PrintStream(baos));
