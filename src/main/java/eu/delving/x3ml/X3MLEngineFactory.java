@@ -31,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -193,6 +194,23 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /**Adds the remote mappings (accessible through the given URLs) in the X3MLEngineFactory. 
+     * 
+     * @param urls the URLs pointing to the remote mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappings(URL ... urls){
+        try{
+            for(URL url : urls){
+                LOGGER.debug("Added remote X3ML mappings from "+url);
+                this.mappingStreams.add(url.openStream());
+            }
+        }catch(IOException ex){
+            throw exception("Cannot find/fetch X3ML mappings from remote location",ex);
+        }
+        return this;
+    }
+    
     /** Adds the input resources in the X3MLEngineFactory. The methods accepts more than one input resources
      * that will be concatenated for producing a single input resource. 
      * 
@@ -205,12 +223,43 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /** Adds the remote input resources in the X3MLEngineFactory. The methods accepts more than one input resources
+     * that will be concatenated for producing a single input resource. 
+     * 
+     * @param urls the remote input (XML) resources
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInput(URL ... urls){
+        try{
+            for(URL url : urls){
+                LOGGER.debug("Added remote input resource with URL "+url);
+                this.inputStreams.add(url.openStream());
+            }
+        }catch(IOException ex){
+            throw exception("Cannot find/fetch input resources from remote location",ex);
+        }
+        return this;
+    }
+    
     /**Adds the generator policy resources.
      * 
      * @param generatorPolicyStream the stream that contains the generator policy (for URIs and Literals)
      * @return the updated X3MLEngineFactory instance */
     public X3MLEngineFactory withGeneratorPolicy(InputStream generatorPolicyStream){
         this.generatorPolicyStream=generatorPolicyStream;
+        return this;
+    }
+    
+    /**Adds the generator policy resources from a remote location
+     * 
+     * @param url the URL pointing to the location of the the generator policy (for URIs and Literals)
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withGeneratorPolicy(URL url){
+        try{
+            this.generatorPolicyStream=url.openStream();
+        }catch(IOException ex){
+            throw exception("Unable to find/fetch the remote generator policy resources",ex);
+        }
         return this;
     }
     
