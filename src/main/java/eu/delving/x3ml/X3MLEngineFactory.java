@@ -31,6 +31,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -190,6 +191,23 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withMappings(InputStream ... mappingsStreams){
         LOGGER.debug("Added "+mappingsStreams.length+" X3ML mappings input stream");
         this.mappingStreams.addAll(Arrays.asList(mappingsStreams));
+        return this;
+    }
+    
+    /**Adds the remote mappings (accessible through the given URLs) in the X3MLEngineFactory. 
+     * 
+     * @param urls the URLs pointing to the remote mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappings(URL ... urls){
+        try{
+            for(URL url : urls){
+                LOGGER.debug("Added remote X3ML mappings from "+url);
+                this.mappingStreams.add(url.openStream());
+            }
+        }catch(IOException ex){
+            throw exception("Cannot find/fetch X3ML mappings from remote location",ex);
+        }
         return this;
     }
     
