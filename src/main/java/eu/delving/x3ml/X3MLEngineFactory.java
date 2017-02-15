@@ -27,10 +27,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -242,7 +242,7 @@ public class X3MLEngineFactory {
         LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
         if(filename!=null){
             try{
-                OutputStream os=new PrintStream(new File(filename));
+                OutputStream os=new FileOutputStream(new File(filename));
                 this.output=Pair.of(os, format);
             }catch(FileNotFoundException ex){
                 throw exception("Cannot find the output file, "+filename,ex);
@@ -265,7 +265,7 @@ public class X3MLEngineFactory {
         LOGGER.debug("Set the output to "+outputMsg+" and the format to "+format);
         if(outputFile!=null){
             try{
-                OutputStream os=new PrintStream(outputFile);
+                OutputStream os=new FileOutputStream(outputFile);
                 this.output=Pair.of(os, format);
             }catch(FileNotFoundException ex){
                 throw exception("Cannot find the output file, "+outputFile.getAbsolutePath(),ex);
@@ -385,21 +385,21 @@ public class X3MLEngineFactory {
                 if(this.output.getLeft()==null){
                     engineOutput.writeXML(System.out);
                 }else{
-                    engineOutput.write((PrintStream)this.output.getLeft(), "application/rdf+xml");
+                    engineOutput.write(this.output.getLeft(), "application/rdf+xml");
                 }
                 break;
             case NTRIPLES:
                 if(this.output.getLeft()==null){
                     engineOutput.write(System.out,"application/n-triples");
                 }else{
-                    engineOutput.write((PrintStream)this.output.getLeft(), "application/n-triples");
+                    engineOutput.write(this.output.getLeft(), "application/n-triples");
                 }
                 break;
             case TURTLE:
                 if(this.output.getLeft()==null){
                     engineOutput.write(System.out,"text/turtle");
                 }else{
-                    engineOutput.write((PrintStream)this.output.getLeft(), "text/turtle");
+                    engineOutput.write(this.output.getLeft(), "text/turtle");
                 }
                 break;
         }

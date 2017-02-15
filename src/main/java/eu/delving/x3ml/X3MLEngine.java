@@ -184,9 +184,9 @@ public class X3MLEngine {
 
     public interface Output {
 
-        void write(PrintStream printStream, String rdfFormat);
+        void write(OutputStream outputStream, String rdfFormat);
 
-        void writeXML(PrintStream printStream);
+        void writeXML(OutputStream outputStream);
 
         Model getModel();
         

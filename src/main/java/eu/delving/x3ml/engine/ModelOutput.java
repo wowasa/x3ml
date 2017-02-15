@@ -28,6 +28,7 @@ import java.io.PrintStream;
 import static eu.delving.x3ml.X3MLEngine.Output;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import java.io.OutputStream;
 
 /**
  * The output sent to a Jena graph model.
@@ -46,6 +47,7 @@ public class ModelOutput implements Output {
         this.namespaceContext = namespaceContext;
     }
 
+    @Override
     public Model getModel() {
         return model;
     }
@@ -114,20 +116,22 @@ public class ModelOutput implements Output {
         }
         return model.createTypedLiteral(value, typeUri);
     }
-
-    public void writeXML(PrintStream out) {
+    
+    @Override
+    public void writeXML(OutputStream out) {
         model.write(out, "RDF/XML-ABBREV");
     }
 
-    public void writeNTRIPLE(PrintStream out) {
+    public void writeNTRIPLE(OutputStream out) {
         model.write(out, "N-TRIPLE");
     }
 
-    public void writeTURTLE(PrintStream out) {
+    public void writeTURTLE(OutputStream out) {
         model.write(out, "TURTLE");
     }
 
-    public void write(PrintStream out, String format) {
+    @Override
+    public void write(OutputStream out, String format) {
         if ("application/n-triples".equalsIgnoreCase(format)) {
             writeNTRIPLE(out);
         } else if ("text/turtle".equalsIgnoreCase(format)) {
@@ -139,10 +143,12 @@ public class ModelOutput implements Output {
         }
     }
 
+    @Override
     public String[] toStringArray() {
         return toString().split("\n");
     }
 
+    @Override
     public String toString() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         writeNTRIPLE(new PrintStream(baos));
