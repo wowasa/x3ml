@@ -103,7 +103,8 @@ public class EntityResolver {
                 uniqueValue="http://www.w3.org/2001/XMLSchema#dateTime";
             }
             if(skip){
-                uniqueValue="NAMEDGRAPH_URI"+namedGraphUriCounter++;
+//                uniqueValue="NAMEDGRAPH_URI"+namedGraphUriCounter++;
+                uniqueValue="NAMEDGRAPH_URI";
             }
                 
             GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
@@ -120,7 +121,7 @@ public class EntityResolver {
                             if(derivedBy==Derivation.Domain){
                                 if(mappingNamedGraph!=null){
                                     namedGraph=(mappingNamedGraph.startsWith("http://") && !mappingNamedGraph.isEmpty())?mappingNamedGraph+"":"http://namedgraph/"+mappingNamedGraph;
-                                    namedGraph+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+//                                    namedGraph+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
                                     X3ML.Mapping.namedGraphProduced=namedGraph;
                                 }
                             }else{
@@ -131,7 +132,7 @@ public class EntityResolver {
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                             if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
                                 X3ML.DomainElement.namedGraphProduced=(domainNamedGraph.startsWith("http://") && !domainNamedGraph.isEmpty())?domainNamedGraph+"":"http://namedgraph/"+domainNamedGraph;
-                                X3ML.DomainElement.namedGraphProduced+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+//                                X3ML.DomainElement.namedGraphProduced+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
                                 X3ML.RootElement.hasNamedGraphs=true;
                                 ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(), 
                                         new ResourceImpl(generatedValue.text).asNode(), 
