@@ -404,11 +404,11 @@ public interface X3ML {
     @XStreamAlias("additional")
     public static class Additional extends Visible {
 
-        @XStreamAlias("property")
-        public Relationship relationship;
+        @XStreamImplicit
+        public List<Relationship> relationship;
 
-        @XStreamAlias("entity")
-        public EntityElement entityElement;
+        @XStreamImplicit
+        public List<EntityElement> entityElement;
     }
 
     @XStreamAlias("if")
