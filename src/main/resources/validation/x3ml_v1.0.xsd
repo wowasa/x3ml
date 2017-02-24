@@ -180,8 +180,8 @@
 	<xs:element name="additional">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="relationship"/>
-				<xs:element ref="entity"/>
+				<xs:element ref="relationship" maxOccurs="unbounded"/>
+				<xs:element ref="entity" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
