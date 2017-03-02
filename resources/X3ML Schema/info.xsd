@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by End User (free.org) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1">
 	<xs:element name="info">
 		<xs:annotation>
@@ -26,7 +25,7 @@
 									<xs:documentation/>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="source_collection" type="xs:string"/>
+							<xs:element name="source_collection" type="xs:string" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -38,7 +37,7 @@
 									<xs:documentation/>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="target_collection" type="xs:string"/>
+							<xs:element name="target_collection" type="xs:string" minOccurs="0"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
