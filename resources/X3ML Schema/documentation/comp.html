@@ -1,0 +1,1247 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for x3ml.xsd</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_x3ml.xsd', 
+				'properties_comment.xsd', 
+				'properties_info.xsd', 
+				'properties_x3ml', 
+				'properties_info', 
+				'properties_info_title', 
+				'properties_info_general_description', 
+				'properties_info_source', 
+				'properties_info_info_source_source_info', 
+				'properties_source_schema', 
+				'properties_source_infoComplexType_namespaces', 
+				'properties_source_infoComplexType_source_infoComplexType_namespaces_namespace', 
+				'properties_info_info_source_source_collection', 
+				'properties_info_target', 
+				'properties_info_info_target_target_info', 
+				'properties_target_schema', 
+				'properties_target_infoComplexType_namespaces', 
+				'properties_target_infoComplexType_target_infoComplexType_namespaces_namespace', 
+				'properties_info_info_target_target_collection', 
+				'properties_info_mapping_info', 
+				'properties_mapping_infoComplexType_mapping_created_by_org', 
+				'properties_mapping_infoComplexType_mapping_created_by_person', 
+				'properties_mapping_infoComplexType_in_collaboration_with', 
+				'properties_info_example_data_info', 
+				'properties_example_data_infoComplexType_example_data_from', 
+				'properties_example_data_infoComplexType_example_data_contact_person', 
+				'properties_example_data_source_record', 
+				'properties_example_data_infoComplexType_generator_policy_info', 
+				'properties_example_data_target_record', 
+				'properties_x3ml_namespaces', 
+				'properties_x3ml_x3ml_namespaces_namespace', 
+				'properties_x3ml_mappings', 
+				'properties_x3ml_x3ml_mappings_mapping', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
+				'properties_source_node', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node', 
+				'properties_if', 
+				'properties_exists', 
+				'properties_equals', 
+				'properties_conditionsType_not', 
+				'properties_conditionsType_and', 
+				'properties_conditionsType_or', 
+				'properties_conditionsType_narrower', 
+				'properties_entity', 
+				'properties_type', 
+				'properties_instance_info', 
+				'properties_instance_info_language', 
+				'properties_instance_info_constant', 
+				'properties_instance_info_description', 
+				'properties_instance_generator', 
+				'properties_instance_generator_arg', 
+				'properties_label_generator', 
+				'properties_label_generator_arg', 
+				'properties_additional', 
+				'properties_relationship', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments', 
+				'properties_comment', 
+				'properties_comment_rationale', 
+				'properties_comment_alternatives', 
+				'properties_comment_typical_mistakes', 
+				'properties_comment_local_habits', 
+				'properties_comment_link_to_cook_book', 
+				'properties_comment_example', 
+				'properties_exampleComplexType_example_source', 
+				'properties_exampleComplexType_example_target', 
+				'properties_comments_last_update', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_relation', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_node', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_target_relation', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node', 
+				'properties_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments', 
+				'properties_x3ml_comments', 
+				'properties_target_node', 
+				'properties_source_schema_version', 
+				'properties_source_schema_schema_file', 
+				'properties_source_schema_type', 
+				'properties_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_prefix', 
+				'properties_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_uri', 
+				'properties_target_schema_version', 
+				'properties_target_schema_schema_file', 
+				'properties_target_schema_type', 
+				'properties_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_prefix', 
+				'properties_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_uri', 
+				'properties_example_data_source_record_xml_link', 
+				'properties_example_data_source_record_html_link', 
+				'properties_example_data_infoComplexType_example_data_infoComplexType_generator_policy_info_generator_link', 
+				'properties_example_data_target_record_rdf_link', 
+				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_prefix', 
+				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
+				'properties_equals_value', 
+				'properties_conditionsType_conditionsType_narrower_value', 
+				'properties_instance_generator_name', 
+				'properties_label_generator_name', 
+				'properties_comments_last_update_date', 
+				'properties_comments_last_update_person', 
+				'properties_comment_type', 
+				'properties_x3ml_version', 
+				'properties_x3ml_source_type');
+var usedByBoxes= new Array('usedBy_info', 
+				'usedBy_source_schema', 
+				'usedBy_target_schema', 
+				'usedBy_example_data_source_record', 
+				'usedBy_example_data_target_record', 
+				'usedBy_source_node', 
+				'usedBy_if', 
+				'usedBy_exists', 
+				'usedBy_equals', 
+				'usedBy_entity', 
+				'usedBy_type', 
+				'usedBy_instance_info', 
+				'usedBy_instance_generator', 
+				'usedBy_label_generator', 
+				'usedBy_additional', 
+				'usedBy_relationship', 
+				'usedBy_comment', 
+				'usedBy_comments_last_update', 
+				'usedBy_source_infoComplexType', 
+				'usedBy_target_infoComplexType', 
+				'usedBy_mapping_infoComplexType', 
+				'usedBy_example_data_infoComplexType', 
+				'usedBy_domain_target_nodeType', 
+				'usedBy_conditionsType', 
+				'usedBy_commentsType', 
+				'usedBy_exampleComplexType', 
+				'usedBy_target_relationType', 
+				'usedBy_range_target_nodeType', 
+				'usedBy_source_schema_version', 
+				'usedBy_source_schema_schema_file', 
+				'usedBy_source_schema_type', 
+				'usedBy_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_prefix', 
+				'usedBy_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_uri', 
+				'usedBy_target_schema_version', 
+				'usedBy_target_schema_schema_file', 
+				'usedBy_target_schema_type', 
+				'usedBy_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_prefix', 
+				'usedBy_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_uri', 
+				'usedBy_example_data_source_record_xml_link', 
+				'usedBy_example_data_source_record_html_link', 
+				'usedBy_example_data_infoComplexType_example_data_infoComplexType_generator_policy_info_generator_link', 
+				'usedBy_example_data_target_record_rdf_link', 
+				'usedBy_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_prefix', 
+				'usedBy_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
+				'usedBy_equals_value', 
+				'usedBy_conditionsType_conditionsType_narrower_value', 
+				'usedBy_instance_generator_instance_generator_arg_name', 
+				'usedBy_instance_generator_instance_generator_arg_type', 
+				'usedBy_instance_generator_name', 
+				'usedBy_label_generator_label_generator_arg_name', 
+				'usedBy_label_generator_label_generator_arg_type', 
+				'usedBy_label_generator_name', 
+				'usedBy_entity_variable', 
+				'usedBy_entity_global_variable', 
+				'usedBy_entity_variable_deprecated', 
+				'usedBy_comments_last_update_date', 
+				'usedBy_comments_last_update_person', 
+				'usedBy_comment_type', 
+				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip', 
+				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_skip', 
+				'usedBy_x3ml_version', 
+				'usedBy_x3ml_source_type', 
+				'usedBy_x3ml_editor');
+var sourceBoxes= new Array('source_x3ml', 
+				'source_info', 
+				'source_info_title', 
+				'source_info_general_description', 
+				'source_info_source', 
+				'source_info_info_source_source_info', 
+				'source_source_schema', 
+				'source_source_infoComplexType_namespaces', 
+				'source_source_infoComplexType_source_infoComplexType_namespaces_namespace', 
+				'source_info_info_source_source_collection', 
+				'source_info_target', 
+				'source_info_info_target_target_info', 
+				'source_target_schema', 
+				'source_target_infoComplexType_namespaces', 
+				'source_target_infoComplexType_target_infoComplexType_namespaces_namespace', 
+				'source_info_info_target_target_collection', 
+				'source_info_mapping_info', 
+				'source_mapping_infoComplexType_mapping_created_by_org', 
+				'source_mapping_infoComplexType_mapping_created_by_person', 
+				'source_mapping_infoComplexType_in_collaboration_with', 
+				'source_info_example_data_info', 
+				'source_example_data_infoComplexType_example_data_from', 
+				'source_example_data_infoComplexType_example_data_contact_person', 
+				'source_example_data_source_record', 
+				'source_example_data_infoComplexType_generator_policy_info', 
+				'source_example_data_target_record', 
+				'source_x3ml_namespaces', 
+				'source_x3ml_x3ml_namespaces_namespace', 
+				'source_x3ml_mappings', 
+				'source_x3ml_x3ml_mappings_mapping', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
+				'source_source_node', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node', 
+				'source_if', 
+				'source_exists', 
+				'source_equals', 
+				'source_conditionsType_not', 
+				'source_conditionsType_and', 
+				'source_conditionsType_or', 
+				'source_conditionsType_narrower', 
+				'source_entity', 
+				'source_type', 
+				'source_instance_info', 
+				'source_instance_info_language', 
+				'source_instance_info_constant', 
+				'source_instance_info_description', 
+				'source_instance_generator', 
+				'source_instance_generator_arg', 
+				'source_label_generator', 
+				'source_label_generator_arg', 
+				'source_additional', 
+				'source_relationship', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments', 
+				'source_comment', 
+				'source_comment_rationale', 
+				'source_comment_alternatives', 
+				'source_comment_typical_mistakes', 
+				'source_comment_local_habits', 
+				'source_comment_link_to_cook_book', 
+				'source_comment_example', 
+				'source_exampleComplexType_example_source', 
+				'source_exampleComplexType_example_target', 
+				'source_comments_last_update', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_relation', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_node', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_target_relation', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments', 
+				'source_x3ml_comments', 
+				'source_target_node', 
+				'source_source_infoComplexType', 
+				'source_target_infoComplexType', 
+				'source_mapping_infoComplexType', 
+				'source_example_data_infoComplexType', 
+				'source_domain_target_nodeType', 
+				'source_conditionsType', 
+				'source_commentsType', 
+				'source_exampleComplexType', 
+				'source_target_relationType', 
+				'source_range_target_nodeType', 
+				'source_source_schema_version', 
+				'source_source_schema_schema_file', 
+				'source_source_schema_type', 
+				'source_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_prefix', 
+				'source_source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_uri', 
+				'source_target_schema_version', 
+				'source_target_schema_schema_file', 
+				'source_target_schema_type', 
+				'source_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_prefix', 
+				'source_target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_uri', 
+				'source_example_data_source_record_xml_link', 
+				'source_example_data_source_record_html_link', 
+				'source_example_data_infoComplexType_example_data_infoComplexType_generator_policy_info_generator_link', 
+				'source_example_data_target_record_rdf_link', 
+				'source_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_prefix', 
+				'source_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
+				'source_equals_value', 
+				'source_conditionsType_conditionsType_narrower_value', 
+				'source_instance_generator_instance_generator_arg_name', 
+				'source_instance_generator_instance_generator_arg_type', 
+				'source_instance_generator_name', 
+				'source_label_generator_label_generator_arg_name', 
+				'source_label_generator_label_generator_arg_type', 
+				'source_label_generator_name', 
+				'source_entity_variable', 
+				'source_entity_global_variable', 
+				'source_entity_variable_deprecated', 
+				'source_comments_last_update_date', 
+				'source_comments_last_update_person', 
+				'source_comment_type', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_skip', 
+				'source_x3ml_version', 
+				'source_x3ml_source_type', 
+				'source_x3ml_editor');
+var instanceBoxes= new Array('instance_x3ml', 
+				'instance_info', 
+				'instance_info_source', 
+				'instance_info_info_source_source_info', 
+				'instance_source_infoComplexType_namespaces', 
+				'instance_info_target', 
+				'instance_info_info_target_target_info', 
+				'instance_target_infoComplexType_namespaces', 
+				'instance_info_mapping_info', 
+				'instance_info_example_data_info', 
+				'instance_x3ml_namespaces', 
+				'instance_x3ml_mappings', 
+				'instance_x3ml_x3ml_mappings_mapping', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node', 
+				'instance_if', 
+				'instance_conditionsType_not', 
+				'instance_conditionsType_and', 
+				'instance_conditionsType_or', 
+				'instance_entity', 
+				'instance_instance_info', 
+				'instance_instance_generator', 
+				'instance_label_generator', 
+				'instance_additional', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments', 
+				'instance_comment', 
+				'instance_comment_example', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_target_relation', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node', 
+				'instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments', 
+				'instance_x3ml_comments', 
+				'instance_target_node');
+var diagramBoxes= new Array('diagram_x3ml', 
+				'diagram_info', 
+				'diagram_info_title', 
+				'diagram_info_general_description', 
+				'diagram_info_source', 
+				'diagram_info_info_source_source_info', 
+				'diagram_source_schema', 
+				'diagram_source_infoComplexType_namespaces', 
+				'diagram_source_infoComplexType_source_infoComplexType_namespaces_namespace', 
+				'diagram_info_info_source_source_collection', 
+				'diagram_info_target', 
+				'diagram_info_info_target_target_info', 
+				'diagram_target_schema', 
+				'diagram_target_infoComplexType_namespaces', 
+				'diagram_target_infoComplexType_target_infoComplexType_namespaces_namespace', 
+				'diagram_info_info_target_target_collection', 
+				'diagram_info_mapping_info', 
+				'diagram_mapping_infoComplexType_mapping_created_by_org', 
+				'diagram_mapping_infoComplexType_mapping_created_by_person', 
+				'diagram_mapping_infoComplexType_in_collaboration_with', 
+				'diagram_info_example_data_info', 
+				'diagram_example_data_infoComplexType_example_data_from', 
+				'diagram_example_data_infoComplexType_example_data_contact_person', 
+				'diagram_example_data_source_record', 
+				'diagram_example_data_infoComplexType_generator_policy_info', 
+				'diagram_example_data_target_record', 
+				'diagram_x3ml_namespaces', 
+				'diagram_x3ml_x3ml_namespaces_namespace', 
+				'diagram_x3ml_mappings', 
+				'diagram_x3ml_x3ml_mappings_mapping', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
+				'diagram_source_node', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node', 
+				'diagram_if', 
+				'diagram_exists', 
+				'diagram_equals', 
+				'diagram_conditionsType_not', 
+				'diagram_conditionsType_and', 
+				'diagram_conditionsType_or', 
+				'diagram_conditionsType_narrower', 
+				'diagram_entity', 
+				'diagram_type', 
+				'diagram_instance_info', 
+				'diagram_instance_info_language', 
+				'diagram_instance_info_constant', 
+				'diagram_instance_info_description', 
+				'diagram_instance_generator', 
+				'diagram_instance_generator_arg', 
+				'diagram_label_generator', 
+				'diagram_label_generator_arg', 
+				'diagram_additional', 
+				'diagram_relationship', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments', 
+				'diagram_comment', 
+				'diagram_comment_rationale', 
+				'diagram_comment_alternatives', 
+				'diagram_comment_typical_mistakes', 
+				'diagram_comment_local_habits', 
+				'diagram_comment_link_to_cook_book', 
+				'diagram_comment_example', 
+				'diagram_exampleComplexType_example_source', 
+				'diagram_exampleComplexType_example_target', 
+				'diagram_comments_last_update', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_relation', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation_node', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_target_relation', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node', 
+				'diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments', 
+				'diagram_x3ml_comments', 
+				'diagram_target_node', 
+				'diagram_source_infoComplexType', 
+				'diagram_target_infoComplexType', 
+				'diagram_mapping_infoComplexType', 
+				'diagram_example_data_infoComplexType', 
+				'diagram_domain_target_nodeType', 
+				'diagram_conditionsType', 
+				'diagram_commentsType', 
+				'diagram_exampleComplexType', 
+				'diagram_target_relationType', 
+				'diagram_range_target_nodeType');
+var annotationBoxes= new Array('annotations_x3ml', 
+				'annotations_info', 
+				'annotations_info_title', 
+				'annotations_info_general_description', 
+				'annotations_info_info_source_source_info', 
+				'annotations_source_schema', 
+				'annotations_info_info_target_target_info', 
+				'annotations_target_schema', 
+				'annotations_info_mapping_info', 
+				'annotations_info_example_data_info', 
+				'annotations_example_data_source_record', 
+				'annotations_example_data_target_record', 
+				'annotations_comment', 
+				'annotations_source_infoComplexType', 
+				'annotations_target_infoComplexType', 
+				'annotations_mapping_infoComplexType', 
+				'annotations_example_data_infoComplexType', 
+				'annotations_exampleComplexType');
+var attributesBoxes= new Array('attributes_x3ml', 
+				'attributes_source_schema', 
+				'attributes_source_infoComplexType_source_infoComplexType_namespaces_namespace', 
+				'attributes_target_schema', 
+				'attributes_target_infoComplexType_target_infoComplexType_namespaces_namespace', 
+				'attributes_example_data_source_record', 
+				'attributes_example_data_infoComplexType_generator_policy_info', 
+				'attributes_example_data_target_record', 
+				'attributes_x3ml_x3ml_namespaces_namespace', 
+				'attributes_x3ml_x3ml_mappings_mapping', 
+				'attributes_equals', 
+				'attributes_conditionsType_narrower', 
+				'attributes_entity', 
+				'attributes_instance_generator', 
+				'attributes_instance_generator_arg', 
+				'attributes_label_generator', 
+				'attributes_label_generator_arg', 
+				'attributes_comment', 
+				'attributes_comments_last_update', 
+				'attributes_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link');
+var modelBoxes= new Array('model_x3ml', 
+				'model_info', 
+				'model_info_source', 
+				'model_info_info_source_source_info', 
+				'model_source_infoComplexType_namespaces', 
+				'model_info_target', 
+				'model_info_info_target_target_info', 
+				'model_target_infoComplexType_namespaces', 
+				'model_info_mapping_info', 
+				'model_info_example_data_info', 
+				'model_x3ml_namespaces', 
+				'model_x3ml_mappings', 
+				'model_x3ml_x3ml_mappings_mapping', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node', 
+				'model_if', 
+				'model_conditionsType_not', 
+				'model_conditionsType_and', 
+				'model_conditionsType_or', 
+				'model_entity', 
+				'model_instance_info', 
+				'model_instance_generator', 
+				'model_label_generator', 
+				'model_additional', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments', 
+				'model_comment', 
+				'model_comment_example', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_source_relation', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_target_relation', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node', 
+				'model_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments', 
+				'model_x3ml_comments', 
+				'model_target_node', 
+				'model_source_infoComplexType', 
+				'model_target_infoComplexType', 
+				'model_mapping_infoComplexType', 
+				'model_example_data_infoComplexType', 
+				'model_domain_target_nodeType', 
+				'model_conditionsType', 
+				'model_commentsType', 
+				'model_exampleComplexType', 
+				'model_target_relationType', 
+				'model_range_target_nodeType');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                        //--></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, false, '.html', 'ns.html', 'comp.html');">
+                     <option value="toc_group_by_namespace" selected="selected">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_namespace" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="button_boxIdNamespace1" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1');" class="control" /><span class="indexGroupTitle">No namespace</span></p>
+                  <div id="boxIdNamespace1" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Element" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1Element');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Element" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
+                                                <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
+                                                <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
+                                                <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
+                                                <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
+                                                <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
+                                                <div><b><a href="index.html#if" target="_self" title="No namespace">if</a></b></div>
+                                                <div><b><a href="index.html#info" target="_self" title="No namespace">info</a></b></div>
+                                                <div><b><a href="index.html#instance_generator" target="_self" title="No namespace">instance_generator</a></b></div>
+                                                <div><b><a href="index.html#instance_info" target="_self" title="No namespace">instance_info</a></b></div>
+                                                <div><b><a href="index.html#label_generator" target="_self" title="No namespace">label_generator</a></b></div>
+                                                <div><b><a href="index.html#relationship" target="_self" title="No namespace">relationship</a></b></div>
+                                                <div><b><a href="index.html#source_node" target="_self" title="No namespace">source_node</a></b></div>
+                                                <div><b><a href="index.html#source_schema" target="_self" title="No namespace">source_schema</a></b></div>
+                                                <div><b><a href="index.html#target_node" target="_self" title="No namespace">target_node</a></b></div>
+                                                <div><b><a href="index.html#target_schema" target="_self" title="No namespace">target_schema</a></b></div>
+                                                <div><b><a href="index.html#type" target="_self" title="No namespace">type</a></b></div>
+                                                <div><b><a href="index.html#x3ml" target="_self" title="No namespace">x3ml</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_boxIdNamespace1Complex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('boxIdNamespace1Complex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="boxIdNamespace1Complex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#commentsType" target="_self" title="No namespace">commentsType</a></b></div>
+                                                <div><b><a href="index.html#conditionsType" target="_self" title="No namespace">conditionsType</a></b></div>
+                                                <div><b><a href="index.html#domain_target_nodeType" target="_self" title="No namespace">domain_target_nodeType</a></b></div>
+                                                <div><b><a href="index.html#exampleComplexType" target="_self" title="No namespace">exampleComplexType</a></b></div>
+                                                <div><b><a href="index.html#example_data_infoComplexType" target="_self" title="No namespace">example_data_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#mapping_infoComplexType" target="_self" title="No namespace">mapping_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#range_target_nodeType" target="_self" title="No namespace">range_target_nodeType</a></b></div>
+                                                <div><b><a href="index.html#source_infoComplexType" target="_self" title="No namespace">source_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#target_infoComplexType" target="_self" title="No namespace">target_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#target_relationType" target="_self" title="No namespace">target_relationType</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_component_type" style="display:none">
+            <div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Element" type="image" value="-" src="img/btM.gif" onclick="switchState('Element');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Elements</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Element" class="componentGroup" style="display:block">
+                                          <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                          <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
+                                          <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
+                                          <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
+                                          <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                          <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
+                                          <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
+                                          <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
+                                          <div><b><a href="index.html#if" target="_self" title="No namespace">if</a></b></div>
+                                          <div><b><a href="index.html#info" target="_self" title="No namespace">info</a></b></div>
+                                          <div><b><a href="index.html#instance_generator" target="_self" title="No namespace">instance_generator</a></b></div>
+                                          <div><b><a href="index.html#instance_info" target="_self" title="No namespace">instance_info</a></b></div>
+                                          <div><b><a href="index.html#label_generator" target="_self" title="No namespace">label_generator</a></b></div>
+                                          <div><b><a href="index.html#relationship" target="_self" title="No namespace">relationship</a></b></div>
+                                          <div><b><a href="index.html#source_node" target="_self" title="No namespace">source_node</a></b></div>
+                                          <div><b><a href="index.html#source_schema" target="_self" title="No namespace">source_schema</a></b></div>
+                                          <div><b><a href="index.html#target_node" target="_self" title="No namespace">target_node</a></b></div>
+                                          <div><b><a href="index.html#target_schema" target="_self" title="No namespace">target_schema</a></b></div>
+                                          <div><b><a href="index.html#type" target="_self" title="No namespace">type</a></b></div>
+                                          <div><b><a href="index.html#x3ml" target="_self" title="No namespace">x3ml</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Complex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('Complex_Type');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Complex Types</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Complex_Type" class="componentGroup" style="display:block">
+                                          <div><b><a href="index.html#commentsType" target="_self" title="No namespace">commentsType</a></b></div>
+                                          <div><b><a href="index.html#conditionsType" target="_self" title="No namespace">conditionsType</a></b></div>
+                                          <div><b><a href="index.html#domain_target_nodeType" target="_self" title="No namespace">domain_target_nodeType</a></b></div>
+                                          <div><b><a href="index.html#exampleComplexType" target="_self" title="No namespace">exampleComplexType</a></b></div>
+                                          <div><b><a href="index.html#example_data_infoComplexType" target="_self" title="No namespace">example_data_infoComplexType</a></b></div>
+                                          <div><b><a href="index.html#mapping_infoComplexType" target="_self" title="No namespace">mapping_infoComplexType</a></b></div>
+                                          <div><b><a href="index.html#range_target_nodeType" target="_self" title="No namespace">range_target_nodeType</a></b></div>
+                                          <div><b><a href="index.html#source_infoComplexType" target="_self" title="No namespace">source_infoComplexType</a></b></div>
+                                          <div><b><a href="index.html#target_infoComplexType" target="_self" title="No namespace">target_infoComplexType</a></b></div>
+                                          <div><b><a href="index.html#target_relationType" target="_self" title="No namespace">target_relationType</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div style="clear:left"></div>
+            </div>
+         </div>
+         <div class="level1" id="toc_group_by_location" style="display:none">
+            <div>
+               <div class="level2">
+                  <p><input id="button_gr_x3ml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_x3ml.xsd');" class="control" /><span class="indexGroupTitle">x3ml.xsd</span></p>
+                  <div id="gr_x3ml.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_x3ml.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_x3ml.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_x3ml.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
+                                                <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
+                                                <div><b><a href="index.html#if" target="_self" title="No namespace">if</a></b></div>
+                                                <div><b><a href="index.html#instance_generator" target="_self" title="No namespace">instance_generator</a></b></div>
+                                                <div><b><a href="index.html#instance_info" target="_self" title="No namespace">instance_info</a></b></div>
+                                                <div><b><a href="index.html#label_generator" target="_self" title="No namespace">label_generator</a></b></div>
+                                                <div><b><a href="index.html#relationship" target="_self" title="No namespace">relationship</a></b></div>
+                                                <div><b><a href="index.html#source_node" target="_self" title="No namespace">source_node</a></b></div>
+                                                <div><b><a href="index.html#target_node" target="_self" title="No namespace">target_node</a></b></div>
+                                                <div><b><a href="index.html#type" target="_self" title="No namespace">type</a></b></div>
+                                                <div><b><a href="index.html#x3ml" target="_self" title="No namespace">x3ml</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_x3ml.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_x3ml.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_x3ml.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#commentsType" target="_self" title="No namespace">commentsType</a></b></div>
+                                                <div><b><a href="index.html#conditionsType" target="_self" title="No namespace">conditionsType</a></b></div>
+                                                <div><b><a href="index.html#domain_target_nodeType" target="_self" title="No namespace">domain_target_nodeType</a></b></div>
+                                                <div><b><a href="index.html#range_target_nodeType" target="_self" title="No namespace">range_target_nodeType</a></b></div>
+                                                <div><b><a href="index.html#target_relationType" target="_self" title="No namespace">target_relationType</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_info.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_info.xsd');" class="control" /><span class="indexGroupTitle">info.xsd</span></p>
+                  <div id="gr_info.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_info.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_info.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_info.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
+                                                <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
+                                                <div><b><a href="index.html#info" target="_self" title="No namespace">info</a></b></div>
+                                                <div><b><a href="index.html#source_schema" target="_self" title="No namespace">source_schema</a></b></div>
+                                                <div><b><a href="index.html#target_schema" target="_self" title="No namespace">target_schema</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_info.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_info.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_info.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#example_data_infoComplexType" target="_self" title="No namespace">example_data_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#mapping_infoComplexType" target="_self" title="No namespace">mapping_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#source_infoComplexType" target="_self" title="No namespace">source_infoComplexType</a></b></div>
+                                                <div><b><a href="index.html#target_infoComplexType" target="_self" title="No namespace">target_infoComplexType</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_comment.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_comment.xsd');" class="control" /><span class="indexGroupTitle">comment.xsd</span></p>
+                  <div id="gr_comment.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_comment.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_comment.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_comment.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
+                                                <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_comment.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_comment.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_comment.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="index.html#exampleComplexType" target="_self" title="No namespace">exampleComplexType</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div>
+   </body>
+</html>
