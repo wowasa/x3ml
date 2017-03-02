@@ -34,6 +34,7 @@
 													<xs:element name="target_node" type="domain_target_nodeType"/>
 													<xs:element name="comments" type="commentsType" minOccurs="0"/>
 												</xs:sequence>
+												<xs:attribute name="namedgraph"/>
 											</xs:complexType>
 										</xs:element>
 										<xs:element name="link" minOccurs="0" maxOccurs="unbounded">
@@ -69,13 +70,16 @@
 													</xs:element>
 												</xs:sequence>
 												<xs:attribute name="skip"/>
+												<xs:attribute name="namedgraph"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="skip"/>
+									<xs:attribute name="namedgraph"/>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
+						<xs:attribute name="namedgraph"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="comments" type="commentsType" minOccurs="0"/>
@@ -183,7 +187,15 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="source_node" type="xs:string"/>
+	<xs:element name="source_node">
+ 		<xs:complexType>
+ 			<xs:simpleContent>
+ 				<xs:extension base="xs:string">
+ 					<xs:attribute name="skip"/>
+ 				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="target_node" type="range_target_nodeType"/>
 	<xs:element name="instance_info">
 		<xs:complexType>
