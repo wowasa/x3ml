@@ -40,9 +40,6 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
@@ -81,8 +78,7 @@ public interface X3ML {
         @XStreamAsAttribute
         public String language;
 
-        @XStreamOmitField
-        public String info;
+        public Info info;
 
         public List<MappingNamespace> namespaces;
 
@@ -100,6 +96,157 @@ public interface X3ML {
 
         @XStreamOmitField
         public String comments;
+    }
+    
+    @XStreamAlias("info")
+    public static class Info extends Visible{
+        
+        public String title;
+        
+        public String general_description;
+        
+        public SourceElement source;
+        
+        public TargetElement target;
+        
+        @XStreamAlias("mapping_info")
+        public MappingInfoElement mappingInfo;
+        
+        @XStreamAlias("example_data_info")
+        public ExampleDataInfo exampleDataInfo;
+    }
+    
+    @XStreamAlias("target")
+    public static class TargetElement extends Visible{
+        @XStreamImplicit(itemFieldName="target_info")
+        public List<TargetInfo> target_info;
+        
+        @XStreamAlias("target_collection")
+        @XStreamOmitField
+        public String targetCollection;
+    }
+    
+    @XStreamAlias("target_info")
+    public static class TargetInfo extends Visible{
+        @XStreamAlias("target_schema")
+        public TargetSchema targetSchema;
+        
+        @XStreamAlias("namespaces")
+        public List<MappingNamespace> namespaces;
+    }
+    
+    @XStreamAlias("target_schema")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class TargetSchema extends Visible{
+        @XStreamAsAttribute
+        public String type;
+        
+        @XStreamAsAttribute
+        public String version;
+
+        @XStreamAsAttribute
+        @XStreamAlias("schema_file")
+        public String schemaFile;
+        
+        public String value;
+    }
+    
+    @XStreamAlias("source")
+    public static class SourceElement extends Visible{
+        @XStreamImplicit(itemFieldName="source_info")
+        public List<SourceInfo> source_info;
+        
+        @XStreamAlias("source_collection")
+        public String sourceCollection;
+    }
+    
+    @XStreamAlias("source_info")
+    public static class SourceInfo extends Visible{
+        @XStreamAlias("source_schema")
+        public SourceSchema sourceSchema;
+        
+        @XStreamAlias("namespaces")
+        public List<MappingNamespace> namespaces;
+    }
+    
+    @XStreamAlias("source_schema")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class SourceSchema extends Visible{
+        @XStreamAsAttribute
+        public String type;
+        
+        @XStreamAsAttribute
+        public String version;
+
+        @XStreamAsAttribute
+        @XStreamAlias("schema_file")
+        public String schemaFile;
+        
+        public String value;
+    }
+    
+    @XStreamAlias("mapping_info")
+    public static class MappingInfoElement extends Visible{
+        @XStreamAlias("mapping_created_by_org")
+        public String mappingCreatedByOrg;
+        
+        @XStreamAlias("mapping_created_by_person")
+        public String mappingCreatedByPerson;
+        
+        @XStreamAlias("in_collaboration_with")
+        public String inCollaborationWith;
+    }
+    
+    @XStreamAlias("example_data_info")
+    public static class ExampleDataInfo extends Visible{
+        @XStreamAlias("example_data_from")
+        public String exampleDataFrom;
+        
+        @XStreamAlias("example_data_contact_person")
+        public String exampleDataContactPerson;
+        
+        @XStreamAlias("example_data_source_record")
+        public ExampleDataSourceRecord exampleDataSourceRecord;
+        
+        @XStreamAlias("generator_policy_info")
+        public GeneratorPolicyInfo generatorPolicyInfo;
+        
+        @XStreamAlias("example_data_target_record")
+        public ExampleDataTargetRecord exampleDataTargetRecord;
+    }
+    
+    @XStreamAlias("example_data_source_record")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class ExampleDataSourceRecord extends Visible{
+        @XStreamAlias("xml_link")
+        @XStreamAsAttribute
+        public String xmlLink;
+        
+        @XStreamAlias("html_link")
+        @XStreamAsAttribute
+        public String htmlLink;
+        
+        public String value;
+    }
+    
+    @XStreamAlias("generator_policy_info")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class GeneratorPolicyInfo extends Visible{
+        @XStreamAlias("generator_link")
+        @XStreamAsAttribute
+        public String generatorLink;
+        
+        public String value;
+    }
+    
+    @XStreamAlias("example_data_target_record")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class ExampleDataTargetRecord extends Visible{
+        @XStreamAlias("rdf_link")
+        @XStreamAsAttribute
+        public String rdfLink;
+        
+        public String value;
     }
 
     @XStreamAlias("mapping")
@@ -291,8 +438,8 @@ public interface X3ML {
         @Override
         public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
             TargetRelation relation = new TargetRelation();
-            relation.properties = new ArrayList<Relationship>();
-            relation.entities = new ArrayList<EntityElement>();
+            relation.properties = new ArrayList<>();
+            relation.entities = new ArrayList<>();
             while (reader.hasMoreChildren()) {
                 reader.moveDown();
                 if ("if".equals(reader.getNodeName())) {
@@ -717,6 +864,7 @@ public interface X3ML {
 
         public String pattern;
 
+        @Override
         public String toString() {
             return name;
         }
@@ -731,6 +879,7 @@ public interface X3ML {
         @XStreamImplicit
         public List<CustomArg> setArgs;
 
+        @Override
         public String toString() {
             return generatorClass;
         }
@@ -756,6 +905,7 @@ public interface X3ML {
             this.language = language;
         }
 
+        @Override
         public String toString() {
             if (string != null) {
                 return "ArgValue(" + string + ")";
@@ -788,6 +938,7 @@ public interface X3ML {
             this(type, text, null);
         }
 
+        @Override
         public String toString() {
             return type + ":" + text;
         }
@@ -795,6 +946,7 @@ public interface X3ML {
 
     static class Visible {
 
+        @Override
         public String toString() {
             return Helper.toString(this);
         }

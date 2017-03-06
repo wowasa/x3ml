@@ -50,21 +50,21 @@ public class TestBase {
     public void testReadWrite() throws IOException {
         String xml = engine("/base/base.x3ml").toString();
         String[] lines = xml.split("\n");
-        List<String> serialized = new ArrayList<String>();
+        List<String> serialized = new ArrayList<>();
         List<String> originalLines = IOUtils.readLines(resource("/base/base.x3ml"));
-        List<String> original = new ArrayList<String>();
+        List<String> original = new ArrayList<>();
         boolean ignore = false;
         int index = 0;
         for (String orig : originalLines) {
             orig = orig.trim();
             if (orig.startsWith("<!--")) continue;
-            if (orig.startsWith("<comments") || orig.startsWith("<info")) ignore = true;
+            if (orig.startsWith("<comments")) ignore = true;
             if (!ignore) {
                 serialized.add(lines[index].trim());
                 original.add(orig);
                 index++;
             }
-            if (orig.startsWith("</comments") || orig.startsWith("</info")) ignore = false;
+            if (orig.startsWith("</comments")) ignore = false;
         }
         Assert.assertEquals("Mismatch", StringUtils.join(original, "\n"), StringUtils.join(serialized, "\n"));
     }

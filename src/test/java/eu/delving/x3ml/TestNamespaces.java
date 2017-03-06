@@ -43,12 +43,22 @@ public class TestNamespaces {
         assertTrue(mappingResult.length>0);
     }
     
-        @Test
+    @Test
     public void testMultipleNamespaces(){
         X3MLEngine engine = engine("/namespace/multipleNamespaces-mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/namespace/multipleNamespaces-input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/namespace/multipleNamespaces-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    } 
+    
+    @Test
+    public void testNamespacesInInfoBlock(){
+        X3MLEngine engine = engine("/namespace/namespacesInInfoBlock.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/namespace/multipleNamespaces-input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/namespace/namespacesInInfoBlock-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     } 

@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import com.hp.hpl.jena.rdf.model.Model;
 import eu.delving.x3ml.engine.Domain;
+import eu.delving.x3ml.engine.X3ML;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.stream.StreamSource;
@@ -39,7 +40,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ import java.util.TreeMap;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
+import eu.delving.x3ml.engine.X3ML.TargetInfo;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
@@ -201,8 +202,25 @@ public class X3MLEngine {
                 ((XPathContext) namespaceContext).addNamespace(namespace.prefix, namespace.uri);
                 prefixes.add(namespace.prefix);
             }
-            this.addDefaultNamespaces();
         }
+        if(this.rootElement.info !=null){
+            for(X3ML.SourceInfo sourceInfoBlock : this.rootElement.info.source.source_info){
+                if(sourceInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : sourceInfoBlock.namespaces){
+                        ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                    }
+                }
+            }
+            for(TargetInfo targetInfoBlock : this.rootElement.info.target.target_info){
+                if(targetInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : targetInfoBlock.namespaces){
+                        ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                        prefixes.add(namespace.prefix);
+                    }
+                }
+            }
+        }
+        this.addDefaultNamespaces();
     }
     
     private void addDefaultNamespaces(){
@@ -215,8 +233,8 @@ public class X3MLEngine {
     }
 
     private class XPathContext implements NamespaceContext {
-        private Map<String, String> prefixUri = new TreeMap<String, String>();
-        private Map<String, String> uriPrefix = new TreeMap<String, String>();
+        private Map<String, String> prefixUri = new TreeMap<>();
+        private Map<String, String> uriPrefix = new TreeMap<>();
 
         void addNamespace(String prefix, String uri) {
             prefixUri.put(prefix, uri);
@@ -240,7 +258,7 @@ public class X3MLEngine {
         public Iterator getPrefixes(String namespaceURI) {
             String prefix = getPrefix(namespaceURI);
             if (prefix == null) return null;
-            List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<>();
             list.add(prefix);
             return list.iterator();
         }
@@ -249,7 +267,7 @@ public class X3MLEngine {
     public static List<String> validateStream(InputStream inputStream) throws SAXException, IOException {
         Schema schema = schemaFactory().newSchema(new StreamSource(inputStream(X3ML_SCHEMA_FILENAME)));
         Validator validator = schema.newValidator();
-        final List<String> errors = new ArrayList<String>();
+        final List<String> errors = new ArrayList<>();
         validator.setErrorHandler(new ErrorHandler() {
             @Override
             public void warning(SAXParseException exception) throws SAXException {
