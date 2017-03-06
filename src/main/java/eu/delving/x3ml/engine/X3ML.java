@@ -119,13 +119,18 @@ public interface X3ML {
     
     @XStreamAlias("target")
     public static class TargetElement extends Visible{
-        @XStreamAlias("target_info")
-        public TargetInfo target_info;
+        @XStreamImplicit(itemFieldName="target_info")
+        public List<TargetInfo> target_info;
+        
+        @XStreamAlias("target_collection")
+        @XStreamOmitField
+        public String targetCollection;
     }
     
     @XStreamAlias("target_info")
     public static class TargetInfo extends Visible{
         @XStreamAlias("target_schema")
+        @XStreamOmitField
         public String targetSchema;
         
         @XStreamAlias("namespaces")
@@ -134,8 +139,12 @@ public interface X3ML {
     
     @XStreamAlias("source")
     public static class SourceElement extends Visible{
-        @XStreamAlias("source_info")
-        public SourceInfo source_info;
+        @XStreamImplicit(itemFieldName="source_info")
+        public List<SourceInfo> source_info;
+        
+        @XStreamAlias("source_collection")
+        @XStreamOmitField
+        public String sourceCollection;
     }
     
     @XStreamAlias("source_info")

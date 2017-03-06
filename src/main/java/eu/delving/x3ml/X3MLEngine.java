@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import com.hp.hpl.jena.rdf.model.Model;
 import eu.delving.x3ml.engine.Domain;
+import eu.delving.x3ml.engine.X3ML;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.stream.StreamSource;
@@ -49,6 +50,7 @@ import java.util.TreeMap;
 import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
 import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
 import static eu.delving.x3ml.engine.X3ML.RootElement;
+import eu.delving.x3ml.engine.X3ML.TargetInfo;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
@@ -202,15 +204,19 @@ public class X3MLEngine {
             }
         }
         if(this.rootElement.info !=null){
-            if(this.rootElement.info.source.source_info.namespaces !=null){
-                for(MappingNamespace namespace : this.rootElement.info.source.source_info.namespaces){
-                    ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+            for(X3ML.SourceInfo sourceInfoBlock : this.rootElement.info.source.source_info){
+                if(sourceInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : sourceInfoBlock.namespaces){
+                        ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                    }
                 }
             }
-            if(this.rootElement.info.target.target_info.namespaces !=null){
-                for(MappingNamespace namespace : this.rootElement.info.target.target_info.namespaces){
-                    ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
-                    prefixes.add(namespace.prefix);
+            for(TargetInfo targetInfoBlock : this.rootElement.info.target.target_info){
+                if(targetInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : targetInfoBlock.namespaces){
+                        ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                        prefixes.add(namespace.prefix);
+                    }
                 }
             }
         }
