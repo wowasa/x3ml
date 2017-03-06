@@ -40,9 +40,6 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
