@@ -78,7 +78,6 @@ public interface X3ML {
         @XStreamAsAttribute
         public String language;
 
-//        @XStreamOmitField
         public Info info;
 
         public List<MappingNamespace> namespaces;

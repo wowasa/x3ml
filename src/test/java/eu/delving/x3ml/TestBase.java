@@ -58,13 +58,13 @@ public class TestBase {
         for (String orig : originalLines) {
             orig = orig.trim();
             if (orig.startsWith("<!--")) continue;
-            if (orig.startsWith("<comments") || orig.startsWith("<info")) ignore = true;
+            if (orig.startsWith("<comments")) ignore = true;
             if (!ignore) {
                 serialized.add(lines[index].trim());
                 original.add(orig);
                 index++;
             }
-            if (orig.startsWith("</comments") || orig.startsWith("</info")) ignore = false;
+            if (orig.startsWith("</comments")) ignore = false;
         }
         Assert.assertEquals("Mismatch", StringUtils.join(original, "\n"), StringUtils.join(serialized, "\n"));
     }
