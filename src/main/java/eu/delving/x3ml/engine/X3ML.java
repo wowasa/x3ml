@@ -78,8 +78,8 @@ public interface X3ML {
         @XStreamAsAttribute
         public String language;
 
-        @XStreamOmitField
-        public String info;
+//        @XStreamOmitField
+        public Info info;
 
         public List<MappingNamespace> namespaces;
 
@@ -97,6 +97,54 @@ public interface X3ML {
 
         @XStreamOmitField
         public String comments;
+    }
+    
+    @XStreamAlias("info")
+    public static class Info extends Visible{
+        
+        public String title;
+        
+        public String general_description;
+        
+        public SourceElement source;
+        
+        public TargetElement target;
+        
+        @XStreamOmitField
+        public String mapping_info;
+        
+        @XStreamOmitField
+        public String example_data_info;
+    }
+    
+    @XStreamAlias("target")
+    public static class TargetElement extends Visible{
+        @XStreamAlias("target_info")
+        public TargetInfo target_info;
+    }
+    
+    @XStreamAlias("target_info")
+    public static class TargetInfo extends Visible{
+        @XStreamAlias("target_schema")
+        public String targetSchema;
+        
+        @XStreamAlias("namespaces")
+        public List<MappingNamespace> namespaces;
+    }
+    
+    @XStreamAlias("source")
+    public static class SourceElement extends Visible{
+        @XStreamAlias("source_info")
+        public SourceInfo source_info;
+    }
+    
+    @XStreamAlias("source_info")
+    public static class SourceInfo extends Visible{
+        @XStreamAlias("source_schema")
+        public String sourceSchema;
+        
+        @XStreamAlias("namespaces")
+        public List<MappingNamespace> namespaces;
     }
 
     @XStreamAlias("mapping")
