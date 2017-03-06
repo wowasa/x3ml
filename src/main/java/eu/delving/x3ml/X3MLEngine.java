@@ -201,8 +201,21 @@ public class X3MLEngine {
                 ((XPathContext) namespaceContext).addNamespace(namespace.prefix, namespace.uri);
                 prefixes.add(namespace.prefix);
             }
-            this.addDefaultNamespaces();
         }
+        if(this.rootElement.info !=null){
+            if(this.rootElement.info.source.source_info.namespaces !=null){
+                for(MappingNamespace namespace : this.rootElement.info.source.source_info.namespaces){
+                    ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                }
+            }
+            if(this.rootElement.info.target.target_info.namespaces !=null){
+                for(MappingNamespace namespace : this.rootElement.info.target.target_info.namespaces){
+                    ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
+                    prefixes.add(namespace.prefix);
+                }
+            }
+        }
+        this.addDefaultNamespaces();
     }
     
     private void addDefaultNamespaces(){
