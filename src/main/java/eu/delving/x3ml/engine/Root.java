@@ -45,7 +45,7 @@ public class Root {
     private final ModelOutput modelOutput;
     private final XPathInput xpathInput;
     private final Context context;
-    private final Map<String, GeneratedValue> generated = new HashMap<String, GeneratedValue>();
+    private final Map<String, GeneratedValue> generated = new HashMap<>();
 
     public Root(Element rootNode, final Generator generator, NamespaceContext namespaceContext, List<String> prefixes) {
         this.rootNode = rootNode;
@@ -98,7 +98,7 @@ public class Root {
 
     public List<Domain> createDomainContexts(X3ML.DomainElement domain) {
         List<Node> domainNodes = xpathInput.nodeList(rootNode, domain.source_node);
-        List<Domain> domains = new ArrayList<Domain>();
+        List<Domain> domains = new ArrayList<>();
         int index = 1;
         for (Node domainNode : domainNodes) {
             Domain domainContext = new Domain(context, domain, domainNode, index++);
