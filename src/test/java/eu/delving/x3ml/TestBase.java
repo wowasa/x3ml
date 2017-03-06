@@ -50,9 +50,9 @@ public class TestBase {
     public void testReadWrite() throws IOException {
         String xml = engine("/base/base.x3ml").toString();
         String[] lines = xml.split("\n");
-        List<String> serialized = new ArrayList<String>();
+        List<String> serialized = new ArrayList<>();
         List<String> originalLines = IOUtils.readLines(resource("/base/base.x3ml"));
-        List<String> original = new ArrayList<String>();
+        List<String> original = new ArrayList<>();
         boolean ignore = false;
         int index = 0;
         for (String orig : originalLines) {

@@ -227,8 +227,8 @@ public class X3MLEngine {
     }
 
     private class XPathContext implements NamespaceContext {
-        private Map<String, String> prefixUri = new TreeMap<String, String>();
-        private Map<String, String> uriPrefix = new TreeMap<String, String>();
+        private Map<String, String> prefixUri = new TreeMap<>();
+        private Map<String, String> uriPrefix = new TreeMap<>();
 
         void addNamespace(String prefix, String uri) {
             prefixUri.put(prefix, uri);
@@ -252,7 +252,7 @@ public class X3MLEngine {
         public Iterator getPrefixes(String namespaceURI) {
             String prefix = getPrefix(namespaceURI);
             if (prefix == null) return null;
-            List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<>();
             list.add(prefix);
             return list.iterator();
         }
@@ -261,7 +261,7 @@ public class X3MLEngine {
     public static List<String> validateStream(InputStream inputStream) throws SAXException, IOException {
         Schema schema = schemaFactory().newSchema(new StreamSource(inputStream(X3ML_SCHEMA_FILENAME)));
         Validator validator = schema.newValidator();
-        final List<String> errors = new ArrayList<String>();
+        final List<String> errors = new ArrayList<>();
         validator.setErrorHandler(new ErrorHandler() {
             @Override
             public void warning(SAXParseException exception) throws SAXException {
