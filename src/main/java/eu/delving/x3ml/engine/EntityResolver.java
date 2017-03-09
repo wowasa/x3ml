@@ -166,7 +166,7 @@ public class EntityResolver {
     private List<AdditionalNode> createAdditionalNodes(List<Additional> additionalList) {
         List<AdditionalNode> additionalNodes = new ArrayList<AdditionalNode>();
         if (additionalList != null) {
-           
+
             for (Additional additional : additionalList) {
                 AdditionalNode additionalNode = new AdditionalNode(modelOutput, additional, generatorContext, additionalCounter++);
                 if (additionalNode.resolve()) {
@@ -182,8 +182,8 @@ public class EntityResolver {
         public final ModelOutput modelOutput;
         public final Additional additional;
         public final GeneratorContext generatorContext;
-        public Property property;
-        public EntityResolver additionalEntityResolver;
+        public List<Property> property;
+        public List<EntityResolver> additionalEntityResolver;
         public final int additionalIndex;
 
         private AdditionalNode(ModelOutput modelOutput, Additional additional, GeneratorContext generatorContext, int additionalIndex) {
@@ -191,24 +191,38 @@ public class EntityResolver {
             this.additional = additional;
             this.generatorContext = generatorContext;
             this.additionalIndex=additionalIndex;
+            this.property=new ArrayList<>();
+            this.additionalEntityResolver=new ArrayList<>();
         }
 
         public boolean resolve() {
-            property = modelOutput.createProperty(additional.relationship);
-            additionalEntityResolver = new EntityResolver(modelOutput, additional.entityElement, generatorContext);
-            return property != null && additionalEntityResolver.resolve(this.additionalIndex,0);
+            property=new ArrayList<>();
+            additionalEntityResolver=new ArrayList<>();
+            for(int i=0;i<additional.relationship.size();i++){
+                property.add(i,modelOutput.createProperty(additional.relationship.get(i)));
+                additionalEntityResolver.add(i,new EntityResolver(modelOutput, additional.entityElement.get(i), generatorContext));
+                boolean res=additionalEntityResolver.get(i).resolve(this.additionalIndex,0);
+                if(res==false){
+                    return false;
+                }
+            }
+            return true;
         }
 
         public void linkFrom(Resource fromResource) {
-            additionalEntityResolver.link();
-            if (additionalEntityResolver.hasResources()) {
-                for (Resource resource : additionalEntityResolver.resources) {
-                    fromResource.addProperty(property, resource);
+            Resource lastResource=fromResource;
+            for(int i=0;i<additionalEntityResolver.size();i++){
+                additionalEntityResolver.get(i).link();
+                if (additionalEntityResolver.get(i).hasResources()) {
+                    for (Resource resource : additionalEntityResolver.get(i).resources) {
+                        lastResource.addProperty(property.get(i), resource);
+                    }
+                    lastResource=additionalEntityResolver.get(i).resources.get(0);
+                } else if (additionalEntityResolver.get(i).hasLiteral()) {
+                    lastResource.addLiteral(property.get(i), additionalEntityResolver.get(i).literal);
+                } else {
+                    throw exception("Cannot link without property or literal");
                 }
-            } else if (additionalEntityResolver.hasLiteral()) {
-                fromResource.addLiteral(property, additionalEntityResolver.literal);
-            } else {
-                throw exception("Cannot link without property or literal");
             }
         }
     }
