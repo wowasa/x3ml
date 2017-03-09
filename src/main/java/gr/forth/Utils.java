@@ -284,8 +284,10 @@ public class Utils {
     private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
         if(range.target_node.entityElement.additionals!=null){
             for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
-                if(additionalElem.entityElement.variable_deprecated!=null){
-                    multimap.put(additionalElem.entityElement.variable_deprecated, additionalElem.entityElement);
+                for(X3ML.EntityElement entityElem : additionalElem.entityElement){
+                    if(entityElem.variable_deprecated!=null){
+                        multimap.put(entityElem.variable_deprecated, entityElem);
+                    }
                 }
             }
         }
@@ -320,8 +322,10 @@ public class Utils {
     private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithTypeAwareVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
         if(range.target_node.entityElement.additionals!=null){
             for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
-                if(additionalElem.entityElement.variable!=null){
-                    multimap.put(additionalElem.entityElement.variable, additionalElem.entityElement);
+                for(X3ML.EntityElement entityElem : additionalElem.entityElement){
+                    if(entityElem.variable!=null){
+                        multimap.put(entityElem.variable, entityElem);
+                    }
                 }
             }
         }
@@ -356,8 +360,10 @@ public class Utils {
     private static Multimap<String, X3ML.EntityElement> retrieveEntitiesWithGlobalVariable(X3ML.RangeElement range, Multimap<String, X3ML.EntityElement> multimap){
         if(range.target_node.entityElement.additionals!=null){
             for(X3ML.Additional additionalElem : range.target_node.entityElement.additionals){
-                if(additionalElem.entityElement.globalVariable!=null){
-                    multimap.put(additionalElem.entityElement.globalVariable, additionalElem.entityElement);
+                for(X3ML.EntityElement entityElem : additionalElem.entityElement){
+                    if(entityElem.globalVariable!=null){
+                        multimap.put(entityElem.globalVariable, entityElem);
+                    }
                 }
             }
         }
