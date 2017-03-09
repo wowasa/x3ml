@@ -1,11 +1,12 @@
 # Change Log
 
 ---
-## 6 Mar 2017: V 1.7.5 (by FORTH-ICS)
+## 9 Mar 2017: V 1.7.5 (by FORTH-ICS)
 * Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
 * Fixed a bug with the evaluation of XPATH expressions that contain the xml namespace ([issue #75](https://github.com/isl/x3ml/issues/75))
 * Fixed a bug raised when using OutputStream instead of PrintStream for exporting resources ([issue #77](https://github.com/isl/x3ml/issues/77))
 * Updated the X3ML xsd to version 1.2 ([issue #81](https://github.com/isl/x3ml/issues/81))
+* Support long paths for additional nodes ([issue #80](https://github.com/isl/x3ml/issues/80))
 * Exploit the namespaces that are declared inside the info section ([issue #82](https://github.com/isl/x3ml/issues/82))
 * Made namespace entries optional ([issue #83](https://github.com/isl/x3ml/issues/83))
 * Downgraded guava depedency from version 21.0 to version 20.0 ([issue #79](https://github.com/isl/x3ml/issues/79))
