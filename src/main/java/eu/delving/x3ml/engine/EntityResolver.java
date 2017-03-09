@@ -77,7 +77,7 @@ public class EntityResolver {
         }
         if (resources == null) {
             StringBuilder unique = new StringBuilder();
-            Set<String> uniqueTypes=new TreeSet<String>();
+            Set<String> uniqueTypes=new TreeSet<>();
             for (TypeElement typeElement : entityElement.typeElements) {
                 uniqueTypes.add(typeElement.tag);
             }
@@ -164,7 +164,7 @@ public class EntityResolver {
     }
 
     private List<AdditionalNode> createAdditionalNodes(List<Additional> additionalList) {
-        List<AdditionalNode> additionalNodes = new ArrayList<AdditionalNode>();
+        List<AdditionalNode> additionalNodes = new ArrayList<>();
         if (additionalList != null) {
 
             for (Additional additional : additionalList) {
@@ -228,7 +228,7 @@ public class EntityResolver {
     }
 
     private List<LabelNode> createLabelNodes(List<LabelGeneratorElement> generatorList) {
-        List<LabelNode> newLabelNodes = new ArrayList<LabelNode>();
+        List<LabelNode> newLabelNodes = new ArrayList<>();
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
                 LabelNode labelNode = new LabelNode(generator);
