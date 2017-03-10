@@ -26,17 +26,12 @@ package gr.forth;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
 public class Labels {
-    public static final String ASSOC_TABLE="assocTable";
+    
     public static final String BOUND="bound";
     public static final String CONSTANT="Constant";
     public static final String DIFF_TERMS_DELIMITER="diffTermsDelim";
-    public static final String FORMAT="format";
     public static final String HTTP="http";
-    public static final String INPUT="input";
     public static final String LITERAL="Literal";
-    public static final String MERGE_WITH_ASSOCIATION_TABLE="mergeAssocWithRDF";
-    public static final String OUTPUT="output";
-    public static final String POLICY="policy";
     public static final String PREF_LABEL="prefLabel";
     public static final String PREFIX="prefix";
     public static final String RDF="rdf";
@@ -50,8 +45,25 @@ public class Labels {
     public static final String URIorUUID="URIorUUID";
     public static final String URN="URN";
     public static final String UUID="UUID";
-    public static final String UUID_TEST_SIZE="uuidTestSize";
-    public static final String X3ML="x3ml";
     public static final String XML="xml";
     public static final String XML_NAMESPACE="http://www.w3.org/XML/1998/namespace";
+    
+    /* Labels to be exploited from console starter */
+    public static final String ASSOC_TABLE="assocTable";
+    public static final String INPUT="input";
+    public static final String X3ML="x3ml";
+    public static final String FORMAT="format";
+    public static final String OUTPUT="output";
+    public static final String POLICY="policy";
+    public static final String UUID_TEST_SIZE="uuidTestSize";
+    public static final String MERGE_WITH_ASSOCIATION_TABLE="mergeAssocWithRDF";
+    public static final String ASSOC_TABLE_SHORT="a";
+    public static final String INPUT_SHORT="i";
+    public static final String X3ML_SHORT="x";
+    public static final String FORMAT_SHORT="f";
+    public static final String OUTPUT_SHORT="o";
+    public static final String POLICY_SHORT="p";
+    public static final String UUID_TEST_SIZE_SHORT="u";
+    public static final String MERGE_WITH_ASSOCIATION_TABLE_SHORT="m";
+    
 }

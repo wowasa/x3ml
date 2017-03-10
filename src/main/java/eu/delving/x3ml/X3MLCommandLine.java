@@ -72,49 +72,42 @@ public class X3MLCommandLine {
     
     /* Creates the available options for parameterizing X3ML Engine from console */
     private static void createOptionsList(){
-        Option inputOption = new Option(
-                Labels.INPUT, true,
+        Option inputOption = new Option(Labels.INPUT_SHORT, Labels.INPUT, true,
                 "XML input records.\n Option A-single file: -"+Labels.INPUT+" input.xml\n"
                                    +" Option B-multiple files (comma-sep): -"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
                                    +" Option C-stdin: -"+Labels.INPUT+" @\n"
                                    +" Option D-folder: -"+Labels.INPUT+" #_folder_path\n");
         inputOption.setRequired(true);
         
-        Option x3mlOption = new Option(
-                Labels.X3ML, true,
+        Option x3mlOption = new Option(Labels.X3ML_SHORT, Labels.X3ML, true,
                 "X3ML mapping definition. \n Option A-single file: -"+Labels.X3ML+" mapping.x3ml \n"
                                           +" Option B-multiple files (comma-sep): -"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
                                           +" Option C-stdin: -"+Labels.X3ML+" @");
         x3mlOption.setRequired(true);
         
-        Option outputOption = new Option(
-                Labels.OUTPUT, true,
+        Option outputOption = new Option(Labels.OUTPUT_SHORT, Labels.OUTPUT, true,
                 "The RDF output file name: -"+Labels.OUTPUT+" output.rdf"
         );
         
-        Option policyOption = new Option(
-                Labels.POLICY, true,
+        Option policyOption = new Option(Labels.POLICY_SHORT, Labels.POLICY, true,
                 "The value policy file: -"+Labels.POLICY+" policy.xml"
         );
         
-        Option outputFormatOption = new Option(
-                Labels.FORMAT, true,
+        Option outputFormatOption = new Option(Labels.FORMAT_SHORT, Labels.FORMAT, true,
                 "Output format. Options:\n -"+Labels.FORMAT+" application/n-triples\n "
                                         +" -"+Labels.FORMAT+" text/turtle \n"
                                         +" -"+Labels.FORMAT+" application/rdf+xml (default)"
         );
         
-        Option uuidTestSizeOption = new Option(
-                Labels.UUID_TEST_SIZE, true,
+        Option uuidTestSizeOption = new Option(Labels.UUID_TEST_SIZE_SHORT, Labels.UUID_TEST_SIZE, true,
                 "Create a test UUID generator of the given size. \n Default is UUID from operating system"
         );
         
-        Option assocTableOption = new Option(
-                Labels.ASSOC_TABLE, true, 
+        Option assocTableOption = new Option(Labels.ASSOC_TABLE_SHORT,Labels.ASSOC_TABLE, true, 
                 "export the contents of the association table in XML format"
         );
         
-        Option mergeAssocWithRDFOption = new Option(
+        Option mergeAssocWithRDFOption = new Option(Labels.MERGE_WITH_ASSOCIATION_TABLE_SHORT,
                 Labels.MERGE_WITH_ASSOCIATION_TABLE, false, 
                 "merge the contents of the association table with the RDF output"
         );
