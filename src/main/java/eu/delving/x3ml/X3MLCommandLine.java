@@ -34,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.List;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
@@ -100,10 +99,6 @@ public class X3MLCommandLine {
                                         +" -format text/turtle \n"
                                         +" -format application/rdf+xml (default)"
         );
-        Option validate = new Option(
-                "validate", false,
-                "Validate X3ML v1.0 using XSD"
-        );
         Option uuidTestSize = new Option(
                 "uuidTestSize", true,
                 "Create a test UUID generator of the given size. \n Default is UUID from operating system"
@@ -117,7 +112,7 @@ public class X3MLCommandLine {
                 "merge the contents of the association table with the RDF output"
         );
         options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
-                .addOption(validate).addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
+                .addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
     }
 
     public static void main(String[] args) {
@@ -137,7 +132,6 @@ public class X3MLCommandLine {
                     cli.getOptionValue("format"),
                     cli.getOptionValue(ASSOCIATION_TABLE_PARAMETER_NAME),
                     cli.hasOption(ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME),
-                    cli.hasOption("validate"),
                     uuidTestSizeValue
             );
         }
@@ -208,7 +202,7 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean validate, int uuidTestSize) throws Exception {
+    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
         final String INPUT_FOLDER_PREFIX="#_";
         final String INPUT_PIPED="@";
         Element xmlElement;
@@ -233,9 +227,6 @@ public class X3MLCommandLine {
         }
         InputStream x3mlStream;
         if ("@".equals(x3ml)) {
-            if (validate) {
-                throw exception("Cannot validate when X3ML is piped");
-            }
             x3mlStream = System.in;
         }
         else if(x3ml.contains(",")){
@@ -245,16 +236,6 @@ public class X3MLCommandLine {
             }
             x3mlStream=new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingInputStreams).getBytes());
         }else{
-            if (validate) {
-                List<String> errors = X3MLEngine.validate(getStream(file(x3ml)));
-                if (!errors.isEmpty()) {
-                    System.out.println("Validation:");
-                    for (String error : errors) {
-                        System.out.println(error);
-                    }
-                    return;
-                }
-            }
             x3mlStream = getStream(file(x3ml));
         }
         X3MLEngine engine = X3MLEngine.load(x3mlStream);
