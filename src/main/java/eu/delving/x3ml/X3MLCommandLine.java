@@ -126,40 +126,23 @@ public class X3MLCommandLine {
     }
 
     public static void main(String[] args) {
-        try{
-            go(
-                        "@http://62.217.127.124/x3ml/input1.xml,http://62.217.127.124/x3ml/input1.xml",
-                        "x3ml/mappings1.x3ml",
-                        null,
-                        null,
-                        null,
-                        null,
-                        false,
-                        2
-                );
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        if(true)
-            return;
-        
         createOptionsList();
         try {
             CommandLine cli = PARSER.parse(options, args);
             int uuidTestSizeValue = -1;
-            String uuidTestSizeString = cli.getOptionValue("uuidTestSize");
+            String uuidTestSizeString = cli.getOptionValue(Labels.UUID_TEST_SIZE);
             if (uuidTestSizeString != null) {
                 uuidTestSizeValue = Integer.parseInt(uuidTestSizeString);
             }
             go(
-                    cli.getOptionValue(Labels.INPUT),
-                    cli.getOptionValue(Labels.X3ML),
-                    cli.getOptionValue(Labels.POLICY),
-                    cli.getOptionValue(Labels.OUTPUT),
-                    cli.getOptionValue(Labels.FORMAT),
-                    cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
-                    cli.hasOption(Labels.ASSOC_TABLE),
-                    uuidTestSizeValue
+                cli.getOptionValue(Labels.INPUT),
+                cli.getOptionValue(Labels.X3ML),
+                cli.getOptionValue(Labels.POLICY),
+                cli.getOptionValue(Labels.OUTPUT),
+                cli.getOptionValue(Labels.FORMAT),
+                cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
+                cli.hasOption(Labels.ASSOC_TABLE),
+                uuidTestSizeValue
             );
         }
         catch (Exception e) {
@@ -235,8 +218,7 @@ public class X3MLCommandLine {
         Element xmlElement;
         if (INPUT_PIPED.equals(input)) {
             xmlElement = xml(System.in);
-        }
-        else if(input.startsWith("@")){  //It contains URLs
+        }else if(input.startsWith("@")){  //It contains URLs
             if(input.contains(",")){  // it contains multiple URLs
                 Set<InputStream> listOfStreams=new HashSet<>();
                 for(String remoteURL : input.replace("@", "").split(",")){
@@ -246,8 +228,7 @@ public class X3MLCommandLine {
             }else{  //it contains one URL
                 xmlElement = xml(new URL(input.replace("@", "")).openStream());
             }
-        }
-        else if(input.contains(",")){
+        }else if(input.contains(",")){
             Set<InputStream> listOfStreams=new HashSet<>();
             try{
                 for(String filePath : input.split(",")){
@@ -266,6 +247,16 @@ public class X3MLCommandLine {
         InputStream x3mlStream;
         if ("@".equals(x3ml)) {
             x3mlStream = System.in;
+        }else if(x3ml.startsWith("@")){  //It contains URLs
+            if(x3ml.contains(",")){  // it contains multiple URLs
+                Set<InputStream> mappingInputStreams=new HashSet<>();
+                for(String mappingsUrl : x3ml.replace("@", "").split(",")){
+                    mappingInputStreams.add(new URL(mappingsUrl).openStream());
+                }
+                x3mlStream=new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingInputStreams).getBytes());
+            }else{  //it contains one URL
+                x3mlStream = new URL(x3ml.replace("@", "")).openStream();
+            }
         }
         else if(x3ml.contains(",")){
             Set<InputStream> mappingInputStreams=new HashSet<>();
