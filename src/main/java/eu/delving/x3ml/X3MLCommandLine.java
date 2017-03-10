@@ -34,13 +34,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.List;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
+import gr.forth.Labels;
 import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,8 +57,6 @@ public class X3MLCommandLine {
     static final CommandLineParser PARSER = new PosixParser();
     static final HelpFormatter HELP = new HelpFormatter();
     static Options options = new Options();
-    private static final String ASSOCIATION_TABLE_PARAMETER_NAME="assocTable";
-    private static final String ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME="mergeAssocWithRDF";
 
     static void error(String message) {
         HELP.setDescPadding(5);
@@ -71,76 +70,84 @@ public class X3MLCommandLine {
         );
         System.exit(1);
     }
-
-    public static void main(String[] args) {
-        Option xml = new Option(
-                "xml", true,
-                "XML input records.\n Option A-single file: -xml input.xml\n"
-                                   +" Option B-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml\n"
-                                   +" Option C-stdin: -xml @\n"
-                                   +" Option D-folder: -xml #_folder_path\n");
-        xml.setRequired(true);
-        Option x3ml = new Option(
-                "x3ml", true,
-                "X3ML mapping definition. \n Option A-single file: -x3ml mapping.x3ml \n"
-                                          +" Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml\n"
-                                          +" Option C-stdin: -x3ml @");
-        x3ml.setRequired(true);
-        Option rdf = new Option(
-                "rdf", true,
-                "The RDF output file name: -rdf output.rdf"
+    
+    /* Creates the available options for parameterizing X3ML Engine from console */
+    private static void createOptionsList(){
+        Option inputOption = new Option(Labels.INPUT_SHORT, Labels.INPUT, true,
+                "XML input records.\n Option A-single file: -"+Labels.INPUT+" input.xml\n"
+                                   +" Option B-multiple files (comma-sep): -"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
+                                   +" Option C-folder: -"+Labels.INPUT+" #_folder_path\n"
+                                   +" Option D-URL: -"+Labels.INPUT+" @input_url\n"
+                                   +" Option E-multiple URLs: -"+Labels.INPUT+" @input_url1,input_url2,input_url3\n"
+                                   +" Option F-stdin: -"+Labels.INPUT+" @\n");
+        inputOption.setRequired(true);
+        
+        Option x3mlOption = new Option(Labels.X3ML_SHORT, Labels.X3ML, true,
+                "X3ML mapping definition. \n Option A-single file: -"+Labels.X3ML+" mapping.x3ml \n"
+                                          +" Option B-multiple files (comma-sep): -"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
+                                          +" Option C-stdin: -"+Labels.X3ML+" @");
+        x3mlOption.setRequired(true);
+        
+        Option outputOption = new Option(Labels.OUTPUT_SHORT, Labels.OUTPUT, true,
+                "The RDF output file name: -"+Labels.OUTPUT+" output.rdf"
         );
-        Option policy = new Option(
-                "policy", true,
-                "The value policy file: -policy policy.xml"
+        
+        Option policyOption = new Option(Labels.POLICY_SHORT, Labels.POLICY, true,
+                "The value policy file: -"+Labels.POLICY+" policy.xml"
         );
-        Option rdfFormat = new Option(
-                "format", true,
-                "Output format. Options:\n -format application/n-triples\n "
-                                        +" -format text/turtle \n"
-                                        +" -format application/rdf+xml (default)"
+        
+        Option outputFormatOption = new Option(Labels.FORMAT_SHORT, Labels.FORMAT, true,
+                "Output format. Options:\n -"+Labels.FORMAT+" application/n-triples\n "
+                                        +" -"+Labels.FORMAT+" text/turtle \n"
+                                        +" -"+Labels.FORMAT+" application/rdf+xml (default)"
         );
-        Option validate = new Option(
-                "validate", false,
-                "Validate X3ML v1.0 using XSD"
-        );
-        Option uuidTestSize = new Option(
-                "uuidTestSize", true,
+        
+        Option uuidTestSizeOption = new Option(Labels.UUID_TEST_SIZE_SHORT, Labels.UUID_TEST_SIZE, true,
                 "Create a test UUID generator of the given size. \n Default is UUID from operating system"
         );
-        Option assocTable = new Option(
-                ASSOCIATION_TABLE_PARAMETER_NAME, true, 
+        
+        Option assocTableOption = new Option(Labels.ASSOC_TABLE_SHORT,Labels.ASSOC_TABLE, true, 
                 "export the contents of the association table in XML format"
         );
-        Option mergeAssocWithRDF = new Option(
-                ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME, false, 
+        
+        Option mergeAssocWithRDFOption = new Option(Labels.MERGE_WITH_ASSOCIATION_TABLE_SHORT,
+                Labels.MERGE_WITH_ASSOCIATION_TABLE, false, 
                 "merge the contents of the association table with the RDF output"
         );
-        options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
-                .addOption(validate).addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
+        
+        options.addOption(inputOption)
+               .addOption(x3mlOption)
+               .addOption(outputOption)
+               .addOption(outputFormatOption)
+               .addOption(policyOption)
+               .addOption(uuidTestSizeOption)
+               .addOption(assocTableOption)
+               .addOption(mergeAssocWithRDFOption);
+    }
+
+    public static void main(String[] args) {
+        createOptionsList();
         try {
             CommandLine cli = PARSER.parse(options, args);
             int uuidTestSizeValue = -1;
-            String uuidTestSizeString = cli.getOptionValue("uuidTestSize");
+            String uuidTestSizeString = cli.getOptionValue(Labels.UUID_TEST_SIZE);
             if (uuidTestSizeString != null) {
                 uuidTestSizeValue = Integer.parseInt(uuidTestSizeString);
             }
             go(
-                    cli.getOptionValue("xml"),
-                    cli.getOptionValue("x3ml"),
-                    cli.getOptionValue("policy"),
-                    cli.getOptionValue("rdf"),
-                    cli.getOptionValue("format"),
-                    cli.getOptionValue(ASSOCIATION_TABLE_PARAMETER_NAME),
-                    cli.hasOption(ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME),
-                    cli.hasOption("validate"),
-                    uuidTestSizeValue
+                cli.getOptionValue(Labels.INPUT),
+                cli.getOptionValue(Labels.X3ML),
+                cli.getOptionValue(Labels.POLICY),
+                cli.getOptionValue(Labels.OUTPUT),
+                cli.getOptionValue(Labels.FORMAT),
+                cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
+                cli.hasOption(Labels.ASSOC_TABLE),
+                uuidTestSizeValue
             );
         }
         catch (Exception e) {
             error(e.getMessage());
         }
-
     }
 
     static File file(String name) {
@@ -205,35 +212,51 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean validate, int uuidTestSize) throws Exception {
+    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
         final String INPUT_FOLDER_PREFIX="#_";
         final String INPUT_PIPED="@";
         Element xmlElement;
-        if (INPUT_PIPED.equals(xml)) {
+        if (INPUT_PIPED.equals(input)) {
             xmlElement = xml(System.in);
-        }
-        else if(xml.contains(",")){
+        }else if(input.startsWith("@")){  //It contains URLs
+            if(input.contains(",")){  // it contains multiple URLs
+                Set<InputStream> listOfStreams=new HashSet<>();
+                for(String remoteURL : input.replace("@", "").split(",")){
+                    listOfStreams.add(new URL(remoteURL).openStream());
+                }
+                xmlElement=Utils.parseMultipleXMLFiles(listOfStreams);
+            }else{  //it contains one URL
+                xmlElement = xml(new URL(input.replace("@", "")).openStream());
+            }
+        }else if(input.contains(",")){
             Set<InputStream> listOfStreams=new HashSet<>();
             try{
-                for(String filePath : xml.split(",")){
+                for(String filePath : input.split(",")){
                     listOfStreams.add(new FileInputStream(new File(filePath)));
                 }
                 xmlElement=Utils.parseMultipleXMLFiles(listOfStreams);
             }catch(FileNotFoundException ex){
                 throw exception("Cannot find input files",ex);
             }
-        }else if(xml.startsWith(INPUT_FOLDER_PREFIX)){
-            xmlElement=Utils.parseFolderWithXmlFiles(xml.replace(INPUT_FOLDER_PREFIX, ""), false);
+        }else if(input.startsWith(INPUT_FOLDER_PREFIX)){
+            xmlElement=Utils.parseFolderWithXmlFiles(input.replace(INPUT_FOLDER_PREFIX, ""), false);
         }
         else{
-            xmlElement = xml(file(xml));
+            xmlElement = xml(file(input));
         }
         InputStream x3mlStream;
         if ("@".equals(x3ml)) {
-            if (validate) {
-                throw exception("Cannot validate when X3ML is piped");
-            }
             x3mlStream = System.in;
+        }else if(x3ml.startsWith("@")){  //It contains URLs
+            if(x3ml.contains(",")){  // it contains multiple URLs
+                Set<InputStream> mappingInputStreams=new HashSet<>();
+                for(String mappingsUrl : x3ml.replace("@", "").split(",")){
+                    mappingInputStreams.add(new URL(mappingsUrl).openStream());
+                }
+                x3mlStream=new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingInputStreams).getBytes());
+            }else{  //it contains one URL
+                x3mlStream = new URL(x3ml.replace("@", "")).openStream();
+            }
         }
         else if(x3ml.contains(",")){
             Set<InputStream> mappingInputStreams=new HashSet<>();
@@ -242,16 +265,6 @@ public class X3MLCommandLine {
             }
             x3mlStream=new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(mappingInputStreams).getBytes());
         }else{
-            if (validate) {
-                List<String> errors = X3MLEngine.validate(getStream(file(x3ml)));
-                if (!errors.isEmpty()) {
-                    System.out.println("Validation:");
-                    for (String error : errors) {
-                        System.out.println(error);
-                    }
-                    return;
-                }
-            }
             x3mlStream = getStream(file(x3ml));
         }
         X3MLEngine engine = X3MLEngine.load(x3mlStream);
