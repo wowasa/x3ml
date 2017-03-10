@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.GeneratorContext;
+import gr.forth.Labels;
 import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
 import java.io.ByteArrayInputStream;
@@ -55,8 +56,6 @@ public class X3MLCommandLine {
     static final CommandLineParser PARSER = new PosixParser();
     static final HelpFormatter HELP = new HelpFormatter();
     static Options options = new Options();
-    private static final String ASSOCIATION_TABLE_PARAMETER_NAME="assocTable";
-    private static final String ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME="mergeAssocWithRDF";
 
     static void error(String message) {
         HELP.setDescPadding(5);
@@ -71,48 +70,63 @@ public class X3MLCommandLine {
         System.exit(1);
     }
     
+    /* Creates the available options for parameterizing X3ML Engine from console */
     private static void createOptionsList(){
-        Option xml = new Option(
-                "xml", true,
-                "XML input records.\n Option A-single file: -xml input.xml\n"
-                                   +" Option B-multiple files (comma-sep): -xml input1.xml,input2.xml,input3.xml\n"
-                                   +" Option C-stdin: -xml @\n"
-                                   +" Option D-folder: -xml #_folder_path\n");
-        xml.setRequired(true);
-        Option x3ml = new Option(
-                "x3ml", true,
-                "X3ML mapping definition. \n Option A-single file: -x3ml mapping.x3ml \n"
-                                          +" Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml\n"
-                                          +" Option C-stdin: -x3ml @");
-        x3ml.setRequired(true);
-        Option rdf = new Option(
-                "rdf", true,
-                "The RDF output file name: -rdf output.rdf"
+        Option inputOption = new Option(
+                Labels.INPUT, true,
+                "XML input records.\n Option A-single file: -"+Labels.INPUT+" input.xml\n"
+                                   +" Option B-multiple files (comma-sep): -"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
+                                   +" Option C-stdin: -"+Labels.INPUT+" @\n"
+                                   +" Option D-folder: -"+Labels.INPUT+" #_folder_path\n");
+        inputOption.setRequired(true);
+        
+        Option x3mlOption = new Option(
+                Labels.X3ML, true,
+                "X3ML mapping definition. \n Option A-single file: -"+Labels.X3ML+" mapping.x3ml \n"
+                                          +" Option B-multiple files (comma-sep): -"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
+                                          +" Option C-stdin: -"+Labels.X3ML+" @");
+        x3mlOption.setRequired(true);
+        
+        Option outputOption = new Option(
+                Labels.OUTPUT, true,
+                "The RDF output file name: -"+Labels.OUTPUT+" output.rdf"
         );
-        Option policy = new Option(
-                "policy", true,
-                "The value policy file: -policy policy.xml"
+        
+        Option policyOption = new Option(
+                Labels.POLICY, true,
+                "The value policy file: -"+Labels.POLICY+" policy.xml"
         );
-        Option rdfFormat = new Option(
-                "format", true,
-                "Output format. Options:\n -format application/n-triples\n "
-                                        +" -format text/turtle \n"
-                                        +" -format application/rdf+xml (default)"
+        
+        Option outputFormatOption = new Option(
+                Labels.FORMAT, true,
+                "Output format. Options:\n -"+Labels.FORMAT+" application/n-triples\n "
+                                        +" -"+Labels.FORMAT+" text/turtle \n"
+                                        +" -"+Labels.FORMAT+" application/rdf+xml (default)"
         );
-        Option uuidTestSize = new Option(
-                "uuidTestSize", true,
+        
+        Option uuidTestSizeOption = new Option(
+                Labels.UUID_TEST_SIZE, true,
                 "Create a test UUID generator of the given size. \n Default is UUID from operating system"
         );
-        Option assocTable = new Option(
-                ASSOCIATION_TABLE_PARAMETER_NAME, true, 
+        
+        Option assocTableOption = new Option(
+                Labels.ASSOC_TABLE, true, 
                 "export the contents of the association table in XML format"
         );
-        Option mergeAssocWithRDF = new Option(
-                ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME, false, 
+        
+        Option mergeAssocWithRDFOption = new Option(
+                Labels.MERGE_WITH_ASSOCIATION_TABLE, false, 
                 "merge the contents of the association table with the RDF output"
         );
-        options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
-                .addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
+        
+        options.addOption(inputOption)
+               .addOption(x3mlOption)
+               .addOption(outputOption)
+               .addOption(outputFormatOption)
+               .addOption(policyOption)
+               .addOption(uuidTestSizeOption)
+               .addOption(assocTableOption)
+               .addOption(mergeAssocWithRDFOption);
     }
 
     public static void main(String[] args) {
@@ -125,13 +139,13 @@ public class X3MLCommandLine {
                 uuidTestSizeValue = Integer.parseInt(uuidTestSizeString);
             }
             go(
-                    cli.getOptionValue("xml"),
-                    cli.getOptionValue("x3ml"),
-                    cli.getOptionValue("policy"),
-                    cli.getOptionValue("rdf"),
-                    cli.getOptionValue("format"),
-                    cli.getOptionValue(ASSOCIATION_TABLE_PARAMETER_NAME),
-                    cli.hasOption(ASSOCIATION_TABLE_TO_RDF_PARAMETER_NAME),
+                    cli.getOptionValue(Labels.INPUT),
+                    cli.getOptionValue(Labels.X3ML),
+                    cli.getOptionValue(Labels.POLICY),
+                    cli.getOptionValue(Labels.OUTPUT),
+                    cli.getOptionValue(Labels.FORMAT),
+                    cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
+                    cli.hasOption(Labels.ASSOC_TABLE),
                     uuidTestSizeValue
             );
         }
