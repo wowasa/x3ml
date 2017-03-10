@@ -41,6 +41,7 @@ import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,8 +76,10 @@ public class X3MLCommandLine {
         Option inputOption = new Option(Labels.INPUT_SHORT, Labels.INPUT, true,
                 "XML input records.\n Option A-single file: -"+Labels.INPUT+" input.xml\n"
                                    +" Option B-multiple files (comma-sep): -"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
-                                   +" Option C-stdin: -"+Labels.INPUT+" @\n"
-                                   +" Option D-folder: -"+Labels.INPUT+" #_folder_path\n");
+                                   +" Option C-folder: -"+Labels.INPUT+" #_folder_path\n"
+                                   +" Option D-URL: -"+Labels.INPUT+" @input_url\n"
+                                   +" Option E-multiple URLs: -"+Labels.INPUT+" @input_url1,input_url2,input_url3\n"
+                                   +" Option F-stdin: -"+Labels.INPUT+" @\n");
         inputOption.setRequired(true);
         
         Option x3mlOption = new Option(Labels.X3ML_SHORT, Labels.X3ML, true,
@@ -123,6 +126,23 @@ public class X3MLCommandLine {
     }
 
     public static void main(String[] args) {
+        try{
+            go(
+                        "@http://62.217.127.124/x3ml/input1.xml,http://62.217.127.124/x3ml/input1.xml",
+                        "x3ml/mappings1.x3ml",
+                        null,
+                        null,
+                        null,
+                        null,
+                        false,
+                        2
+                );
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        if(true)
+            return;
+        
         createOptionsList();
         try {
             CommandLine cli = PARSER.parse(options, args);
@@ -209,28 +229,39 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String xml, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
+    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
         final String INPUT_FOLDER_PREFIX="#_";
         final String INPUT_PIPED="@";
         Element xmlElement;
-        if (INPUT_PIPED.equals(xml)) {
+        if (INPUT_PIPED.equals(input)) {
             xmlElement = xml(System.in);
         }
-        else if(xml.contains(",")){
+        else if(input.startsWith("@")){  //It contains URLs
+            if(input.contains(",")){  // it contains multiple URLs
+                Set<InputStream> listOfStreams=new HashSet<>();
+                for(String remoteURL : input.replace("@", "").split(",")){
+                    listOfStreams.add(new URL(remoteURL).openStream());
+                }
+                xmlElement=Utils.parseMultipleXMLFiles(listOfStreams);
+            }else{  //it contains one URL
+                xmlElement = xml(new URL(input.replace("@", "")).openStream());
+            }
+        }
+        else if(input.contains(",")){
             Set<InputStream> listOfStreams=new HashSet<>();
             try{
-                for(String filePath : xml.split(",")){
+                for(String filePath : input.split(",")){
                     listOfStreams.add(new FileInputStream(new File(filePath)));
                 }
                 xmlElement=Utils.parseMultipleXMLFiles(listOfStreams);
             }catch(FileNotFoundException ex){
                 throw exception("Cannot find input files",ex);
             }
-        }else if(xml.startsWith(INPUT_FOLDER_PREFIX)){
-            xmlElement=Utils.parseFolderWithXmlFiles(xml.replace(INPUT_FOLDER_PREFIX, ""), false);
+        }else if(input.startsWith(INPUT_FOLDER_PREFIX)){
+            xmlElement=Utils.parseFolderWithXmlFiles(input.replace(INPUT_FOLDER_PREFIX, ""), false);
         }
         else{
-            xmlElement = xml(file(xml));
+            xmlElement = xml(file(input));
         }
         InputStream x3mlStream;
         if ("@".equals(x3ml)) {
