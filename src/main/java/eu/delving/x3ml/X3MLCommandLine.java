@@ -71,8 +71,8 @@ public class X3MLCommandLine {
         );
         System.exit(1);
     }
-
-    public static void main(String[] args) {
+    
+    private static void createOptionsList(){
         Option xml = new Option(
                 "xml", true,
                 "XML input records.\n Option A-single file: -xml input.xml\n"
@@ -118,6 +118,10 @@ public class X3MLCommandLine {
         );
         options.addOption(rdfFormat).addOption(rdf).addOption(x3ml).addOption(xml).addOption(policy)
                 .addOption(validate).addOption(uuidTestSize).addOption(assocTable).addOption(mergeAssocWithRDF);
+    }
+
+    public static void main(String[] args) {
+        createOptionsList();
         try {
             CommandLine cli = PARSER.parse(options, args);
             int uuidTestSizeValue = -1;
@@ -140,7 +144,6 @@ public class X3MLCommandLine {
         catch (Exception e) {
             error(e.getMessage());
         }
-
     }
 
     static File file(String name) {
