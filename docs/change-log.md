@@ -1,7 +1,7 @@
 # Change Log
 
 ---
-## 10 Mar 2017: V 1.7.5 (by FORTH-ICS)
+## 21 Mar 2017: V 1.7.5 (by FORTH-ICS)
 * Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
 * Fixed a bug with the evaluation of XPATH expressions that contain the xml namespace ([issue #75](https://github.com/isl/x3ml/issues/75))
 * Fixed a bug raised when using OutputStream instead of PrintStream for exporting resources ([issue #77](https://github.com/isl/x3ml/issues/77))
