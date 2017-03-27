@@ -71,12 +71,12 @@
         <repository>
             <id>FORTH-ISL-releases</id>
             <name>FORTH ISL Nexus repository - Releases</name>
-            <url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-releases/</url>
+            <url>http://www.ics.forth.gr/isl/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>FORTH-ISL-snapshots</id>
             <name>FORTH ISL Nexus repository - Snapshots</name>
-            <url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-snapshots/</url>
+            <url>http://www.ics.forth.gr/isl/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     
