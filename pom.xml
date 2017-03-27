@@ -10,7 +10,8 @@
     <artifactId>x3ml-engine</artifactId>
     <packaging>jar</packaging>
     <name>X3ML-Engine</name>
-    <version>1.7.5-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
+    
     <inceptionYear>2013</inceptionYear>
     <organization>
         <name>Institute of Computer Science - FORTH-ICS</name>
@@ -41,6 +42,44 @@
             <email>gerald@delving.eu</email>
         </developer>
     </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+    
+    <repositories>
+        <repository>
+            <id>FORTH-ISL-releases</id>
+            <name>FORTH ISL Nexus repository - Releases</name>
+            <url>http://www.ics.forth.gr/isl/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>FORTH-ISL-third-party</id>
+            <name>FORTH ISL Nexus repository - third party releases</name>
+            <url>http://www.ics.forth.gr/isl/maven-third-party/</url>
+        </repository>
+        <repository>
+            <id>FORTH-ISL-snapshots</id>
+            <name>FORTH ISL Nexus repository - Snapshots</name>
+            <url>http://www.ics.forth.gr/isl/maven-snapshots/</url>
+        </repository>
+    </repositories>
+    
+    <distributionManagement>
+        <repository>
+            <id>FORTH-ISL-releases</id>
+            <name>FORTH ISL Nexus repository - Releases</name>
+            <url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>FORTH-ISL-snapshots</id>
+            <name>FORTH ISL Nexus repository - Snapshots</name>
+            <url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
     <build>
         <defaultGoal>compile</defaultGoal>
         <plugins>
@@ -89,25 +128,7 @@
             </plugin>
         </plugins>
     </build>
-    <repositories> 
-        <repository>
-            <id>FORTH-ISL-MAVEN</id>
-            <name>FORTH ISL Maven Repository</name>
-            <url>http://www.ics.forth.gr/isl/maven/</url>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Delving Nexus</name>
-            <url>http://nexus.delving.org/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Delving Nexus</name>
-            <url>http://nexus.delving.org/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -171,9 +192,4 @@
             <version>1.5</version>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-    </properties>
 </project>
