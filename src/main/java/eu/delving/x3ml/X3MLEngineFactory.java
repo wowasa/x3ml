@@ -126,7 +126,7 @@ public class X3MLEngineFactory {
         return new X3MLEngineFactory();
     }
     
-    /**Adds the mappings file in the X3MLEngineFactory. 
+    /**Adds the mappings file(-s) in the X3MLEngineFactory. 
      * 
      * @param mappingsFiles the files with the mappings (X3ML)
      * @return the updated X3MLEngineFactory instance
@@ -139,6 +139,19 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /**Adds a collection of mappings files in the X3MLEngineFactory. 
+     * 
+     * @param mappingFilesCollection the files collection with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappings(Collection<File> mappingFilesCollection){
+        for(File f : mappingsFiles){
+            LOGGER.debug("Added the X3ML mappings file ("+f.getAbsolutePath()+")");
+        }
+        this.mappingsFiles.addAll(mappingFilesCollection);
+        return this;
+    }
+    
     /** Adds the input files in the X3MLEngineFactory. The methods accepts more than one files 
      * that will be concatenated for producing a single input file. 
      * 
@@ -148,6 +161,24 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withInputFiles(File ... inputFiles){
         try{
             for(File f : inputFiles){
+                LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
+                this.inputStreams.add(new FileInputStream(f));
+            }
+            return this;
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find input file",ex);
+        }
+    }
+    
+    /** Adds the collection of input files in the X3MLEngineFactory.
+     * The given files will be concatenated for producing a single input file. 
+     * 
+     * @param inputFilesCollection the collection input (XML) files
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInputFiles(Collection<File> inputFilesCollection){
+        try{
+            for(File f : inputFilesCollection){
                 LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
                 this.inputStreams.add(new FileInputStream(f));
             }
@@ -194,6 +225,17 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /**Adds the collection with mappings streams in the X3MLEngineFactory. 
+     * 
+     * @param mappingStreamsCollection the collection of input streams with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappingsStreams(Collection<InputStream> mappingStreamsCollection){
+        LOGGER.debug("Added "+mappingStreamsCollection.size()+" X3ML mappings input stream");
+        this.mappingStreams.addAll(mappingStreamsCollection);
+        return this;
+    }
+    
     /**Adds the remote mappings (accessible through the given URLs) in the X3MLEngineFactory. 
      * 
      * @param urls the URLs pointing to the remote mappings (X3ML)
@@ -220,6 +262,18 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withInput(InputStream ... inputStreams){
         LOGGER.debug("Added "+inputStreams.length+" input streams");
         this.inputStreams.addAll(Arrays.asList(inputStreams));
+        return this;
+    }
+    
+    /** Adds the collection of input resources in the X3MLEngineFactory. 
+     * The given input resources will be concatenated for producing a single input resource. 
+     * 
+     * @param inputStreamsCollection the collection of input (XML) streams
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInput(Collection<InputStream> inputStreamsCollection){
+        LOGGER.debug("Added "+inputStreamsCollection.size()+" input streams");
+        this.inputStreams.addAll(inputStreamsCollection);
         return this;
     }
     
