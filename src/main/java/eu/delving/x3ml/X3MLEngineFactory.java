@@ -170,6 +170,24 @@ public class X3MLEngineFactory {
         }
     }
     
+    /** Adds the collection of input files in the X3MLEngineFactory.
+     * The given files will be concatenated for producing a single input file. 
+     * 
+     * @param inputFilesCollection the collection input (XML) files
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInputFiles(Collection<File> inputFilesCollection){
+        try{
+            for(File f : inputFilesCollection){
+                LOGGER.debug("Added the XML input file ("+f.getAbsolutePath()+")");
+                this.inputStreams.add(new FileInputStream(f));
+            }
+            return this;
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find input file",ex);
+        }
+    }
+    
     /**Adds the folder that contains the input files (in XML format). 
      * 
      * @param inputFolder the folder that contains the (XML) input files
@@ -244,6 +262,18 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withInput(InputStream ... inputStreams){
         LOGGER.debug("Added "+inputStreams.length+" input streams");
         this.inputStreams.addAll(Arrays.asList(inputStreams));
+        return this;
+    }
+    
+    /** Adds the collection of input resources in the X3MLEngineFactory. 
+     * The given input resources will be concatenated for producing a single input resource. 
+     * 
+     * @param inputStreamsCollection the collection of input (XML) streams
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withInput(Collection<InputStream> inputStreamsCollection){
+        LOGGER.debug("Added "+inputStreamsCollection.size()+" input streams");
+        this.inputStreams.addAll(inputStreamsCollection);
         return this;
     }
     
