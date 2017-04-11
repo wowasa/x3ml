@@ -1,6 +1,9 @@
 # Change Log
 
 ---
+## 11 Apr 2017: V 1.8.0 (by FORTH-ICS)
+* Enhanced X3MLEngineFactory methods for ingesting collections of resources (files and input streams) in X3ML Engine ([issue #87](https://github.com/isl/x3ml/issues/87))
+
 ## 21 Mar 2017: V 1.7.5 (by FORTH-ICS)
 * Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
 * Fixed a bug with the evaluation of XPATH expressions that contain the xml namespace ([issue #75](https://github.com/isl/x3ml/issues/75))
