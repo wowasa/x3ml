@@ -126,7 +126,7 @@ public class X3MLEngineFactory {
         return new X3MLEngineFactory();
     }
     
-    /**Adds the mappings file in the X3MLEngineFactory. 
+    /**Adds the mappings file(-s) in the X3MLEngineFactory. 
      * 
      * @param mappingsFiles the files with the mappings (X3ML)
      * @return the updated X3MLEngineFactory instance
@@ -136,6 +136,19 @@ public class X3MLEngineFactory {
             LOGGER.debug("Added the X3ML mappings file ("+f.getAbsolutePath()+")");
         }
         this.mappingsFiles.addAll(Arrays.asList(mappingsFiles));
+        return this;
+    }
+    
+    /**Adds a collection of mappings files in the X3MLEngineFactory. 
+     * 
+     * @param mappingFilesCollection the files collection with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappings(Collection<File> mappingFilesCollection){
+        for(File f : mappingsFiles){
+            LOGGER.debug("Added the X3ML mappings file ("+f.getAbsolutePath()+")");
+        }
+        this.mappingsFiles.addAll(mappingFilesCollection);
         return this;
     }
     
@@ -191,6 +204,17 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withMappings(InputStream ... mappingsStreams){
         LOGGER.debug("Added "+mappingsStreams.length+" X3ML mappings input stream");
         this.mappingStreams.addAll(Arrays.asList(mappingsStreams));
+        return this;
+    }
+    
+    /**Adds the collection with mappings streams in the X3MLEngineFactory. 
+     * 
+     * @param mappingStreamsCollection the collection of input streams with the mappings (X3ML)
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withMappingsStreams(Collection<InputStream> mappingStreamsCollection){
+        LOGGER.debug("Added "+mappingStreamsCollection.size()+" X3ML mappings input stream");
+        this.mappingStreams.addAll(mappingStreamsCollection);
         return this;
     }
     
