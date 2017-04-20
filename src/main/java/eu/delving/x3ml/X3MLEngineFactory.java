@@ -121,7 +121,6 @@ public class X3MLEngineFactory {
      * @return a new instance of the X3MLEngineFactory class
      */
     public static X3MLEngineFactory create(){
-        LOGGER.setLevel(Level.INFO);
         LOGGER.debug("Created an instance of X3MLEngineFactory");
         return new X3MLEngineFactory();
     }
