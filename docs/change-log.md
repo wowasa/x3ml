@@ -4,6 +4,7 @@
 ## 11 Apr 2017: V 1.8.0 (by FORTH-ICS)
 * Enhanced X3MLEngineFactory methods for ingesting collections of resources (files and input streams) in X3ML Engine ([issue #87](https://github.com/isl/x3ml/issues/87))
 * Fixed issue related to updating the logging levels of X3MLEngineFactory class ([issue #88](https://github.com/isl/x3ml/issues/88))
+* Harmonized the version of X3ML XSD files ([issue #89](https://github.com/isl/x3ml/issues/89))
 
 ## 21 Mar 2017: V 1.7.5 (by FORTH-ICS)
 * Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
