@@ -1,8 +1,9 @@
 # Change Log
 
 ---
-## 11 Apr 2017: V 1.8.0 (by FORTH-ICS)
+## 1 June 2017: V 1.8.0 (by FORTH-ICS)
 * Enhanced X3MLEngineFactory methods for ingesting collections of resources (files and input streams) in X3ML Engine ([issue #87](https://github.com/isl/x3ml/issues/87))
+* Created a new generator for constructing URNs based on the given textual content ([issue #90](https://github.com/isl/x3ml/issues/90))
 * Fixed issue related to updating the logging levels of X3MLEngineFactory class ([issue #88](https://github.com/isl/x3ml/issues/88))
 * Harmonized the version of X3ML XSD files ([issue #89](https://github.com/isl/x3ml/issues/89))
 

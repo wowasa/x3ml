@@ -1,0 +1,22 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:loc="http://localost/schema/"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <loc:Man-Made_Object rdf:about="http://localhost/coin_1">
+    <loc:has_country>
+      <loc:Country rdf:about="URN:UUID:d6d2800a-f5d1-3768-9c47-3a5494246c2e">
+        <rdfs:label xml:lang="en">Ancient Greece</rdfs:label>
+      </loc:Country>
+    </loc:has_country>
+  </loc:Man-Made_Object>
+  <loc:Man-Made_Object rdf:about="http://localhost/coin_2">
+    <loc:has_country>
+      <loc:Country rdf:about="URN:UUID:c921a09f-e9ed-3bf2-a810-c8d290e01691">
+        <rdfs:label xml:lang="en">Ancient Rome</rdfs:label>
+      </loc:Country>
+    </loc:has_country>
+  </loc:Man-Made_Object>
+  <loc:Man-Made_Object rdf:about="http://localhost/coin_3">
+    <loc:has_country rdf:resource="URN:UUID:d6d2800a-f5d1-3768-9c47-3a5494246c2e"/>
+  </loc:Man-Made_Object>
+</rdf:RDF>
