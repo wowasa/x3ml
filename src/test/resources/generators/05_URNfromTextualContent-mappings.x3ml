@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x3ml version="1.0" source_type="xpath">
     <namespaces>
-        <namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+        <namespace prefix="loc" uri="http://localost/schema/"/>
         <namespace prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
         <namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
     </namespaces>
@@ -11,7 +11,7 @@
                 <source_node>//COIN</source_node>
                 <target_node>
                     <entity>
-                        <type>crm:E22_Man-Made_Object</type>
+                        <type>loc:Man-Made_Object</type>
 						<instance_generator name="URIorUUID">
 							<arg name="text" type="xpath">ID/text()</arg>
 						</instance_generator>
@@ -23,14 +23,14 @@
                 <path>
                     <source_relation><relation>COUNTRY_ID</relation></source_relation>
                     <target_relation>
-                        <relationship>crm:PX_has_country</relationship>
+                        <relationship>loc:has_country</relationship>
                     </target_relation>
                 </path>
                 <range>
                     <source_node>COUNTRY_ID</source_node>
                     <target_node>
                         <entity>
-                            <type>crm:EXX_Country</type>
+                            <type>loc:Country</type>
                             <instance_generator name="URNfromTextualContent">
 								<arg name="text" type="xpath">text()</arg>
 							</instance_generator>
