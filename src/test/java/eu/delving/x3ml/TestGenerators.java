@@ -69,6 +69,16 @@ public class TestGenerators {
     }
     
     @Test
+    public void testUrnFromTextualContent(){
+        X3MLEngine engine = engine("/generators/05_URNfromTextualContent-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/05_URNfromTextualContent-input.xml"),policy("/generators/05_URNfromTextualContent-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/05_URNfromTextualContent-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
     public void testURIirUUID(){
         X3MLEngine engine = engine("/generators/04_mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/generators/04_input.xml"),policy("/generators/04_generator-policy.xml"));
