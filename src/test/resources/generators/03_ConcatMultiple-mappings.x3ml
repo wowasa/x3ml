@@ -30,6 +30,30 @@
                     </entity>
                 </target_node>
             </domain>
+			<link>
+                <path>
+                    <source_relation>
+                        <relation>DESCRIPTION</relation>
+                    </source_relation>
+                    <target_relation>
+                        <relationship>crm:P3_has_note</relationship>
+                    </target_relation>
+                </path>
+                <range>
+                    <source_node>DESCRIPTION</source_node>
+                    <target_node>
+                        <entity>
+                            <type>crm:E62_String</type>
+                            <instance_generator name="ConcatMultipleTermsSingle">
+                                <arg name="prefix" type="constant">Description: </arg>
+                                <arg name="text1" type="xpath">DESCR/text()</arg>
+                                <arg name="sameTermsDelim" type="constant">, </arg>
+                                <arg name="diffTermsDelim" type="constant"></arg>
+                            </instance_generator>
+                        </entity>
+                    </target_node>
+                </range>
+            </link>
         </mapping>
         <mapping>
             <domain>

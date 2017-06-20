@@ -5,22 +5,34 @@
         <ID country="uk">ID_UK_1</ID>
         <TITLE country="gr">Nomisma1</TITLE>
         <TITLE country="uk">Coin1</TITLE>
-        <DESCR>description 1</DESCR>
+        <DESCRIPTION>
+			<DESCR>Coin 1 description in English</DESCR>
+			<DESCR>Coin 1 description in Greek</DESCR>
+		</DESCRIPTION>
     </COIN>
     <COIN>
         <ID country="gr">ID_GR_2</ID>
         <ID country="uk">ID_UK_2</ID>
         <TITLE country="gr">Nomisma2</TITLE>
         <TITLE country="uk">Coin2</TITLE>
-        <DESCR>description 2</DESCR>
+		<DESCRIPTION>
+			<DESCR>Coin 2 description in English</DESCR>
+			<DESCR>Coin 2 description in Greek</DESCR>
+		</DESCRIPTION>
     </COIN>
     <COIN>
         <ID country="gr">ID_GR_3</ID>
         <ID country="uk">ID_UK_3</ID>
-        <DESCR>description 3</DESCR>
+        <DESCRIPTION>
+			<DESCR>Coin 3 description in English</DESCR>
+			<DESCR>Coin 3 description in Greek</DESCR>
+		</DESCRIPTION>
     </COIN>
     <COIN>
-        <DESCR>description 4</DESCR>
+        <DESCRIPTION>
+			<DESCR>Coin 4 description in English</DESCR>
+			<DESCR>Coin 4 description in Greek</DESCR>
+		</DESCRIPTION>
     </COIN>
     
     <SITE>
