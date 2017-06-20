@@ -21,7 +21,6 @@ package gr.forth;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import eu.delving.x3ml.X3MLEngine;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.engine.X3ML;
 import eu.delving.x3ml.engine.X3ML.Mapping;
 import eu.delving.x3ml.engine.X3ML.RootElement;
@@ -443,6 +442,14 @@ public class Utils {
         }catch(IOException | ParserConfigurationException | SAXException ex){
             throw exception("An error occured while validating the X3ML mapping files",ex);
         }
+    }
+    
+    /** Appends the given value with a URN:UUID scheme prefix.
+     * 
+     * @param originalValue the original value
+     * @return the original value enriched with a URN:UUID scheme prefix */
+    public static String urnValue(String originalValue){
+        return Labels.URN+":"+Labels.UUID+":"+originalValue;
     }
     
     /* merges the namespaces blocks that are given in the master doc that is provided. Returns the updated document*/
