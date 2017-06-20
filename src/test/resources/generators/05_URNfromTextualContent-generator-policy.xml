@@ -6,7 +6,14 @@
             <set-arg name="text"/>
         </custom>
     </generator>
+	
 	<generator name="URNfromTextualContent">
+        <custom generatorClass="gr.forth.TextualContent">
+            <set-arg name="text" type="xpath"/>
+        </custom>
+    </generator>
+	
+	<generator name="URIfromTextualContent" prefix="loc">
         <custom generatorClass="gr.forth.TextualContent">
             <set-arg name="text" type="xpath"/>
         </custom>
