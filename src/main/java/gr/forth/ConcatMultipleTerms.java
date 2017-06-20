@@ -92,7 +92,7 @@ public class ConcatMultipleTerms implements CustomGenerator{
         if(this.getValueType().equals(Labels.URI)){
             return this.prefix+retValue;
         }else{
-            return retValue;
+            return this.prefix+retValue;
         }
     }
 
