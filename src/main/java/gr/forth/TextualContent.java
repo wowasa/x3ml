@@ -42,7 +42,7 @@ public class TextualContent implements CustomGenerator{
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
         if(name.startsWith(Labels.TEXT)){
-            this.text=Labels.URN+":"+Labels.UUID+":"+java.util.UUID.nameUUIDFromBytes(value.getBytes()).toString();
+            this.text=java.util.UUID.nameUUIDFromBytes(value.getBytes()).toString();
         }else{
             throw new CustomGeneratorException("Unrecognized argument name: "+ name);
         }

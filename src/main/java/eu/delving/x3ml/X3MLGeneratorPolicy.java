@@ -49,6 +49,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import gr.forth.TextualContent;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
@@ -231,7 +232,10 @@ public class X3MLGeneratorPolicy implements Generator {
                         throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
                     }
                     return uriValue(namespaceUri + value);
-                } else {
+                }else if(generator.custom.generatorClass.equals(TextualContent.class.getCanonicalName())){
+                    return uriValue(Utils.urnValue(value));
+                }
+                else{
                     return uriValue(value);
                 }
             }
