@@ -121,7 +121,11 @@ public class ModelOutput implements Output {
     public void writeXML(OutputStream out) {
         model.write(out, "RDF/XML-ABBREV");
     }
-
+    
+    public void writeXMLPlain(OutputStream out) {
+        model.write(out, "RDF/XML");
+    }
+    
     public void writeNTRIPLE(OutputStream out) {
         model.write(out, "N-TRIPLE");
     }
@@ -138,7 +142,9 @@ public class ModelOutput implements Output {
             writeTURTLE(out);
         } else if ("application/rdf+xml".equalsIgnoreCase(format)) {
             writeXML(out);
-        } else {
+        } else if ("application/rdf+xml_plain".equalsIgnoreCase(format)){
+            writeXMLPlain(out);
+        }else {
             writeXML(out);
         }
     }
