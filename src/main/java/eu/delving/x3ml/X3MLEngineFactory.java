@@ -97,6 +97,7 @@ public class X3MLEngineFactory {
     
     public enum OutputFormat{
     RDF_XML, 
+    RDF_XML_PLAIN, 
     NTRIPLES, 
     TURTLE
     }
@@ -488,6 +489,13 @@ public class X3MLEngineFactory {
                     engineOutput.writeXML(System.out);
                 }else{
                     engineOutput.write(this.output.getLeft(), "application/rdf+xml");
+                }
+                break;
+            case RDF_XML_PLAIN:
+                if(this.output.getLeft()==null){
+                    engineOutput.write(System.out,"application/rdf+xml_plain");
+                }else{
+                    engineOutput.write(this.output.getLeft(), "application/rdf+xml_plain");
                 }
                 break;
             case NTRIPLES:
