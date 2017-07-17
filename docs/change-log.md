@@ -1,7 +1,7 @@
 # Change Log
 
 ---
-## 12 July 2017: V 1.8.0 (by FORTH-ICS)
+## 17 July 2017: V 1.8.0 (by FORTH-ICS)
 * Fixed isuue with ConcatMultipleTerms generator ([issue #91](https://github.com/isl/x3ml/issues/91))
 * Fixed isuue with TextualContent generator ([issue #92](https://github.com/isl/x3ml/issues/92))
 * Enhanced X3MLEngineFactory methods for ingesting collections of resources (files and input streams) in X3ML Engine ([issue #87](https://github.com/isl/x3ml/issues/87))
