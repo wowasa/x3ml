@@ -555,7 +555,7 @@ public interface X3ML {
 
         boolean yes(GeneratorContext context);
     }
-
+    
     @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
     @XStreamAlias("exists")
     public static class Exists extends Visible implements YesOrNo {
@@ -564,7 +564,8 @@ public interface X3ML {
 
         @Override
         public boolean yes(GeneratorContext context) {
-            return context.evaluate(expression).length() > 0;
+            return context.evaluate2(expression);
+            // return context.evaluate(expression).length() > 0;
         }
     }
 

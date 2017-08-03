@@ -86,6 +86,10 @@ public abstract class GeneratorContext {
     public String evaluate(String expression) {
         return context.input().valueAt(node, expression);
     }
+    
+     public boolean evaluate2(String expression) {
+        return context.input().existingNode(node, expression);
+    }
 
     /** Creates or retrieves a value for the node of the input (which is part of this instance). 
      * To this end it uses the given generator and variables declaration. The procedure is the following:
