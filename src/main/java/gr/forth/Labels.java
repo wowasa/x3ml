@@ -47,6 +47,7 @@ public class Labels {
     public static final String UUID="UUID";
     public static final String XML="xml";
     public static final String XML_NAMESPACE="http://www.w3.org/XML/1998/namespace";
+    public static final String TERM_TO_REMOVE="termToRemove";
     
     /* Labels to be exploited from console starter */
     public static final String ASSOC_TABLE="assocTable";
