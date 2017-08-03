@@ -222,6 +222,15 @@ public class XPathInput {
         List<Node> nodes = nodeList(node, expression);
         return nodes.size();
     }
+    
+    public boolean existingNode(Node node, String expression) {
+        List<Node> nodes = nodeList(node, expression);
+        
+        if (nodes.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 
     public static String extractXPath(Node node) {
         String path = $(node).xpath();
