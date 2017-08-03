@@ -1,6 +1,10 @@
 # Change Log
 
 ---
+## 3 Aug 2017: V 1.8.1 (by FORTH-ICS)
+* Implemented new Generator RemoveTerm ([issue #95](https://github.com/isl/x3ml/issues/95))
+* Enhanced the functionality of conditionals ([issue #92](https://github.com/isl/x3ml/issues/96))
+
 ## 17 July 2017: V 1.8.0 (by FORTH-ICS)
 * Fixed isuue with ConcatMultipleTerms generator ([issue #91](https://github.com/isl/x3ml/issues/91))
 * Fixed isuue with TextualContent generator ([issue #92](https://github.com/isl/x3ml/issues/92))
