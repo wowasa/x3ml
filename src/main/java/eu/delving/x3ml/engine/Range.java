@@ -46,7 +46,7 @@ public class Range extends GeneratorContext {
             return false;
         }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        if(path.property == null){
+        if(path.property == null){  //this happens only when using the MERGE facility */
             return rangeResolver.resolve(0,0,Domain.domainNode);
         }else{
             return rangeResolver.resolve(0,0,null);
@@ -59,7 +59,7 @@ public class Range extends GeneratorContext {
             rangeResolver.link();
             for (Resource lastResource : path.lastResources) {
                 for (Resource resolvedResource : rangeResolver.resources) {
-                    if(path.lastProperty==null){
+                    if(path.lastProperty==null){    //this happens only when using the MERGE facility
                         break;
                     }else{
                         lastResource.addProperty(path.lastProperty, resolvedResource);
@@ -68,7 +68,7 @@ public class Range extends GeneratorContext {
             }
         } else if (rangeResolver.hasLiteral()) {
             for (Resource lastResource : path.lastResources) {
-                if(path.lastProperty==null){
+                if(path.lastProperty==null){    //this happens only when using the MERGE facility
                         break;
                     }else{
                         lastResource.addLiteral(path.lastProperty, rangeResolver.literal);

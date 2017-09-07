@@ -259,7 +259,17 @@ public abstract class GeneratorContext {
         return generatedValue;
     }
     
-    public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable_deprecated, String variable, String unique, Node domainNode) {
+    /** This method is responsible for reusing the value generated for the domain node (when the MERGE facility is 
+     * being used). When the MERGE case is being used inside a link, instead of creating a range node, 
+     * it merges it with the node found in domain. 
+     * Under the hood, it associates the node found in the range, with the node found in the domain, 
+     * so they share the same identifier.
+     * 
+     * @param generator the declared generator element
+     * @param unique a unique value (usually the type of additional/intermediates) for creating always new instances
+     * @param domainNode the node found in the domain
+     * @return the value that has been generated for the domain */
+    public GeneratedValue getInstance(final GeneratorElement generator, String unique, Node domainNode) {
         if(generator == null){
             throw exception("Value generator missing");
         }

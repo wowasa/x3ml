@@ -655,9 +655,9 @@ public interface X3ML {
         public String tag;
 
         public String getPrefix() {
-            if(tag.startsWith("http:")){
+            if(tag.startsWith("http:")){    //used a fully qualified name
                 return "";
-            }else if(tag.equals("MERGE")){
+            }else if(tag.equals("MERGE")){   //exploit the MERGE facility 
                 return "MERGE";
             }
             else{
@@ -670,9 +670,9 @@ public interface X3ML {
         }
 
         public String getLocalName() {
-            if(tag.startsWith("http:")){
+            if(tag.startsWith("http:")){    //used a fully qualified name
                 return tag;
-            }else if(tag.equals("MERGE")){  
+            }else if(tag.equals("MERGE")){    //exploit the MERGE facility 
                 return "MERGE";
             }
             else{
@@ -729,7 +729,7 @@ public interface X3ML {
         }
         
         public GeneratedValue getInstance(GeneratorContext context, String unique, Node node) {
-            return context.getInstance(instanceGenerator, globalVariable, variable_deprecated, variable, unique, node);
+            return context.getInstance(instanceGenerator, unique, node);
         }
     }
 

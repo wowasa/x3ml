@@ -68,7 +68,12 @@ public class EntityResolver {
     the cases where an entity resolve is requested from the link of a mapping and therefore 
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
-    where we have "similar" nodes (with same target entity type). */
+    where we have "similar" nodes (with same target entity type). 
+    
+    The third option (domainNodeFromMerged) indicates if the MERGE facility has been used.
+    When this parameter is NOT null, then the MERGE facility has been used.
+    
+    */
     boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, Node domainNodeFromMerged) {
         if (entityElement == null) {
             throw exception("Missing entity");
@@ -108,7 +113,7 @@ public class EntityResolver {
                 uniqueValue="http://www.w3.org/2001/XMLSchema#dateTime";
             }
             GeneratedValue generatedValue;
-            if(domainNodeFromMerged!=null){
+            if(domainNodeFromMerged!=null){ //This happens when the MERGE facility has been used
                 generatedValue = entityElement.getInstance(generatorContext, uniqueValue, domainNodeFromMerged);
             }else{
                 generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
