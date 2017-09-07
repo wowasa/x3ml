@@ -45,8 +45,20 @@ public class Range extends GeneratorContext {
         if (conditionFails(range.target_node.condition, this)) {
             return false;
         }
+//        if(path.property == null){
+//            System.out.println("domain node: "+Domain.domainEntity);
+////            rangeResolver = new EntityResolver(context.output(), Domain.domainEntity, Domain.domainGenContext);
+////            return rangeResolver.resolve(0,0);
+//        }else{
+//            rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
+//            return rangeResolver.resolve(0,0);
+//        }
         rangeResolver = new EntityResolver(context.output(), range.target_node.entityElement, this);
-        return rangeResolver.resolve(0,0);
+        if(path.property == null){
+            return rangeResolver.resolve(0,0,Domain.domainNode);
+        }else{
+            return rangeResolver.resolve(0,0,null);
+        }
     }
 
     public void link() {
@@ -55,12 +67,20 @@ public class Range extends GeneratorContext {
             rangeResolver.link();
             for (Resource lastResource : path.lastResources) {
                 for (Resource resolvedResource : rangeResolver.resources) {
-                    lastResource.addProperty(path.lastProperty, resolvedResource);
+                    if(path.lastProperty==null){
+                        break;
+                    }else{
+                        lastResource.addProperty(path.lastProperty, resolvedResource);
+                    }
                 }
             }
         } else if (rangeResolver.hasLiteral()) {
             for (Resource lastResource : path.lastResources) {
-                lastResource.addLiteral(path.lastProperty, rangeResolver.literal);
+                if(path.lastProperty==null){
+                        break;
+                    }else{
+                        lastResource.addLiteral(path.lastProperty, rangeResolver.literal);
+                }
             }
         }
     }

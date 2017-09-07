@@ -33,6 +33,7 @@ import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import org.w3c.dom.Node;
 
 /**
  * The entity resolver creates the related model elements by calling generator
@@ -68,7 +69,7 @@ public class EntityResolver {
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
     where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex) {
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, Node domainNodeFromMerged) {
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -97,6 +98,8 @@ public class EntityResolver {
                     }
                 }
             }
+            
+            
             /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances
             Notice that in future we should support all *literal* values*/
             if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal") || unique.toString().contains("rdfs:Literal")){
@@ -104,7 +107,12 @@ public class EntityResolver {
             }else if(unique.toString().contains("http://www.w3.org/2001/XMLSchema#dateTime") || unique.toString().contains("xsd:dateTime")){
                 uniqueValue="http://www.w3.org/2001/XMLSchema#dateTime";
             }
-            GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+            GeneratedValue generatedValue;
+            if(domainNodeFromMerged!=null){
+                generatedValue = entityElement.getInstance(generatorContext, uniqueValue, domainNodeFromMerged);
+            }else{
+                generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+            }
             if (generatedValue == null) {
                 failed = true;
                 return false;
@@ -201,7 +209,7 @@ public class EntityResolver {
             for(int i=0;i<additional.relationship.size();i++){
                 property.add(i,modelOutput.createProperty(additional.relationship.get(i)));
                 additionalEntityResolver.add(i,new EntityResolver(modelOutput, additional.entityElement.get(i), generatorContext));
-                boolean res=additionalEntityResolver.get(i).resolve(this.additionalIndex,0);
+                boolean res=additionalEntityResolver.get(i).resolve(this.additionalIndex,0, null);
                 if(res==false){
                     return false;
                 }

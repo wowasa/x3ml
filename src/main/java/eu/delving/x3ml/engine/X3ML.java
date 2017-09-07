@@ -40,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import org.w3c.dom.Node;
 
 /**
  * This interface defines the XML interpretation of the engine using the XStream
@@ -656,6 +657,9 @@ public interface X3ML {
         public String getPrefix() {
             if(tag.startsWith("http:")){
                 return "";
+            }else if(tag.equals("MERGE")){
+                System.out.println("do something");
+                return "MERGE";
             }
             else{
                 int colon = tag.indexOf(':');
@@ -669,6 +673,9 @@ public interface X3ML {
         public String getLocalName() {
             if(tag.startsWith("http:")){
                 return tag;
+            }else if(tag.equals("MERGE")){
+                System.out.println("do something");
+                return "MERGE";
             }
             else{
                 int colon = tag.indexOf(':');
@@ -721,6 +728,10 @@ public interface X3ML {
 
         public GeneratedValue getInstance(GeneratorContext context, String unique) {
             return context.getInstance(instanceGenerator, globalVariable, variable_deprecated, variable, unique);
+        }
+        
+        public GeneratedValue getInstance(GeneratorContext context, String unique, Node node) {
+            return context.getInstance(instanceGenerator, globalVariable, variable_deprecated, variable, unique, node);
         }
     }
 
