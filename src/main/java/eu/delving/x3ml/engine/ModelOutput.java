@@ -95,7 +95,6 @@ public class ModelOutput implements Output {
             String propertyNamespace = "";
             return model.createProperty(propertyNamespace, relationship.getLocalName());
         }else if (relationship.getLocalName().equals("MERGE")){
-            System.out.println("DO NOTHING");
             return null;
         }
         else{ 

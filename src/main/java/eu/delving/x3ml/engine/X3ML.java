@@ -658,7 +658,6 @@ public interface X3ML {
             if(tag.startsWith("http:")){
                 return "";
             }else if(tag.equals("MERGE")){
-                System.out.println("do something");
                 return "MERGE";
             }
             else{
@@ -673,8 +672,7 @@ public interface X3ML {
         public String getLocalName() {
             if(tag.startsWith("http:")){
                 return tag;
-            }else if(tag.equals("MERGE")){
-                System.out.println("do something");
+            }else if(tag.equals("MERGE")){  
                 return "MERGE";
             }
             else{
