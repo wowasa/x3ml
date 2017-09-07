@@ -41,8 +41,6 @@ import static org.joox.JOOX.$;
  */
 public class Domain extends GeneratorContext {
     public static Node domainNode;
-    public static X3ML.EntityElement domainEntity;
-    public static GeneratorContext domainGenContext;
     public final DomainElement domain;
     public EntityResolver entityResolver;
     private Map<String, X3ML.GeneratedValue> variables = new TreeMap<>();
@@ -77,8 +75,6 @@ public class Domain extends GeneratorContext {
 
     public boolean resolve() {
         domainNode=node;
-        domainEntity=domain.target_node.entityElement;
-        domainGenContext=this;
         if (conditionFails(domain.target_node.condition, this)) {
             return false;
         }
