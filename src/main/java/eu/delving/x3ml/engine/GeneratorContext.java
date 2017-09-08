@@ -258,6 +258,64 @@ public abstract class GeneratorContext {
         }
         return generatedValue;
     }
+    
+    /** This method is responsible for reusing the value generated for the domain node (when the MERGE facility is 
+     * being used). When the MERGE case is being used inside a link, instead of creating a range node, 
+     * it merges it with the node found in domain. 
+     * Under the hood, it associates the node found in the range, with the node found in the domain, 
+     * so they share the same identifier.
+     * 
+     * @param generator the declared generator element
+     * @param unique a unique value (usually the type of additional/intermediates) for creating always new instances
+     * @param domainNode the node found in the domain
+     * @return the value that has been generated for the domain */
+    public GeneratedValue getInstance(final GeneratorElement generator, String unique, Node domainNode) {
+        if(generator == null){
+            throw exception("Value generator missing");
+        }
+        GeneratedValue generatedValue;
+
+        String nodeName = extractXPath(node) + unique;
+        String domainNodeName = extractXPath(domainNode) + unique;
+        String xpathProper=extractAssocTableXPath(node);
+        generatedValue = context.getGeneratedValue(domainNodeName);
+        
+        if (generatedValue == null) {
+            generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
+                @Override
+                public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                    try{
+                        return context.input().evaluateArgument(node, index, generator, name, sourceType, mergeMultipleValues);
+                    }catch(Exception ex){   
+                        /*We are doing this for the cases where the XPATH expression does not hold (i.e. 
+                        the elemennt is missing or is empty). In this case we should construct a UUID instead 
+                        of simply throwing an error message. Related issue: #72 */
+                        if(generator.getName().equals(Labels.URIorUUID)){
+                            return new ArgValue("X", "en"); 
+                        }else{
+                            throw exception(ex.getMessage(),ex);
+                        } 
+                    }
+                }
+            });
+            GeneratedValue genArg=null;
+            if(generator.getName().equalsIgnoreCase("Literal")){
+                genArg = context.policy().generate(generator, new Generator.ArgValues() {
+                    @Override
+                    public ArgValue getArgValue(String name, SourceType sourceType, boolean mergeMultipleValues) {
+                        return context.input().evaluateArgument2(node, index, generator, name, sourceType);
+
+                    }
+                });
+            }
+        }
+            
+        context.putGeneratedValue(nodeName, generatedValue);
+        if (generatedValue == null) {
+            throw exception("Empty value produced");
+        }
+        return generatedValue;
+    }
 
     public boolean conditionFails(Condition condition, GeneratorContext context) {
         return condition != null && condition.failure(context);

@@ -94,7 +94,10 @@ public class ModelOutput implements Output {
         if (relationship.getLocalName().startsWith("http:")){
             String propertyNamespace = "";
             return model.createProperty(propertyNamespace, relationship.getLocalName());
-        }else{ 
+        }else if (relationship.getLocalName().equals("MERGE")){
+            return null;
+        }
+        else{ 
             String propertyNamespace = namespaceContext.getNamespaceURI(relationship.getPrefix());
             if(propertyNamespace==null){
                 throw exception("The namespace with prefix \""+relationship.getPrefix()+"\" has not been declared");
