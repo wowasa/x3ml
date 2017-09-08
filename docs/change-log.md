@@ -1,6 +1,9 @@
 # Change Log
 
 ---
+## 8 Sep 2017: V 1.8.2 (by FORTH-ICS)
+* Implemented new MERGE functionality ([issue #97](https://github.com/isl/x3ml/issues/97))
+
 ## 3 Aug 2017: V 1.8.1 (by FORTH-ICS)
 * Implemented new Generator RemoveTerm ([issue #95](https://github.com/isl/x3ml/issues/95))
 * Enhanced the functionality of conditionals ([issue #92](https://github.com/isl/x3ml/issues/96))
