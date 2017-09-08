@@ -4,25 +4,10 @@
     <generator name="SimpleLabel">
         <pattern>{label}</pattern>
     </generator>
-    <generator name="LocalThesauriURI" prefix="bmT">
-        <pattern>{hierarchy}/{term}</pattern>
-    </generator>
-	<generator name="LocalObjectURI" prefix="bmO">
-        <pattern>{hierarchy}/{object}/{term}</pattern>
-    </generator>
-	<generator name="LocalResourceURI" prefix="bmR">
-        <pattern>{hierarchy}/{term}</pattern>
-    </generator>
-	<generator name="LocalTermURI" prefix="bm">
+    <generator name="LocalTermURI" prefix="adw">
         <pattern>{hierarchy}/{term}</pattern>
     </generator>
 	<generator name="GermanDateTime">
-        <custom generatorClass="gr.forth.GermanDate">
-            <set-arg name="bound" type="constant"/>
-            <set-arg name="text"/>
-        </custom>
-    </generator>
-	<generator name="BMdates">
         <custom generatorClass="gr.forth.GermanDate">
             <set-arg name="bound" type="constant"/>
             <set-arg name="text"/>
@@ -33,4 +18,5 @@
             <set-arg name="text"/>
         </custom>
     </generator>
+
 </generator_policy>
