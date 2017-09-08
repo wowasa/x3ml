@@ -55,6 +55,7 @@ import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -157,8 +158,24 @@ public class X3MLEngine {
         return new X3MLException(message, throwable);
     }
 
-    public Output execute(Element sourceRoot, Generator generator) throws X3MLException {
+    public Output execute(Element sourceRoot, Generator generator) throws X3MLException {       
         Root rootContext = new Root(sourceRoot, generator, namespaceContext, prefixes);
+        generator.setDefaultArgType(rootElement.sourceType);
+        generator.setLanguageFromMapping(rootElement.language);
+        if (rootElement.namespaces != null) {
+            for (MappingNamespace mn : rootElement.namespaces) {
+                generator.setNamespace(mn.prefix, mn.uri);
+            }
+        }
+        this.initializeAll();    
+        rootElement.apply(rootContext);
+        return rootContext.getModelOutput();
+    }
+    
+    public Output execute(Element sourceRoot, Generator generator, boolean withTerms) throws X3MLException {
+        File terminologyFile=new File("example/terms.nt");
+       
+        Root rootContext = new Root(sourceRoot, generator, namespaceContext, prefixes, terminologyFile);
         generator.setDefaultArgType(rootElement.sourceType);
         generator.setLanguageFromMapping(rootElement.language);
         if (rootElement.namespaces != null) {

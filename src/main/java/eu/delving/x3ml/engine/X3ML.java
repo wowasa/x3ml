@@ -519,6 +519,8 @@ public interface X3ML {
         public Narrower narrower;
         public Exists exists;
         public Equals equals;
+        public Broader broader;
+        public ExactMatch exact_match;
         public AndCondition and;
         public OrCondition or;
         public NotCondition not;
@@ -545,6 +547,8 @@ public interface X3ML {
                     .evaluate(narrower)
                     .evaluate(exists)
                     .evaluate(equals)
+                    .evaluate(broader)
+                    .evaluate(exact_match)
                     .evaluate(and)
                     .evaluate(or)
                     .evaluate(not).failure;
@@ -581,6 +585,50 @@ public interface X3ML {
 
         @Override
         public boolean yes(GeneratorContext context) {
+            return value.equals(context.evaluate(expression));
+        }
+    }
+    
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
+    @XStreamAlias("broader")
+    public static class Broader extends Visible implements YesOrNo {
+
+        @XStreamAsAttribute
+        public String value;
+
+        public String expression;
+
+        @Override
+        public boolean yes(GeneratorContext context) {
+            List<String> broaderTerms=TerminologyModel.getBroaderTerms(value);
+            System.out.println("Broader Terms: "+broaderTerms);
+            for(String term : broaderTerms){
+                if(term.equals(context.evaluate(expression))){
+                    return true;
+                }
+            }
+            return value.equals(context.evaluate(expression));
+        }
+    }
+    
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
+    @XStreamAlias("exact_match")
+    public static class ExactMatch extends Visible implements YesOrNo {
+
+        @XStreamAsAttribute
+        public String value;
+
+        public String expression;
+
+        @Override
+        public boolean yes(GeneratorContext context) {
+            List<String> broaderTerms=TerminologyModel.getExactMatchTerms(value);
+            System.out.println("Exact Match Terms: "+broaderTerms);
+            for(String term : broaderTerms){
+                if(term.equals(context.evaluate(expression))){
+                    return true;
+                }
+            }
             return value.equals(context.evaluate(expression));
         }
     }
