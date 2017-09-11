@@ -45,6 +45,8 @@
 				'properties_if', 
 				'properties_exists', 
 				'properties_equals', 
+				'properties_broader', 
+				'properties_exact_match', 
 				'properties_conditionsType_not', 
 				'properties_conditionsType_and', 
 				'properties_conditionsType_or', 
@@ -101,6 +103,8 @@
 				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_prefix', 
 				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'properties_equals_value', 
+				'properties_broader_value', 
+				'properties_exact_match_value', 
 				'properties_conditionsType_conditionsType_narrower_value', 
 				'properties_instance_generator_name', 
 				'properties_label_generator_name', 
@@ -118,6 +122,8 @@ var usedByBoxes= new Array('usedBy_info',
 				'usedBy_if', 
 				'usedBy_exists', 
 				'usedBy_equals', 
+				'usedBy_broader', 
+				'usedBy_exact_match', 
 				'usedBy_entity', 
 				'usedBy_type', 
 				'usedBy_instance_info', 
@@ -155,6 +161,8 @@ var usedByBoxes= new Array('usedBy_info',
 				'usedBy_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'usedBy_source_node_skip', 
 				'usedBy_equals_value', 
+				'usedBy_broader_value', 
+				'usedBy_exact_match_value', 
 				'usedBy_conditionsType_conditionsType_narrower_value', 
 				'usedBy_instance_generator_instance_generator_arg_name', 
 				'usedBy_instance_generator_instance_generator_arg_type', 
@@ -213,6 +221,8 @@ var sourceBoxes= new Array('source_x3ml',
 				'source_if', 
 				'source_exists', 
 				'source_equals', 
+				'source_broader', 
+				'source_exact_match', 
 				'source_conditionsType_not', 
 				'source_conditionsType_and', 
 				'source_conditionsType_or', 
@@ -280,6 +290,8 @@ var sourceBoxes= new Array('source_x3ml',
 				'source_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'source_source_node_skip', 
 				'source_equals_value', 
+				'source_broader_value', 
+				'source_exact_match_value', 
 				'source_conditionsType_conditionsType_narrower_value', 
 				'source_instance_generator_instance_generator_arg_name', 
 				'source_instance_generator_instance_generator_arg_type', 
@@ -375,6 +387,8 @@ var diagramBoxes= new Array('diagram_x3ml',
 				'diagram_if', 
 				'diagram_exists', 
 				'diagram_equals', 
+				'diagram_broader', 
+				'diagram_exact_match', 
 				'diagram_conditionsType_not', 
 				'diagram_conditionsType_and', 
 				'diagram_conditionsType_or', 
@@ -456,6 +470,8 @@ var attributesBoxes= new Array('attributes_x3ml',
 				'attributes_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
 				'attributes_source_node', 
 				'attributes_equals', 
+				'attributes_broader', 
+				'attributes_exact_match', 
 				'attributes_conditionsType_narrower', 
 				'attributes_entity', 
 				'attributes_instance_generator', 
@@ -829,10 +845,12 @@ var modelBoxes= new Array('model_x3ml',
                                           <td class="componentGroup">
                                              <div id="boxIdNamespace1Element" class="componentGroup" style="display:block">
                                                 <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                                 <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
                                                 <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
                                                 <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                                 <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                                 <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
                                                 <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
                                                 <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
@@ -940,10 +958,12 @@ var modelBoxes= new Array('model_x3ml',
                                     <td class="componentGroup">
                                        <div id="Element" class="componentGroup" style="display:block">
                                           <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                          <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                           <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
                                           <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
                                           <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                           <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                          <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                           <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
                                           <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
                                           <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
@@ -1052,8 +1072,10 @@ var modelBoxes= new Array('model_x3ml',
                                           <td class="componentGroup">
                                              <div id="gr_x3ml.xsdElement" class="componentGroup" style="display:block">
                                                 <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                                 <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                                 <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                                 <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
                                                 <div><b><a href="index.html#if" target="_self" title="No namespace">if</a></b></div>
                                                 <div><b><a href="index.html#instance_generator" target="_self" title="No namespace">instance_generator</a></b></div>
@@ -1348,7 +1370,7 @@ var modelBoxes= new Array('model_x3ml',
                                  </tr>
                                  <tr>
                                     <td class="firstColumn" style="white-space: nowrap;">version</td>
-                                    <td><b>1.2</b></td>
+                                    <td><b>1.3</b></td>
                                  </tr>
                               </table>
                            </div>
@@ -1397,10 +1419,6 @@ var modelBoxes= new Array('model_x3ml',
                                     <td class="firstColumn" style="white-space: nowrap;">element form default</td>
                                     <td><b>qualified</b></td>
                                  </tr>
-                                 <tr>
-                                    <td class="firstColumn" style="white-space: nowrap;">version</td>
-                                    <td><b>1.1</b></td>
-                                 </tr>
                               </table>
                            </div>
                         </td>
@@ -1447,10 +1465,6 @@ var modelBoxes= new Array('model_x3ml',
                                  <tr>
                                     <td class="firstColumn" style="white-space: nowrap;">element form default</td>
                                     <td><b>qualified</b></td>
-                                 </tr>
-                                 <tr>
-                                    <td class="firstColumn" style="white-space: nowrap;">version</td>
-                                    <td><b>1.1</b></td>
                                  </tr>
                               </table>
                            </div>
@@ -2496,7 +2510,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_source_infoComplexType_namespaces" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_source_infoComplexType_namespaces');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_source_infoComplexType_namespaces" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespaces_1.jpeg" usemap="#info_xsd_Element_namespaces_1" /><map name="info_xsd_Element_namespaces_1" id="info_xsd_Element_namespaces_1">
+                           <div id="diagram_source_infoComplexType_namespaces" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespaces.jpeg" usemap="#info_xsd_Element_namespaces" /><map name="info_xsd_Element_namespaces" id="info_xsd_Element_namespaces">
                                  <area alt="index.tmp#source_infoComplexType_source_infoComplexType_namespaces_namespace" href="index.html#source_infoComplexType_source_infoComplexType_namespaces_namespace" coords="212,6,299,31" /></map></div>
                         </td>
                      </tr>
@@ -2607,7 +2621,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_source_infoComplexType_source_infoComplexType_namespaces_namespace" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_source_infoComplexType_source_infoComplexType_namespaces_namespace');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_source_infoComplexType_source_infoComplexType_namespaces_namespace" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespace.jpeg" usemap="#info_xsd_Element_namespace" /><map name="info_xsd_Element_namespace" id="info_xsd_Element_namespace">
+                           <div id="diagram_source_infoComplexType_source_infoComplexType_namespaces_namespace" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespace_1.jpeg" usemap="#info_xsd_Element_namespace_1" /><map name="info_xsd_Element_namespace_1" id="info_xsd_Element_namespace_1">
                                  <area alt="index.tmp#source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_prefix" href="index.html#source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_prefix" coords="129,41,196,66" />
                                  <area alt="index.tmp#source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_uri" href="index.html#source_infoComplexType_source_infoComplexType_namespaces_source_infoComplexType_source_infoComplexType_namespaces_namespace_uri" coords="129,76,188,101" /></map></div>
                         </td>
@@ -3185,7 +3199,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_target_infoComplexType_namespaces" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_target_infoComplexType_namespaces');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_target_infoComplexType_namespaces" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespaces.jpeg" usemap="#info_xsd_Element_namespaces" /><map name="info_xsd_Element_namespaces" id="info_xsd_Element_namespaces">
+                           <div id="diagram_target_infoComplexType_namespaces" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespaces_1.jpeg" usemap="#info_xsd_Element_namespaces_1" /><map name="info_xsd_Element_namespaces_1" id="info_xsd_Element_namespaces_1">
                                  <area alt="index.tmp#target_infoComplexType_target_infoComplexType_namespaces_namespace" href="index.html#target_infoComplexType_target_infoComplexType_namespaces_namespace" coords="212,6,299,31" /></map></div>
                         </td>
                      </tr>
@@ -3296,7 +3310,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_target_infoComplexType_target_infoComplexType_namespaces_namespace" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_target_infoComplexType_target_infoComplexType_namespaces_namespace');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_target_infoComplexType_target_infoComplexType_namespaces_namespace" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespace_1.jpeg" usemap="#info_xsd_Element_namespace_1" /><map name="info_xsd_Element_namespace_1" id="info_xsd_Element_namespace_1">
+                           <div id="diagram_target_infoComplexType_target_infoComplexType_namespaces_namespace" style="display:block"><img alt="Diagram" border="0" src="img/info_xsd_Element_namespace.jpeg" usemap="#info_xsd_Element_namespace" /><map name="info_xsd_Element_namespace" id="info_xsd_Element_namespace">
                                  <area alt="index.tmp#target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_prefix" href="index.html#target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_prefix" coords="129,41,196,66" />
                                  <area alt="index.tmp#target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_uri" href="index.html#target_infoComplexType_target_infoComplexType_namespaces_target_infoComplexType_target_infoComplexType_namespaces_namespace_uri" coords="129,76,188,101" /></map></div>
                         </td>
@@ -5449,10 +5463,12 @@ var modelBoxes= new Array('model_x3ml',
                            <div id="diagram_if" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_if.jpeg" usemap="#x3ml_xsd_Element_if" /><map name="x3ml_xsd_Element_if" id="x3ml_xsd_Element_if">
                                  <area alt="index.tmp#exists" href="index.html#exists" coords="249,40,354,84" />
                                  <area alt="index.tmp#equals" href="index.html#equals" coords="249,94,421,138" />
-                                 <area alt="index.tmp#conditionsType_not" href="index.html#conditionsType_not" coords="249,148,300,173" />
-                                 <area alt="index.tmp#conditionsType_and" href="index.html#conditionsType_and" coords="249,183,300,208" />
-                                 <area alt="index.tmp#conditionsType_or" href="index.html#conditionsType_or" coords="249,218,300,243" />
-                                 <area alt="index.tmp#conditionsType_narrower" href="index.html#conditionsType_narrower" coords="249,253,421,297" />
+                                 <area alt="index.tmp#broader" href="index.html#broader" coords="249,148,421,192" />
+                                 <area alt="index.tmp#exact_match" href="index.html#exact_match" coords="249,202,421,246" />
+                                 <area alt="index.tmp#conditionsType_not" href="index.html#conditionsType_not" coords="249,256,300,281" />
+                                 <area alt="index.tmp#conditionsType_and" href="index.html#conditionsType_and" coords="249,291,300,316" />
+                                 <area alt="index.tmp#conditionsType_or" href="index.html#conditionsType_or" coords="249,326,300,351" />
+                                 <area alt="index.tmp#conditionsType_narrower" href="index.html#conditionsType_narrower" coords="249,361,421,405" />
                                  <area alt="index.tmp#conditionsType" href="index.html#conditionsType" coords="167,3,291,25" /></map></div>
                         </td>
                      </tr>
@@ -5500,12 +5516,12 @@ var modelBoxes= new Array('model_x3ml',
                         <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_if" type="image" src="img/btM.gif" value="-" onclick="switchState('model_if');" class="control" /></div>
                         </td>
                         <td>
-                           <div id="model_if" style="display:block"><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b> | <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b> | <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b> | <b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b> | <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b> | <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b></div>
+                           <div id="model_if" style="display:block"><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b> | <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b> | <b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b> | <b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b> | <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b> | <b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b> | <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b> | <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b></div>
                         </td>
                      </tr>
                      <tr>
                         <td class="firstColumn"><b>Children</b></td>
-                        <td><b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b>, <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b>, <b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b>, <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b>, <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b>, <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b></td>
+                        <td><b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b>, <b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b>, <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b>, <b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b>, <b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b>, <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b>, <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b>, <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b></td>
                      </tr>
                      <tr>
                         <td class="firstColumn">
@@ -5519,6 +5535,8 @@ var modelBoxes= new Array('model_x3ml',
                                     <td width="100%"><pre><span class="tEl">&lt;if</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;exists</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/exists&gt;</span><span class="tI">
   </span><span class="tEl">&lt;equals</span><span class="tT"> </span><span class="tAN">value=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/equals&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;broader</span><span class="tT"> </span><span class="tAN">value=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/broader&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;exact_match</span><span class="tT"> </span><span class="tAN">value=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/exact_match&gt;</span><span class="tI">
   </span><span class="tEl">&lt;not</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/not&gt;</span><span class="tI">
   </span><span class="tEl">&lt;and</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/and&gt;</span><span class="tI">
   </span><span class="tEl">&lt;or</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/or&gt;</span><span class="tI">
@@ -5742,6 +5760,254 @@ var modelBoxes= new Array('model_x3ml',
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"equals"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleContent</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:extension</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"value"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:extension&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleContent&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="broader"></a><div class="componentTitle">Element <span class="qname">broader</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_broader');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_broader" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_broader.jpeg" usemap="#x3ml_xsd_Element_broader" /><map name="x3ml_xsd_Element_broader" id="x3ml_xsd_Element_broader">
+                                 <area alt="index.tmp#broader_value" href="index.html#broader_value" coords="214,122,279,147" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td>extension of <b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_broader" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_broader" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="index.html#conditionsType" target="_self" title="No namespace">conditionsType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_broader" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index.html#broader_value" target="_self" title="No namespace">value</a></b></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('source_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_broader" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"broader"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleContent</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:extension</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"value"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:extension&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleContent&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="exact_match"></a><div class="componentTitle">Element <span class="qname">exact_match</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_exact_match" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_exact_match');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_exact_match" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_exact_match.jpeg" usemap="#x3ml_xsd_Element_exact_match" /><map name="x3ml_xsd_Element_exact_match" id="x3ml_xsd_Element_exact_match">
+                                 <area alt="index.tmp#exact_match_value" href="index.html#exact_match_value" coords="214,122,279,147" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td>extension of <b>xs:string</b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_exact_match" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_exact_match');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_exact_match" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_exact_match" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_exact_match');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_exact_match" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="index.html#conditionsType" target="_self" title="No namespace">conditionsType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_exact_match" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_exact_match');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_exact_match" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="index.html#exact_match_value" target="_self" title="No namespace">value</a></b></td>
+                                    <td></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_exact_match" type="image" src="img/btM.gif" value="-" onclick="switchState('source_exact_match');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_exact_match" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"exact_match"</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:simpleContent</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:extension</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
@@ -6979,7 +7245,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_instance_generator_arg" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_instance_generator_arg');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_instance_generator_arg" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_arg.jpeg" usemap="#x3ml_xsd_Element_arg" /><map name="x3ml_xsd_Element_arg" id="x3ml_xsd_Element_arg">
+                           <div id="diagram_instance_generator_arg" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_arg_1.jpeg" usemap="#x3ml_xsd_Element_arg_1" /><map name="x3ml_xsd_Element_arg_1" id="x3ml_xsd_Element_arg_1">
                                  <area alt="index.tmp#instance_generator_instance_generator_arg_name" href="index.html#instance_generator_instance_generator_arg_name" coords="214,122,279,147" />
                                  <area alt="index.tmp#instance_generator_instance_generator_arg_type" href="index.html#instance_generator_instance_generator_arg_type" coords="214,157,274,182" /></map></div>
                         </td>
@@ -7262,7 +7528,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_label_generator_arg" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_label_generator_arg');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_label_generator_arg" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_arg_1.jpeg" usemap="#x3ml_xsd_Element_arg_1" /><map name="x3ml_xsd_Element_arg_1" id="x3ml_xsd_Element_arg_1">
+                           <div id="diagram_label_generator_arg" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_arg.jpeg" usemap="#x3ml_xsd_Element_arg" /><map name="x3ml_xsd_Element_arg" id="x3ml_xsd_Element_arg">
                                  <area alt="index.tmp#label_generator_label_generator_arg_name" href="index.html#label_generator_label_generator_arg_name" coords="214,122,279,147" />
                                  <area alt="index.tmp#label_generator_label_generator_arg_type" href="index.html#label_generator_label_generator_arg_type" coords="214,157,274,182" /></map></div>
                         </td>
@@ -7600,7 +7866,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_1.jpeg" usemap="#x3ml_xsd_Element_comments_1" /><map name="x3ml_xsd_Element_comments_1" id="x3ml_xsd_Element_comments_1">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments.jpeg" usemap="#x3ml_xsd_Element_comments" /><map name="x3ml_xsd_Element_comments" id="x3ml_xsd_Element_comments">
                                  <area alt="index.tmp#comment" href="index.html#comment" coords="269,44,343,69" />
                                  <area alt="index.tmp#commentsType" href="index.html#commentsType" coords="167,3,291,25" /></map></div>
                         </td>
@@ -9709,7 +9975,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_comments" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_comments');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments.jpeg" usemap="#x3ml_xsd_Element_comments" /><map name="x3ml_xsd_Element_comments" id="x3ml_xsd_Element_comments">
+                           <div id="diagram_x3ml_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_1.jpeg" usemap="#x3ml_xsd_Element_comments_1" /><map name="x3ml_xsd_Element_comments_1" id="x3ml_xsd_Element_comments_1">
                                  <area alt="index.tmp#comment" href="index.html#comment" coords="269,44,343,69" />
                                  <area alt="index.tmp#commentsType" href="index.html#commentsType" coords="167,3,291,25" /></map></div>
                         </td>
@@ -10451,10 +10717,12 @@ var modelBoxes= new Array('model_x3ml',
                            <div id="diagram_conditionsType" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Complex_Type_conditionsType.jpeg" usemap="#x3ml_xsd_Complex_Type_conditionsType" /><map name="x3ml_xsd_Complex_Type_conditionsType" id="x3ml_xsd_Complex_Type_conditionsType">
                                  <area alt="index.tmp#exists" href="index.html#exists" coords="227,0,332,44" />
                                  <area alt="index.tmp#equals" href="index.html#equals" coords="227,54,399,98" />
-                                 <area alt="index.tmp#conditionsType_not" href="index.html#conditionsType_not" coords="227,108,278,133" />
-                                 <area alt="index.tmp#conditionsType_and" href="index.html#conditionsType_and" coords="227,143,278,168" />
-                                 <area alt="index.tmp#conditionsType_or" href="index.html#conditionsType_or" coords="227,178,278,203" />
-                                 <area alt="index.tmp#conditionsType_narrower" href="index.html#conditionsType_narrower" coords="227,213,399,257" /></map></div>
+                                 <area alt="index.tmp#broader" href="index.html#broader" coords="227,108,399,152" />
+                                 <area alt="index.tmp#exact_match" href="index.html#exact_match" coords="227,162,399,206" />
+                                 <area alt="index.tmp#conditionsType_not" href="index.html#conditionsType_not" coords="227,216,278,241" />
+                                 <area alt="index.tmp#conditionsType_and" href="index.html#conditionsType_and" coords="227,251,278,276" />
+                                 <area alt="index.tmp#conditionsType_or" href="index.html#conditionsType_or" coords="227,286,278,311" />
+                                 <area alt="index.tmp#conditionsType_narrower" href="index.html#conditionsType_narrower" coords="227,321,399,365" /></map></div>
                         </td>
                      </tr>
                      <tr>
@@ -10477,12 +10745,12 @@ var modelBoxes= new Array('model_x3ml',
                         <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_conditionsType" type="image" src="img/btM.gif" value="-" onclick="switchState('model_conditionsType');" class="control" /></div>
                         </td>
                         <td>
-                           <div id="model_conditionsType" style="display:block"><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b> | <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b> | <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b> | <b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b> | <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b> | <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b></div>
+                           <div id="model_conditionsType" style="display:block"><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b> | <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b> | <b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b> | <b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b> | <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b> | <b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b> | <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b> | <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b></div>
                         </td>
                      </tr>
                      <tr>
                         <td class="firstColumn"><b>Children</b></td>
-                        <td><b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b>, <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b>, <b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b>, <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b>, <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b>, <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b></td>
+                        <td><b><a href="index.html#conditionsType_and" target="_self" title="No namespace">and</a></b>, <b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b>, <b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b>, <b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b>, <b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b>, <b><a href="index.html#conditionsType_narrower" target="_self" title="No namespace">narrower</a></b>, <b><a href="index.html#conditionsType_not" target="_self" title="No namespace">not</a></b>, <b><a href="index.html#conditionsType_or" target="_self" title="No namespace">or</a></b></td>
                      </tr>
                      <tr>
                         <td class="firstColumn">
@@ -10497,6 +10765,8 @@ var modelBoxes= new Array('model_x3ml',
   </span><span class="tEl">&lt;xs:choice</span><span class="tEl">&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"exists"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"equals"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"broader"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"exact_match"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"not"</span><span class="tEl">&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:complexType</span><span class="tEl">&gt;</span><span class="tI">
         </span><span class="tEl">&lt;xs:sequence</span><span class="tEl">&gt;</span><span class="tI">
@@ -12240,6 +12510,154 @@ var modelBoxes= new Array('model_x3ml',
                         </td>
                         <td>
                            <div id="source_equals_value" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"value"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="broader_value"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b> / @value</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_broader_value" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_broader_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_broader_value" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">use</td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_broader_value" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_broader_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_broader_value" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_broader_value" type="image" src="img/btM.gif" value="-" onclick="switchState('source_broader_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_broader_value" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"value"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="toTop"><a href="#INDEX"> [ top ] </a></div><a id="exact_match_value"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b> / @value</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_exact_match_value" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_exact_match_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_exact_match_value" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">use</td>
+                                    <td><b>required</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_exact_match_value" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_exact_match_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_exact_match_value" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_exact_match_value" type="image" src="img/btM.gif" value="-" onclick="switchState('source_exact_match_value');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_exact_match_value" style="display:block">
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"value"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span></pre></td>
