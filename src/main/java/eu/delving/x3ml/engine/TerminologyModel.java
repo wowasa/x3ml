@@ -12,6 +12,7 @@ import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 import eu.delving.x3ml.X3MLEngine;
+import gr.forth.Labels;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,20 +29,20 @@ import org.apache.log4j.Logger;
  */
 public class TerminologyModel {
     public static InfModel infModel;
-    private static final Property BROADER_TRANSITIVE_PROPERTY=new PropertyImpl("http://www.w3.org/2004/02/skos/core#broaderTransitive");
-    private static final Property EXACT_MATCH_PROPERTY=new PropertyImpl("http://www.w3.org/2004/02/skos/core#exactMatch");
-    private static final Property RDFS_LABEL_PROPERTY=new PropertyImpl("http://www.w3.org/2000/01/rdf-schema#label");
+    private static final Property BROADER_TRANSITIVE_PROPERTY=new PropertyImpl(Labels.SKOS_NAMESPACE+Labels.BROADER_TRANSITIVE);
+    private static final Property EXACT_MATCH_PROPERTY=new PropertyImpl(Labels.SKOS_NAMESPACE+Labels.EXACT_MATCH);
+    private static final Property RDFS_LABEL_PROPERTY=new PropertyImpl(Labels.RDFS_NAMESPACE+Labels.LABEL);
     private static final Logger log=Logger.getLogger(TerminologyModel.class);
+    private static final String SKOS_SCHEMA_PATH="skos/skos.rdf";
     
     public TerminologyModel(File terminologyFile) {
         try{
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         Model model=ModelFactory.createDefaultModel();
         RDFDataMgr.read(model, new FileInputStream(terminologyFile), Lang.NT);
-        RDFDataMgr.read(model, this.getClass().getClassLoader().getResourceAsStream("skos/skos.rdf"), Lang.RDFXML);
-
+        RDFDataMgr.read(model, this.getClass().getClassLoader().getResourceAsStream(SKOS_SCHEMA_PATH), Lang.RDFXML);
         infModel=ModelFactory.createInfModel(reasoner, model);
-
+        
         }catch(FileNotFoundException ex){
             log.error("An error occured while importing the terminologies file",ex);
             throw new X3MLEngine.X3MLException("An error occured while importing the terminologies file",ex);
