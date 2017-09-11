@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.log4j.Logger;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -29,6 +30,7 @@ public class TerminologyModel {
     private static final Property BROADER_TRANSITIVE_PROPERTY=new PropertyImpl("http://www.w3.org/2004/02/skos/core#broaderTransitive");
     private static final Property EXACT_MATCH_PROPERTY=new PropertyImpl("http://www.w3.org/2004/02/skos/core#exactMatch");
     private static final Property RDFS_LABEL_PROPERTY=new PropertyImpl("http://www.w3.org/2000/01/rdf-schema#label");
+    private static final Logger log=Logger.getLogger(TerminologyModel.class);
     
     public TerminologyModel(File file) {
         try{
@@ -55,7 +57,7 @@ public class TerminologyModel {
         while(initialTermUriIterator.hasNext()){
             initialTermUris.add(initialTermUriIterator.next());
         }
-        System.out.println("Initial term URIs: "+initialTermUris);
+        log.debug("Initial term URIs: "+initialTermUris);
         
         /* Find the URIs of the broader terms */
         Set<Resource> broaderTermUris=new HashSet<>();
@@ -65,7 +67,7 @@ public class TerminologyModel {
                 broaderTermUris.add(broaderTermUrisIterator.next());
             }
         }
-        System.out.println("Broader term URIs: "+broaderTermUris);
+        log.debug("Broader term URIs: "+broaderTermUris);
         
         /* Find the labels of the of the broader term URIs */ 
         for(Resource broaderTermUri : broaderTermUris){
@@ -74,7 +76,7 @@ public class TerminologyModel {
                 broaderTerms.add(broaderTermLabelsIterator.next().toString());
             }
         }
-        System.out.println("Broader term labels: "+broaderTerms);
+        log.debug("Broader term labels: "+broaderTerms);
         return broaderTerms;
     }
     
@@ -87,7 +89,7 @@ public class TerminologyModel {
         while(initialTermUriIterator.hasNext()){
             initialTermUris.add(initialTermUriIterator.next());
         }
-        System.out.println("Initial term URIs: "+initialTermUris);
+        log.debug("Initial term URIs: "+initialTermUris);
         
         /* Find the URIs of the broader terms */
         Set<Resource> exactTermUris=new HashSet<>();
@@ -97,7 +99,7 @@ public class TerminologyModel {
                 exactTermUris.add(exactTermUrisIterator.next());
             }
         }
-        System.out.println("Exact term URIs: "+exactTermUris);
+        log.debug("Exact term URIs: "+exactTermUris);
         
         /* Find the labels of the of the broader term URIs */ 
         for(Resource exactTermUri : exactTermUris){
@@ -106,7 +108,7 @@ public class TerminologyModel {
                 exactMatchTerms.add(exactTermLabelsIterator.next().toString());
             }
         }
-        System.out.println("Exact term labels: "+exactMatchTerms);
+        log.debug("Exact term labels: "+exactMatchTerms);
 
         return exactMatchTerms;
     }
