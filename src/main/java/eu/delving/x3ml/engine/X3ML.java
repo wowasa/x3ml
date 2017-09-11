@@ -601,7 +601,6 @@ public interface X3ML {
         @Override
         public boolean yes(GeneratorContext context) {
             List<String> broaderTerms=TerminologyModel.getBroaderTerms(value);
-            System.out.println("Broader Terms: "+broaderTerms);
             for(String term : broaderTerms){
                 if(term.equals(context.evaluate(expression))){
                     return true;
@@ -623,7 +622,6 @@ public interface X3ML {
         @Override
         public boolean yes(GeneratorContext context) {
             List<String> broaderTerms=TerminologyModel.getExactMatchTerms(value);
-            System.out.println("Exact Match Terms: "+broaderTerms);
             for(String term : broaderTerms){
                 if(term.equals(context.evaluate(expression))){
                     return true;
