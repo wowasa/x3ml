@@ -24,7 +24,9 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.log4j.Logger;
 
-/**
+/** TerminologyModel is responsible for storing SKOS taxonomies and providing the 
+ * corresponding functionalities. 
+ * 
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
  */
 public class TerminologyModel {
