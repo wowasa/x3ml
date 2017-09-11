@@ -11,6 +11,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
+import eu.delving.x3ml.X3MLEngine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,19 +33,18 @@ public class TerminologyModel {
     private static final Property RDFS_LABEL_PROPERTY=new PropertyImpl("http://www.w3.org/2000/01/rdf-schema#label");
     private static final Logger log=Logger.getLogger(TerminologyModel.class);
     
-    public TerminologyModel(File file) {
+    public TerminologyModel(File terminologyFile) {
         try{
-        File skosFile=new File("example/skos.rdf");
-           
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         Model model=ModelFactory.createDefaultModel();
-        RDFDataMgr.read(model, new FileInputStream(new File("example/terms.nt")), Lang.NT);
-        RDFDataMgr.read(model, new FileInputStream(skosFile), Lang.RDFXML);
+        RDFDataMgr.read(model, new FileInputStream(terminologyFile), Lang.NT);
+        RDFDataMgr.read(model, this.getClass().getClassLoader().getResourceAsStream("skos/skos.rdf"), Lang.RDFXML);
 
         infModel=ModelFactory.createInfModel(reasoner, model);
 
         }catch(FileNotFoundException ex){
-            ex.printStackTrace();
+            log.error("An error occured while importing the terminologies file",ex);
+            throw new X3MLEngine.X3MLException("An error occured while importing the terminologies file",ex);
         }
     }
     
