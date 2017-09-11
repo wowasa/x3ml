@@ -52,8 +52,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.X3MLEngine.exception;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
