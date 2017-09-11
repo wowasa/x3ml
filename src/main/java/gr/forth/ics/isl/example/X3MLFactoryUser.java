@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import org.apache.jena.riot.Lang;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -89,6 +90,16 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
+    /* Playing with terminologies */
+    private static void terminologiesScenario(){
+        X3MLEngineFactory.create()
+                         .withMappings(new File("example/moreExamples/terminologies/mappings.x3ml"))
+                         .withInputFiles(new File("example/moreExamples/terminologies/input.xml"))
+                         .withGeneratorPolicy(new File("example/generator-policy.xml"))
+                         .withTerminology(new File("example/moreExamples/terminologies/terms.nt"), Lang.NT)
+                         .execute();
+    }
+    
     /* The simplest possible senario. Add only the mandatory details */
     private static void simplestStreamScenario() throws FileNotFoundException{
         X3MLEngineFactory.create()
@@ -142,6 +153,16 @@ public class X3MLFactoryUser {
                          .execute();
     }
     
+    /* Playing with terminologies */
+    private static void terminologiesStreamsScenario() throws FileNotFoundException{
+        X3MLEngineFactory.create()
+                         .withMappings(new File("example/moreExamples/terminologies/mappings.x3ml"))
+                         .withInputFiles(new File("example/moreExamples/terminologies/input.xml"))
+                         .withGeneratorPolicy(new File("example/generator-policy.xml"))
+                         .withTerminology(new FileInputStream(new File("example/moreExamples/terminologies/terms.nt")), Lang.NT)
+                         .execute();
+    }
+    
     public static void main(String[] args) throws FileNotFoundException{
         simplestScenario();
         withGeneratorPolicyScenario();
@@ -151,11 +172,13 @@ public class X3MLFactoryUser {
         outputFormatsScenario();
         exportAssocTableScenario();
         verboseOutputScenario();
-//        /* Using Streams */
+        terminologiesScenario();
+        /* Using Streams */
         simplestStreamScenario();
         withGeneratorPolicyStreamScenario();
         multipleInputStreamsScenario();
         multipleMappingStreamsScenario();
         outputFormatsStreamsScenario();
+        terminologiesStreamsScenario();
     }
 }

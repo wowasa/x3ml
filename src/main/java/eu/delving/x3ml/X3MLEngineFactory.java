@@ -164,7 +164,7 @@ public class X3MLEngineFactory {
     public X3MLEngineFactory withTerminology(File terminologyFile, Lang terminologyLang){
         try{
             InputStream is=new FileInputStream(terminologyFile);
-            this.terminologyStream=Pair.of(is , terminologyLang);
+            this.terminologyStream=Pair.of(is, terminologyLang);
             return this;
         }catch(FileNotFoundException ex){
             throw exception("Cannot find terminology file",ex);
