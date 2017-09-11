@@ -13,9 +13,6 @@ import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 import eu.delving.x3ml.X3MLEngine;
 import gr.forth.Labels;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,6 +26,7 @@ import org.apache.log4j.Logger;
  * corresponding functionalities. 
  * 
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
 public class TerminologyModel {
     public static InfModel infModel;
