@@ -45,6 +45,8 @@
 				'properties_if', 
 				'properties_exists', 
 				'properties_equals', 
+				'properties_broader', 
+				'properties_exact_match', 
 				'properties_conditionsType_not', 
 				'properties_conditionsType_and', 
 				'properties_conditionsType_or', 
@@ -101,6 +103,8 @@
 				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_prefix', 
 				'properties_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'properties_equals_value', 
+				'properties_broader_value', 
+				'properties_exact_match_value', 
 				'properties_conditionsType_conditionsType_narrower_value', 
 				'properties_instance_generator_name', 
 				'properties_label_generator_name', 
@@ -118,6 +122,8 @@ var usedByBoxes= new Array('usedBy_info',
 				'usedBy_if', 
 				'usedBy_exists', 
 				'usedBy_equals', 
+				'usedBy_broader', 
+				'usedBy_exact_match', 
 				'usedBy_entity', 
 				'usedBy_type', 
 				'usedBy_instance_info', 
@@ -155,6 +161,8 @@ var usedByBoxes= new Array('usedBy_info',
 				'usedBy_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'usedBy_source_node_skip', 
 				'usedBy_equals_value', 
+				'usedBy_broader_value', 
+				'usedBy_exact_match_value', 
 				'usedBy_conditionsType_conditionsType_narrower_value', 
 				'usedBy_instance_generator_instance_generator_arg_name', 
 				'usedBy_instance_generator_instance_generator_arg_type', 
@@ -213,6 +221,8 @@ var sourceBoxes= new Array('source_x3ml',
 				'source_if', 
 				'source_exists', 
 				'source_equals', 
+				'source_broader', 
+				'source_exact_match', 
 				'source_conditionsType_not', 
 				'source_conditionsType_and', 
 				'source_conditionsType_or', 
@@ -280,6 +290,8 @@ var sourceBoxes= new Array('source_x3ml',
 				'source_x3ml_x3ml_namespaces_x3ml_x3ml_namespaces_namespace_uri', 
 				'source_source_node_skip', 
 				'source_equals_value', 
+				'source_broader_value', 
+				'source_exact_match_value', 
 				'source_conditionsType_conditionsType_narrower_value', 
 				'source_instance_generator_instance_generator_arg_name', 
 				'source_instance_generator_instance_generator_arg_type', 
@@ -375,6 +387,8 @@ var diagramBoxes= new Array('diagram_x3ml',
 				'diagram_if', 
 				'diagram_exists', 
 				'diagram_equals', 
+				'diagram_broader', 
+				'diagram_exact_match', 
 				'diagram_conditionsType_not', 
 				'diagram_conditionsType_and', 
 				'diagram_conditionsType_or', 
@@ -456,6 +470,8 @@ var attributesBoxes= new Array('attributes_x3ml',
 				'attributes_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain', 
 				'attributes_source_node', 
 				'attributes_equals', 
+				'attributes_broader', 
+				'attributes_exact_match', 
 				'attributes_conditionsType_narrower', 
 				'attributes_entity', 
 				'attributes_instance_generator', 
@@ -781,10 +797,12 @@ var modelBoxes= new Array('model_x3ml',
                                           <td class="componentGroup">
                                              <div id="boxIdNamespace1Element" class="componentGroup" style="display:block">
                                                 <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                                 <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
                                                 <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
                                                 <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                                 <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                                 <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
                                                 <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
                                                 <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
@@ -892,10 +910,12 @@ var modelBoxes= new Array('model_x3ml',
                                     <td class="componentGroup">
                                        <div id="Element" class="componentGroup" style="display:block">
                                           <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                          <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                           <div><b><a href="index.html#comment" target="_self" title="No namespace">comment</a></b></div>
                                           <div><b><a href="index.html#comments_last_update" target="_self" title="No namespace">comments_last_update</a></b></div>
                                           <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                           <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                          <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                           <div><b><a href="index.html#example_data_source_record" target="_self" title="No namespace">example_data_source_record</a></b></div>
                                           <div><b><a href="index.html#example_data_target_record" target="_self" title="No namespace">example_data_target_record</a></b></div>
                                           <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
@@ -1004,8 +1024,10 @@ var modelBoxes= new Array('model_x3ml',
                                           <td class="componentGroup">
                                              <div id="gr_x3ml.xsdElement" class="componentGroup" style="display:block">
                                                 <div><b><a href="index.html#additional" target="_self" title="No namespace">additional</a></b></div>
+                                                <div><b><a href="index.html#broader" target="_self" title="No namespace">broader</a></b></div>
                                                 <div><b><a href="index.html#entity" target="_self" title="No namespace">entity</a></b></div>
                                                 <div><b><a href="index.html#equals" target="_self" title="No namespace">equals</a></b></div>
+                                                <div><b><a href="index.html#exact_match" target="_self" title="No namespace">exact_match</a></b></div>
                                                 <div><b><a href="index.html#exists" target="_self" title="No namespace">exists</a></b></div>
                                                 <div><b><a href="index.html#if" target="_self" title="No namespace">if</a></b></div>
                                                 <div><b><a href="index.html#instance_generator" target="_self" title="No namespace">instance_generator</a></b></div>

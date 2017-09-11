@@ -29,6 +29,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 import org.w3c.dom.Element;
 
 /**
@@ -39,15 +41,22 @@ public class Example {
     
     public static void main(String[] args) throws FileNotFoundException,  IOException{       
         
-        final String MAPPINGS_PATH="example\\mappings.x3ml";
-        final String GENERATOR_POLICY_PATH="example\\generator-policy.xml";  //if empty, the generator will not be used
-        final String INPUT_PATH="example\\input.xml";
+        final String MAPPINGS_PATH="example/mappings.x3ml";
+        final String GENERATOR_POLICY_PATH="example/generator-policy.xml";  //if empty, the generator will not be used
+        final String INPUT_PATH="example/input.xml";
         final String ASSOCIATION_TABLE_PATH=""; ////if empty, the generator will not be used
         final int UUID_SIZE=2;
+        final Pair<String,Lang> terminology=Pair.of("example/terms.nt", Lang.NT);   //if empty it will not be used
         final outputFormat OUT_FORMAT=outputFormat.RDF_XML;
         final outputStream OUT_STREAM=outputStream.SYSTEM_OUT;
         
-        X3MLEngine engine = engine(MAPPINGS_PATH);
+        X3MLEngine engine;
+        if(terminology.getLeft()!=null && !terminology.getLeft().isEmpty()){    //we use a terminology
+            engine = engine(MAPPINGS_PATH, terminology);
+        }else{
+            engine = engine(MAPPINGS_PATH);
+        }
+
         Generator policy;
         if(GENERATOR_POLICY_PATH.isEmpty()){
             policy = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(UUID_SIZE));
@@ -106,6 +115,12 @@ public class Example {
     
     private static X3MLEngine engine(String path) throws FileNotFoundException {
         return X3MLEngine.load(new FileInputStream(new File(path)));
+    }
+    
+    private static X3MLEngine engine(String mappinsPath, Pair<String,Lang> terminology) throws FileNotFoundException {
+        return X3MLEngine.load(new FileInputStream(new File(mappinsPath)),
+                               new FileInputStream(new File(terminology.getLeft())),
+                               terminology.getRight());
     }
     
     private static Element document(String path) {

@@ -30,6 +30,9 @@ import java.util.List;
 import java.util.Map;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import gr.forth.Utils;
+import java.io.InputStream;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 
 /**
  * The root of the mapping is where the domain contexts are created. They then
@@ -43,11 +46,12 @@ public class Root {
 
     private final Element rootNode;
     private final ModelOutput modelOutput;
+    private final TerminologyModel terminology;
     private final XPathInput xpathInput;
     private final Context context;
     private final Map<String, GeneratedValue> generated = new HashMap<>();
-
-    public Root(Element rootNode, final Generator generator, NamespaceContext namespaceContext, List<String> prefixes) {
+           
+    public Root(Element rootNode, final Generator generator, NamespaceContext namespaceContext, List<String> prefixes, Pair<InputStream,Lang> terminologyStream) {
         this.rootNode = rootNode;
         Model model = ModelFactory.createDefaultModel();
         for (String prefix : prefixes) {
@@ -90,6 +94,11 @@ public class Root {
                 }
             }
         };
+        if(terminologyStream!=null){
+            this.terminology=new TerminologyModel(terminologyStream.getLeft(),terminologyStream.getRight());
+        }else{
+            this.terminology=null;
+        }
     }
 
     public ModelOutput getModelOutput() {

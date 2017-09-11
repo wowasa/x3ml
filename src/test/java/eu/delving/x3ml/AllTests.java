@@ -49,6 +49,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -81,6 +83,12 @@ public class AllTests {
         List<String> errors = X3MLEngine.validate(resource(path));
         assertTrue("Invalid: " + errors, errors.isEmpty());
         return X3MLEngine.load(resource(path));
+    }
+    
+    public static X3MLEngine engine(String mappingsPath, Pair<String,Lang> terminology) {
+        List<String> errors = X3MLEngine.validate(resource(mappingsPath));
+        assertTrue("Invalid: " + errors, errors.isEmpty());
+        return X3MLEngine.load(resource(mappingsPath), resource(terminology.getLeft()), terminology.getRight());
     }
 
     //    public static X3MLContext context(String contextPath, String policyPath) throws X3MLException {
