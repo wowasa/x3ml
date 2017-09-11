@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
@@ -72,6 +73,7 @@ import org.w3c.dom.Element;
  * generators will be exploited.</li>
  * <li><b>UUID length</b>: the value of the length for the generated UUIDs. This resource is optional, 
  * so unless the user defines a value the default value that will be used is 4. </li>
+ * <li><b>Terminology </b>: The SKOS terminology, exploited within the mappings. </li>
  * <li><b>output file and format</b>: the name/path of the file containing the transformed results or 
  * alternatively the System.out stream. The format can be one of the following (RDF/XML, NTRIPLES, TURTLE).
  * This resource is optional, so unless the user defines them the results will be exported in the System.out stream 
@@ -88,6 +90,7 @@ public class X3MLEngineFactory {
     private Set<File> mappingsFiles;
     private List<InputStream> mappingStreams;
     private Set<InputStream> inputStreams;
+    private Pair<InputStream,Lang> terminologyStream;
     private Set<Pair<File, Boolean>> inputFolders;
     private InputStream generatorPolicyStream;
     private int uuidSize;
@@ -149,6 +152,33 @@ public class X3MLEngineFactory {
             LOGGER.debug("Added the X3ML mappings file ("+f.getAbsolutePath()+")");
         }
         this.mappingsFiles.addAll(mappingFilesCollection);
+        return this;
+    }
+    
+    /**Adds a terminology in the X3MLEngineFactory. 
+     * 
+     * @param terminologyFile a SKOS terminology file
+     * @param terminologyLang the serialization format of the SKOS terminology
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withTerminology(File terminologyFile, Lang terminologyLang){
+        try{
+            InputStream is=new FileInputStream(terminologyFile);
+            this.terminologyStream=Pair.of(is , terminologyLang);
+            return this;
+        }catch(FileNotFoundException ex){
+            throw exception("Cannot find terminology file",ex);
+        }
+    }
+    
+    /**Adds a terminology in the X3MLEngineFactory. 
+     * 
+     * @param terminologyFile a SKOS terminology file
+     * @param terminologyLang the serialization format of the SKOS terminology
+     * @return the updated X3MLEngineFactory instance
+     */
+    public X3MLEngineFactory withTerminology(InputStream terminologyFile, Lang terminologyLang){
+        this.terminologyStream=Pair.of(terminologyFile, terminologyLang);
         return this;
     }
     
@@ -444,7 +474,12 @@ public class X3MLEngineFactory {
             for(File f : this.mappingsFiles){
                 this.mappingStreams.add(new FileInputStream(f));
             }
-            return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(this.mappingStreams).getBytes()));
+            if(this.terminologyStream == null){
+                return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(this.mappingStreams).getBytes()));
+            }else{
+                return X3MLEngine.load(new ByteArrayInputStream(Utils.mergeMultipleMappingFiles(this.mappingStreams).getBytes()), 
+                                       this.terminologyStream.getLeft(), this.terminologyStream.getRight());
+            }
         }catch(FileNotFoundException ex){
             throw exception("Cannot find X3ML mappings resources", ex);
         }
