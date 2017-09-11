@@ -61,6 +61,10 @@ public class TerminologyModel {
     public static List<String> getBroaderTerms(String term){
         List<String> broaderTerms=new ArrayList<>();
         
+        if(infModel==null){
+            throw new X3MLEngine.X3MLException("Trying to retrieve skos:exactMatch terms, however the terminology is missing (SKOS terms were not loaded)");
+        }
+        
         /* First retrieve the URIs of the skos:concepts  instances that have the corresponding label */
         ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY, term);
         Set<Resource> initialTermUris=new HashSet<>();
@@ -100,6 +104,10 @@ public class TerminologyModel {
      * @return the exact match terms with respect to the original terminology */
     public static List<String> getExactMatchTerms(String term ){
         List<String> exactMatchTerms=new ArrayList<>();
+        
+        if(infModel==null){
+            throw new X3MLEngine.X3MLException("Trying to retrieve skos:exactMatch terms, however the terminology is missing (SKOS terms were not loaded)");
+        }
         
         /* First retrieve the URIs of the skos:concepts  instances that have the corresponding label */
         ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY, term);
