@@ -16,6 +16,7 @@ import gr.forth.Labels;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,18 +38,16 @@ public class TerminologyModel {
     private static final Logger log=Logger.getLogger(TerminologyModel.class);
     private static final String SKOS_SCHEMA_PATH="skos/skos.rdf";
     
-    public TerminologyModel(File terminologyFile) {
-        try{
+    /** Creates a new TerminologyModel using the contents of the stream. The given 
+     * terminology must contain SKOS-related resources and properties. 
+     * @param terminologyStream the input stream containing the terminology concepts and relationships
+     * @param terminologyLang the serialization format of the given terminology */
+    public TerminologyModel(InputStream terminologyStream, Lang terminologyLang) {
         Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
         Model model=ModelFactory.createDefaultModel();
-        RDFDataMgr.read(model, new FileInputStream(terminologyFile), Lang.NT);
+        RDFDataMgr.read(model, terminologyStream, terminologyLang);
         RDFDataMgr.read(model, this.getClass().getClassLoader().getResourceAsStream(SKOS_SCHEMA_PATH), Lang.RDFXML);
         infModel=ModelFactory.createInfModel(reasoner, model);
-        
-        }catch(FileNotFoundException ex){
-            log.error("An error occured while importing the terminologies file",ex);
-            throw new X3MLEngine.X3MLException("An error occured while importing the terminologies file",ex);
-        }
     }
     
     /** This method returns the labels of the broader terms of the given term. 

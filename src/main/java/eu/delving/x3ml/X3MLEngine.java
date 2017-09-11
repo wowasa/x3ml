@@ -55,11 +55,12 @@ import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 
 /**
  * The engine is created from an X3ML file which is loaded from an input stream.
@@ -80,6 +81,7 @@ public class X3MLEngine {
     private NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<>();
     public static String exceptionMessagesList="";
+    private static Pair<InputStream,Lang> terminologyStream=null;
 
     public static List<String> validate(InputStream inputStream) {
         try{
@@ -91,14 +93,37 @@ public class X3MLEngine {
         }
     }
 
-    public static X3MLEngine load(InputStream inputStream) throws X3MLException {
-        InputStream is=validateX3MLMappings(inputStream);
+    /** The method is responsible for loading X3ML mappings, that are given as 
+     * an InputStream, and then: (a) validate them with respect to the X3ML schema and
+     * (b) construct the corresponding X3MLEngine instance. 
+     * 
+     * @param mappingsStream the X3ML mappings contents as a stream
+     * @return an X3MLEngine instance
+     * @throws X3MLException for any error that might occur during validation, instantiation. */
+    public static X3MLEngine load(InputStream mappingsStream) throws X3MLException {
+        InputStream is=validateX3MLMappings(mappingsStream);
         RootElement rootElement = (RootElement) x3mlStream().fromXML(is);
         rootElement=Utils.parseX3MLAgainstVariables(rootElement);
         if (!VERSION.equals(rootElement.version)) {
             throw exception("Incorrect X3ML Version "+rootElement.version+ ", expected "+VERSION);
         }
         return new X3MLEngine(rootElement);
+    }
+    
+    /** The method is responsible for loading X3ML mappings and SKOS terminology, that are given as 
+     *  InputStream instances and then: 
+     * (a) validate the X3ML mappings with respect to the X3ML schema, 
+     * (b) load the SKOS terminology 
+     * (c) construct the corresponding X3MLEngine instance. 
+     * 
+     * @param mappingsStream the X3ML mappings contents as a stream
+     * @param terminologyStream the SKOS terminology 
+     * @param terminologyLang the serialization format of the SKOS terminology
+     * @return an X3MLEngine instance
+     * @throws X3MLException for any error that might occur during validation, instantiation. */
+    public static X3MLEngine load(InputStream mappingsStream, InputStream terminologyStream, Lang terminologyLang) throws X3MLException {
+        X3MLEngine.terminologyStream=Pair.of(terminologyStream, terminologyLang);
+        return X3MLEngine.load(mappingsStream);
     }
     
     /** Validate that the X3ML mappings file is a valid XML file and is compliant with 
@@ -158,24 +183,8 @@ public class X3MLEngine {
         return new X3MLException(message, throwable);
     }
 
-    public Output execute(Element sourceRoot, Generator generator) throws X3MLException {       
-        Root rootContext = new Root(sourceRoot, generator, namespaceContext, prefixes);
-        generator.setDefaultArgType(rootElement.sourceType);
-        generator.setLanguageFromMapping(rootElement.language);
-        if (rootElement.namespaces != null) {
-            for (MappingNamespace mn : rootElement.namespaces) {
-                generator.setNamespace(mn.prefix, mn.uri);
-            }
-        }
-        this.initializeAll();    
-        rootElement.apply(rootContext);
-        return rootContext.getModelOutput();
-    }
-    
-    public Output execute(Element sourceRoot, Generator generator, boolean withTerms) throws X3MLException {
-        File terminologyFile=new File("example/terms.nt");
-       
-        Root rootContext = new Root(sourceRoot, generator, namespaceContext, prefixes, terminologyFile);
+    public Output execute(Element sourceRoot, Generator generator) throws X3MLException {
+        Root rootContext = new Root(sourceRoot, generator, namespaceContext, prefixes, terminologyStream);
         generator.setDefaultArgType(rootElement.sourceType);
         generator.setLanguageFromMapping(rootElement.language);
         if (rootElement.namespaces != null) {
