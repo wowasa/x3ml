@@ -49,6 +49,14 @@ public class TerminologyModel {
         }
     }
     
+    /** This method returns the labels of the broader terms of the given term. 
+     * More specifically the method searches for broader terms by exploiting the skos:broaderTransitive
+     * property. The method performs strict matching so upper and lower case terms are treated as different.
+     * When searching the terms, the method uses the rdfs:label property, which is a super-property of skos:prefLabel
+     * and skos:altLabel, therefore it exploits all of them.
+     * 
+     * @param term the term to be used as a reference for broader terms
+     * @return the broader terms with respect to the original terminology */
     public static List<String> getBroaderTerms(String term){
         List<String> broaderTerms=new ArrayList<>();
         
@@ -81,6 +89,14 @@ public class TerminologyModel {
         return broaderTerms;
     }
     
+    /** This method returns the labels of the exact match terms of the given term. 
+     * More specifically the method searches for exact match terms by exploiting the skos:exactMatch
+     * property. The method performs strict matching so upper and lower case terms are treated as different.
+     * When searching the terms, the method uses the rdfs:label property, which is a super-property of skos:prefLabel
+     * and skos:altLabel, therefore it exploits all of them.
+     * 
+     * @param term the term to be used as a reference for exact match terms
+     * @return the exact match terms with respect to the original terminology */
     public static List<String> getExactMatchTerms(String term ){
         List<String> exactMatchTerms=new ArrayList<>();
         
