@@ -101,6 +101,7 @@ public class X3MLEngine {
      * @return an X3MLEngine instance
      * @throws X3MLException for any error that might occur during validation, instantiation. */
     public static X3MLEngine load(InputStream mappingsStream) throws X3MLException {
+        X3MLEngine.terminologyStream=null;
         InputStream is=validateX3MLMappings(mappingsStream);
         RootElement rootElement = (RootElement) x3mlStream().fromXML(is);
         rootElement=Utils.parseX3MLAgainstVariables(rootElement);
@@ -123,7 +124,13 @@ public class X3MLEngine {
      * @throws X3MLException for any error that might occur during validation, instantiation. */
     public static X3MLEngine load(InputStream mappingsStream, InputStream terminologyStream, Lang terminologyLang) throws X3MLException {
         X3MLEngine.terminologyStream=Pair.of(terminologyStream, terminologyLang);
-        return X3MLEngine.load(mappingsStream);
+        InputStream is=validateX3MLMappings(mappingsStream);
+        RootElement rootElement = (RootElement) x3mlStream().fromXML(is);
+        rootElement=Utils.parseX3MLAgainstVariables(rootElement);
+        if (!VERSION.equals(rootElement.version)) {
+            throw exception("Incorrect X3ML Version "+rootElement.version+ ", expected "+VERSION);
+        }
+        return new X3MLEngine(rootElement);
     }
     
     /** Validate that the X3ML mappings file is a valid XML file and is compliant with 
