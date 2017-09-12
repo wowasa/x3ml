@@ -44,6 +44,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 
 /**
  * Using commons-cli to make the engine usable on the command line.
@@ -52,7 +55,7 @@ import java.util.Set;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-
+@Log4j
 public class X3MLCommandLine {
     static final CommandLineParser PARSER = new PosixParser();
     static final HelpFormatter HELP = new HelpFormatter();
@@ -85,7 +88,8 @@ public class X3MLCommandLine {
         Option x3mlOption = new Option(Labels.X3ML_SHORT, Labels.X3ML, true,
                 "X3ML mapping definition. \n Option A-single file: -"+Labels.X3ML+" mapping.x3ml \n"
                                           +" Option B-multiple files (comma-sep): -"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
-                                          +" Option C-stdin: -"+Labels.X3ML+" @");
+                                          +" Option C-URL: -"+Labels.X3ML+" @mappings_url\n"
+                                          +" Option D-stdin: -"+Labels.X3ML+" @");
         x3mlOption.setRequired(true);
         
         Option outputOption = new Option(Labels.OUTPUT_SHORT, Labels.OUTPUT, true,
@@ -115,6 +119,10 @@ public class X3MLCommandLine {
                 "merge the contents of the association table with the RDF output"
         );
         
+        Option termsOption = new Option(Labels.TERMS_SHORT, Labels.TERMS, true, 
+                "the SKOS taxonomy \n Option A-single file: -"+Labels.TERMS+" skosTerms.nt \n"
+                                   +" Option B-URL: -"+Labels.TERMS+" @skos_terms_url\n");
+        
         options.addOption(inputOption)
                .addOption(x3mlOption)
                .addOption(outputOption)
@@ -122,7 +130,8 @@ public class X3MLCommandLine {
                .addOption(policyOption)
                .addOption(uuidTestSizeOption)
                .addOption(assocTableOption)
-               .addOption(mergeAssocWithRDFOption);
+               .addOption(mergeAssocWithRDFOption)
+               .addOption(termsOption);
     }
 
     public static void main(String[] args) {
@@ -140,6 +149,7 @@ public class X3MLCommandLine {
                 cli.getOptionValue(Labels.POLICY),
                 cli.getOptionValue(Labels.OUTPUT),
                 cli.getOptionValue(Labels.FORMAT),
+                cli.getOptionValue(Labels.TERMS),
                 cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
                 cli.hasOption(Labels.ASSOC_TABLE),
                 uuidTestSizeValue
@@ -212,10 +222,22 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
+    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String terms, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
+        log.debug("Started executing X3MLEngine with the following parameters: "
+                 +"\n\tInput: "+input
+                 +"\n\tX3ML Mappings: "+x3ml
+                 +"\n\tGenerator policy: "+policy
+                 +"\n\tOutput: "+rdf
+                 +"\n\tFormat: "+rdfFormat
+                 +"\n\tTerminology: "+terms
+                 +"\n\tAssociation table: "+assocTableFilename
+                 +"\n\tUUID Test Size: "+uuidTestSize
+                 +"\n\tMerge Association table with output: "+mergeAssocTableWithRDF) ;
         final String INPUT_FOLDER_PREFIX="#_";
         final String INPUT_PIPED="@";
         Element xmlElement;
+        
+        /* Read the input resource */
         if (INPUT_PIPED.equals(input)) {
             xmlElement = xml(System.in);
         }else if(input.startsWith("@")){  //It contains URLs
@@ -244,6 +266,8 @@ public class X3MLCommandLine {
         else{
             xmlElement = xml(file(input));
         }
+        
+        /* Read the X3ML mappings resources */
         InputStream x3mlStream;
         if ("@".equals(x3ml)) {
             x3mlStream = System.in;
@@ -267,7 +291,24 @@ public class X3MLCommandLine {
         }else{
             x3mlStream = getStream(file(x3ml));
         }
-        X3MLEngine engine = X3MLEngine.load(x3mlStream);
+        
+        /* Read the SKOS terminology (if it exists) */
+        Pair<InputStream,Lang> terminologyPair=null;
+        if(terms!=null){
+            if(terms.startsWith("@")){  //load terminology from a URL
+                terminologyPair=Utils.getTerminologyResourceDetails(terms.replace("@", ""));
+            }else{  //load terminology from file
+                terminologyPair=Utils.getTerminologyResourceDetails(terms);
+            }
+        }
+        
+        X3MLEngine engine;
+        if(terminologyPair!=null){  //there exists a terminology resource
+            engine = X3MLEngine.load(x3mlStream, terminologyPair.getLeft(), terminologyPair.getRight());
+        }else{                      // no terminologies exist
+            engine = X3MLEngine.load(x3mlStream);
+        }
+        
         X3MLEngine.Output output = engine.execute(
                 xmlElement,
                 getValuePolicy(policy, X3MLGeneratorPolicy.createUUIDSource(uuidTestSize))
