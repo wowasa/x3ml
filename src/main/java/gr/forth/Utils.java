@@ -45,7 +45,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,6 +52,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import java.net.URL;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.riot.Lang;
 
@@ -60,8 +60,8 @@ import org.apache.jena.riot.Lang;
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
  * @author Nikos Minadakis (minadakn 'at' ics 'dot' forth 'dot' gr)
  */
+@Log4j
 public class Utils {
-    private static final Logger LOGGER=Logger.getLogger(Utils.class);
     
     /**Produces an error message describing the missing argument from the given label generators.
      * The method is being used for constructing the error message that will be shown to the user 
@@ -119,7 +119,7 @@ public class Utils {
      */
     public static void printErrorMessages(String ... messages){
         for(String msg : messages){
-            LOGGER.error(msg.replaceAll("(?m)^[ \t]*\r?\n", ""));
+            log.error(msg.replaceAll("(?m)^[ \t]*\r?\n", ""));
         }
     }
     
@@ -162,7 +162,7 @@ public class Utils {
             }else if(file.isDirectory()){
                 foldersLeftToCheck.add(file);
             }else{
-                LOGGER.debug("Skipping file \""+file.getPath()+"\" - It might not be an XML file");
+                log.debug("Skipping file \""+file.getPath()+"\" - It might not be an XML file");
             }
         }
         if(recursiveSearch){
@@ -175,7 +175,7 @@ public class Utils {
                     }else if(f.isDirectory()){
                         foldersLeftToCheck.add(f);
                     }else{
-                        LOGGER.debug("Skipping file \""+f.getPath()+"\" - It might not be an XML file");
+                        log.debug("Skipping file \""+f.getPath()+"\" - It might not be an XML file");
                     }
                 }
             }
@@ -464,7 +464,7 @@ public class Utils {
     public static Pair<InputStream, Lang> getTerminologyResourceDetails(String terminologyResource){
         String extension=terminologyResource.toLowerCase().substring(terminologyResource.lastIndexOf(".")+1);
         Lang lang=null;
-        LOGGER.debug("The extracted extension of the terminology resource is "+extension);
+        log.debug("The extracted extension of the terminology resource is "+extension);
         switch(extension){
             case Labels.RDF:
                 lang=Lang.RDFXML;
@@ -481,7 +481,7 @@ public class Utils {
                 lang=Lang.TURTLE;
                 break;
             default:
-                LOGGER.error("Cannot identify the serialization format (based on the extension) of the terminology resource "+terminologyResource);
+                log.error("Cannot identify the serialization format (based on the extension) of the terminology resource "+terminologyResource);
                 throw exception("Cannot identify the serialization format (based on the extension) of the terminology resource "+terminologyResource);
         }
         try{
@@ -493,10 +493,9 @@ public class Utils {
             }
             return Pair.of(inputStream, lang);
         }catch(IOException ex){
-            LOGGER.error("An error occured while reading the contents of the terminology stream ",ex);
+            log.error("An error occured while reading the contents of the terminology stream ",ex);
             throw exception("An error occured while reading the contents of the terminology stream ",ex);
         }
-        
     }
     
     /* merges the namespaces blocks that are given in the master doc that is provided. Returns the updated document*/
