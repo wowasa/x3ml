@@ -52,6 +52,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import java.net.URL;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 
 /**
  * @author Yannis Marketakis (marketak 'at' ics 'dot' forth 'dot' gr)
@@ -448,6 +451,52 @@ public class Utils {
      * @return the original value enriched with a URN:UUID scheme prefix */
     public static String urnValue(String originalValue){
         return Labels.URN+":"+Labels.UUID+":"+originalValue;
+    }
+    
+    /** The method parses the given terminology resource and identifies if it is a URL 
+     * or a file resource. In addition it defines the serialization format of the resource
+     * using the suffix extension of the resource (e.g. terms.nt appears in NT format).
+     * Once identified the above the method returns them as a pair of an InputStream and the 
+     * corresponding language. 
+     * 
+     * @param terminologyResource the resource (either URL or file) containing the terms
+     * @return a Pair containing the InputStream of the resource and the serialization format */
+    public static Pair<InputStream, Lang> getTerminologyResourceDetails(String terminologyResource){
+        String extension=terminologyResource.toLowerCase().substring(terminologyResource.lastIndexOf(".")+1);
+        Lang lang=null;
+        LOGGER.debug("The extracted extension of the terminology resource is "+extension);
+        switch(extension){
+            case Labels.RDF:
+                lang=Lang.RDFXML;
+                break;
+            case Labels.NT:
+            case Labels.NTRIPLES:
+                lang=Lang.NTRIPLES;
+                break;
+            case Labels.TRIG:
+                lang=Lang.TRIG;
+                break;
+            case Labels.TTL:
+            case Labels.TURTLE:
+                lang=Lang.TURTLE;
+                break;
+            default:
+                LOGGER.error("Cannot identify the serialization format (based on the extension) of the terminology resource "+terminologyResource);
+                throw exception("Cannot identify the serialization format (based on the extension) of the terminology resource "+terminologyResource);
+        }
+        try{
+            InputStream inputStream;
+            if(terminologyResource.toLowerCase().startsWith(Labels.HTTP)){   //URL resource
+                inputStream=new URL(terminologyResource).openStream();
+            }else{                                                           //File resource
+                inputStream=new FileInputStream(new File(terminologyResource));
+            }
+            return Pair.of(inputStream, lang);
+        }catch(IOException ex){
+            LOGGER.error("An error occured while reading the contents of the terminology stream ",ex);
+            throw exception("An error occured while reading the contents of the terminology stream ",ex);
+        }
+        
     }
     
     /* merges the namespaces blocks that are given in the master doc that is provided. Returns the updated document*/

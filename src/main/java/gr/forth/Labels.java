@@ -35,6 +35,8 @@ public class Labels {
     public static final String HTTP="http";
     public static final String LABEL="label";
     public static final String LITERAL="Literal";
+    public static final String NT="nt";
+    public static final String NTRIPLES="ntriples";
     public static final String PREF_LABEL="prefLabel";
     public static final String PREFIX="prefix";
     public static final String RDF="rdf";
@@ -42,6 +44,9 @@ public class Labels {
     public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
     public static final String SAME_TERM_DELIMITER="sameTermsDelim";
     public static final String TEXT="text";
+    public static final String TRIG="trig";
+    public static final String TTL="ttl";
+    public static final String TURTLE="turtle";
     public static final String URI="URI";
     public static final String URIorUUID="URIorUUID";
     public static final String URN="URN";
@@ -64,6 +69,7 @@ public class Labels {
     public static final String POLICY="policy";
     public static final String UUID_TEST_SIZE="uuidTestSize";
     public static final String MERGE_WITH_ASSOCIATION_TABLE="mergeAssocWithRDF";
+    public static final String TERMS="terms";
     public static final String ASSOC_TABLE_SHORT="a";
     public static final String INPUT_SHORT="i";
     public static final String X3ML_SHORT="x";
@@ -72,5 +78,6 @@ public class Labels {
     public static final String POLICY_SHORT="p";
     public static final String UUID_TEST_SIZE_SHORT="u";
     public static final String MERGE_WITH_ASSOCIATION_TABLE_SHORT="m";
+    public static final String TERMS_SHORT="t";
     
 }
