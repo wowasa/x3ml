@@ -1,7 +1,7 @@
 # Change Log
 
 ---
-## 11 Sep 2017: V 1.8.2 (by FORTH-ICS)
+## 12 Sep 2017: V 1.8.2 (by FORTH-ICS)
 * Implemented new MERGE functionality ([issue #97](https://github.com/isl/x3ml/issues/97))
 * Updated X3ML Engine to support termonilogy functionalities (e.g. broader and exactMatch terms) ([issue #98](https://github.com/isl/x3ml/issues/98))
 * Updated X3ML schema to support termonilogy functionalities (e.g. broader and exactMatch terms) ([issue #99](https://github.com/isl/x3ml/issues/99))
