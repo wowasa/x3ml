@@ -13,15 +13,15 @@
 <http://i2> <http://www.w3.org/2004/02/skos/core#broader> <http://i1> .
 <http://i3> <http://www.w3.org/2004/02/skos/core#broader> <http://i1> .
 
-<http://v1> <http://www.w3.org/2004/02/skos/core#prefLabel> "VASE".
-<http://v2> <http://www.w3.org/2004/02/skos/core#prefLabel> "GREEN VASE".
-<http://v3> <http://www.w3.org/2004/02/skos/core#prefLabel> "RED VASE".
-<http://v4> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE VASE".
-<http://v5> <http://www.w3.org/2004/02/skos/core#prefLabel> "VASE ALT".
-<http://v6> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE BIG VASE".
-<http://v7> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE SMALL VASE".
-<http://v8> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE VASE ALT".
-<http://i1> <http://www.w3.org/2004/02/skos/core#prefLabel> "IMAGE".
-<http://i2> <http://www.w3.org/2004/02/skos/core#prefLabel> "JPG".
-<http://i3> <http://www.w3.org/2004/02/skos/core#prefLabel> "PNG".
+<http://v1> <http://www.w3.org/2004/02/skos/core#prefLabel> "VASE"@en.
+<http://v2> <http://www.w3.org/2004/02/skos/core#prefLabel> "GREEN VASE"@en.
+<http://v3> <http://www.w3.org/2004/02/skos/core#prefLabel> "RED VASE"@en.
+<http://v4> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE VASE"@en.
+<http://v5> <http://www.w3.org/2004/02/skos/core#prefLabel> "VASE ALT"@en.
+<http://v6> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE BIG VASE"@en.
+<http://v7> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE SMALL VASE"@en.
+<http://v8> <http://www.w3.org/2004/02/skos/core#prefLabel> "BLUE VASE ALT"@en.
+<http://i1> <http://www.w3.org/2004/02/skos/core#prefLabel> "IMAGE"@en.
+<http://i2> <http://www.w3.org/2004/02/skos/core#prefLabel> "JPG"@en.
+<http://i3> <http://www.w3.org/2004/02/skos/core#prefLabel> "PNG"@en.
 
