@@ -263,6 +263,8 @@ public class X3MLEngine {
         prefixes.add(Labels.RDFS);
         ((XPathContext) namespaceContext).addNamespace(Labels.XML, Labels.XML_NAMESPACE);
         prefixes.add(Labels.XML);
+        ((XPathContext) namespaceContext).addNamespace(Labels.SKOS, Labels.SKOS_NAMESPACE);
+        prefixes.add(Labels.SKOS);
     }
 
     private class XPathContext implements NamespaceContext {

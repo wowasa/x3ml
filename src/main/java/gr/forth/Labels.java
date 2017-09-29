@@ -43,6 +43,7 @@ public class Labels {
     public static final String RDFS="rdfs";
     public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
     public static final String SAME_TERM_DELIMITER="sameTermsDelim";
+    public static final String SKOS="skos";
     public static final String TEXT="text";
     public static final String TRIG="trig";
     public static final String TTL="ttl";
