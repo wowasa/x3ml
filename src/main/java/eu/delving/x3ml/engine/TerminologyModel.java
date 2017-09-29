@@ -1,11 +1,11 @@
 package eu.delving.x3ml.engine;
 
-
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
@@ -63,12 +63,24 @@ public class TerminologyModel {
             throw new X3MLEngine.X3MLException("Trying to retrieve skos:broader terms, however the terminology is missing (SKOS terms were not loaded)");
         }
         
+        RDFNode termNode=infModel.createLiteral(term);
+        /* Parse all the objects, just in the case where they appear with language tags */
+        NodeIterator objectIterator=infModel.listObjectsOfProperty(RDFS_LABEL_PROPERTY); 
+        while(objectIterator.hasNext()){
+            RDFNode tempNode=objectIterator.next();
+            if(tempNode.asLiteral().getString().equals(term)){
+                termNode=tempNode;
+                break;
+            }
+        }
+        
         /* First retrieve the URIs of the skos:concepts  instances that have the corresponding label */
-        ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY, term);
+        ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY,termNode);
         Set<Resource> initialTermUris=new HashSet<>();
         while(initialTermUriIterator.hasNext()){
             initialTermUris.add(initialTermUriIterator.next());
         }
+        
         log.debug("Initial term URIs: "+initialTermUris);
         
         /* Find the URIs of the broader terms */
@@ -107,8 +119,19 @@ public class TerminologyModel {
             throw new X3MLEngine.X3MLException("Trying to retrieve skos:exactMatch terms, however the terminology is missing (SKOS terms were not loaded)");
         }
         
+        RDFNode termNode=infModel.createLiteral(term);
+        /* Parse all the objects, just in the case where they appear with language tags */
+        NodeIterator objectIterator=infModel.listObjectsOfProperty(RDFS_LABEL_PROPERTY); 
+        while(objectIterator.hasNext()){
+            RDFNode tempNode=objectIterator.next();
+            if(tempNode.asLiteral().getString().equals(term)){
+                termNode=tempNode;
+                break;
+            }
+        }
+        
         /* First retrieve the URIs of the skos:concepts  instances that have the corresponding label */
-        ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY, term);
+        ResIterator initialTermUriIterator=infModel.listSubjectsWithProperty(RDFS_LABEL_PROPERTY, termNode);
         Set<Resource> initialTermUris=new HashSet<>();
         while(initialTermUriIterator.hasNext()){
             initialTermUris.add(initialTermUriIterator.next());
