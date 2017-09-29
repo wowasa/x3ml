@@ -2,6 +2,7 @@
 
 ## 29 Sep 2017: V 1.8.3 (by FORTH-ICS)
 * Fixed issue raised with the language tags found inside skos terminologies ([issue #103](https://github.com/isl/x3ml/issues/103))
+* Added SKOS in the list of deafult namespaces ([issue #102](https://github.com/isl/x3ml/issues/102))
 
 ---
 ## 12 Sep 2017: V 1.8.2 (by FORTH-ICS)
