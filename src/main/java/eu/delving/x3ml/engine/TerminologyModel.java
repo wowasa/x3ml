@@ -85,7 +85,7 @@ public class TerminologyModel {
         for(Resource broaderTermUri : broaderTermUris){
             NodeIterator broaderTermLabelsIterator=infModel.listObjectsOfProperty(broaderTermUri, RDFS_LABEL_PROPERTY);
             while(broaderTermLabelsIterator.hasNext()){
-                broaderTerms.add(broaderTermLabelsIterator.next().toString());
+                broaderTerms.add(broaderTermLabelsIterator.next().asLiteral().getString());
             }
         }
         log.debug("Broader term labels: "+broaderTerms);
@@ -129,7 +129,7 @@ public class TerminologyModel {
         for(Resource exactTermUri : exactTermUris){
             NodeIterator exactTermLabelsIterator=infModel.listObjectsOfProperty(exactTermUri, RDFS_LABEL_PROPERTY);
             while(exactTermLabelsIterator.hasNext()){
-                exactMatchTerms.add(exactTermLabelsIterator.next().toString());
+                exactMatchTerms.add(exactTermLabelsIterator.next().asLiteral().getString());
             }
         }
         log.debug("Exact term labels: "+exactMatchTerms);
