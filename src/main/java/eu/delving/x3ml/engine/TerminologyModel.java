@@ -60,7 +60,7 @@ public class TerminologyModel {
         List<String> broaderTerms=new ArrayList<>();
         
         if(infModel==null){
-            throw new X3MLEngine.X3MLException("Trying to retrieve skos:exactMatch terms, however the terminology is missing (SKOS terms were not loaded)");
+            throw new X3MLEngine.X3MLException("Trying to retrieve skos:broader terms, however the terminology is missing (SKOS terms were not loaded)");
         }
         
         /* First retrieve the URIs of the skos:concepts  instances that have the corresponding label */
