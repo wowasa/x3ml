@@ -87,4 +87,14 @@ public class TestGenerators {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    @Test
+    public void testRemoveTermGenerator(){
+        X3MLEngine engine = engine("/generators/06_RemoveTerm-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/06_RemoveTerm-input.xml"),policy("/generators/06_RemoveTerm-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/06_RemoveTerm-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
