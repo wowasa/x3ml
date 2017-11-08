@@ -1,29 +1,24 @@
-/*==============================================================================
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-==============================================================================*/
-
+/* 
+ * Copyright 2017 marketak.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package gr.forth;
 
-import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
-import java.util.Map;
-import java.util.TreeMap;
+import org.apache.jena.iri.IRI;
+import org.apache.jena.iri.IRIFactory;
 
 /** The generator is responsible for constructing values (either URIs, or literals)
  *  by concatenating multiple elements (that have the same tag name). More specifically 
@@ -73,14 +68,21 @@ public class RemoveTerm implements CustomGenerator{
     }
 
     /** Returns the type of the generated value. The generator is responsible for constructing 
-     * identifiers, and labels therefore it is expected to return either a URI or a Literal value
+     * identifiers, and labels therefore it is expected to return either a URI or a Literal value.
+     * The method uses the JENA IRI validator, for checking if a URI is valid or not.
      * 
      * @return the type of the generated value (i.e. URI or UUID)
      * @throws CustomGeneratorException if the argument is missing or null */
     @Override
     public String getValueType() throws CustomGeneratorException {
-        if(this.text!=null && this.text.startsWith(Labels.HTTP+":")){
-            return Labels.URI;
+        if(this.text!=null){
+            IRIFactory factory=IRIFactory.jenaImplementation();
+            IRI iri=factory.create(this.text);
+            if(!iri.hasViolation(false)){
+                return Labels.URI;
+            }else{
+                return Labels.LITERAL;
+            }
         }else{
             return Labels.LITERAL;
         }
