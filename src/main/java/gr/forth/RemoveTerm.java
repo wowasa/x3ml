@@ -100,7 +100,7 @@ public class RemoveTerm implements CustomGenerator{
     @Override
     public String getValueType() throws CustomGeneratorException {
         if(this.text!=null){
-            IRIFactory factory=IRIFactory.jenaImplementation();
+            IRIFactory factory=IRIFactory.iriImplementation();
             IRI iri=factory.create(this.text);
             if(!iri.hasViolation(false)){
                 return Labels.URI;
