@@ -21,6 +21,7 @@ package gr.forth;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.Date;
+import lombok.extern.log4j.Log4j;
 
 /** The generator is responsible for generating a new timestamp value based on 
  * the given date. It uses a date (i.e. 15/01/1984) and a parameter indicating whether
@@ -35,6 +36,7 @@ import java.util.Date;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class BMdates implements CustomGenerator {
     private String text;
     private Bounds bounds;
@@ -98,6 +100,12 @@ public class BMdates implements CustomGenerator {
                 xsdDate = "Unknown-Format";
             }
         return xsdDate;
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
     
     /** Returns a boolean flag (with value set to false) indicating that this 

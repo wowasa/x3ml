@@ -21,6 +21,7 @@ package gr.forth;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.Date;
+import lombok.extern.log4j.Log4j;
 
 /**
  * an date interpreter
@@ -28,6 +29,7 @@ import java.util.Date;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class GermanDate implements CustomGenerator {
 
     private String text;
@@ -72,6 +74,12 @@ public class GermanDate implements CustomGenerator {
     @Override
     public boolean mergeMultipleValues(){
         return false;
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 
     private static String getFormatedDate(String bounds, String time_str) {

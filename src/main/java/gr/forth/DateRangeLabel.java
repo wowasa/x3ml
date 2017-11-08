@@ -20,10 +20,12 @@ package gr.forth;
 
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import lombok.extern.log4j.Log4j;
 
 /**
  * 
  */
+@Log4j
 public class DateRangeLabel implements CustomGenerator {
 
     private String date1 = "";
@@ -59,7 +61,13 @@ public class DateRangeLabel implements CustomGenerator {
     @Override
     public String getValueType() throws CustomGeneratorException {
         return "Literal";
-    }        
+    }      
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
+    }
     
     /** Returns a boolean flag (with value set to false) indicating that this 
      * generator DOES NOT support merging values from similar elements
