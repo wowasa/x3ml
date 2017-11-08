@@ -11,7 +11,7 @@
         <EXTENDED_ID>CODE-FOR-COIN:C200</EXTENDED_ID> 
     </COIN>
 	<COIN>
-        <URI>urn:schema:names:specification:UNWANTED_TERM_HERE-coinbook:issue1|vol.2</URI>
+        <URI>urn:schema:names:specification:UNWANTED_TERM_HERE-coinbook:issue1-vol.2</URI>
 		<ID>C300</ID>
         <EXTENDED_ID>CODE-FOR-COIN:C300</EXTENDED_ID> 
     </COIN>
