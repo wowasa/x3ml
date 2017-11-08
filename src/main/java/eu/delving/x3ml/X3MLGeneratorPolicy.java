@@ -74,6 +74,14 @@ public class X3MLGeneratorPolicy implements Generator {
          * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         void setArg(String name, String value) throws CustomGeneratorException;
         
+        /**Updates the custom generator prefix. If the generator contains a prefix value (to be used for generating URIs
+         * starting from the given namespace)
+         * 
+         * @param prefix the prefix abbreviation (e.g. crm)
+         * @param prefixUri the actual value associated with this prefix (e.g. http://www.cidoc-crm.org/cidoc-crm/)
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
+        void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException;
+        
         /**Returns the value that has been generated from the custom generator
          * 
          * @return the generated value
@@ -203,6 +211,9 @@ public class X3MLGeneratorPolicy implements Generator {
             Class<?> customClass = Class.forName(className);
             Constructor<?> constructor = customClass.getConstructor();
             CustomGenerator instance = (CustomGenerator) constructor.newInstance();
+            if(generator.prefix!=null){
+                instance.setPrefix(generator.prefix, namespaceMap.get(generator.prefix));
+            }
             for (CustomArg customArg : generator.custom.setArgs) {
                 SourceType sourceType = defaultSourceType;
                 if (customArg.type != null) {
