@@ -76,6 +76,11 @@ public class GermanDate implements CustomGenerator {
     public boolean mergeMultipleValues(){
         return false;
     }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        ;
+    }
 
     private static String lookupCheat(String bounds, String value) {
         for (String[] entry : CHEAT) {

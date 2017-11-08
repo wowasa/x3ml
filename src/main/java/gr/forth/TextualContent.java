@@ -21,6 +21,7 @@ package gr.forth;
 
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import lombok.extern.log4j.Log4j;
 
 /** The generator is responsible for constructing UUIDs based on the 
  * textual contents of the given text. More specifically it uses the given 
@@ -30,6 +31,7 @@ import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
+@Log4j
 public class TextualContent implements CustomGenerator{
     private String text;
 
@@ -68,6 +70,12 @@ public class TextualContent implements CustomGenerator{
     @Override
     public String getValueType() throws CustomGeneratorException {
         return Labels.URI;
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 
     /** Returns a boolean flag (with value set to false) indicating that this 

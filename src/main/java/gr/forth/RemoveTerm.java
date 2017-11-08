@@ -41,6 +41,7 @@ import org.apache.jena.iri.IRIFactory;
  */
 @Log4j
 public class RemoveTerm implements CustomGenerator{
+    private String prefix;
     private String text;
     private String termToRemove;
     private boolean removeAllOccurrences;
@@ -75,7 +76,8 @@ public class RemoveTerm implements CustomGenerator{
         log.debug("Using RemoveTerm Generator with the following settings: ["+
                 "Term to remove: "+this.termToRemove+"\t"+
                 "Text: "+this.text+"\t"+
-                "Remove all Occurrences: "+this.removeAllOccurrences+"]");
+                "Remove all Occurrences: "+this.removeAllOccurrences+"\t"+
+                "Prefix: "+this.prefix+"]");
         if(text.isEmpty()){
             throw new CustomGeneratorException("Missing text arguments");
         }
@@ -96,7 +98,9 @@ public class RemoveTerm implements CustomGenerator{
      * @throws CustomGeneratorException if the argument is missing or null */
     @Override
     public String getValueType() throws CustomGeneratorException {
-        if(this.text!=null){
+        if(this.prefix!= null){
+            return Labels.URI;
+        }else if(this.text!=null){
             IRIFactory factory=IRIFactory.iriImplementation();
             IRI iri=factory.create(this.text);
             if(!iri.hasViolation(false)){
@@ -107,6 +111,11 @@ public class RemoveTerm implements CustomGenerator{
         }else{
             return Labels.LITERAL;
         }
+    }
+     
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        this.prefix=prefixUri;
     }
 
     /** Returns a boolean flag (with value set to false) indicating that this 

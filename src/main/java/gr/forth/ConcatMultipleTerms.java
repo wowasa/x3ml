@@ -24,6 +24,7 @@ import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import java.util.Map;
 import java.util.TreeMap;
+import lombok.extern.log4j.Log4j;
 
 /** The generator is responsible for constructing values (either URIs, or literals)
  *  by concatenating multiple elements (that have the same tag name). More specifically 
@@ -43,6 +44,7 @@ import java.util.TreeMap;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
+@Log4j
 public class ConcatMultipleTerms implements CustomGenerator{
     private String prefix;
     private String sameTermsDelim;
@@ -108,6 +110,12 @@ public class ConcatMultipleTerms implements CustomGenerator{
         }else{
             return Labels.LITERAL;
         }
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 
     /** Returns a boolean flag (with value set to false) indicating that this 

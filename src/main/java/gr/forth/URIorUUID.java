@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import lombok.extern.log4j.Log4j;
 
 /** The URIorUUID generator is responsible for generating a URI and in the cases 
  * where it is not valid it generates a UUID. It takes a single parameter (with name "text") 
@@ -38,6 +39,7 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class URIorUUID implements CustomGenerator {
     private String text;
 
@@ -89,6 +91,12 @@ public class URIorUUID implements CustomGenerator {
     @Override
     public boolean mergeMultipleValues(){
         return false;
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 
     /* Checks of the given string corresponds to a valid URL */

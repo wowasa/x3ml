@@ -20,6 +20,7 @@ package gr.forth;
 
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import lombok.extern.log4j.Log4j;
 
 /**
  * a date interpreter
@@ -27,6 +28,7 @@ import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class AuthorityPrirefThingCounter implements CustomGenerator {
 
     private String authority;
@@ -73,6 +75,12 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
     @Override
     public String getValueType() throws CustomGeneratorException {
         return  "URI";
+    }
+    
+    @Override
+    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 
     private String getCounterObject(String authority, String priref, String thing) {
