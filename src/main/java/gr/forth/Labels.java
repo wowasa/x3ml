@@ -39,13 +39,16 @@ public class Labels {
     public static final String NTRIPLES="ntriples";
     public static final String PREF_LABEL="prefLabel";
     public static final String PREFIX="prefix";
+    public static final String REMOVE_ALL_OCCURRENCES="removeAllOccurrences";
     public static final String RDF="rdf";
     public static final String RDFS="rdfs";
     public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
     public static final String SAME_TERM_DELIMITER="sameTermsDelim";
     public static final String SKOS="skos";
+    public static final String TERM_TO_REMOVE="termToRemove";
     public static final String TEXT="text";
     public static final String TRIG="trig";
+    public static final String TRUE="true";
     public static final String TTL="ttl";
     public static final String TURTLE="turtle";
     public static final String URI="URI";
@@ -53,7 +56,7 @@ public class Labels {
     public static final String URN="URN";
     public static final String UUID="UUID";
     public static final String XML="xml";
-    public static final String TERM_TO_REMOVE="termToRemove";
+    public static final String YES="YES";
     
     /* Namespaces */
     public static final String RDF_NAMESPACE="http://www.w3.org/1999/02/22-rdf-syntax-ns#";

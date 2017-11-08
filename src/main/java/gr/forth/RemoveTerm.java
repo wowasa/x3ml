@@ -17,6 +17,7 @@ package gr.forth;
 
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import lombok.extern.log4j.Log4j;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
 
@@ -38,9 +39,11 @@ import org.apache.jena.iri.IRIFactory;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  */
+@Log4j
 public class RemoveTerm implements CustomGenerator{
     private String text;
     private String termToRemove;
+    private boolean removeAllOccurrences;
 
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
@@ -48,9 +51,22 @@ public class RemoveTerm implements CustomGenerator{
             this.termToRemove=value;
         }else if(name.equals(Labels.TEXT)){
             this.text=value;
+        }else if(name.equals(Labels.REMOVE_ALL_OCCURRENCES)){
+            if(value.toLowerCase().equals(Labels.YES) | 
+                    value.toLowerCase().equals("y") | 
+                    value.toLowerCase().equals(Labels.TRUE) | 
+                    value.toLowerCase().equals("T")){
+                this.removeAllOccurrences=true;
+            }else{
+                this.removeAllOccurrences=false;
+            }
         }else{
             throw new CustomGeneratorException("Unrecognized argument name: "+ name);
         }
+        log.debug("Using RemoveTerm Generator with the following settings: ["+
+                "Term to remove: "+this.termToRemove+"\t"+
+                "Text: "+this.text+"\t"+
+                "Remove all Occurrences: "+this.removeAllOccurrences);
     }
     
     /** Returns the value of the generator.
@@ -63,7 +79,11 @@ public class RemoveTerm implements CustomGenerator{
             throw new CustomGeneratorException("Missing text arguments");
         }
         else {
-            return this.text.replace(termToRemove, "");
+            if(removeAllOccurrences){
+                return this.text.replaceAll(termToRemove, "");
+            }else{
+                return this.text.replaceFirst(termToRemove, "");
+            }
         }
     }
 
