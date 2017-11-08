@@ -63,10 +63,7 @@ public class RemoveTerm implements CustomGenerator{
         }else{
             throw new CustomGeneratorException("Unrecognized argument name: "+ name);
         }
-        log.debug("Using RemoveTerm Generator with the following settings: ["+
-                "Term to remove: "+this.termToRemove+"\t"+
-                "Text: "+this.text+"\t"+
-                "Remove all Occurrences: "+this.removeAllOccurrences);
+        
     }
     
     /** Returns the value of the generator.
@@ -75,6 +72,10 @@ public class RemoveTerm implements CustomGenerator{
      * @throws CustomGeneratorException if the argument of the generator is missing or null*/
     @Override
     public String getValue() throws CustomGeneratorException {
+        log.debug("Using RemoveTerm Generator with the following settings: ["+
+                "Term to remove: "+this.termToRemove+"\t"+
+                "Text: "+this.text+"\t"+
+                "Remove all Occurrences: "+this.removeAllOccurrences+"]");
         if(text.isEmpty()){
             throw new CustomGeneratorException("Missing text arguments");
         }
