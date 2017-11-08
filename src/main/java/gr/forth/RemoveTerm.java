@@ -41,13 +41,16 @@ import org.apache.jena.iri.IRIFactory;
  */
 @Log4j
 public class RemoveTerm implements CustomGenerator{
+    private String prefix;
     private String text;
     private String termToRemove;
     private boolean removeAllOccurrences;
 
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
-        if(name.equals(Labels.TERM_TO_REMOVE)){
+        if(name.equals(Labels.PREFIX)){
+            this.prefix=value;
+        }else if(name.equals(Labels.TERM_TO_REMOVE)){
             this.termToRemove=value;
         }else if(name.equals(Labels.TEXT)){
             this.text=value;
