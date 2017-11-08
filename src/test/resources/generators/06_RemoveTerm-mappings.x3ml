@@ -35,7 +35,7 @@
                         </entity>
                     </target_node>
                 </range>
-            </link> 
+            </link>  
             <link>
                 <path>
                     <source_relation><relation>EXTENDED_ID</relation></source_relation>
@@ -56,7 +56,7 @@
                         </entity>
                     </target_node>
                 </range>
-            </link>
+            </link> 
         </mapping>
     </mappings>
 </x3ml>
