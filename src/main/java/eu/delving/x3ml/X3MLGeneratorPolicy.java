@@ -33,10 +33,8 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.*;
 import static eu.delving.x3ml.engine.X3ML.Helper.generatorStream;
-import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.typedLiteralValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.uriValue;
 import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
@@ -45,18 +43,15 @@ import gr.forth.Labels;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-
+@Log4j
 public class X3MLGeneratorPolicy implements Generator {
     private static final Pattern BRACES = Pattern.compile("\\{[?;+#]?([^}]+)\\}");
     private Map<String, GeneratorSpec> generatorMap = new TreeMap<>();
@@ -74,13 +69,9 @@ public class X3MLGeneratorPolicy implements Generator {
          * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         void setArg(String name, String value) throws CustomGeneratorException;
         
-        /**Updates the custom generator prefix. If the generator contains a prefix value (to be used for generating URIs
-         * starting from the given namespace)
-         * 
-         * @param prefix the prefix abbreviation (e.g. crm)
-         * @param prefixUri the actual value associated with this prefix (e.g. http://www.cidoc-crm.org/cidoc-crm/)
-         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
-        void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException;
+        /**Indicates that the custom generator uses a prefix (from the namespaces section).
+         The prefix is particularly used for constructing URIs.*/
+        void usesNamespacePrefix();
         
         /**Returns the value that has been generated from the custom generator
          * 
@@ -212,7 +203,7 @@ public class X3MLGeneratorPolicy implements Generator {
             Constructor<?> constructor = customClass.getConstructor();
             CustomGenerator instance = (CustomGenerator) constructor.newInstance();
             if(generator.prefix!=null){
-                instance.setPrefix(generator.prefix, namespaceMap.get(generator.prefix));
+                instance.usesNamespacePrefix();
             }
             for (CustomArg customArg : generator.custom.setArgs) {
                 SourceType sourceType = defaultSourceType;
@@ -233,6 +224,7 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             String value = instance.getValue();
             String returnType = instance.getValueType();
+            log.debug("Generated Value-Type: ["+value+" , "+returnType+"]");
           
             //Custom Generator Prefix Addition
             if (returnType.equals(Labels.URI)) {

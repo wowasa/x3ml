@@ -103,7 +103,7 @@ public class BMdates implements CustomGenerator {
     }
     
     @Override
-    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+    public void usesNamespacePrefix() {
         log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
         ;
     }
