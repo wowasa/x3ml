@@ -113,6 +113,11 @@ public class RemoveTerm implements CustomGenerator{
         }
     }
      
+    /** Sets the URI of the prefix given
+     * 
+     * @param prefix the prefix abbreviation
+     * @param prefixUri the URI of the prefix
+     * @throws CustomGeneratorException for any issues that might be raised */
     @Override
     public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
         this.prefix=prefixUri;
