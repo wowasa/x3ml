@@ -865,6 +865,11 @@ public interface X3ML {
         public List<GeneratorArg> getArgs(){
             return this.args;
         }
+        
+        @Override
+        public String toString(){
+            return "LabelGenerator(Name: "+getName()+" Args: "+getArgs()+")";
+        }
     }
 
     @XStreamAlias("instance_generator")
@@ -885,6 +890,11 @@ public interface X3ML {
         public List<GeneratorArg> getArgs(){
             return this.args;
         }
+        
+        @Override
+        public String toString(){
+            return "InstanceGenerator( Name: "+getName()+" Args: "+getArgs()+")";
+        }
     }
 
     @XStreamAlias("arg")
@@ -898,6 +908,11 @@ public interface X3ML {
         public String type;
 
         public String value;
+        
+        @Override
+        public String toString(){
+            return "(Name: "+name+" Type: "+type+" Value: "+value+")";
+        }
     }
 
     @XStreamAlias("generator_policy")

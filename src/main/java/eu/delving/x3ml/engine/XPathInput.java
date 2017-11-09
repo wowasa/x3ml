@@ -38,6 +38,7 @@ import static eu.delving.x3ml.engine.X3ML.SourceType;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import lombok.extern.log4j.Log4j;
 import static org.joox.JOOX.$;
 
 /**
@@ -49,6 +50,7 @@ import static org.joox.JOOX.$;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class XPathInput {
 
     private final XPathFactory pathFactory = net.sf.saxon.xpath.XPathFactoryImpl.newInstance();
@@ -64,6 +66,12 @@ public class XPathInput {
     }
 
     public X3ML.ArgValue evaluateArgument(Node node, int index, GeneratorElement generatorElement, String argName, SourceType defaultType, boolean mergeMultipleValues) {
+        log.debug("Evaluating argument: [Node: "+node+"\t"+
+                                        "Index: "+index+"\t"+
+                                        "Generator: "+generatorElement+"\t"+
+                                        "ArgName: "+argName+"\t"+
+                                        "DefaultType: "+defaultType+"\t"+
+                                        "MergeMultipleValues: "+mergeMultipleValues+"]");
         X3ML.GeneratorArg foundArg = null;
         SourceType type = defaultType;
         if (generatorElement.getArgs() != null) {
@@ -184,15 +192,16 @@ public class XPathInput {
      * @param expression the XPath expression to be used for retrieving particular information from the node
      * @return the value of the node, after evaluating the given XPath expression */
     public String valueAt(Node node, String expression) {
-        List<Node> nodes = nodeList(node, expression);
-        if (nodes.isEmpty()) {
-            return "";
+        try{
+            log.debug("Evaluating XPATH [Node: "+node+" Expression: "+expression+"]");
+            XPathExpression xe = xpath().compile(expression);
+            
+            String value=((String)xe.evaluate(node, XPathConstants.STRING)).trim();
+            log.debug("XPATH Result: "+value+" (length= "+value.length()+")");
+            return value;
+        }catch(XPathExpressionException ex){
+            throw new RuntimeException("XPath Problem: " + expression, ex);
         }
-        String value = nodes.get(0).getNodeValue();
-        if (value == null) {
-            return "";
-        }
-        return value.trim();
     }
 
     /** Returns a merging of the values that can be found in the corresponding node, after the evaluation 
@@ -252,18 +261,18 @@ public class XPathInput {
     }
 
     public List<Node> nodeList(Node context, String expression) {
-
+        log.debug("Evaluating XPATH [Node: "+context+" Expression: "+expression+"]");
+        
         if (expression == null || expression.length() == 0) {
-            List<Node> list = new ArrayList<Node>(1);
+            List<Node> list = new ArrayList<>(1);
             list.add(context);
             return list;
         }
         try {
             XPathExpression xe = xpath().compile(expression);
-
             NodeList nodeList = (NodeList) xe.evaluate(context, XPathConstants.NODESET);
             int nodesReturned = nodeList.getLength();
-            List<Node> list = new ArrayList<Node>(nodesReturned);
+            List<Node> list = new ArrayList<>(nodesReturned);
             for (int index = 0; index < nodesReturned; index++) {
                 list.add(nodeList.item(index));
             }
