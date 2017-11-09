@@ -79,7 +79,7 @@ public class AuthorityPrirefThingCounter implements CustomGenerator {
     
     @Override
     public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
-        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        log.debug("The "+this.getClass().getName()+" custom generator creates only URIs therefore it does not support injecting prefix");
         ;
     }
 
