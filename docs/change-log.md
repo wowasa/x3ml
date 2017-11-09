@@ -1,10 +1,11 @@
 # Change Log
 
-## 8 Nov 2017: V 1.8.3 (by FORTH-ICS)
+## 9 Nov 2017: V 1.8.3 (by FORTH-ICS)
 * Fixed issue raised with the language tags found inside skos terminologies ([issue #103](https://github.com/isl/x3ml/issues/103))
 * Fixed issue with the identification of URIs in RemoveTerm generator ([issue #105](https://github.com/isl/x3ml/issues/105))
 * Added SKOS in the list of deafult namespaces ([issue #102](https://github.com/isl/x3ml/issues/102))
-* Enhanced RemoveTerm generator to support removing all the occurrences or only the first one  ([issue #106](https://github.com/isl/x3ml/issues/106))
+* Enhanced RemoveTerm generator to support removing all the occurrences or only the first one ([issue #106](https://github.com/isl/x3ml/issues/106))
+* Enhanced RemoveTerm generator to support constructing URIs from simple textual labels using a namespace prefix ([issue #107](https://github.com/isl/x3ml/issues/107))
 
 ---
 ## 12 Sep 2017: V 1.8.2 (by FORTH-ICS)
