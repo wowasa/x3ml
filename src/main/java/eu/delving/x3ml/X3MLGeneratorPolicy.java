@@ -44,13 +44,14 @@ import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
+import lombok.extern.log4j.Log4j;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-
+@Log4j
 public class X3MLGeneratorPolicy implements Generator {
     private static final Pattern BRACES = Pattern.compile("\\{[?;+#]?([^}]+)\\}");
     private Map<String, GeneratorSpec> generatorMap = new TreeMap<>();
@@ -227,6 +228,7 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             String value = instance.getValue();
             String returnType = instance.getValueType();
+            log.debug("Generated Value-Type: ["+value+" , "+returnType+"]");
           
             //Custom Generator Prefix Addition
             if (returnType.equals(Labels.URI)) {

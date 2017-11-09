@@ -99,13 +99,16 @@ public class RemoveTerm implements CustomGenerator{
     @Override
     public String getValueType() throws CustomGeneratorException {
         if(this.prefix!= null){
+            log.debug("The return type of \""+this.getValue()+"\" is "+Labels.URI+" (A Namespace prefix has been declared)");
             return Labels.URI;
-        }else if(this.text!=null){
-            IRIFactory factory=IRIFactory.iriImplementation();
-            IRI iri=factory.create(this.text);
+        }else if(this.getValue()!=null){
+            @SuppressWarnings("deprecation") IRIFactory iriFactory = IRIFactory.jenaImplementation();
+            IRI iri=iriFactory.create(this.getValue());
             if(!iri.hasViolation(false)){
+                log.debug("The return type of \""+this.getValue()+"\" is "+Labels.URI+" (It is a valid IRI)");
                 return Labels.URI;
             }else{
+                log.debug("The return type of \""+this.getValue()+"\" is "+Labels.LITERAL+" (There are IRI violations)");
                 return Labels.LITERAL;
             }
         }else{
