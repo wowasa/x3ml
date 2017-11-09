@@ -78,7 +78,7 @@ public class GermanDate implements CustomGenerator {
     }
     
     @Override
-    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+    public void usesNamespacePrefix() {
         ;
     }
 
