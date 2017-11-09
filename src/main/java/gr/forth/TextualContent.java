@@ -44,7 +44,9 @@ public class TextualContent implements CustomGenerator{
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
         if(name.startsWith(Labels.TEXT)){
+            log.debug("Setting UUID for text: "+value+"\t (length: "+value.length()+")");
             this.text=java.util.UUID.nameUUIDFromBytes(value.getBytes()).toString();
+            log.debug("Created UUID for text: "+value+"\t UUID: "+this.text+")");
         }else{
             throw new CustomGeneratorException("Unrecognized argument name: "+ name);
         }
@@ -74,7 +76,6 @@ public class TextualContent implements CustomGenerator{
     
     @Override
     public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
-        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
         ;
     }
 
