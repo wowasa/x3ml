@@ -73,7 +73,7 @@ public class TextualContent implements CustomGenerator{
     }
     
     @Override
-    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
+    public void usesNamespacePrefix() {
         log.debug("The "+this.getClass().getName()+" custom generator creates only URIs therefore it does not support injecting prefix");
         ;
     }

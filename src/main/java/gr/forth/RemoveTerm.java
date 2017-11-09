@@ -41,7 +41,7 @@ import org.apache.jena.iri.IRIFactory;
  */
 @Log4j
 public class RemoveTerm implements CustomGenerator{
-    private String prefix;
+    private boolean containsPrefix;
     private String text;
     private String termToRemove;
     private boolean removeAllOccurrences;
@@ -77,7 +77,7 @@ public class RemoveTerm implements CustomGenerator{
                 "Term to remove: "+this.termToRemove+"\t"+
                 "Text: "+this.text+"\t"+
                 "Remove all Occurrences: "+this.removeAllOccurrences+"\t"+
-                "Prefix: "+this.prefix+"]");
+                "Contains Namespace Prefix: "+this.containsPrefix+"]");
         if(text.isEmpty()){
             throw new CustomGeneratorException("Missing text arguments");
         }
@@ -98,7 +98,7 @@ public class RemoveTerm implements CustomGenerator{
      * @throws CustomGeneratorException if the argument is missing or null */
     @Override
     public String getValueType() throws CustomGeneratorException {
-        if(this.prefix!= null){
+        if(this.containsPrefix){
             log.debug("The return type of \""+this.getValue()+"\" is "+Labels.URI+" (A Namespace prefix has been declared)");
             return Labels.URI;
         }else if(this.getValue()!=null){
@@ -116,14 +116,9 @@ public class RemoveTerm implements CustomGenerator{
         }
     }
      
-    /** Sets the URI of the prefix given
-     * 
-     * @param prefix the prefix abbreviation
-     * @param prefixUri the URI of the prefix
-     * @throws CustomGeneratorException for any issues that might be raised */
     @Override
-    public void setPrefix(String prefix, String prefixUri) throws CustomGeneratorException {
-        this.prefix=prefixUri;
+    public void usesNamespacePrefix() {
+        this.containsPrefix=true;
     }
 
     /** Returns a boolean flag (with value set to false) indicating that this 
