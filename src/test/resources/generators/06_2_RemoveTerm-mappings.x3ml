@@ -51,8 +51,8 @@
                             <type>crm:E41_Appellation</type>
 							<instance_generator name="UUID"/>
                             <label_generator name="RemoveTerm">
-								<arg name="termToRemove">CODE-FOR-COIN:</arg>
-								<arg name="removeAllOccurrences">false</arg>
+								<arg name="termToRemove">CODE FOR COIN:</arg>
+								<arg name="removeAllOccurrences">true</arg>
 								<arg name="text">text()</arg>
 							</label_generator>
                         </entity>
