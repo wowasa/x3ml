@@ -9,6 +9,10 @@
 		<COMMENT>This coin has an ID which is a valid URI</COMMENT>
     </COIN>
 	<COIN>
+        <ID>http://ID 3</ID>
+		<COMMENT>This coin has an ID which is a valid URI when encoded</COMMENT>
+    </COIN>
+	<COIN>
         <ID/>
 		<COMMENT>This coin has an ID element which is empty</COMMENT>
     </COIN>
