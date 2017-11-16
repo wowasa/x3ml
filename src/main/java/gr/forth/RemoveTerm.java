@@ -18,8 +18,6 @@ package gr.forth;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import lombok.extern.log4j.Log4j;
-import org.apache.jena.iri.IRI;
-import org.apache.jena.iri.IRIFactory;
 
 /** The generator is responsible for constructing values (either URIs, or literals)
  *  by concatenating multiple elements (that have the same tag name). More specifically 
@@ -102,10 +100,8 @@ public class RemoveTerm implements CustomGenerator{
             log.debug("The return type of \""+this.getValue()+"\" is "+Labels.URI+" (A Namespace prefix has been declared)");
             return Labels.URI;
         }else if(this.getValue()!=null){
-            @SuppressWarnings("deprecation") IRIFactory iriFactory = IRIFactory.jenaImplementation();
-            IRI iri=iriFactory.create(this.getValue());
-            if(!iri.hasViolation(false)){
-                log.debug("The return type of \""+this.getValue()+"\" is "+Labels.URI+" (It is a valid IRI)");
+            if(UriValidator.isValid(this.getValue())){
+                log.debug("The return type of \""+UriValidator.encodeURI(this.getValue())+"\" is "+Labels.URI+" (It is a valid IRI)");
                 return Labels.URI;
             }else{
                 log.debug("The return type of \""+this.getValue()+"\" is "+Labels.LITERAL+" (There are IRI violations)");
