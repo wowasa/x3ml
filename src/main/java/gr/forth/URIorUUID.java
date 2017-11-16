@@ -67,7 +67,7 @@ public class URIorUUID implements CustomGenerator {
         if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
-        return text;
+        return UriValidator.encodeURI(text).toASCIIString();
     }
 
     /** Returns the type of the generated value. The generator is responsible for constructing 
@@ -80,7 +80,7 @@ public class URIorUUID implements CustomGenerator {
         if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
-        return isValidURL(text) || isValidURN(text) ? Labels.URI : Labels.UUID;
+        return UriValidator.isValid(text) ? Labels.URI : Labels.UUID;
     }
     
     /** Returns a boolean flag (with value set to false) indicating that this 
@@ -97,22 +97,5 @@ public class URIorUUID implements CustomGenerator {
     public void usesNamespacePrefix() {
         log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
         ;
-    }
-
-    /* Checks of the given string corresponds to a valid URL */
-    private boolean isValidURL(String urlString) {
-        URL url;
-        try{
-            url = new URL(urlString);
-            url.toURI();
-            return true;
-        }catch(MalformedURLException | URISyntaxException e) {
-            return false;
-        }
-    }
-    
-    /* Checks if the given string corresponds to a valid URN */
-    private boolean isValidURN(String urnString) {
-        return urnString.startsWith(Labels.URN+":")||urnString.startsWith(Labels.URN+":".toLowerCase());
     }
 }
