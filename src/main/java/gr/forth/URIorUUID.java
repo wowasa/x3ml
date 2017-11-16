@@ -67,7 +67,7 @@ public class URIorUUID implements CustomGenerator {
         if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
-        return text;
+        return UriValidator.encodeURI(text).toASCIIString();
     }
 
     /** Returns the type of the generated value. The generator is responsible for constructing 
