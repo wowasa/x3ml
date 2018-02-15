@@ -30,22 +30,15 @@ import lombok.extern.log4j.Log4j;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 @Log4j
-public class GermanDate implements CustomGenerator {
+public class XsdTypeGenerator implements CustomGenerator {
 
     private String text;
-    private Bounds bounds;
-
-    enum Bounds {
-        Upper, Lower
-    }
 
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
         if ("text".equals(name)) {
             text = value;
-        } else if ("bound".equals(name)) {
-            bounds = Bounds.valueOf(value);
-        } else {
+        }else {
             throw new CustomGeneratorException("Unrecognized argument name: " + name);
         }
     }
@@ -55,15 +48,14 @@ public class GermanDate implements CustomGenerator {
         if (text == null) {
             throw new CustomGeneratorException("Missing text argument");
         }
-        if (bounds == null) {
-            throw new CustomGeneratorException("Missing bounds argument");
-        }
-        return getFormatedDate(bounds.toString(), text);
+
+        return text;
     }
 
     @Override
     public String getValueType() throws CustomGeneratorException {
-        return text.startsWith("http") ? "URI" : "Literal";
+//        return text.startsWith("http") ? "URI" : "Literal";
+        return "Literal";
     }
     
     /** Returns a boolean flag (with value set to false) indicating that this 
@@ -82,18 +74,4 @@ public class GermanDate implements CustomGenerator {
         ;
     }
 
-    private static String getFormatedDate(String bounds, String time_str) {
-        String xsdDate = "";
-        try {
-            Date formatDate = UtilsTime.validate(time_str, bounds);
-            if (formatDate != null) {
-                xsdDate = UtilsTime.convertStringoXSDString(formatDate);
-            } else {
-                xsdDate = "Unknown-Format";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return xsdDate;  
-    }
 }
