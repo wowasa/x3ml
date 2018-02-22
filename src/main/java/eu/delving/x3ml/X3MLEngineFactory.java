@@ -112,7 +112,7 @@ public class X3MLEngineFactory {
         this.inputStreams=new HashSet<>();
         this.inputFolders=new HashSet<>();
         this.generatorPolicyStream=null;
-        this.uuidSize=4;
+        this.uuidSize=-1;
         this.associationTableFile=null;
         this.output=Pair.of(null, OutputFormat.RDF_XML);
     }
