@@ -18,6 +18,7 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml.engine;
 
+import eu.delving.x3ml.X3MLEngine;
 import org.w3c.dom.Node;
 import static eu.delving.x3ml.engine.X3ML.ArgValue;
 import static eu.delving.x3ml.engine.X3ML.Condition;
@@ -158,12 +159,13 @@ public abstract class GeneratorContext {
                     });
                     put(variable_deprecated,VariableScope.WITHIN_MAPPING, generatedValue);
                     context.putGeneratedValue(extractXPath(node) + unique+"-"+variable, generatedValue);
-                    this.createAssociationTable(generatedValue, null, extractAssocTableXPath(node));
+                    if(X3MLEngine.ENABLE_ASSOCIATION_TABLE){
+                        this.createAssociationTable(generatedValue, null, extractAssocTableXPath(node));
+                    }
                 }
             }else{
 //                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
                 String nodeName = extractXPath(Domain.domainNode) + unique+"-"+variable;
-                String xpathProper=extractAssocTableXPath(node);
                 generatedValue = context.getGeneratedValue(nodeName);
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
@@ -194,7 +196,9 @@ public abstract class GeneratorContext {
                         });
                     }
                     context.putGeneratedValue(nodeName, generatedValue);
-                    this.createAssociationTable(generatedValue, genArg, xpathProper);
+                    if(X3MLEngine.ENABLE_ASSOCIATION_TABLE){
+                        this.createAssociationTable(generatedValue, genArg, extractAssocTableXPath(node));
+                    }
                 }
             }
         }
@@ -218,7 +222,6 @@ public abstract class GeneratorContext {
             }
             else{
                 String nodeName = extractXPath(node) + unique;
-                String xpathProper=extractAssocTableXPath(node);
                 generatedValue = context.getGeneratedValue(nodeName);
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
@@ -249,7 +252,9 @@ public abstract class GeneratorContext {
                         });
                     }
                     context.putGeneratedValue(nodeName, generatedValue);
-                    this.createAssociationTable(generatedValue, genArg, xpathProper);
+                    if(X3MLEngine.ENABLE_ASSOCIATION_TABLE){
+                        this.createAssociationTable(generatedValue, genArg, extractAssocTableXPath(node));
+                    }
                 }
             }
         }
@@ -277,7 +282,6 @@ public abstract class GeneratorContext {
 
         String nodeName = extractXPath(node) + unique;
         String domainNodeName = extractXPath(domainNode) + unique;
-        String xpathProper=extractAssocTableXPath(node);
         generatedValue = context.getGeneratedValue(domainNodeName);
         
         if (generatedValue == null) {
