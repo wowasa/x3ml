@@ -77,6 +77,7 @@ public class X3MLEngine {
     private static final String VERSION = "1.0";
     private static final String X3ML_SCHEMA_FOLDER="/schema/";
     private static final String X3ML_SCHEMA_FILENAME="x3ml.xsd";
+    public static boolean ENABLE_ASSOCIATION_TABLE=false;
     private RootElement rootElement;
     private NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<>();
@@ -176,6 +177,10 @@ public class X3MLEngine {
         }catch(SAXException | IOException ex){
             throw exception("An error ocurred while validating X3ML mappings file", ex);
         }
+    }
+    
+    public void useAssociationTable(boolean flag){
+        X3MLEngine.ENABLE_ASSOCIATION_TABLE=flag;
     }
 
     public static void save(X3MLEngine engine, OutputStream outputStream) throws X3MLException {
