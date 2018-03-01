@@ -271,7 +271,7 @@ public interface X3ML {
             int domListTotal=domList.size();
             for (Domain domain : domList) {
                 if(X3MLEngine.REPORT_PROGRESS){
-                    if(counter%(domListTotal/100)==0){
+                    if(counter%(domListTotal/20)==0){
                         log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 2/2: Creating link nodes: "+((100*(counter))/domListTotal)+"% completed");
                     }
                 }

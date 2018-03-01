@@ -114,7 +114,7 @@ public class Root {
         int index = 1;
         for (Node domainNode : domainNodes) {
             if(X3MLEngine.REPORT_PROGRESS){
-                if(index%(domainNodesTotal/100)==0){
+                if(index%(domainNodesTotal/20)==0){
                     log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 1/2: Creating domain nodes: "+((100*(index))/domainNodesTotal)+"% completed ("+index +" domain nodes out of "+domainNodesTotal+" completed)");
                 }
             }
