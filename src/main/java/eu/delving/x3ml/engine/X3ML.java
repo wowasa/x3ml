@@ -40,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import lombok.extern.log4j.Log4j;
 import org.w3c.dom.Node;
 
 /**
@@ -67,7 +68,9 @@ public interface X3ML {
     @XStreamAlias("x3ml")
     public static class RootElement extends Visible {
         public static int mappingCounter=0;
+        public static int mappingsTotal=0;
         public static int linkCounter=0;
+        public static int linksTotal=0;
 
         @XStreamAsAttribute
         public String version;
@@ -86,6 +89,7 @@ public interface X3ML {
         public List<Mapping> mappings;
 
         public void apply(Root context) {
+            RootElement.mappingsTotal=mappings.size();
             for (Mapping mapping : mappings) {
                 RootElement.mappingCounter+=1;
                 RootElement.linkCounter=0;
@@ -250,7 +254,7 @@ public interface X3ML {
         public String value;
     }
 
-    @XStreamAlias("mapping")
+    @XStreamAlias("mapping") @Log4j
     public static class Mapping extends Visible {
 
         @XStreamAsAttribute
@@ -262,7 +266,16 @@ public interface X3ML {
         public List<LinkElement> links;
 
         public void apply(Root context) {
-            for (Domain domain : context.createDomainContexts(this.domain)) {
+            List<Domain> domList=context.createDomainContexts(this.domain);
+            int counter=1;
+            int domListTotal=domList.size();
+            for (Domain domain : domList) {
+                if(X3MLEngine.REPORT_PROGRESS){
+                    if(counter%(domListTotal/100)==0){
+                        log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 2/2: Creating link nodes: "+((100*(counter))/domListTotal)+"% completed");
+                    }
+                }
+                counter++;
                 RootElement.linkCounter=0;
                 domain.resolve();
                 /*The following is necessary for the cases were there are no links or 
@@ -272,6 +285,7 @@ public interface X3ML {
                 if (links == null) {
                     continue;
                 }
+                RootElement.linksTotal=links.size();
                 for (LinkElement linkElement : links) {
                     RootElement.linkCounter+=1;
                     if(!linkElement.skipLink()){

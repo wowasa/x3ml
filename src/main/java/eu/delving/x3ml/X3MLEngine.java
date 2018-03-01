@@ -78,6 +78,7 @@ public class X3MLEngine {
     private static final String X3ML_SCHEMA_FOLDER="/schema/";
     private static final String X3ML_SCHEMA_FILENAME="x3ml.xsd";
     public static boolean ENABLE_ASSOCIATION_TABLE=false;
+    public static boolean REPORT_PROGRESS=false;
     private RootElement rootElement;
     private NamespaceContext namespaceContext = new XPathContext();
     private List<String> prefixes = new ArrayList<>();
@@ -204,7 +205,7 @@ public class X3MLEngine {
                 generator.setNamespace(mn.prefix, mn.uri);
             }
         }
-        this.initializeAll();    
+        this.initializeAll();  
         rootElement.apply(rootContext);
         return rootContext.getModelOutput();
     }

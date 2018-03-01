@@ -31,6 +31,7 @@ import java.util.Map;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import gr.forth.Utils;
 import java.io.InputStream;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.riot.Lang;
 
@@ -42,6 +43,7 @@ import org.apache.jena.riot.Lang;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class Root {
 
     private final Element rootNode;
@@ -108,8 +110,14 @@ public class Root {
     public List<Domain> createDomainContexts(X3ML.DomainElement domain) {
         List<Node> domainNodes = xpathInput.nodeList(rootNode, domain.source_node);
         List<Domain> domains = new ArrayList<>();
+        int domainNodesTotal=domainNodes.size();
         int index = 1;
         for (Node domainNode : domainNodes) {
+            if(X3MLEngine.REPORT_PROGRESS){
+                if(index%(domainNodesTotal/100)==0){
+                    log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 1/2: Creating domain nodes: "+((100*(index))/domainNodesTotal)+"% completed ("+index +" domain nodes out of "+domainNodesTotal+" completed)");
+                }
+            }
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
                 if (domainContext.resolve()) {
