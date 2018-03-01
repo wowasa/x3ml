@@ -123,6 +123,10 @@ public class X3MLCommandLine {
                 "the SKOS taxonomy \n Option A-single file: -"+Labels.TERMS+" skosTerms.nt \n"
                                    +" Option B-URL: -"+Labels.TERMS+" @skos_terms_url\n");
         
+        Option reportProgressOption = new Option(Labels.REPORT_PROGRESS_SHORT,Labels.REPORT_PROGRESS, false, 
+                "reports the progress of the transformations"
+        );
+        
         options.addOption(inputOption)
                .addOption(x3mlOption)
                .addOption(outputOption)
@@ -131,7 +135,8 @@ public class X3MLCommandLine {
                .addOption(uuidTestSizeOption)
                .addOption(assocTableOption)
                .addOption(mergeAssocWithRDFOption)
-               .addOption(termsOption);
+               .addOption(termsOption)
+               .addOption(reportProgressOption);
     }
 
     public static void main(String[] args) {
@@ -152,6 +157,7 @@ public class X3MLCommandLine {
                 cli.getOptionValue(Labels.TERMS),
                 cli.getOptionValue(Labels.MERGE_WITH_ASSOCIATION_TABLE),
                 cli.hasOption(Labels.ASSOC_TABLE),
+                cli.hasOption(Labels.REPORT_PROGRESS),
                 uuidTestSizeValue
             );
         }
@@ -222,7 +228,7 @@ public class X3MLCommandLine {
         }
     }
 
-    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String terms, String assocTableFilename, boolean mergeAssocTableWithRDF, int uuidTestSize) throws Exception {
+    static void go(String input, String x3ml, String policy, String rdf, String rdfFormat, String terms, String assocTableFilename, boolean mergeAssocTableWithRDF, boolean reportProgress, int uuidTestSize) throws Exception {
         log.debug("Started executing X3MLEngine with the following parameters: "
                  +"\n\tInput: "+input
                  +"\n\tX3ML Mappings: "+x3ml
@@ -231,6 +237,7 @@ public class X3MLCommandLine {
                  +"\n\tFormat: "+rdfFormat
                  +"\n\tTerminology: "+terms
                  +"\n\tAssociation table: "+assocTableFilename
+                 +"\n\tReport progress: "+reportProgress
                  +"\n\tUUID Test Size: "+uuidTestSize
                  +"\n\tMerge Association table with output: "+mergeAssocTableWithRDF) ;
         final String INPUT_FOLDER_PREFIX="#_";
@@ -308,6 +315,8 @@ public class X3MLCommandLine {
         }else{                      // no terminologies exist
             engine = X3MLEngine.load(x3mlStream);
         }
+        
+        X3MLEngine.REPORT_PROGRESS=reportProgress;
         
         X3MLEngine.Output output = engine.execute(
                 xmlElement,
