@@ -20,17 +20,20 @@ package gr.forth;
 
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
-import java.util.Date;
 import lombok.extern.log4j.Log4j;
 
 /**
- * an date interpreter
+ * This custom is generator is used for producing literal with a particular type 
+ * that will be exported in the RDF output as well. 
+ * An indicative example is if we want to export a literal value that resembles a date.
+ * Then in this case we will use this generator and define the corresponding entity type in the 
+ * X3ML mappings file. The result will be a literal value with the given type (i.e. 2018-03-12^^xsd:date).
  * 
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 @Log4j
-public class XsdTypeGenerator implements CustomGenerator {
+public class TypedLiteralGenerator implements CustomGenerator {
 
     private String text;
 
@@ -54,7 +57,6 @@ public class XsdTypeGenerator implements CustomGenerator {
 
     @Override
     public String getValueType() throws CustomGeneratorException {
-//        return text.startsWith("http") ? "URI" : "Literal";
         return "Literal";
     }
     
@@ -70,8 +72,7 @@ public class XsdTypeGenerator implements CustomGenerator {
     
     @Override
     public void usesNamespacePrefix() {
-        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
-        ;
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix");
     }
 
 }
