@@ -117,4 +117,14 @@ public class TestGenerators {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    @Test
+    public void testTypedLiteralGenerator(){
+        X3MLEngine engine = engine("/generators/07_TypedLiteralGen_mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/07_TypedLiteralGen_input.xml"),policy("/generators/07_TypedLiteralGen_generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/07_TypedLiteralGen-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
