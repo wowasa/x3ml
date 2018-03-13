@@ -453,6 +453,23 @@ public class Utils {
         return Labels.URN+":"+Labels.UUID+":"+originalValue;
     }
     
+    /** Checks if the given term contains an affirmative value. Affirmative values 
+     * are considered the following: {yes, true, 1}. The comparison for affirmative values is 
+     * being while ignoring the case of the terms. 
+     * If the given term does not belong to the acceptance set, or it is null 
+     * the the result will be false.
+     * 
+     * @param term the term that will be checked if it is affirmative or not
+     * @return yes if the term is affirmative, otherwise false. */
+    public static boolean isAffirmative(String term){
+        if(term!=null){
+            if(term.equalsIgnoreCase(Labels.TRUE) || term.equalsIgnoreCase(Labels.YES) || term.equalsIgnoreCase("1")){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /** The method parses the given terminology resource and identifies if it is a URL 
      * or a file resource. In addition it defines the serialization format of the resource
      * using the suffix extension of the resource (e.g. terms.nt appears in NT format).

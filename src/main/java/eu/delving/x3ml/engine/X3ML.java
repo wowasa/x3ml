@@ -948,6 +948,9 @@ public interface X3ML {
 
         @XStreamAsAttribute
         public String prefix;
+        
+        @XStreamAsAttribute
+        public String shorten;
 
         public CustomGenerator custom;
 
