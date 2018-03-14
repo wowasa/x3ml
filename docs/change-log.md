@@ -3,6 +3,7 @@
 ## 14 March 2018: V 1.8.4 (by FORTH-ICS)
 * Fixed issue with the default UUID generator ([issue #112](https://github.com/isl/x3ml/issues/112))
 * Fixed issue with unexpected delays when transforming large data ([issue #113](https://github.com/isl/x3ml/issues/113))
+* Fixed issue with execution termination if resources are missing ([issue #116](https://github.com/isl/x3ml/issues/116))
 * Implemented a new custom generator that outputs the type of a literal value in the output ([issue #111](https://github.com/isl/x3ml/issues/111)) 
 * Implemented a new custom generator that shortens URIs ([issue #115](https://github.com/isl/x3ml/issues/115)) 
 * Support for reporting the progress of the transformations ([issue #114](https://github.com/isl/x3ml/issues/114))
