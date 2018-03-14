@@ -44,6 +44,7 @@ import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
+import java.nio.ByteBuffer;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -225,7 +226,6 @@ public class X3MLGeneratorPolicy implements Generator {
             String value = instance.getValue();
             String returnType = instance.getValueType();
             log.debug("Generated Value-Type: ["+value+" , "+returnType+"]");
-          
             //Custom Generator Prefix Addition
             if (returnType.equals(Labels.URI)) {
 
@@ -279,7 +279,13 @@ public class X3MLGeneratorPolicy implements Generator {
                 }
                 uriTemplate.set(argument, argValue.string);
             }
-            return uriValue(namespaceUri + uriTemplate.expand());
+            if(Utils.isAffirmative(generator.shorten)){
+                UUID uuid = java.util.UUID.nameUUIDFromBytes(uriTemplate.expand().getBytes());
+                long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
+                String shortenedSuffix=Long.toString(l, Character.MAX_RADIX);
+                return uriValue(namespaceUri + shortenedSuffix);
+            }
+            return uriValue(namespaceUri + uriTemplate.expand());            
         }
         catch (MalformedUriTemplateException e) {
             throw exception("Malformed", e);
