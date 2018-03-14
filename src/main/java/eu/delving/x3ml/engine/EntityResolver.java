@@ -116,7 +116,13 @@ public class EntityResolver {
             if(domainNodeFromMerged!=null){ //This happens when the MERGE facility has been used
                 generatedValue = entityElement.getInstance(generatorContext, uniqueValue, domainNodeFromMerged);
             }else{
-                generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+                generatedValue=null;
+                try{
+                    generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+                }catch(Exception ex){
+                    X3MLEngine.exceptionMessagesList+=ex.toString();
+                    Utils.printErrorMessages(ex.toString());
+                }
             }
             if (generatedValue == null) {
                 failed = true;
