@@ -60,4 +60,15 @@ public class TestEmptyElement extends TestCase{
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    /* Used to test if the execution does not stop when there are nodes that are missing (related to issue #116) */
+    @Test
+    public void testMissingElementsFromLink() {
+        X3MLEngine engine = engine("/empty_element/03_mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/empty_element/03_input.xml"),policy("/empty_element/03_generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/empty_element/03_expected_output.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
