@@ -96,6 +96,7 @@ public class X3MLEngineFactory {
     private int uuidSize;
     private String associationTableFile;
     private Pair<OutputStream,OutputFormat> output;
+    private boolean progressReporting;
     private static final Logger LOGGER=Logger.getLogger(X3MLEngineFactory.class);
     
     public enum OutputFormat{
@@ -113,6 +114,7 @@ public class X3MLEngineFactory {
         this.inputFolders=new HashSet<>();
         this.generatorPolicyStream=null;
         this.uuidSize=-1;
+        this.progressReporting=false;
         this.associationTableFile=null;
         this.output=Pair.of(null, OutputFormat.RDF_XML);
     }
@@ -451,6 +453,15 @@ public class X3MLEngineFactory {
         return this;
     }
     
+    /** Reports the progress of the transformations. 
+     * 
+     * @return the updated X3MLEngineFactory instance */
+    public X3MLEngineFactory withProgressReporting(){
+        LOGGER.debug("Enabled the progress reporting");
+        this.progressReporting=true;
+        return this;
+    }
+    
     /** Execute the X3ML Engine with the given configuration. If the mandatory resources 
      * have not been defined (the X3ML mappings file and the XML input file(s)/folder) then 
      * an exception is thrown, and the execution is terminated.
@@ -461,6 +472,7 @@ public class X3MLEngineFactory {
         this.validateConfig();
         this.informUserAboutConfiguration();
         X3MLEngine engine=this.createX3MLEngine();
+        X3MLEngine.REPORT_PROGRESS=this.progressReporting;
         Generator policy=X3MLGeneratorPolicy.load(this.getGeneratorPolicy(), X3MLGeneratorPolicy.createUUIDSource(this.uuidSize));
         Element sourceRoot=this.getInput();
         X3MLEngine.Output engineOutput = engine.execute(sourceRoot, policy);
@@ -571,6 +583,7 @@ public class X3MLEngineFactory {
         String outputMsg=(this.output.getLeft()==null)?"System.out":"OutputStream";
         LOGGER.info("Output: "+outputMsg);
         LOGGER.info("Output format: "+this.output.getRight());
+        LOGGER.info("Report Progress: "+this.progressReporting);
         String associationTableExportMsg=(this.associationTableFile==null || !this.associationTableFile.isEmpty())?"Disabled":"Enabled, file: "+this.associationTableFile;
         LOGGER.info("Export sssociation table: "+associationTableExportMsg);
     }
