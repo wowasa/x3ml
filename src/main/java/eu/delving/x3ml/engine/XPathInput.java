@@ -110,7 +110,11 @@ public class XPathInput {
                     }else{
                         value = argVal(valueAt(node, foundArg.value), lang);
                         if (value.string.isEmpty()) {
-                            throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                            if(foundArg.name.equalsIgnoreCase(Labels.LANGUAGE)){
+                                value=new X3ML.ArgValue(Labels.EN_LANGUAGE,Labels.EN_LANGUAGE);
+                            }else{
+                                throw exception("Empty result for arg " + foundArg.name + " at node " + node.getNodeName() + " in generator\n" + generatorElement);
+                            }
                         }
                     }
                 }
