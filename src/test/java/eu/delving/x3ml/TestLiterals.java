@@ -24,6 +24,7 @@ import static eu.delving.x3ml.AllTests.engine;
 import static eu.delving.x3ml.AllTests.errorFree;
 import static eu.delving.x3ml.AllTests.policy;
 import static eu.delving.x3ml.AllTests.xmlToNTriples;
+import eu.delving.x3ml.engine.Generator;
 import java.io.FileNotFoundException;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +38,7 @@ import org.junit.Test;
  */
 public class TestLiterals {
     private final Logger log = Logger.getLogger(getClass());
+    private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));
 
     @Test
     public void testLiteralTypeFullURI() throws FileNotFoundException {
@@ -74,6 +76,16 @@ public class TestLiterals {
         X3MLEngine.Output output = engine.execute(document("/literals/input.xml"),policy("/literals/generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/literals/expectedOutputDates.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+    
+    @Test
+    public void testLanguage() throws FileNotFoundException {
+        X3MLEngine engine = engine("/literals/02_lang-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/literals/02_lang-input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/literals/02_lang-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
