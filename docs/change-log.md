@@ -1,6 +1,6 @@
 # Change Log
 
-## 14 March 2018: V 1.8.4 (by FORTH-ICS)
+## 19 March 2018: V 1.8.4 (by FORTH-ICS)
 * Fixed issue with the default UUID generator ([issue #112](https://github.com/isl/x3ml/issues/112))
 * Fixed issue with unexpected delays when transforming large data ([issue #113](https://github.com/isl/x3ml/issues/113))
 * Fixed issue with execution termination if resources are missing ([issue #116](https://github.com/isl/x3ml/issues/116))
