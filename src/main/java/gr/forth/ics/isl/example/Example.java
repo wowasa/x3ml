@@ -49,7 +49,7 @@ public class Example {
         final Pair<String,Lang> terminology=Pair.of("example/terms.nt", Lang.NT);   //if empty it will not be used
         final outputFormat OUT_FORMAT=outputFormat.RDF_XML;
         final outputStream OUT_STREAM=outputStream.SYSTEM_OUT;
-        X3MLEngine.REPORT_PROGRESS=true;
+        X3MLEngine.REPORT_PROGRESS=false;
         
         X3MLEngine engine;
         if(terminology.getLeft()!=null && !terminology.getLeft().isEmpty()){    //we use a terminology
