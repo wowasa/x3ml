@@ -31,9 +31,12 @@ public class Labels {
     public static final String BROADER_TRANSITIVE="broaderTransitive";
     public static final String CONSTANT="Constant";
     public static final String DIFF_TERMS_DELIMITER="diffTermsDelim";
+    public static final String EN_LANGUAGE="en";
     public static final String EXACT_MATCH="exactMatch";
     public static final String HTTP="http";
     public static final String LABEL="label";
+    public static final String LANG="lang";
+    public static final String LANGUAGE="language";
     public static final String LITERAL="Literal";
     public static final String NT="nt";
     public static final String NTRIPLES="ntriples";
