@@ -87,6 +87,7 @@ public class X3MLFactoryUser {
                          .withVerboseLogging()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
+                         .withProgressReporting()
                          .execute();
     }
     
