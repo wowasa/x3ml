@@ -1,5 +1,9 @@
 # Change Log
 
+## 4 April 2018: V 1.8.5 (by FORTH-ICS)
+* Fixed issue with redundant encoding of slash character '/' in URI generators ([issue #118](https://github.com/isl/x3ml/issues/118))
+
+
 ## 19 March 2018: V 1.8.4 (by FORTH-ICS)
 * Fixed issue with the default UUID generator ([issue #112](https://github.com/isl/x3ml/issues/112))
 * Fixed issue with unexpected delays when transforming large data ([issue #113](https://github.com/isl/x3ml/issues/113))
