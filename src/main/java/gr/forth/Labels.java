@@ -48,6 +48,8 @@ public class Labels {
     public static final String SAME_MERGING_DELIMITER="<SAME_DELIM>";
     public static final String SAME_TERM_DELIMITER="sameTermsDelim";
     public static final String SKOS="skos";
+    public static final String SLASH_CHARACTER="/";
+    public static final String SLASH_CHARACTER_ENCODED="%2F";
     public static final String TERM_TO_REMOVE="termToRemove";
     public static final String TEXT="text";
     public static final String TRIG="trig";
@@ -87,6 +89,5 @@ public class Labels {
     public static final String REPORT_PROGRESS_SHORT="r";
     public static final String UUID_TEST_SIZE_SHORT="u";
     public static final String MERGE_WITH_ASSOCIATION_TABLE_SHORT="m";
-    public static final String TERMS_SHORT="t";
-    
+    public static final String TERMS_SHORT="t";    
 }
