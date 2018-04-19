@@ -49,7 +49,7 @@ public class TestGenerators {
     }   
     
     @Test
-    public void testBMDateGenWithFullUruType() throws FileNotFoundException {
+    public void testBMDateGenWithFullUriType() throws FileNotFoundException {
         X3MLEngine engine = engine("/generators/02_BMDates_mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/generators/01_BMDates_input.xml"),policy("/generators/01_BMDates_generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
