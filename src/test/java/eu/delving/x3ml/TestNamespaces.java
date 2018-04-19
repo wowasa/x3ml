@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Yannis Marketakis <marketak@ics.forth.gr>
@@ -61,5 +62,27 @@ public class TestNamespaces {
         String[] expectedResult = xmlToNTriples("/namespace/namespacesInInfoBlock-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testNamespacesEmptyInNamespacesBlock(){
+        try{    //test case 1: when the prefix of the namespace is empty but the URI is not e.g, <namespace prefix="" uri="http://localhost/"/>
+            engine("/namespace/namespacesEmpty_inNamespacesBlock-1.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+        try{    //test case 2: when the prefix of the namespace is not empty but the URI is e.g, <namespace prefix="err" uri=""/>
+            engine("/namespace/namespacesEmpty_inNamespacesBlock-2.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+        try{    //test case 3: when both the prefix of the namespace and the URI are empty e.g, <namespace prefix="" uri=""/>
+            engine("/namespace/namespacesEmpty_inNamespacesBlock-3.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
     } 
 }
