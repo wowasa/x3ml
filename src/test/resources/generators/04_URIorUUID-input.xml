@@ -5,12 +5,16 @@
 		<COMMENT>This coin has an ID which is not a valid URI</COMMENT>
     </COIN>
 	<COIN>
-        <ID>http://ID-2</ID>
+        <ID>http://locahost/ID-2</ID>
 		<COMMENT>This coin has an ID which is a valid URI</COMMENT>
     </COIN>
 	<COIN>
-        <ID>http://ID 3</ID>
+        <ID>http://locahost/ID 3</ID>
 		<COMMENT>This coin has an ID which is a valid URI when encoded</COMMENT>
+    </COIN>
+	<COIN>
+        <ID>http://localhost/ID%204</ID>
+		<COMMENT>This coin has an ID which is an already encoded and valid URI</COMMENT>
     </COIN>
 	<COIN>
         <ID/>
