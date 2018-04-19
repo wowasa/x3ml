@@ -285,7 +285,10 @@ public class X3MLGeneratorPolicy implements Generator {
                 String shortenedSuffix=Long.toString(l, Character.MAX_RADIX);
                 return uriValue(namespaceUri + shortenedSuffix);
             }
-            return uriValue(namespaceUri + uriTemplate.expand().replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER));
+            return uriValue(namespaceUri + uriTemplate.expand().replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER)
+                                                               .replaceAll(Labels.PERCENT_CHARACTER_ENCODED, Labels.PERCENT_CHARACTER)
+            
+            );
         }
         catch (MalformedUriTemplateException e) {
             throw exception("Malformed", e);
