@@ -85,4 +85,32 @@ public class TestNamespaces {
             assertTrue("Sucessfully caught X3MLException",true);
         }
     } 
+    
+    @Test
+    public void testNamespacesEmptyInInfoBlock(){
+        try{    //test case 1: when the prefix of the namespace is empty but the URI is not e.g, <namespace prefix="" uri="http://localhost/"/>
+            engine("/namespace/namespacesEmpty_inInfoBlock-1.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+        try{    //test case 2: when the prefix of the namespace is not empty but the URI is e.g, <namespace prefix="err" uri=""/>
+            engine("/namespace/namespacesEmpty_inInfoBlock-2.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+        try{    //test case 3: when both the prefix of the namespace and the URI are empty e.g, <namespace prefix="" uri=""/>
+            engine("/namespace/namespacesEmpty_inInfoBlock-3.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+        try{    //test case 4: when namespace information are empty in the source_info block
+            engine("/namespace/namespacesEmpty_inInfoBlock-4.x3ml");
+            fail("An X3MLException should have been thrown because the namespace information are empty");
+        }catch(X3MLEngine.X3MLException ex){
+            assertTrue("Sucessfully caught X3MLException",true);
+        }
+    } 
 }
