@@ -1,7 +1,8 @@
 # Change Log
 
-## 4 April 2018: V 1.8.5 (by FORTH-ICS)
+## 19 April 2018: V 1.8.5 (by FORTH-ICS)
 * Fixed issue with redundant encoding of slash character '/' in URI generators ([issue #118](https://github.com/isl/x3ml/issues/118))
+* Fixed issue with unneeded encoding of already encoded strings when using instance generators ([issue #121](https://github.com/isl/x3ml/issues/121))
 
 
 ## 19 March 2018: V 1.8.4 (by FORTH-ICS)
