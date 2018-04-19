@@ -137,4 +137,14 @@ public class TestGenerators {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }
+    
+    @Test
+    public void testCustomInstanceGenerators(){
+        X3MLEngine engine = engine("/generators/09_CustomInstanceGenerators-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/09_CustomInstanceGenerators-input.xml"),policy("/generators/09_CustomInstanceGenerators-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/09_CustomInstanceGenerators-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }
