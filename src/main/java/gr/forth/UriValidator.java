@@ -20,6 +20,7 @@ under the License.
 package gr.forth;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import lombok.extern.log4j.Log4j;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -52,6 +53,15 @@ public class UriValidator {
      * @param uriString the URI string that will be encoded
      * @return the encoded URI string */
     public static URI encodeURI(String uriString){
+        try{
+            log.debug("Checking it the given value is a valid URI: '"+uriString+"'");
+            if(new URI(uriString).isAbsolute()){
+                log.debug("The URI ('"+uriString+"') is OK");
+                return new URI(uriString);
+            }
+        }catch(URISyntaxException ex){
+            log.debug("The given URI string ('"+uriString+"')is not a valid URI");
+        }
         return UriComponentsBuilder.fromUriString(uriString).build().encode().toUri();
     }
 }
