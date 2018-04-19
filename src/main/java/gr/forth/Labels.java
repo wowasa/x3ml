@@ -40,6 +40,8 @@ public class Labels {
     public static final String LITERAL="Literal";
     public static final String NT="nt";
     public static final String NTRIPLES="ntriples";
+    public static final String PERCENT_CHARACTER="%";
+    public static final String PERCENT_CHARACTER_ENCODED="%25";
     public static final String PREF_LABEL="prefLabel";
     public static final String PREFIX="prefix";
     public static final String REMOVE_ALL_OCCURRENCES="removeAllOccurrences";

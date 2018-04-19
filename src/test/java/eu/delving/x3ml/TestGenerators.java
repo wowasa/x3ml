@@ -49,7 +49,7 @@ public class TestGenerators {
     }   
     
     @Test
-    public void testBMDateGenWithFullUruType() throws FileNotFoundException {
+    public void testBMDateGenWithFullUriType() throws FileNotFoundException {
         X3MLEngine engine = engine("/generators/02_BMDates_mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/generators/01_BMDates_input.xml"),policy("/generators/01_BMDates_generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
@@ -134,6 +134,16 @@ public class TestGenerators {
         X3MLEngine.Output output = engine.execute(document("/generators/08_HashedUris-input.xml"),policy("/generators/08_HashedUris-generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/generators/08_HashedUris-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testCustomInstanceGenerators(){
+        X3MLEngine engine = engine("/generators/09_CustomInstanceGenerators-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/09_CustomInstanceGenerators-input.xml"),policy("/generators/09_CustomInstanceGenerators-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/09_CustomInstanceGenerators-expectedOutput.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }

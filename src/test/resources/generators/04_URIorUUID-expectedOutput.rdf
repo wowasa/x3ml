@@ -8,11 +8,14 @@
   <crm:E22_Man-Made_Object rdf:about="uuid:C">
     <crm:P3_has_note>The ID element is missing from this coin</crm:P3_has_note>
   </crm:E22_Man-Made_Object>
-  <crm:E22_Man-Made_Object rdf:about="http://ID-2">
+  <crm:E22_Man-Made_Object rdf:about="http://locahost/ID-2">
     <crm:P3_has_note>This coin has an ID which is a valid URI</crm:P3_has_note>
   </crm:E22_Man-Made_Object>
-  <crm:E22_Man-Made_Object rdf:about="http://ID%203">
+  <crm:E22_Man-Made_Object rdf:about="http://locahost/ID%203">
     <crm:P3_has_note>This coin has an ID which is a valid URI when encoded</crm:P3_has_note>
+  </crm:E22_Man-Made_Object>
+  <crm:E22_Man-Made_Object rdf:about="http://localhost/ID%204">
+    <crm:P3_has_note>This coin has an ID which is an already encoded and valid URI</crm:P3_has_note>
   </crm:E22_Man-Made_Object>
   <crm:E22_Man-Made_Object rdf:about="uuid:B">
     <crm:P3_has_note>This coin has an ID element which is empty</crm:P3_has_note>
