@@ -59,6 +59,7 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.riot.Lang;
 
@@ -72,7 +73,7 @@ import org.apache.jena.riot.Lang;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-
+@Log4j
 public class X3MLEngine {
     private static final String VERSION = "1.0";
     private static final String X3ML_SCHEMA_FOLDER="/schema/";
@@ -278,6 +279,8 @@ public class X3MLEngine {
         private Map<String, String> uriPrefix = new TreeMap<>();
 
         void addNamespace(String prefix, String uri) {
+            validateNamespace(prefix, uri);
+            log.debug("Adding namespace with prefix '"+prefix+"' and URI '"+uri+"'");
             prefixUri.put(prefix, uri);
             uriPrefix.put(uri, prefix);
         }
@@ -302,6 +305,19 @@ public class X3MLEngine {
             List<String> list = new ArrayList<>();
             list.add(prefix);
             return list.iterator();
+        }
+        
+        private void validateNamespace(String prefix, String uri){
+            if(prefix.trim().isEmpty()){
+                String uriMessageValue=(uri.trim().isEmpty())?"(empty)":"\""+uri+"\"";
+                log.error("Invalid namespace declaration: the prefix of a namespace cannot be empty [Prefix: (empty), URI: "+uriMessageValue+"]");
+                throw exception("Invalid namespace declaration: the prefix of a namespace cannot be empty [Prefix: (empty), URI: "+uriMessageValue+"]");
+            }
+            if(uri.trim().isEmpty()){
+                String prefixMessageValue=(prefix.trim().isEmpty())?"(empty)":"\""+prefix+"\"";
+                log.error("Invalid namespace declaration: the URI of a namespace cannot be empty [Prefix: "+prefixMessageValue+", URI: (empty)]");
+                throw exception("Invalid namespace declaration: the URI of a namespace cannot be empty [Prefix: "+prefixMessageValue+", URI: (empty)]");
+            }
         }
     }
 
