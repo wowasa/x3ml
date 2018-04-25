@@ -377,7 +377,7 @@ public class Utils {
             for(X3ML.EntityElement entityElem : multimap.get(variable)){
                 if(entityElem.instanceGenerator!=null){
                     instanceGeneratorFound=entityElem.instanceGenerator;
-                    labelGeneratorFound=entityElem.labelGenerators;
+//                    labelGeneratorFound=entityElem.labelGenerators;
                 }
             }
             if(instanceGeneratorFound==null){
@@ -387,7 +387,7 @@ public class Utils {
                 for(X3ML.EntityElement entityElem : multimap.get(variable)){
                     if(entityElem.instanceGenerator==null){
                         entityElem.instanceGenerator=instanceGeneratorFound;
-                        entityElem.labelGenerators=labelGeneratorFound;
+//                        entityElem.labelGenerators=labelGeneratorFound;
                     }
                 }
             }
