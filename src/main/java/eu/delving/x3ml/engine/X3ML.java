@@ -726,8 +726,8 @@ public interface X3ML {
             }
             else{
                 int colon = tag.indexOf(':');
-                if (colon < 0) {
-                    throw exception("Unqualified tag " + tag);
+                if (colon <= 0) {
+                    throw exception("Unqualified tag: '"+tag+"'. The namespace of the resource is missing");
                 }
                 return tag.substring(0, colon);
             }
@@ -741,8 +741,8 @@ public interface X3ML {
             }
             else{
                 int colon = tag.indexOf(':');
-                if (colon < 0) {
-                    throw exception("Unqualified tag " + tag);
+                if (colon <= 0) {
+                    throw exception("Unqualified tag: '"+tag+"'. The namespace of the resource is missing");
                 }
                 return tag.substring(colon + 1);
             }
@@ -820,8 +820,8 @@ public interface X3ML {
             }
             else{
                 int colon = tag.indexOf(':');
-                if (colon < 0) {
-                    throw exception("Unqualified tag " + tag);
+                if (colon <= 0) {
+                    throw exception("Unqualified tag: '"+tag+"'. The namespace of the resource is missing");
                 }
                 return tag.substring(0, colon);
             }
@@ -833,8 +833,8 @@ public interface X3ML {
             }
             else{
                 int colon = tag.indexOf(':');
-                if (colon < 0) {
-                    throw exception("Unqualified tag " + tag);
+                if (colon <= 0) {
+                    throw exception("Unqualified tag: '"+tag+"'. The namespace of the resource is missing");
                 }
                 return tag.substring(colon + 1);
             }
