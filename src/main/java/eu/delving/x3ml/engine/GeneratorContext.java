@@ -34,6 +34,7 @@ import java.io.Writer;
 import org.w3c.dom.Attr;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import gr.forth.Labels;
+import lombok.extern.log4j.Log4j;
 import static org.joox.JOOX.$;
 
 /**
@@ -44,6 +45,7 @@ import static org.joox.JOOX.$;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public abstract class GeneratorContext {
 
     public final Root.Context context;
@@ -109,6 +111,11 @@ public abstract class GeneratorContext {
      * @param unique a unique value (usually the type of additional/intermediates) for creating always new instances
      * @return the value that has been generated (either now, or previously )  */
     public GeneratedValue getInstance(final GeneratorElement generator, String globalVariable, String variable_deprecated, String variable, String unique) {
+        log.debug("Generate instance/value. Generator Details: "+generator.getName()+", Args"+generator.getArgs());
+        log.debug("Generate instance/value. Variable: "+variable);
+        log.debug("Generate instance/value. Global Variable: "+globalVariable);
+        log.debug("Generate instance/value. Deprecated Variable: "+variable_deprecated);
+        log.debug("Generate instance/value. Unique Value: "+unique);
         if(generator == null){
             throw exception("Value generator missing");
         }
@@ -167,6 +174,7 @@ public abstract class GeneratorContext {
 //                String nodeName = extractXPath(node) + unique+"-"+typeAwareVar;
                 String nodeName = extractXPath(Domain.domainNode) + unique+"-"+variable;
                 generatedValue = context.getGeneratedValue(nodeName);
+                log.debug("Retrieved Generated Value: "+nodeName+"\t"+generatedValue);
                 if (generatedValue == null) {
                     generatedValue = context.policy().generate(generator, new Generator.ArgValues() {
                         @Override
@@ -195,6 +203,7 @@ public abstract class GeneratorContext {
                             }
                         });
                     }
+                    log.debug("put generated value: "+nodeName+"\t"+generatedValue);
                     context.putGeneratedValue(nodeName, generatedValue);
                     if(X3MLEngine.ENABLE_ASSOCIATION_TABLE){
                         this.createAssociationTable(generatedValue, genArg, extractAssocTableXPath(node));
