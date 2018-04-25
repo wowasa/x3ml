@@ -1,10 +1,11 @@
 # Change Log
 
-## 19 April 2018: V 1.8.5 (by FORTH-ICS)
+## 25 April 2018: V 1.8.5 (by FORTH-ICS)
 * Fixed issue with redundant encoding of slash character '/' in URI generators ([issue #118](https://github.com/isl/x3ml/issues/118))
 * Fixed issue that occurs when namespace information (i.e. prefix or URI) apperas to be empty ([issue #120](https://github.com/isl/x3ml/issues/120))
 * Fixed issue with unneeded encoding of already encoded strings when using instance generators ([issue #121](https://github.com/isl/x3ml/issues/121))
 * Improved error messages that appear when values for types and relationships (of the target schemata) are unqualified ([issue #119](https://github.com/isl/x3ml/issues/119))
+* Fixed issue with the generation of multiple label values when variables are used ([issue #122](https://github.com/isl/x3ml/issues/122))
 
 
 ## 19 March 2018: V 1.8.4 (by FORTH-ICS)
