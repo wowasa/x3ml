@@ -1,5 +1,8 @@
 # Change Log
 
+## 30 April 2018: V 1.8.5-1 (by FORTH-ICS)
+* Throw a warning if all the information about a namespace are missing ([issue #123](https://github.com/isl/x3ml/issues/123))
+
 ## 30 April 2018: V 1.8.5 (by FORTH-ICS)
 * Fixed issue with redundant encoding of slash character '/' in URI generators ([issue #118](https://github.com/isl/x3ml/issues/118))
 * Fixed issue that occurs when namespace information (i.e. prefix or URI) apperas to be empty ([issue #120](https://github.com/isl/x3ml/issues/120))
