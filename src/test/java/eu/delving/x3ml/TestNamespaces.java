@@ -80,9 +80,9 @@ public class TestNamespaces {
         }
         try{    //test case 3: when both the prefix of the namespace and the URI are empty e.g, <namespace prefix="" uri=""/>
             engine("/namespace/namespacesEmpty_inNamespacesBlock-3.x3ml");
-            fail("An X3MLException should have been thrown because the namespace information are empty");
+            assertTrue("No exception should be thrown if both the prefix and the URI of the namespace are empty",true);
         }catch(X3MLEngine.X3MLException ex){
-            assertTrue("Sucessfully caught X3MLException",true);
+            fail("No exception should be thrown if both the prefix and the URI of the namespace are empty");
         }
     } 
     
@@ -102,15 +102,15 @@ public class TestNamespaces {
         }
         try{    //test case 3: when both the prefix of the namespace and the URI are empty e.g, <namespace prefix="" uri=""/>
             engine("/namespace/namespacesEmpty_inInfoBlock-3.x3ml");
-            fail("An X3MLException should have been thrown because the namespace information are empty");
+            assertTrue("No exception should be thrown if both the prefix and the URI of the namespace are empty",true);
         }catch(X3MLEngine.X3MLException ex){
-            assertTrue("Sucessfully caught X3MLException",true);
+            fail("No exception should be thrown if both the prefix and the URI of the namespace are empty");
         }
         try{    //test case 4: when namespace information are empty in the source_info block
             engine("/namespace/namespacesEmpty_inInfoBlock-4.x3ml");
-            fail("An X3MLException should have been thrown because the namespace information are empty");
+            assertTrue("No exception should be thrown if both the prefix and the URI of the namespace are empty",true);
         }catch(X3MLEngine.X3MLException ex){
-            assertTrue("Sucessfully caught X3MLException",true);
+            fail("No exception should be thrown if both the prefix and the URI of the namespace are empty");
         }
     } 
 }
