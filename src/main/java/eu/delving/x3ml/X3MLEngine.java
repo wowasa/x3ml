@@ -240,7 +240,9 @@ public class X3MLEngine {
         if (this.rootElement.namespaces != null) {
             for (MappingNamespace namespace : this.rootElement.namespaces) {
                 ((XPathContext) namespaceContext).addNamespace(namespace.prefix, namespace.uri);
-                prefixes.add(namespace.prefix);
+                if(!namespace.prefix.isEmpty()){
+                    prefixes.add(namespace.prefix);
+                }
             }
         }
         if(this.rootElement.info !=null){
@@ -255,7 +257,9 @@ public class X3MLEngine {
                 if(targetInfoBlock.namespaces != null){
                     for(MappingNamespace namespace : targetInfoBlock.namespaces){
                         ((XPathContext)namespaceContext).addNamespace(namespace.prefix, namespace.uri);
-                        prefixes.add(namespace.prefix);
+                        if(!namespace.prefix.isEmpty()){
+                            prefixes.add(namespace.prefix);
+                        }
                     }
                 }
             }
@@ -281,8 +285,10 @@ public class X3MLEngine {
         void addNamespace(String prefix, String uri) {
             validateNamespace(prefix, uri);
             log.debug("Adding namespace with prefix '"+prefix+"' and URI '"+uri+"'");
-            prefixUri.put(prefix, uri);
-            uriPrefix.put(uri, prefix);
+            if(!prefix.trim().isEmpty() && !uri.trim().isEmpty()){
+                prefixUri.put(prefix, uri);
+                uriPrefix.put(uri, prefix);
+            }
         }
 
         @Override
@@ -308,12 +314,13 @@ public class X3MLEngine {
         }
         
         private void validateNamespace(String prefix, String uri){
-            if(prefix.trim().isEmpty()){
+            if(prefix.trim().isEmpty() && uri.trim().isEmpty()){
+                log.warn("Possible wrong namespace declaration. The prefix and the URI of a namespace are empty");
+            }else if(prefix.trim().isEmpty()){
                 String uriMessageValue=(uri.trim().isEmpty())?"(empty)":"\""+uri+"\"";
                 log.error("Invalid namespace declaration: the prefix of a namespace cannot be empty [Prefix: (empty), URI: "+uriMessageValue+"]");
                 throw exception("Invalid namespace declaration: the prefix of a namespace cannot be empty [Prefix: (empty), URI: "+uriMessageValue+"]");
-            }
-            if(uri.trim().isEmpty()){
+            }else if(uri.trim().isEmpty()){
                 String prefixMessageValue=(prefix.trim().isEmpty())?"(empty)":"\""+prefix+"\"";
                 log.error("Invalid namespace declaration: the URI of a namespace cannot be empty [Prefix: "+prefixMessageValue+", URI: (empty)]");
                 throw exception("Invalid namespace declaration: the URI of a namespace cannot be empty [Prefix: "+prefixMessageValue+", URI: (empty)]");
