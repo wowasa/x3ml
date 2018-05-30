@@ -65,16 +65,25 @@ Furthermore the option parameters have been updated and introduced short paramet
 ## Console run
 To run the x3ml engine from the console you need to download the x3ml engine executable .jar and execute it according to the following instructions:
 -i,--input : XML input records.
+
 Option A-single file: -input input.xml
+
 Option B-multiple files (comma-sep): -input input1.xml,input2.xml,input3.xml
+
 Option C-folder: -input #_folder_path
+
 Option D-URL: -input @input_url
+
 Option E-multiple URLs: -input @input_url1,input_url2,input_url3
+
 Option F-stdin: -input @
 
 -x,--x3ml : X3ML mapping definition.
+
 Option A-single file: -x3ml mapping.x3ml
+
 Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml
+
 Option C-stdin: -x3ml @
 
 -p,--policy : The value policy file: -policy policy.xml
@@ -83,7 +92,8 @@ Option C-stdin: -x3ml @
 
 -u,--uuidTestSize : Create a test UUID generator of the given size.
 
--f,--format : Output format. Options:
+-f,--format : Output format.
+Options:
 format application/n-triples
 
 -format text/turtle
