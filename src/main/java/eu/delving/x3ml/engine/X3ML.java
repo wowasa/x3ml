@@ -218,6 +218,9 @@ public interface X3ML {
         
         @XStreamAlias("example_data_target_record")
         public ExampleDataTargetRecord exampleDataTargetRecord;
+        
+        @XStreamAlias("thesaurus_info")
+        public ThesaurusInfo thesaurusInfo;
     }
     
     @XStreamAlias("example_data_source_record")
@@ -248,6 +251,16 @@ public interface X3ML {
     @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
     public static class ExampleDataTargetRecord extends Visible{
         @XStreamAlias("rdf_link")
+        @XStreamAsAttribute
+        public String rdfLink;
+        
+        public String value;
+    }
+    
+    @XStreamAlias("thesaurus_info")
+    @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"value"})
+    public static class ThesaurusInfo extends Visible{
+        @XStreamAlias("thesaurus_link")
         @XStreamAsAttribute
         public String rdfLink;
         
