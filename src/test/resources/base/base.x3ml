@@ -40,6 +40,7 @@
             <example_data_source_record xml_link="?">?</example_data_source_record>
 			<generator_policy_info>?</generator_policy_info>
             <example_data_target_record rdf_link="">?</example_data_target_record>
+			<thesaurus_info>N/A</thesaurus_info>
         </example_data_info>
     </info>
     <namespaces>
