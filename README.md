@@ -87,7 +87,10 @@ To run the x3ml engine from the console you need to download the x3ml engine exe
 * *-m,--mergeAssocWithRDF*:merge the contents of the association table with the RDF output
 	
 A simple example looks like:
+
+'''
 java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o output.rdf -u 4
+'''
 
 ---
 
