@@ -57,6 +57,41 @@ The project is structured with respect to Maven principles and any important or 
 * 	Nikos Minadakis, Yannis Marketakis, Haridimos Kondylakis, Giorgos Flouris, Maria Theodoridou, Martin Doerr, and Gerald de Jong. X3ML Framework: An effictive suite for supporting data mappings. Workshop for Extending, Mapping and Focusing the CRM - co-located with TPDL'2015, Poznan, Poland, September 2015. [PDF] (http://users.ics.forth.gr/~marketak/download/x3mlEngine_tpdl2015.pdf)
 * 	Yannis Marketakis, Nikos Minadakis, Haridimos Kondylakis, Konstantina Konsolaki, Georgios Samaritakis, Maria Theodoridou, Giorgos Flouris, Martin Doerr . X3ML Mapping Framework for Information Integration in Cultural Heritage and beyond. International Journal on Digital Libraries, Special Issue: Extending, Mapping and Focusing the CIDOC CRM (to be published 2016). [PDF] (http://users.ics.forth.gr/~marketak/download/X3ML_Framework_IJDL_2016.pdf)	
 
+
+X3ML console started now supports importing multiple input files and folders, and multiple x3ml mappings files. Furthermore they allow adding URLs of input and X3ML mappings resources (both single and multiple).
+
+Furthermore the option parameters have been updated and introduced short parameters as well. The detailed usage help menu is shown when running X3ML Engine console starter and is shown below.
+
+## Console run
+To run the x3ml engine from the console you need to download the x3ml engine executable .jar and execute it according to the following instructions:
+
+* *-i,--input <arg>*: XML input records.
+  * Option A-single file: -input input.xml
+  * Option B-multiple files (comma-sep): -input input1.xml,input2.xml,input3.xml
+  * Option C-folder: -input #_folder_path
+  * Option D-URL: -input @input_url
+  * Option E-multiple URLs: -input @input_url1,input_url2,input_url3
+  * Option F-stdin: -input @
+* *-x,--x3ml <arg>*: X3ML mapping definition.
+  * Option A-single file: -x3ml mapping.x3ml
+  * Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml
+  * Option C-stdin: -x3ml @
+* *-p,--policy <arg>*: The value policy file: -policy policy.xml
+* *-o,--output <arg>*: The RDF output file name: -output output.rdf
+* *-u,--uuidTestSize <arg>*:  Create a test UUID generator of the given size.
+* *-f,--format <arg>*: Output format. Options:
+  * format application/n-triples
+  * -format text/turtle
+  * -format application/rdf+xml (default)
+* *-a,--assocTable <arg>*: export the contents of the association table in XML format
+* *-m,--mergeAssocWithRDF*:merge the contents of the association table with the RDF output
+	
+A simple example looks like:
+
+```
+java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o output.rdf -u 4
+```
+
 ---
 
 ## Contacts
