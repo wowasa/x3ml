@@ -1,5 +1,8 @@
 # Change Log
 
+## 14 June 2018: V 1.9.1 (by FORTH-ICS)
+* Fixed issues with inconsistencies in the error messages ([issue #126](https://github.com/isl/x3ml/issues/126))
+
 ## 04 June 2018: V 1.9.0 (by FORTH-ICS)
 * Update X3ML Schema (XSD) with the addition of a new mandatory field thesaurus_info ([issue #124](https://github.com/isl/x3ml/issues/124))
 
