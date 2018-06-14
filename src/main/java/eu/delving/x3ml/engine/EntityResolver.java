@@ -256,8 +256,9 @@ public class EntityResolver {
                         newLabelNodes.add(labelNode);
                     }
                     }catch(X3MLEngine.X3MLException ex){
-                        X3MLEngine.exceptionMessagesList+=ex.toString();
-                        Utils.printErrorMessages(Utils.produceLabelGeneratorEmptyArgumentError(generator));
+                        String errorMessage=Utils.produceLabelGeneratorEmptyArgumentError(generator);
+                        X3MLEngine.exceptionMessagesList+=errorMessage;
+                        Utils.printErrorMessages(errorMessage);
                     }
             }
         }
