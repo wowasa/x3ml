@@ -177,7 +177,7 @@ public class X3MLEngine {
             Validator validator=schema.newValidator();
             validator.validate(x3mlFile);
         }catch(SAXException | IOException ex){
-            throw exception("An error ocurred while validating X3ML mappings file", ex);
+            throw exception("An error occurred while validating X3ML mappings file", ex);
         }
     }
     

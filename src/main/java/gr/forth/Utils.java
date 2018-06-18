@@ -103,7 +103,7 @@ public class Utils {
                                   .append("\"")
                                   .append(generator.getName())
                                   .append("\"")
-                                  .append(" does not containg any value. ")
+                                  .append(" does not contain any value. ")
                                   .append("[Mapping #: ")
                                   .append(X3ML.RootElement.mappingCounter)
                                   .append(", Link #: ")
