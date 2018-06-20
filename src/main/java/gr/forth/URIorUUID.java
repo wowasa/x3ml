@@ -23,63 +23,79 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import lombok.extern.log4j.Log4j;
 
-/**
- * a date interpreter
+/** The URIorUUID generator is responsible for generating a URI and in the cases 
+ * where it is not valid it generates a UUID. It takes a single parameter (with name "text") 
+ * which can be given either from the input, or through a constant. If the given value is not 
+ * a valid URI or URN, it generates a UUID. 
+ * The generator is also applicable for the cases where the corresponding value does not exist. 
+ * For example given the input &lt;FOO:gt;&lt;BAR/:gt;&lt;/FOO:gt; if we want to 
+ * generate a value using the XPATH expression BAR/text() then in this case the value 
+ * does not exist for the given XPATH expression, however this should NOT trigger an error; instead
+ * it should generate a UUID value for the given entity (based on the fact that 
+ * the source_node exists (i.e. FOO).
  * 
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class URIorUUID implements CustomGenerator {
-
     private String text;
 
+    /** Sets the value of the argument with the given value.
+     * 
+     * @param name the name of the argument (the generator recognizes the "text" argument)
+     * @param value the value of the corresponding argument
+     * @throws CustomGeneratorException it is thrown if the name of the argument is different 
+     * from the expected one ("text") */
     @Override
     public void setArg(String name, String value) throws CustomGeneratorException {
-        if("text".equals(name)){
+        if(Labels.TEXT.equals(name)){
             text = value;
-        } else {
+        }else{
             throw new CustomGeneratorException("Unrecognized argument name: " + name);
         }
     }
 
+    /** Returns the value of the URIorUUID generator.
+     * 
+     * @return the value of the given generator
+     * @throws CustomGeneratorException if the argument of the generator is missing or null*/
     @Override
     public String getValue() throws CustomGeneratorException {
         if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
-        return text;
+        return UriValidator.encodeURI(text).toASCIIString();
     }
 
-     @Override
+    /** Returns the type of the generated value. The generator is responsible for constructing 
+     * identifiers, therefore it is expected to return either a URI or a UUID.
+     * 
+     * @return the type of the generated value (i.e. URI or UUID)
+     * @throws CustomGeneratorException if the argument is missing or null */
+    @Override
     public String getValueType() throws CustomGeneratorException {
         if(text == null){
             throw new CustomGeneratorException("Missing text argument");
         }
-        return isValidURL(text) || isValidURN(text) ? "URI" : "UUID";
-    }
-
-    private boolean isValidURL(String urlString) {
-        URL url;
-        try{
-            url = new URL(urlString);
-        }catch(MalformedURLException e) {
-            return false;
-        }
-
-        try{
-            url.toURI();
-        }catch (URISyntaxException e) {
-            return false;
-        }
-        return true;
+        return UriValidator.isValid(text) ? Labels.URI : Labels.UUID;
     }
     
-    private boolean isValidURN(String urnString) {
-        if(urnString.startsWith("urn:")||urnString.startsWith("URN:")){
-            return true;
-        }else{
-            return false;
-        }
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
+    
+    @Override
+    public void usesNamespacePrefix() {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
     }
 }

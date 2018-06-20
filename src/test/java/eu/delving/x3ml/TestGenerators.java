@@ -49,7 +49,7 @@ public class TestGenerators {
     }   
     
     @Test
-    public void testBMDateGenWithFullUruType() throws FileNotFoundException {
+    public void testBMDateGenWithFullUriType() throws FileNotFoundException {
         X3MLEngine engine = engine("/generators/02_BMDates_mappings.x3ml");
         X3MLEngine.Output output = engine.execute(document("/generators/01_BMDates_input.xml"),policy("/generators/01_BMDates_generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
@@ -57,5 +57,94 @@ public class TestGenerators {
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   
- 
+    
+    @Test
+    public void testConcatMutipleTerms(){
+        X3MLEngine engine = engine("/generators/03_ConcatMultiple-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/03_ConcatMultiple-input.xml"),policy("/generators/03_ConcatMultiple-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/03_ConcatMultiple-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testUrnFromTextualContent(){
+        X3MLEngine engine = engine("/generators/05_URNfromTextualContent-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/05_URNfromTextualContent-input.xml"),policy("/generators/05_URNfromTextualContent-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/05_URNfromTextualContent-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testURIirUUID(){
+        X3MLEngine engine = engine("/generators/04_URIorUUID-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/04_URIorUUID-input.xml"),policy("/generators/04_URIorUUID-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/04_URIorUUID-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testRemoveTermGenerator(){
+        X3MLEngine engine = engine("/generators/06_1_RemoveTerm-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/06_1_RemoveTerm-input.xml"),policy("/generators/06_RemoveTerm-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/06_1_RemoveTerm-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testRemoveTermGeneratorAllOccurrences(){
+        X3MLEngine engine = engine("/generators/06_2_RemoveTerm-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/06_2_RemoveTerm-input.xml"),policy("/generators/06_RemoveTerm-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/06_2_RemoveTerm-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testRemoveTermGeneratorWithPrefix(){
+        X3MLEngine engine = engine("/generators/06_3_RemoveTerm-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/06_3_RemoveTerm-input.xml"),policy("/generators/06_RemoveTerm-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/06_3_RemoveTerm-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testTypedLiteralGenerator(){
+        X3MLEngine engine = engine("/generators/07_TypedLiteralGen_mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/07_TypedLiteralGen_input.xml"),policy("/generators/07_TypedLiteralGen_generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/07_TypedLiteralGen-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testHashedUrisGenerator(){
+        X3MLEngine engine = engine("/generators/08_HashedUris-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/08_HashedUris-input.xml"),policy("/generators/08_HashedUris-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/08_HashedUris-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
+    
+    @Test
+    public void testCustomInstanceGenerators(){
+        X3MLEngine engine = engine("/generators/09_CustomInstanceGenerators-mappings.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/generators/09_CustomInstanceGenerators-input.xml"),policy("/generators/09_CustomInstanceGenerators-generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/generators/09_CustomInstanceGenerators-expectedOutput.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }

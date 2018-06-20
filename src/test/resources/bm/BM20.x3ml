@@ -2,22 +2,22 @@
 	<info>
 		<title>BMSchema FULL transformation</title>
 		<general_description/>
-		<source_info>
-			<source_schema type="" version=""/>
-			<source_collection/>
-		</source_info>
-		<target_info>
-			<target_schema schema_file="cidoc_crm_v5.1-draft-2014March.rdfs" type="rdfs" version="5.1">CIDOC-CRM</target_schema>
-			<target_collection/>
-		</target_info>
-		<target_info>
-			<target_schema version="" schema_file="CRMtime___14-11-2014091944___1671.rdf" type="rdfs">crmtime</target_schema>
-			<target_collection/>
-		</target_info>
-		<target_info>
-			<target_schema version="" schema_file="CRMext4SKOSandlabel___14-11-2014092037___9269.rdfs" type="rdfs">skos and label</target_schema>
-			<target_collection/>
-		</target_info>
+		<source>
+			<source_info>
+				<source_schema type="" version=""/>
+			</source_info>
+		</source>
+		<target>
+			<target_info>
+				<target_schema schema_file="cidoc_crm_v5.1-draft-2014March.rdfs" type="rdfs" version="5.1">CIDOC-CRM</target_schema>
+			</target_info>
+			<target_info>
+				<target_schema version="" schema_file="CRMtime___14-11-2014091944___1671.rdf" type="rdfs">crmtime</target_schema>
+			</target_info>
+			<target_info>
+				<target_schema version="" schema_file="CRMext4SKOSandlabel___14-11-2014092037___9269.rdfs" type="rdfs">skos and label</target_schema>
+			</target_info>
+		</target>
 		<mapping_info>
 			<mapping_created_by_org/>
 			<mapping_created_by_person/>
@@ -27,7 +27,9 @@
 			<example_data_from/>
 			<example_data_contact_person/>
 			<example_data_source_record/>
+			<generator_policy_info/>
 			<example_data_target_record/>
+			<thesaurus_info/>
 		</example_data_info>
 	</info>
 	<namespaces>

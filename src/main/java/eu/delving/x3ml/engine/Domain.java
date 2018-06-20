@@ -35,12 +35,12 @@ import static org.joox.JOOX.$;
 /**
  * The domain entity handled here. Resolution delegated. Holding variables here.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class Domain extends GeneratorContext {
-
+    public static Node domainNode;
     public final DomainElement domain;
     public EntityResolver entityResolver;
     private Map<String, X3ML.GeneratedValue> variables = new TreeMap<>();
@@ -74,12 +74,13 @@ public class Domain extends GeneratorContext {
     }
 
     public boolean resolve(String mappingNamedGraph) {
+        domainNode=node;
         if (conditionFails(domain.target_node.condition, this)) {
             return false;
         }
         entityResolver = new EntityResolver(context.output(), domain.target_node.entityElement, this);
         boolean skip=domain.source_node.skip!=null && domain.source_node.skip.equalsIgnoreCase("true");
-        return entityResolver.resolve(0,0, skip, Derivation.Domain,this.domain.namedgraph, mappingNamedGraph);
+        return entityResolver.resolve(0,0, skip, Derivation.Domain,this.domain.namedgraph, mappingNamedGraph, null);
     }
 
     public List<Link> createLinkContexts(LinkElement linkElement, String domainForeignKey, String rangePrimaryKey,
@@ -109,7 +110,7 @@ public class Domain extends GeneratorContext {
                 
                 String intermediateValue=context.input().valueAt(node, node_inside + "[" + count + "]//" + intermediateSecond + "/text()");
                 if(intermediateValue.isEmpty()){
-                    Utils.printErrorMessages("ERROR FOUND: Empty value for "+node_inside+"/"+intermediateSecond+". The node from the XML input is:\n"+$(node).toString());
+                    Utils.printErrorMessages("Empty value for "+node_inside+"/"+intermediateSecond+". The node from the XML input is:\n"+$(node).toString());
                 }
                 List<Node> rangeNodes = context.input().rootNodeList(
                         domain.source_node.expression,

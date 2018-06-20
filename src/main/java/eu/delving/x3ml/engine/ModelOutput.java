@@ -37,15 +37,16 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import java.util.Iterator;
+import java.io.OutputStream;
+
 
 /**
  * The output sent to a Jena graph model.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class ModelOutput implements Output {
 
@@ -58,6 +59,7 @@ public class ModelOutput implements Output {
         this.namespaceContext = namespaceContext;
     }
 
+    @Override
     public Model getModel() {
         return model;
     }
@@ -116,7 +118,10 @@ public class ModelOutput implements Output {
         if (relationship.getLocalName().startsWith("http:")){
             String propertyNamespace = "";
             return model.createProperty(propertyNamespace, relationship.getLocalName());
-        }else{ 
+        }else if (relationship.getLocalName().equals("MERGE")){
+            return null;
+        }
+        else{ 
             String propertyNamespace = namespaceContext.getNamespaceURI(relationship.getPrefix());
             if(propertyNamespace==null){
                 throw exception("The namespace with prefix \""+relationship.getPrefix()+"\" has not been declared");
@@ -139,7 +144,8 @@ public class ModelOutput implements Output {
         return model.createTypedLiteral(value, typeUri);
     }
 
-    public void writeXML(PrintStream out) {
+    @Override
+    public void writeXML(OutputStream out) {
         if(X3ML.RootElement.hasNamedGraphs){
             this.updateNamedgraphRefs(XPathInput.entireInputExportedRefUri);
             this.writeQuads(out);
@@ -156,28 +162,35 @@ public class ModelOutput implements Output {
                           new ResourceImpl("http://PX_is_refered_by").asNode(), 
                           new ResourceImpl(qIter.next().getGraph().getURI()).asNode());
     }
-
-    public void writeNTRIPLE(PrintStream out) {
+    
+    public void writeXMLPlain(OutputStream out) {
+        model.write(out, "RDF/XML");
+    }
+    
+    public void writeNTRIPLE(OutputStream out) {
         model.write(out, "N-TRIPLE");
     }
 
-    public void writeTURTLE(PrintStream out) {
+    public void writeTURTLE(OutputStream out) {
         model.write(out, "TURTLE");
     }
 
-    public void write(PrintStream out, String format) {
+    @Override
+    public void write(OutputStream out, String format) {
         if ("application/n-triples".equalsIgnoreCase(format)) {
             writeNTRIPLE(out);
         } else if ("text/turtle".equalsIgnoreCase(format)) {
             writeTURTLE(out);
         } else if ("application/rdf+xml".equalsIgnoreCase(format)) {
             writeXML(out);
-        } else {
+        } else if ("application/rdf+xml_plain".equalsIgnoreCase(format)){
+            writeXMLPlain(out);
+        }else {
             writeXML(out);
         }
     }
     
-    public void writeQuads(PrintStream out){
+    public void writeQuads(OutputStream out){
         StmtIterator stIter=model.listStatements();
         String defaultGraphSpace="http://default";
         if(X3ML.Mappings.namedgraphProduced!=null && !X3ML.Mappings.namedgraphProduced.isEmpty()){
@@ -192,10 +205,12 @@ public class ModelOutput implements Output {
         
     }
 
+    @Override
     public String[] toStringArray() {
         return toString().split("\n");
     }
 
+    @Override
     public String toString() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         writeNTRIPLE(new PrintStream(baos));

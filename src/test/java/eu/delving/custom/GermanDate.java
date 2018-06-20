@@ -66,6 +66,21 @@ public class GermanDate implements CustomGenerator {
         }
         return text.startsWith("http") ? "URI" : "Literal";
     }
+    
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
+    
+    @Override
+    public void usesNamespacePrefix() {
+        ;
+    }
 
     private static String lookupCheat(String bounds, String value) {
         for (String[] entry : CHEAT) {

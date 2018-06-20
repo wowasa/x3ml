@@ -30,24 +30,30 @@ import java.util.List;
 import java.util.Map;
 import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
 import gr.forth.Utils;
+import java.io.InputStream;
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.jena.riot.Lang;
 
 /**
  * The root of the mapping is where the domain contexts are created. They then
  * fabricate path contexts which in turn make range contexts.
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class Root {
 
     private final Element rootNode;
     private final ModelOutput modelOutput;
+    private final TerminologyModel terminology;
     private final XPathInput xpathInput;
     private final Context context;
-    private final Map<String, GeneratedValue> generated = new HashMap<String, GeneratedValue>();
-
-    public Root(Element rootNode, final Generator generator, NamespaceContext namespaceContext, List<String> prefixes) {
+    private final Map<String, GeneratedValue> generated = new HashMap<>();
+           
+    public Root(Element rootNode, final Generator generator, NamespaceContext namespaceContext, List<String> prefixes, Pair<InputStream,Lang> terminologyStream) {
         this.rootNode = rootNode;
         Model model = ModelFactory.createDefaultModel();
         for (String prefix : prefixes) {
@@ -74,6 +80,7 @@ public class Root {
 
             @Override
             public GeneratedValue getGeneratedValue(String xpath) {
+                log.debug("All context keys: "+generated.keySet());
                 return generated.get(xpath);
             }
 
@@ -88,8 +95,14 @@ public class Root {
                     case TYPED_LITERAL:
                         break;
                 }
+                log.debug("All context keys: "+generated.keySet());
             }
         };
+        if(terminologyStream!=null){
+            this.terminology=new TerminologyModel(terminologyStream.getLeft(),terminologyStream.getRight());
+        }else{
+            this.terminology=null;
+        }
     }
 
     public ModelOutput getModelOutput() {
@@ -98,9 +111,19 @@ public class Root {
 
     public List<Domain> createDomainContexts(X3ML.DomainElement domain,String namedgraph) {
         List<Node> domainNodes = xpathInput.nodeList(rootNode, domain.source_node);
-        List<Domain> domains = new ArrayList<Domain>();
+        List<Domain> domains = new ArrayList<>();
+        int domainNodesTotal=domainNodes.size();
         int index = 1;
         for (Node domainNode : domainNodes) {
+            if(X3MLEngine.REPORT_PROGRESS){
+                if(domainNodesTotal>=20){
+                    if(index%(domainNodesTotal/20)==0){
+                        log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 1/2: Creating domain nodes: "+((100*(index))/domainNodesTotal)+"% completed ("+index +" domain nodes out of "+domainNodesTotal+" completed)");
+                    }
+                }else{
+                    log.info("Round "+X3ML.RootElement.mappingCounter+"/"+X3ML.RootElement.mappingsTotal+", Step 1/2: Creating domain nodes: "+((100*(index))/domainNodesTotal)+"% completed ("+index +" domain nodes out of "+domainNodesTotal+" completed)");
+                }
+            }
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
                 if (domainContext.resolve(namedgraph)) {
@@ -108,7 +131,8 @@ public class Root {
                 } 
             }catch(X3MLEngine.X3MLException ex){
                 X3MLEngine.exceptionMessagesList+=ex.toString();
-                Utils.printErrorMessages("ERROR FOUND: "+ex.toString());
+               
+                Utils.printErrorMessages(ex.getMessage());
             }
         }
         return domains;
@@ -124,6 +148,6 @@ public class Root {
 
         GeneratedValue getGeneratedValue(String xpath);
 
-        void putGeneratedValue(String xpath, GeneratedValue generatedValue);
+        void putGeneratedValue(String xpath, GeneratedValue generatedValue);        
     }
 }

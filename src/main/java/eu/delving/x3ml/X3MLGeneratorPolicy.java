@@ -33,37 +33,65 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.*;
 import static eu.delving.x3ml.engine.X3ML.Helper.generatorStream;
-import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.typedLiteralValue;
 import static eu.delving.x3ml.engine.X3ML.Helper.uriValue;
 import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
 import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
+import gr.forth.Labels;
 import gr.forth.Utils;
+import static eu.delving.x3ml.X3MLEngine.exception;
+import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import gr.forth.TextualContent;
+import java.nio.ByteBuffer;
+import lombok.extern.log4j.Log4j;
 
 /**
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
-
+@Log4j
 public class X3MLGeneratorPolicy implements Generator {
     private static final Pattern BRACES = Pattern.compile("\\{[?;+#]?([^}]+)\\}");
-    private Map<String, GeneratorSpec> generatorMap = new TreeMap<String, GeneratorSpec>();
-    private Map<String, String> namespaceMap = new TreeMap<String, String>();
+    private Map<String, GeneratorSpec> generatorMap = new TreeMap<>();
+    private Map<String, String> namespaceMap = new TreeMap<>();
     private UUIDSource uuidSource;
     private SourceType defaultSourceType;
     private String languageFromMapping;
 
     public interface CustomGenerator {
+        /**Updates the custom generator values. In particular it updates the argument 
+         * with the given name. 
+         * 
+         * @param name the name of the argument of the custom generator
+         * @param value the value of the argument (it can be taken from the input, defined by the user, etc.)
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         void setArg(String name, String value) throws CustomGeneratorException;
-
+        
+        /**Indicates that the custom generator uses a prefix (from the namespaces section).
+         The prefix is particularly used for constructing URIs.*/
+        void usesNamespacePrefix();
+        
+        /**Returns the value that has been generated from the custom generator
+         * 
+         * @return the generated value
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         String getValue() throws CustomGeneratorException;
 
+        /**Returns the type of the generated value (i.e. URI, UUID, Literal, etc.)
+         * 
+         * @return the type of the generated value 
+         * @throws CustomGeneratorException if any of the mandatory fields are missing (i.e. an argument is null)*/
         String getValueType() throws CustomGeneratorException;
 
+        /**Indicates whether the custom generator supports merging when multiple values exist.
+         * This options refers to custom generators, that retrieve their values from the input 
+         * (i.e. using XPath expressions) and there are multiple results from the input (i.e. multiple elements)
+         * 
+         * @return true if the custom generator supports merging multiple values, otherwise false */
+        boolean mergeMultipleValues();
     }
 
     public static class CustomGeneratorException extends Exception {
@@ -117,19 +145,21 @@ public class X3MLGeneratorPolicy implements Generator {
 
     @Override
     public GeneratedValue generate(GeneratorElement generatorElem, ArgValues argValues) {
-        String argDefaultValue="text";
+        String argDefaultValue=Labels.TEXT;
         String name=generatorElem.getName();
         if (name == null) {
             throw exception("Value function name missing");
         }
-        if ("UUID".equals(name)) {
+        if (Labels.UUID.equals(name)) {
             return uriValue(uuidSource.generateUUID());
         }
+
         if ("namedgraphURI".equals(name)) {
-            return uriValue(argValues.getArgValue("text", constant).string);
+            return uriValue(argValues.getArgValue("text", constant, false).string);
         }
-        if ("Literal".equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
+        if (Labels.LITERAL.equals(name)) {
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath, false);
+            
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -138,8 +168,8 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
-        if ("prefLabel".equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, xpath);
+        if (Labels.PREF_LABEL.equals(name)) {
+            ArgValue value = argValues.getArgValue(argDefaultValue, xpath, false);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -148,8 +178,8 @@ public class X3MLGeneratorPolicy implements Generator {
             }
             return literalValue(value.string, getLanguage(value.language, argValues));
         }
-        if ("Constant".equals(name)) {
-            ArgValue value = argValues.getArgValue(argDefaultValue, constant);
+        if (Labels.CONSTANT.equals(name)) {
+            ArgValue value = argValues.getArgValue(argDefaultValue, constant, false);
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }
@@ -178,24 +208,31 @@ public class X3MLGeneratorPolicy implements Generator {
             Class<?> customClass = Class.forName(className);
             Constructor<?> constructor = customClass.getConstructor();
             CustomGenerator instance = (CustomGenerator) constructor.newInstance();
+            if(generator.prefix!=null){
+                instance.usesNamespacePrefix();
+            }
             for (CustomArg customArg : generator.custom.setArgs) {
                 SourceType sourceType = defaultSourceType;
                 if (customArg.type != null) {
                     sourceType = SourceType.valueOf(customArg.type);
                 }
-                ArgValue argValue = argValues.getArgValue(customArg.name, sourceType);
+                ArgValue argValue = argValues.getArgValue(customArg.name, sourceType, instance.mergeMultipleValues());
                 if(argValue==null){
-                    throw exception("Cannot find arg with name \""+customArg.name+"\""+
+                    if(instance.mergeMultipleValues()){ /*Do not stop if there are elements missing only for specific generators (i.e.  ConcatMultipleTerms)*/
+                        argValue=new ArgValue("", "en");
+                    }else{
+                        throw exception("Cannot find arg with name \""+customArg.name+"\""+
                                     " in generator with name \""+generator.name+"\""+
                                     "[Mapping: "+RootElement.mappingCounter+", Link: "+RootElement.linkCounter+"]");
+                    }
                 }
                 instance.setArg(customArg.name, argValue.string);
             }
             String value = instance.getValue();
             String returnType = instance.getValueType();
-          
+            log.debug("Generated Value-Type: ["+value+" , "+returnType+"]");
             //Custom Generator Prefix Addition
-            if (returnType.equals("URI")) {
+            if (returnType.equals(Labels.URI)) {
 
                 if (generator.prefix != null) { // use URI template
                     String namespaceUri = namespaceMap.get(generator.prefix);
@@ -203,11 +240,14 @@ public class X3MLGeneratorPolicy implements Generator {
                         throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
                     }
                     return uriValue(namespaceUri + value);
-                } else {
+                }else if(generator.custom.generatorClass.equals(TextualContent.class.getCanonicalName())){
+                    return uriValue(Utils.urnValue(value));
+                }
+                else{
                     return uriValue(value);
                 }
             }
-            else if (returnType.equals("UUID")) {
+            else if (returnType.equals(Labels.UUID)) {
                 return uriValue(uuidSource.generateUUID());
             }
             else {
@@ -220,13 +260,7 @@ public class X3MLGeneratorPolicy implements Generator {
         catch (NoSuchMethodException e) {
             throw new X3MLEngine.X3MLException("Custom generator missing default constructor: " + className);
         }
-        catch (InvocationTargetException e) {
-            throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
-        }
-        catch (InstantiationException e) {
-            throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
-        }
-        catch (IllegalAccessException e) {
+        catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new X3MLEngine.X3MLException("Custom generator unable to instantiate: " + className, e);
         }
         catch (ClassCastException e) {
@@ -241,7 +275,7 @@ public class X3MLGeneratorPolicy implements Generator {
         try {
             UriTemplate uriTemplate = UriTemplate.fromTemplate(generator.pattern);
             for (String argument : getVariables(generator.pattern)) {
-                ArgValue argValue = argValues.getArgValue(argument, defaultSourceType);
+                ArgValue argValue = argValues.getArgValue(argument, defaultSourceType, false);
                 if (argValue == null || argValue.string == null) {
                     throw exception(String.format(
                             "Argument failure in generator %s: %s",
@@ -250,7 +284,16 @@ public class X3MLGeneratorPolicy implements Generator {
                 }
                 uriTemplate.set(argument, argValue.string);
             }
-            return uriValue(namespaceUri + uriTemplate.expand());
+            if(Utils.isAffirmative(generator.shorten)){
+                UUID uuid = java.util.UUID.nameUUIDFromBytes(uriTemplate.expand().getBytes());
+                long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
+                String shortenedSuffix=Long.toString(l, Character.MAX_RADIX);
+                return uriValue(namespaceUri + shortenedSuffix);
+            }
+            return uriValue(namespaceUri + uriTemplate.expand().replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER)
+                                                               .replaceAll(Labels.PERCENT_CHARACTER_ENCODED, Labels.PERCENT_CHARACTER)
+            
+            );
         }
         catch (MalformedUriTemplateException e) {
             throw exception("Malformed", e);
@@ -264,7 +307,7 @@ public class X3MLGeneratorPolicy implements Generator {
         String result = generator.pattern;
         String language = null;
         for (String argument : getVariables(generator.pattern)) {
-            ArgValue argValue = argValues.getArgValue(argument, defaultSourceType);
+            ArgValue argValue = argValues.getArgValue(argument, defaultSourceType, false);
             if (argValue == null || argValue.string == null) {
                 throw exception(String.format(
                         "Argument failure in simple template %s: %s",
@@ -316,7 +359,7 @@ public class X3MLGeneratorPolicy implements Generator {
 
     private static List<String> getVariables(String pattern) {
         Matcher braces = BRACES.matcher(pattern);
-        List<String> arguments = new ArrayList<String>();
+        List<String> arguments = new ArrayList<>();
         while (braces.find()) {
             Collections.addAll(arguments, braces.group(1).split(","));
         }
@@ -324,7 +367,7 @@ public class X3MLGeneratorPolicy implements Generator {
     }
 
     private String getLanguage(String language, ArgValues argValues) {
-        ArgValue languageArg = argValues.getArgValue("language", defaultSourceType);
+        ArgValue languageArg = argValues.getArgValue("language", defaultSourceType, false);
         if (languageArg != null) {
             language = languageArg.string;
             if (language.isEmpty()) language = null; // to strip language

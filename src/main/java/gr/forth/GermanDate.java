@@ -21,13 +21,15 @@ package gr.forth;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.Date;
+import lombok.extern.log4j.Log4j;
 
 /**
  * an date interpreter
  * 
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class GermanDate implements CustomGenerator {
 
     private String text;
@@ -63,6 +65,22 @@ public class GermanDate implements CustomGenerator {
     public String getValueType() throws CustomGeneratorException {
         return text.startsWith("http") ? "URI" : "Literal";
     }
+    
+    /** Returns a boolean flag (with value set to false) indicating that this 
+     * generator DOES NOT support merging values from similar elements
+     * (elements having the same name). 
+     * 
+     * @return false*/
+    @Override
+    public boolean mergeMultipleValues(){
+        return false;
+    }
+    
+    @Override
+    public void usesNamespacePrefix() {
+        log.error("The "+this.getClass().getName()+" custom generator does not support injecting prefix yet");
+        ;
+    }
 
     private static String getFormatedDate(String bounds, String time_str) {
         String xsdDate = "";
@@ -76,11 +94,6 @@ public class GermanDate implements CustomGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      
-        return xsdDate;
-       
+        return xsdDate;  
     }
-    
-    
-
 }

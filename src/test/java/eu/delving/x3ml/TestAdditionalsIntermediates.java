@@ -40,10 +40,20 @@ public class TestAdditionalsIntermediates {
 
     @Test
     public void testManyTypes() throws FileNotFoundException {
-        X3MLEngine engine = engine("/additionals_intermediates/mappings.x3ml");
+        X3MLEngine engine = engine("/additionals_intermediates/01_mappings-simple.x3ml");
         X3MLEngine.Output output = engine.execute(document("/additionals_intermediates/01_input_in_diff_links.xml"),policy("/additionals_intermediates/generator-policy.xml"));
         String[] mappingResult = output.toStringArray();
         String[] expectedResult = xmlToNTriples("/additionals_intermediates/01_expectedResult.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }   
+
+    @Test
+    public void testAdditionalPaths(){
+        X3MLEngine engine = engine("/additionals_intermediates/02_mappings_additional_paths.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/additionals_intermediates/02_input.xml"),policy("/additionals_intermediates/generator-policy.xml"));
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/additionals_intermediates/02_expectedResult.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
     }   

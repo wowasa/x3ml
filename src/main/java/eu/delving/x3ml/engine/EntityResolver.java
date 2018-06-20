@@ -34,16 +34,17 @@ import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
 import static eu.delving.x3ml.X3MLEngine.exception;
+import org.w3c.dom.Node;
 
 /**
  * The entity resolver creates the related model elements by calling generator
  * functions.
- * <p/>
+ * <p>
  * Handles label nodes and additional nodes with their properties
  *
- * @author Gerald de Jong <gerald@delving.eu>
- * @author Nikos Minadakis <minadakn@ics.forth.gr>
- * @author Yannis Marketakis <marketak@ics.forth.gr>
+ * @author Gerald de Jong &lt;gerald@delving.eu&gt;
+ * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
+ * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
 public class EntityResolver {
 
@@ -69,8 +70,13 @@ public class EntityResolver {
     the cases where an entity resolve is requested from the link of a mapping and therefore 
     keeping only the xapth input is not enough. We want to also keep the indexes 
     We also use the indexes of the additional or intermediate node - in cases 
-    where we have "similar" nodes (with same target entity type). */
-    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, Derivation derivedBy, String domainNamedGraph, String mappingNamedGraph) {
+    where we have "similar" nodes (with same target entity type). 
+    
+    The third option (domainNodeFromMerged) indicates if the MERGE facility has been used.
+    When this parameter is NOT null, then the MERGE facility has been used.
+    */
+    boolean resolve(int additionalNodeIndex, int indermediateNodeIndex, boolean skip, Derivation derivedBy, String domainNamedGraph, String mappingNamedGraph, Node domainNodeFromMerged) {
+
         if (entityElement == null) {
             throw exception("Missing entity");
         }
@@ -79,7 +85,7 @@ public class EntityResolver {
         }
         if (resources == null) {
             StringBuilder unique = new StringBuilder();
-            Set<String> uniqueTypes=new TreeSet<String>();
+            Set<String> uniqueTypes=new TreeSet<>();
             for (TypeElement typeElement : entityElement.typeElements) {
                 uniqueTypes.add(typeElement.tag);
             }
@@ -90,11 +96,17 @@ public class EntityResolver {
             /*If the type is going to be used for an additional or an intermediate node then do not re-use the old one*/
             if(additionalNodeIndex>0 || indermediateNodeIndex>0){
                 if(additionalNodeIndex>0){
-                    uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
+                    if(this.entityElement.variable==null){
+                        uniqueValue=unique.toString()+"-additional-"+X3ML.RootElement.linkCounter+"-"+additionalNodeIndex;
+                    }
                 }else{
-                    uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
+                    if(this.entityElement.variable==null){
+                        uniqueValue=unique.toString()+"-intermediate-"+X3ML.RootElement.linkCounter+"-"+indermediateNodeIndex;
+                    }
                 }
             }
+            
+            
             /*If the type is going to be a Literal value (i.e. a text node), then do not re-use previous instances
             Notice that in future we should support all *literal* values*/
             if(unique.toString().contains("http://www.w3.org/2000/01/rdf-schema#Literal") || unique.toString().contains("rdfs:Literal")){
@@ -102,12 +114,23 @@ public class EntityResolver {
             }else if(unique.toString().contains("http://www.w3.org/2001/XMLSchema#dateTime") || unique.toString().contains("xsd:dateTime")){
                 uniqueValue="http://www.w3.org/2001/XMLSchema#dateTime";
             }
+
             if(skip){
-//                uniqueValue="NAMEDGRAPH_URI"+namedGraphUriCounter++;
                 uniqueValue="NAMEDGRAPH_URI";
             }
-                
-            GeneratedValue generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+            GeneratedValue generatedValue;
+            if(domainNodeFromMerged!=null){ //This happens when the MERGE facility has been used
+                generatedValue = entityElement.getInstance(generatorContext, uniqueValue, domainNodeFromMerged);
+            }else{
+                generatedValue=null;
+                try{
+                    generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
+                }catch(Exception ex){
+                    X3MLEngine.exceptionMessagesList+=ex.toString();
+                    Utils.printErrorMessages(ex.toString());
+                }
+            }
+
             if (generatedValue == null) {
                 failed = true;
                 return false;
@@ -115,7 +138,7 @@ public class EntityResolver {
             switch (generatedValue.type) {
                 case URI:
                     if (resources == null) {
-                        resources = new ArrayList<Resource>();
+                        resources = new ArrayList<>();
                         for (TypeElement typeElement : entityElement.typeElements) {
                             String namedGraph=null;
                             if(derivedBy==Derivation.Domain){
@@ -194,9 +217,9 @@ public class EntityResolver {
     }
 
     private List<AdditionalNode> createAdditionalNodes(List<Additional> additionalList) {
-        List<AdditionalNode> additionalNodes = new ArrayList<AdditionalNode>();
+        List<AdditionalNode> additionalNodes = new ArrayList<>();
         if (additionalList != null) {
-           
+
             for (Additional additional : additionalList) {
                 AdditionalNode additionalNode = new AdditionalNode(modelOutput, additional, generatorContext, additionalCounter++);
                 if (additionalNode.resolve()) {
@@ -221,24 +244,24 @@ public class EntityResolver {
             this.additional = additional;
             this.generatorContext = generatorContext;
             this.additionalIndex=additionalIndex;
-            property=new ArrayList<>();
-            additionalEntityResolver=new ArrayList();
-
+            this.property=new ArrayList<>();
+            this.additionalEntityResolver=new ArrayList<>();
         }
 
         public boolean resolve() {
             property=new ArrayList<>();
-            additionalEntityResolver=new ArrayList();
+            additionalEntityResolver=new ArrayList<>();
             for(int i=0;i<additional.relationship.size();i++){
                 property.add(i,modelOutput.createProperty(additional.relationship.get(i)));
                 additionalEntityResolver.add(i,new EntityResolver(modelOutput, additional.entityElement.get(i), generatorContext));
-                boolean res=additionalEntityResolver.get(i).resolve(this.additionalIndex,0, false,Derivation.Additional,"","");
+                boolean res=additionalEntityResolver.get(i).resolve(this.additionalIndex,0,false,Derivation.Additional,"","", null);
                 if(property==null || res==false){
                     return false;
                 }
             }
             return true;
         }
+
 
         public void linkFrom(Resource fromResource, Derivation derivedBy) {
             Resource lastResource=fromResource;
@@ -254,13 +277,12 @@ public class EntityResolver {
                 } else {
                     throw exception("Cannot link without property or literal");
                 }
-                
             }
         }
     }
 
     private List<LabelNode> createLabelNodes(List<LabelGeneratorElement> generatorList) {
-        List<LabelNode> newLabelNodes = new ArrayList<LabelNode>();
+        List<LabelNode> newLabelNodes = new ArrayList<>();
         if (generatorList != null) {
             for (GeneratorElement generator : generatorList) {
                 LabelNode labelNode = new LabelNode(generator);
@@ -269,8 +291,9 @@ public class EntityResolver {
                         newLabelNodes.add(labelNode);
                     }
                     }catch(X3MLEngine.X3MLException ex){
-                        X3MLEngine.exceptionMessagesList+=ex.toString();
-                        Utils.printErrorMessages("ERROR FOUND: "+Utils.produceLabelGeneratorEmptyArgumentError(generator));
+                        String errorMessage=Utils.produceLabelGeneratorEmptyArgumentError(generator);
+                        X3MLEngine.exceptionMessagesList+=errorMessage;
+                        Utils.printErrorMessages(errorMessage);
                     }
             }
         }

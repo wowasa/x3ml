@@ -37,15 +37,22 @@ public class TestFullNamespace {
     private final Generator VALUE_POLICY = X3MLGeneratorPolicy.load(null, X3MLGeneratorPolicy.createUUIDSource(1));
 
     @Test
-    public void testEmptyElement() {
+    public void testFullUris() {
         X3MLEngine engine = engine("/full_namespace/01-coin-simple.x3ml");
         X3MLEngine.Output output = engine.execute(document("/full_namespace/00-coin-input.xml"),VALUE_POLICY);
         String[] mappingResult = output.toStringArray();
-        String[] expectedResult = xmlToNTriples("/full_namespace/01-coin-simple-rdf.xml");
+        String[] expectedResult = xmlToNTriples("/full_namespace/01-coin-simple.rdf");
         List<String> diff = compareNTriples(expectedResult, mappingResult);
         assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
-        assertTrue(true);
     }
-
-
+    
+    @Test
+    public void testNoNamespace() {
+        X3MLEngine engine = engine("/full_namespace/02-coin-simple-NoNamespace.x3ml");
+        X3MLEngine.Output output = engine.execute(document("/full_namespace/00-coin-input.xml"),VALUE_POLICY);
+        String[] mappingResult = output.toStringArray();
+        String[] expectedResult = xmlToNTriples("/full_namespace/02-coin-simple-NoNamespace.rdf");
+        List<String> diff = compareNTriples(expectedResult, mappingResult);
+        assertTrue("\nLINES:"+ diff.size() + "\n" + StringUtils.join(diff, "\n") + "\n", errorFree(diff));
+    }
 }

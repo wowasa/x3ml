@@ -3,28 +3,44 @@
     <info>
         <title>Base</title>
         <general_description>Simplest test</general_description>
-        <source_info>
-            <source_schema type="?" version="">?</source_schema>
+        <source>
+            <source_info>
+                <source_schema type="?" version="">?</source_schema>
+				<namespaces>
+					<namespace prefix="sst" uri="http://www.ics.forth.gr/source/custom/"/>
+					<namespace prefix="sst2" uri="http://www.ics.forth.gr/source/custom2/"/>
+				</namespaces> 
+            </source_info>
             <source_collection>?</source_collection>
-        </source_info>
-        <target_info>
-            <target_schema schema_file="" type="" version="">?</target_schema>
-            <target_collection/>
-        </target_info>
-        <target_info>
-            <target_schema schema_file="" type="" version="">?</target_schema>
-            <target_collection/>
-        </target_info>
+        </source>
+        <target>
+            <target_info>
+                <target_schema type="" version="" schema_file="">?</target_schema>
+				<namespaces>
+					<namespace prefix="sst" uri="http://www.ics.forth.gr/source/custom/"/>
+					<namespace prefix="sst2" uri="http://www.ics.forth.gr/source/custom2/"/>
+				</namespaces> 
+            </target_info>
+            <target_info>
+                <target_schema type="" version="" schema_file="">?</target_schema>
+				<namespaces>
+					<namespace prefix="sst" uri="http://www.ics.forth.gr/source/custom/"/>
+					<namespace prefix="sst2" uri="http://www.ics.forth.gr/source/custom2/"/>
+				</namespaces> 
+            </target_info>
+        </target>
         <mapping_info>
             <mapping_created_by_org>?</mapping_created_by_org>
             <mapping_created_by_person>?</mapping_created_by_person>
-            <in_collaboration_with/>
+            <in_collaboration_with>?</in_collaboration_with>
         </mapping_info>
         <example_data_info>
             <example_data_from>?</example_data_from>
             <example_data_contact_person>?</example_data_contact_person>
             <example_data_source_record xml_link="?">?</example_data_source_record>
+			<generator_policy_info>?</generator_policy_info>
             <example_data_target_record rdf_link="">?</example_data_target_record>
+			<thesaurus_info>N/A</thesaurus_info>
         </example_data_info>
     </info>
     <namespaces>
