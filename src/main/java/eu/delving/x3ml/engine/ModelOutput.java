@@ -205,6 +205,8 @@ public class ModelOutput implements Output {
                 writeXML(out);
             } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
                 writeXMLPlain(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_TRIG.equalsIgnoreCase(format)){
+                writeQuads(out);
             }else {
                 writeXML(out);
             }
@@ -221,7 +223,7 @@ public class ModelOutput implements Output {
         while(stIter.hasNext()){
             Statement st=stIter.next();
             quadGraph.add(defgraph, st.getSubject().asNode(), st.getPredicate().asNode(), st.getObject().asNode());
-        }
+        } 
         RDFDataMgr.write(out, quadGraph, Lang.TRIG); // or NQUADS
         
     }
