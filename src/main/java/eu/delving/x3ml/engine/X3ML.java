@@ -311,9 +311,15 @@ public interface X3ML {
         public static String namedGraphProduced;
 
         public void apply(Root context) {
+            
+            if(this.namedgraph!=null){
+                RootElement.hasNamedGraphs=true;
+                namedGraphProduced=namedgraph;
+            }else{
+                namedGraphProduced=null;
+            }
 
             List<Domain> domList=context.createDomainContexts(this.domain, namedgraph);
-            namedGraphProduced=null;
             DomainElement.namedGraphProduced=null;
             int counter=1;
             int domListTotal=domList.size();
