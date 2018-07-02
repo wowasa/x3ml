@@ -39,7 +39,10 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import java.util.Iterator;
 import gr.forth.Labels;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
+import lombok.extern.log4j.Log4j;
 
 
 /**
@@ -49,6 +52,7 @@ import java.io.OutputStream;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class ModelOutput implements Output {
 
     public static final DatasetGraph quadGraph=new DatasetGraphSimpleMem();
@@ -179,16 +183,31 @@ public class ModelOutput implements Output {
 
     @Override
     public void write(OutputStream out, String format) {
-        if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
-            writeNTRIPLE(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
-            writeTURTLE(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
-            writeXML(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
-            writeXMLPlain(out);
-        }else {
-            writeXML(out);
+        if(X3ML.RootElement.hasNamedGraphs){    //export quads
+            if(!Labels.OUTPUT_MIME_TYPE_TRIG.equalsIgnoreCase(format)){
+                log.warn("Invalid mime type used for exporting quads.");
+                File outputFileTrig=new File("output-"+System.currentTimeMillis()+"."+Labels.TRIG);
+                log.warn("Exporting contents in TRIG format in file "+outputFileTrig);
+                try{
+                    writeQuads(new PrintStream(outputFileTrig));
+                }catch(FileNotFoundException ex){
+                    throw exception("An error occurred while exporting Quads",ex);
+                }
+            }else{
+                writeQuads(out);
+            }
+        }else{  //export triples
+            if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
+                writeNTRIPLE(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
+                writeTURTLE(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
+                writeXML(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
+                writeXMLPlain(out);
+            }else {
+                writeXML(out);
+            }
         }
     }
     
