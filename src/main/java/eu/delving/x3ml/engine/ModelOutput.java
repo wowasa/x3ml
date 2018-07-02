@@ -38,6 +38,7 @@ import static eu.delving.x3ml.engine.X3ML.TypeElement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import java.util.Iterator;
+import gr.forth.Labels;
 import java.io.OutputStream;
 
 
@@ -150,40 +151,41 @@ public class ModelOutput implements Output {
             this.updateNamedgraphRefs(XPathInput.entireInputExportedRefUri);
             this.writeQuads(out);
         }else{
-            model.write(out, "RDF/XML-ABBREV");
+            model.write(out, Labels.OUTPUT_FORMAT_RDF_XML_ABBREV);
         }
     }
     
     private void updateNamedgraphRefs(String uri){
         Iterator<Quad> qIter=quadGraph.find(Node.ANY, Node.ANY, Node.ANY, Node.ANY);
-        while(qIter.hasNext())
+        while(qIter.hasNext()){
             quadGraph.add(new ResourceImpl("http://default").asNode(), 
                           new ResourceImpl(uri).asNode(), 
                           new ResourceImpl("http://PX_is_refered_by").asNode(), 
                           new ResourceImpl(qIter.next().getGraph().getURI()).asNode());
+        }
     }
     
     public void writeXMLPlain(OutputStream out) {
-        model.write(out, "RDF/XML");
+        model.write(out, Labels.OUTPUT_FORMAT_RDF_XML);
     }
     
     public void writeNTRIPLE(OutputStream out) {
-        model.write(out, "N-TRIPLE");
+        model.write(out, Labels.OUTPUT_FORMAT_NTRIPLE);
     }
 
     public void writeTURTLE(OutputStream out) {
-        model.write(out, "TURTLE");
+        model.write(out, Labels.OUTPUT_FORMAT_TURTLE);
     }
 
     @Override
     public void write(OutputStream out, String format) {
-        if ("application/n-triples".equalsIgnoreCase(format)) {
+        if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
             writeNTRIPLE(out);
-        } else if ("text/turtle".equalsIgnoreCase(format)) {
+        } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
             writeTURTLE(out);
-        } else if ("application/rdf+xml".equalsIgnoreCase(format)) {
+        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
             writeXML(out);
-        } else if ("application/rdf+xml_plain".equalsIgnoreCase(format)){
+        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
             writeXMLPlain(out);
         }else {
             writeXML(out);
