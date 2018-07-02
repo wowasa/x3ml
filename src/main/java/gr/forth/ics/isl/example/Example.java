@@ -23,6 +23,7 @@ import static eu.delving.x3ml.X3MLEngine.exception;
 import eu.delving.x3ml.X3MLGeneratorPolicy;
 import eu.delving.x3ml.engine.Generator;
 import eu.delving.x3ml.engine.GeneratorContext;
+import gr.forth.Labels;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -72,27 +73,37 @@ public class Example {
                             output.writeXML(System.out);
                             break;
                         case FILE:
-                            output.write(new PrintStream(new File("output.rdf")), "application/rdf+xml");
+                            output.write(new PrintStream(new File("output.rdf")), Labels.OUTPUT_MIME_TYPE_RDF_XML);
                             break;
                         default:    //don't output
                 }break;
             case NTRIPLES:
                 switch(OUT_STREAM){
                         case SYSTEM_OUT:
-                            output.write(System.out,"application/n-triples");
+                            output.write(System.out,Labels.OUTPUT_MIME_TYPE_NTRIPLES);
                             break;
                         case FILE:
-                            output.write(new PrintStream(new File("output.nt")), "application/n-triples");
+                            output.write(new PrintStream(new File("output.nt")), Labels.OUTPUT_MIME_TYPE_NTRIPLES);
                             break;
                         default:    //don't output
                 }break;
             case TURTLE:
                 switch(OUT_STREAM){
                         case SYSTEM_OUT:
-                            output.write(System.out,"text/turtle");
+                            output.write(System.out,Labels.OUTPUT_MIME_TYPE_TURTLE);
                             break;
                         case FILE:
-                            output.write(new PrintStream(new File("output.ttl")), "text/turtle");
+                            output.write(new PrintStream(new File("output.ttl")), Labels.OUTPUT_MIME_TYPE_TURTLE);
+                            break;
+                        default:    //don't output
+                }break;
+            case TRIG:
+                switch(OUT_STREAM){
+                        case SYSTEM_OUT:
+                            output.write(System.out,Labels.OUTPUT_MIME_TYPE_TRIG);
+                            break;
+                        case FILE:
+                            output.write(new PrintStream(new File("output.trig")), Labels.OUTPUT_MIME_TYPE_TRIG);
                             break;
                         default:    //don't output
                 }break;
@@ -105,7 +116,8 @@ public class Example {
     private enum outputFormat{
         RDF_XML,
         NTRIPLES,
-        TURTLE
+        TURTLE,
+        TRIG
     }
     
     private enum outputStream{
