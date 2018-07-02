@@ -92,4 +92,14 @@ public class Labels {
     public static final String UUID_TEST_SIZE_SHORT="u";
     public static final String MERGE_WITH_ASSOCIATION_TABLE_SHORT="m";
     public static final String TERMS_SHORT="t";    
+    
+    /* Labels related to the output */
+    public static final String OUTPUT_FORMAT_NTRIPLE="N-TRIPLE";
+    public static final String OUTPUT_FORMAT_RDF_XML_ABBREV="RDF/XML-ABBREV";
+    public static final String OUTPUT_FORMAT_RDF_XML="RDF/XML";
+    public static final String OUTPUT_FORMAT_TURTLE="TURTLE";
+    public static final String OUTPUT_MIME_TYPE_NTRIPLES="application/n-triples";
+    public static final String OUTPUT_MIME_TYPE_TURTLE="text/turtle";
+    public static final String OUTPUT_MIME_TYPE_RDF_XML="application/rdf+xml";
+    public static final String OUTPUT_MIME_TYPE_RDF_XML_ABBREV="application/rdf+xml_plain";
 }

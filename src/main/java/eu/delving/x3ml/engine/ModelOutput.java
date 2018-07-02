@@ -28,6 +28,7 @@ import java.io.PrintStream;
 import static eu.delving.x3ml.X3MLEngine.Output;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import gr.forth.Labels;
 import java.io.OutputStream;
 
 /**
@@ -122,30 +123,30 @@ public class ModelOutput implements Output {
     
     @Override
     public void writeXML(OutputStream out) {
-        model.write(out, "RDF/XML-ABBREV");
+        model.write(out, Labels.OUTPUT_FORMAT_RDF_XML_ABBREV);
     }
     
     public void writeXMLPlain(OutputStream out) {
-        model.write(out, "RDF/XML");
+        model.write(out, Labels.OUTPUT_FORMAT_RDF_XML);
     }
     
     public void writeNTRIPLE(OutputStream out) {
-        model.write(out, "N-TRIPLE");
+        model.write(out, Labels.OUTPUT_FORMAT_NTRIPLE);
     }
 
     public void writeTURTLE(OutputStream out) {
-        model.write(out, "TURTLE");
+        model.write(out, Labels.OUTPUT_FORMAT_TURTLE);
     }
 
     @Override
     public void write(OutputStream out, String format) {
-        if ("application/n-triples".equalsIgnoreCase(format)) {
+        if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
             writeNTRIPLE(out);
-        } else if ("text/turtle".equalsIgnoreCase(format)) {
+        } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
             writeTURTLE(out);
-        } else if ("application/rdf+xml".equalsIgnoreCase(format)) {
+        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
             writeXML(out);
-        } else if ("application/rdf+xml_plain".equalsIgnoreCase(format)){
+        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
             writeXMLPlain(out);
         }else {
             writeXML(out);
