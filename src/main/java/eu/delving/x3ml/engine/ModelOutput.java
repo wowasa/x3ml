@@ -46,7 +46,9 @@ import lombok.extern.log4j.Log4j;
 
 
 /**
- * The output sent to a Jena graph model.
+ * The class is responsible for exporting the transformation results. More specifically 
+ * it exports the contents of the Jena graph model.
+ * It supports exporting triples and quads.
  *
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
@@ -149,6 +151,9 @@ public class ModelOutput implements Output {
         return model.createTypedLiteral(value, typeUri);
     }
 
+    /** Exports the transformed contents of graph in XML abbreviated RDF format using the given output stream.
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents */
     @Override
     public void writeXML(OutputStream out) {
         if(X3ML.RootElement.hasNamedGraphs){
@@ -169,18 +174,39 @@ public class ModelOutput implements Output {
         }
     }
     
+    /** Exports the transformed contents of graph in RDF/XML format using the given output stream.
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents */
     public void writeXMLPlain(OutputStream out) {
         model.write(out, Labels.OUTPUT_FORMAT_RDF_XML);
     }
     
+    /** Exports the transformed contents of graph in NTRIPLES format using the given output stream.
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents */
     public void writeNTRIPLE(OutputStream out) {
         model.write(out, Labels.OUTPUT_FORMAT_NTRIPLE);
     }
 
+    /** Exports the transformed contents of graph in TURTLE format using the given output stream.
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents */
     public void writeTURTLE(OutputStream out) {
         model.write(out, Labels.OUTPUT_FORMAT_TURTLE);
     }
 
+    /** Exports the transformed contents of the Jena model in the given output stream with respect to 
+     * the given format. Depending on the selected format the contents can be exported as triples or 
+     * as quads. More specifically, if namedgraphs have been used within the mappings, then the transformed 
+     * contents will be exported in TRIG format (even if the given format is different). 
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents
+     * @param format the export format. It can be any of the following: [application/rdf+xml,
+     *                                                                   application/rdf+xml_plain, 
+     *                                                                   application/n-triples, 
+     *                                                                   application/trig, 
+     *                                                                   text/turtle]
+     */
     @Override
     public void write(OutputStream out, String format) {
         if(X3ML.RootElement.hasNamedGraphs){    //export quads
@@ -213,6 +239,11 @@ public class ModelOutput implements Output {
         }
     }
     
+    /** Exports the transformed contents of graph as Quads using the given output stream.
+     * The contents are exported in TRIG format.
+     * This method is used when: (a) the mappings contain namedgraphs, (b) the user defined trig as the export format.
+     * 
+     * @param out the output stream that will be used for exporting the transformed contents */
     public void writeQuads(OutputStream out){
         StmtIterator stIter=model.listStatements();
         String defaultGraphSpace="http://default";
