@@ -18,18 +18,32 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml.engine;
 
+import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
+import com.hp.hpl.jena.sparql.core.DatasetGraph;
+import com.hp.hpl.jena.sparql.core.DatasetGraphSimpleMem;
+import com.hp.hpl.jena.sparql.core.Quad;
 import javax.xml.namespace.NamespaceContext;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static eu.delving.x3ml.X3MLEngine.Output;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import java.util.Iterator;
 import gr.forth.Labels;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
+import lombok.extern.log4j.Log4j;
+
 
 /**
  * The output sent to a Jena graph model.
@@ -38,8 +52,10 @@ import java.io.OutputStream;
  * @author Nikos Minadakis &lt;minadakn@ics.forth.gr&gt;
  * @author Yannis Marketakis &lt;marketak@ics.forth.gr&gt;
  */
+@Log4j
 public class ModelOutput implements Output {
 
+    public static final DatasetGraph quadGraph=new DatasetGraphSimpleMem();
     private final Model model;
     private final NamespaceContext namespaceContext;
 
@@ -51,6 +67,18 @@ public class ModelOutput implements Output {
     @Override
     public Model getModel() {
         return model;
+    }
+    
+    public String getNamespace(TypeElement typeElement){
+        if (typeElement == null) {
+            throw exception("Missing qualified name");
+        }
+        if (typeElement.getLocalName().startsWith("http:")){
+            return typeElement.getLocalName();
+        }else{
+            String typeElementNamespace = namespaceContext.getNamespaceURI(typeElement.getPrefix());
+            return typeElementNamespace+typeElement.getLocalName();
+        }
     }
 
     public Resource createTypedResource(String uriString, TypeElement typeElement) {
@@ -120,10 +148,25 @@ public class ModelOutput implements Output {
         }
         return model.createTypedLiteral(value, typeUri);
     }
-    
+
     @Override
     public void writeXML(OutputStream out) {
-        model.write(out, Labels.OUTPUT_FORMAT_RDF_XML_ABBREV);
+        if(X3ML.RootElement.hasNamedGraphs){
+            this.updateNamedgraphRefs(XPathInput.entireInputExportedRefUri);
+            this.writeQuads(out);
+        }else{
+            model.write(out, Labels.OUTPUT_FORMAT_RDF_XML_ABBREV);
+        }
+    }
+    
+    private void updateNamedgraphRefs(String uri){
+        Iterator<Quad> qIter=quadGraph.find(Node.ANY, Node.ANY, Node.ANY, Node.ANY);
+        while(qIter.hasNext()){
+            quadGraph.add(new ResourceImpl("http://default").asNode(), 
+                          new ResourceImpl(uri).asNode(), 
+                          new ResourceImpl("http://PX_is_refered_by").asNode(), 
+                          new ResourceImpl(qIter.next().getGraph().getURI()).asNode());
+        }
     }
     
     public void writeXMLPlain(OutputStream out) {
@@ -140,17 +183,49 @@ public class ModelOutput implements Output {
 
     @Override
     public void write(OutputStream out, String format) {
-        if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
-            writeNTRIPLE(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
-            writeTURTLE(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
-            writeXML(out);
-        } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
-            writeXMLPlain(out);
-        }else {
-            writeXML(out);
+        if(X3ML.RootElement.hasNamedGraphs){    //export quads
+            if(!Labels.OUTPUT_MIME_TYPE_TRIG.equalsIgnoreCase(format)){
+                log.warn("Invalid mime type used for exporting quads.");
+                File outputFileTrig=new File("output-"+System.currentTimeMillis()+"."+Labels.TRIG);
+                log.warn("Exporting contents in TRIG format in file "+outputFileTrig);
+                try{
+                    writeQuads(new PrintStream(outputFileTrig));
+                }catch(FileNotFoundException ex){
+                    throw exception("An error occurred while exporting Quads",ex);
+                }
+            }else{
+                writeQuads(out);
+            }
+        }else{  //export triples
+            if (Labels.OUTPUT_MIME_TYPE_NTRIPLES.equalsIgnoreCase(format)) {
+                writeNTRIPLE(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_TURTLE.equalsIgnoreCase(format)) {
+                writeTURTLE(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML.equalsIgnoreCase(format)) {
+                writeXML(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_RDF_XML_ABBREV.equalsIgnoreCase(format)){
+                writeXMLPlain(out);
+            } else if (Labels.OUTPUT_MIME_TYPE_TRIG.equalsIgnoreCase(format)){
+                writeQuads(out);
+            }else {
+                writeXML(out);
+            }
         }
+    }
+    
+    public void writeQuads(OutputStream out){
+        StmtIterator stIter=model.listStatements();
+        String defaultGraphSpace="http://default";
+        if(X3ML.Mappings.namedgraphProduced!=null && !X3ML.Mappings.namedgraphProduced.isEmpty()){
+            defaultGraphSpace=X3ML.Mappings.namedgraphProduced;
+        }
+        Node defgraph=new ResourceImpl(defaultGraphSpace).asNode();
+        while(stIter.hasNext()){
+            Statement st=stIter.next();
+            quadGraph.add(defgraph, st.getSubject().asNode(), st.getPredicate().asNode(), st.getObject().asNode());
+        } 
+        RDFDataMgr.write(out, quadGraph, Lang.TRIG); // or NQUADS
+        
     }
 
     @Override

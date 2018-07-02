@@ -109,7 +109,7 @@ public class Root {
         return modelOutput;
     }
 
-    public List<Domain> createDomainContexts(X3ML.DomainElement domain) {
+    public List<Domain> createDomainContexts(X3ML.DomainElement domain,String namedgraph) {
         List<Node> domainNodes = xpathInput.nodeList(rootNode, domain.source_node);
         List<Domain> domains = new ArrayList<>();
         int domainNodesTotal=domainNodes.size();
@@ -126,7 +126,7 @@ public class Root {
             }
             Domain domainContext = new Domain(context, domain, domainNode, index++);
             try{
-                if (domainContext.resolve()) {
+                if (domainContext.resolve(namedgraph)) {
                     domains.add(domainContext);
                 } 
             }catch(X3MLEngine.X3MLException ex){

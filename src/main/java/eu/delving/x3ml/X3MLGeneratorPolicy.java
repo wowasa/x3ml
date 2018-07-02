@@ -153,8 +153,13 @@ public class X3MLGeneratorPolicy implements Generator {
         if (Labels.UUID.equals(name)) {
             return uriValue(uuidSource.generateUUID());
         }
+
+        if ("namedgraphURI".equals(name)) {
+            return uriValue(argValues.getArgValue("text", constant, false).string);
+        }
         if (Labels.LITERAL.equals(name)) {
             ArgValue value = argValues.getArgValue(argDefaultValue, xpath, false);
+            
             if (value == null) {
                 throw exception(Utils.produceLabelGeneratorMissingArgumentError(generatorElem, argDefaultValue));
             }

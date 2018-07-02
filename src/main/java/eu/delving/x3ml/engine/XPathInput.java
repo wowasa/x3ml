@@ -37,6 +37,14 @@ import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
 import static eu.delving.x3ml.engine.X3ML.SourceType;
 import gr.forth.Labels;
 import gr.forth.Utils;
+import java.io.StringWriter;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import lombok.extern.log4j.Log4j;
 import static org.joox.JOOX.$;
@@ -57,6 +65,8 @@ public class XPathInput {
     private final NamespaceContext namespaceContext;
     private final String languageFromMapping;
     private final Node rootNode;
+    public static String domainURIForNamedgraps=null;
+    public static String entireInputExportedRefUri=null;
     private Map<String, Map<String, List<Node>>> rangeMapCache = new TreeMap<String, Map<String, List<Node>>>();
 
     public XPathInput(Node rootNode, NamespaceContext namespaceContext, String languageFromMapping) {
@@ -128,7 +138,10 @@ public class XPathInput {
             case position:
                 value = argVal(String.valueOf(index), null);
                 break;
-             
+            case entireInput:
+                value=argVal(this.getEntireXpathInput(), languageFromMapping);
+                entireInputExportedRefUri=domainURIForNamedgraps;
+                break;
             case xpathPosition:
                 value = argVal(extractXPath(node), languageFromMapping);
                 break;
@@ -179,6 +192,10 @@ public class XPathInput {
                 break;
             case position:
                 value = argVal(String.valueOf(index), null);
+                break;
+            case entireInput:
+                value=argVal(this.getEntireXpathInput(), languageFromMapping);
+                entireInputExportedRefUri=domainURIForNamedgraps;
                 break;
             default:
                 throw new RuntimeException("Not implemented");
@@ -266,7 +283,7 @@ public class XPathInput {
 
     public List<Node> nodeList(Node context, String expression) {
         log.debug("Evaluating XPATH [Node: "+context+" Expression: "+expression+"]");
-        
+
         if (expression == null || expression.length() == 0) {
             List<Node> list = new ArrayList<>(1);
             list.add(context);
@@ -371,6 +388,19 @@ public class XPathInput {
         XPath path = pathFactory.newXPath();
         path.setNamespaceContext(namespaceContext);
         return path;
+    }
+    
+    private String getEntireXpathInput(){
+        try{
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(this.rootNode), new StreamResult(writer));
+            return "\""+writer.getBuffer().toString()+"\"";
+        }catch(IllegalArgumentException | TransformerException |TransformerFactoryConfigurationError ex){
+            throw exception("",ex);
+        }
     }
 
 }

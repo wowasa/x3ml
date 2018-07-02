@@ -5,15 +5,15 @@
 		<namespace prefix="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
 		<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
 	</namespaces>
-	<mappings>
+	<mappings namedgraph="http://graphMappingsGlobal">
 		<mapping namedgraph="http://graphMapping">
 			<domain namedgraph="http://graphDomain">
 				<source_node>//book</source_node>
 				<target_node>
                     <entity>
                         <type>crm:E22_Man-Made_Object</type>
-						<instance_generator name="UUID">
-							<arg name="text">book_uri/text()</arg>
+						<instance_generator name="URIorUUID">
+							<arg name="text">book_id/text()</arg>
 						</instance_generator>
 						<label_generator name="Literal">
 							<arg name="text">book_id/text()</arg>
@@ -45,7 +45,7 @@
                     </target_node>
                 </range>
             </link>
-			<!--<link namedgraph="http://graphLink">
+			<link namedgraph="http://graphLink">
                 <path>
                     <source_relation>
 						<relation>book_id == book_id</relation>
@@ -68,64 +68,7 @@
                         </entity>
                     </target_node>
                 </range>
-            </link> -->
-		</mapping>
-		<!--<mapping>
-			<domain>
-				<source_node>/root</source_node>
-				<target_node>
-                    <entity type_aware_var="tv1">
-                        <type>crm:E73_InfoObj</type>
-						<instance_generator name="UUID"/>
-					</entity>
-				</target_node>
-			</domain>
-			<link>
-                <path>
-                    <source_relation>
-						<relation>.</relation>
-					</source_relation>
-                    <target_relation>
-                        <relationship>crm:PX_has_note</relationship>
-                    </target_relation>
-                </path>
-                <range>
-                    <source_node>.</source_node>
-                    <target_node>
-                        <entity>
-                            <type>crm:EXX_note</type>
-							<instance_generator name="UUID">
-						</instance_generator>
-						<label_generator name="Literal">
-							<arg name="text" type="entireInput"></arg>
-						</label_generator>
-                        </entity>
-                    </target_node>
-                </range>
             </link>
-			<link>
-                <path>
-                    <source_relation>
-						<relation>.</relation>
-					</source_relation>
-                    <target_relation>
-                        <relationship>crm:PX_has_note</relationship>
-                    </target_relation>
-                </path>
-                <range>
-                    <source_node>.</source_node>
-                    <target_node>
-                        <entity>
-                            <type>crm:E41_Appellation</type>
-							<instance_generator name="UUID">
-						</instance_generator>
-						<label_generator name="Literal">
-							<arg name="text" type="entireInput"></arg>
-						</label_generator>
-                        </entity>
-                    </target_node>
-                </range>
-            </link>
-		</mapping>  -->
+		</mapping> 
 	</mappings>
 </x3ml>

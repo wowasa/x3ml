@@ -34,6 +34,10 @@
 													<xs:element name="target_node" type="domain_target_nodeType"/>
 													<xs:element name="comments" type="commentsType" minOccurs="0"/>
 												</xs:sequence>
+<<<<<<< HEAD:src/main/resources/validation/x3ml_v1.0.xsd
+												<xs:attribute name="repeated"/>
+=======
+>>>>>>> master:resources/X3ML Schema/x3ml.xsd
 												<xs:attribute name="namedgraph"/>
 											</xs:complexType>
 										</xs:element>
@@ -201,9 +205,15 @@
 	<xs:element name="if" type="conditionsType"/>
 	<xs:element name="additional">
 		<xs:complexType>
+<<<<<<< HEAD:src/main/resources/validation/x3ml_v1.0.xsd
+			<xs:sequence>
+				<xs:element ref="relationship" maxOccurs="unbounded"/>
+				<xs:element ref="entity" maxOccurs="unbounded"/>
+=======
 			<xs:sequence maxOccurs="unbounded">
 				<xs:element ref="relationship" minOccurs="1" maxOccurs="1"/>
 				<xs:element ref="entity" minOccurs="1" maxOccurs="1"/>
+>>>>>>> master:resources/X3ML Schema/x3ml.xsd
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

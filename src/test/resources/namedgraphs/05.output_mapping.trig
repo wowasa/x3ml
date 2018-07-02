@@ -1,0 +1,69 @@
+<http://graphMapping_AB> {
+    <uuid:AB>  a    <http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "moglis" ;
+            <http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by>
+                    <uuid:AE> ;
+            <http://www.cidoc-crm.org/cidoc-crm/P46_is_composed_of>
+                    <uuid:AF> .
+    
+    <uuid:AE>  a    <http://www.cidoc-crm.org/cidoc-crm/E41_Appellation> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "to vivlio tis zouglas" .
+    
+    <uuid:AF>  a    <http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Man-Made_Thing> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "o moglis kai to vilvio tis zouglas" .
+}
+
+<http://graphMapping_AA> {
+    <uuid:AA>  a    <http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "Uka Obr. 47:38" ;
+            <http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by>
+                    <uuid:AC> ;
+            <http://www.cidoc-crm.org/cidoc-crm/P46_is_composed_of>
+                    <uuid:AD> .
+    
+    <uuid:AC>  a    <http://www.cidoc-crm.org/cidoc-crm/E41_Appellation> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "IACOB(VS) FOROLIVIENSIS" .
+    
+    <uuid:AD>  a    <http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Man-Made_Thing> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "Iacobi Foroliviensis medic singvlaris" .
+}
+
+<http://default> {
+    <uuid:AA>  a    <http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "Uka Obr. 47:38" ;
+            <http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by>
+                    <uuid:AC> ;
+            <http://www.cidoc-crm.org/cidoc-crm/P46_is_composed_of>
+                    <uuid:AD> .
+    
+    <uuid:AF>  a    <http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Man-Made_Thing> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "o moglis kai to vilvio tis zouglas" .
+    
+    <uuid:AD>  a    <http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Man-Made_Thing> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "Iacobi Foroliviensis medic singvlaris" .
+    
+    <uuid:AB>  a    <http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "moglis" ;
+            <http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by>
+                    <uuid:AE> ;
+            <http://www.cidoc-crm.org/cidoc-crm/P46_is_composed_of>
+                    <uuid:AF> .
+    
+    <uuid:AE>  a    <http://www.cidoc-crm.org/cidoc-crm/E41_Appellation> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "to vivlio tis zouglas" .
+    
+    <uuid:AC>  a    <http://www.cidoc-crm.org/cidoc-crm/E41_Appellation> ;
+            <http://www.w3.org/2000/01/rdf-schema#label>
+                    "IACOB(VS) FOROLIVIENSIS" .
+}

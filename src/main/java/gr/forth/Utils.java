@@ -231,7 +231,7 @@ public class Utils {
     public static RootElement parseX3MLAgainstVariables(RootElement initialElement){
         Multimap<String, X3ML.EntityElement> globalVariablesVsEntity=HashMultimap.create();
         Multimap<String, X3ML.EntityElement> typeAwareVariablesVsEntity=HashMultimap.create();
-        for(Mapping mapping : initialElement.mappings){
+        for(Mapping mapping : initialElement.mappings.mappings){
             Multimap<String,X3ML.EntityElement> variablesVsEntity=HashMultimap.create();
             variablesVsEntity=retrieveEntitiesWithVariable(mapping.domain, variablesVsEntity);
             globalVariablesVsEntity=retrieveEntitiesWithGlobalVariable(mapping.domain, globalVariablesVsEntity);

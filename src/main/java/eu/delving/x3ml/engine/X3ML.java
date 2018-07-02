@@ -62,6 +62,7 @@ public interface X3ML {
         xpath,
         constant,
         position,
+        entireInput,
         xpathPosition
     }
 
@@ -70,7 +71,9 @@ public interface X3ML {
         public static int mappingCounter=0;
         public static int mappingsTotal=0;
         public static int linkCounter=0;
+        public static boolean hasNamedGraphs=false;
         public static int linksTotal=0;
+
 
         @XStreamAsAttribute
         public String version;
@@ -86,11 +89,22 @@ public interface X3ML {
 
         public List<MappingNamespace> namespaces;
 
-        public List<Mapping> mappings;
+        
+        
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        public Mappings mappings;
+        
 
         public void apply(Root context) {
-            RootElement.mappingsTotal=mappings.size();
-            for (Mapping mapping : mappings) {
+            if(mappings.namedgraph!=null){
+                RootElement.hasNamedGraphs=true;
+                Mappings.namedgraphProduced=mappings.namedgraph;
+            }
+            RootElement.mappingsTotal=mappings.mappings.size();
+            for (Mapping mapping : mappings.mappings) {
+
                 RootElement.mappingCounter+=1;
                 RootElement.linkCounter=0;
                 if(!mapping.skipMapping()){
@@ -267,19 +281,46 @@ public interface X3ML {
         public String value;
     }
 
+
+    @XStreamAlias("mappings")
+    public static class Mappings extends Visible {
+
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        @XStreamImplicit
+        public List<Mapping> mappings;
+        
+        public static String namedgraphProduced;
+    }
+
     @XStreamAlias("mapping") @Log4j
     public static class Mapping extends Visible {
 
         @XStreamAsAttribute
         public String skip;
         
+        @XStreamAsAttribute
+        public String namedgraph;
+        
         public DomainElement domain;
 
         @XStreamImplicit
         public List<LinkElement> links;
+        
+        public static String namedGraphProduced;
 
         public void apply(Root context) {
-            List<Domain> domList=context.createDomainContexts(this.domain);
+            
+            if(this.namedgraph!=null){
+                RootElement.hasNamedGraphs=true;
+                namedGraphProduced=namedgraph;
+            }else{
+                namedGraphProduced=null;
+            }
+
+            List<Domain> domList=context.createDomainContexts(this.domain, namedgraph);
+            DomainElement.namedGraphProduced=null;
             int counter=1;
             int domListTotal=domList.size();
             for (Domain domain : domList) {
@@ -294,9 +335,9 @@ public interface X3ML {
                 }
                 counter++;
                 RootElement.linkCounter=0;
-                domain.resolve();
+                domain.resolve(namedgraph);
                 /*The following is necessary for the cases were there are no links or 
-                the links are not evaluated (the xpaths are note evaluated).
+                the links are not evaluated (the xpaths are not evaluated).
                 The following directive will link resources with labels found in the domain*/
                 domain.link();
                 if (links == null) {
@@ -304,9 +345,10 @@ public interface X3ML {
                 }
                 RootElement.linksTotal=links.size();
                 for (LinkElement linkElement : links) {
+                    LinkElement.namedGraphProduced=null;
                     RootElement.linkCounter+=1;
                     if(!linkElement.skipLink()){
-                        linkElement.apply(domain);
+                        linkElement.apply(domain,linkElement.namedgraph, namedgraph);
                     }
                 }
                 
@@ -332,8 +374,13 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String skip;
+        
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        public static String namedGraphProduced;
 
-        public void apply(Domain domain) {
+        public void apply(Domain domain,String namedgraph, String mappingNamedGraph) {
             String pathSource = this.path.source_relation.relation.get(0).expression;
             String pathSource2 = "";
             String node_inside = "";
@@ -360,7 +407,7 @@ public interface X3ML {
 
                     for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey,
                             intermediateFirst, intermediateSecond, node_inside)) {
-                        link.range.link();
+                        link.range.link(namedgraph, mappingNamedGraph);
                     }
 
                 }
@@ -371,7 +418,7 @@ public interface X3ML {
                     String domainForeignKey = pathSource.substring(0, equals).trim();
                     String rangePrimaryKey = pathSource.substring(equals + 2).trim();
                         for (Link link : domain.createLinkContexts(this, domainForeignKey, rangePrimaryKey)) {
-                            link.range.link();
+                            link.range.link(namedgraph, mappingNamedGraph);
                         }
                 }
             } 
@@ -379,7 +426,7 @@ public interface X3ML {
                 try{
                     for (Path path : domain.createPathContexts(this.path)) {
                         for (Range range : path.createRangeContexts(this.range)) {
-                            range.link();
+                            range.link(namedgraph, mappingNamedGraph);
                         }
                     }
                 }catch(X3MLEngine.X3MLException ex){
@@ -410,6 +457,9 @@ public interface X3ML {
 
     @XStreamConverter(value = ToAttributedValueConverter.class, strings = {"expression"})
     public static class Source extends Visible {
+        
+        @XStreamAsAttribute
+        public String skip;
 
         public String expression;
     }
@@ -422,6 +472,11 @@ public interface X3ML {
         public TargetNode target_node;
 
         public Comments comments;
+        
+        @XStreamAsAttribute
+        public String namedgraph;
+        
+        public static String namedGraphProduced;
     }
 
     @XStreamAlias("target_relation")
