@@ -4,7 +4,7 @@
     <generator name="SimpleLabel">
         <pattern>{label}</pattern>
     </generator>
-    <generator name="LocalTermURI" prefix="adw">
+    <generator name="LocalTermURI" prefix="chi">
         <pattern>{hierarchy}/{term}</pattern>
     </generator>
 	<generator name="GermanDateTime">
@@ -18,5 +18,4 @@
             <set-arg name="text"/>
         </custom>
     </generator>
-
 </generator_policy>

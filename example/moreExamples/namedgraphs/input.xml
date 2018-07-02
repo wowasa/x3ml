@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <book>
+	<book_id>Uka Obr. 47.38</book_id>
+	<book_uri>http://locahost/uka</book_uri>
+	<book_title>UKA book</book_title>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+  </book>
+  <book>
+	<book_id>Yannis marketakis</book_id>
+	<book_uri>http://locahost/yannis</book_uri>
+	<book_title>yannis book</book_title>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+  </book>
+  <textblock>
+    <libris_id>12098635</libris_id>
+    <author>Jacopo de Forlivio</author>
+	<title>Iacobi Foroliviensis medic singvlaris</title>
+	<printing_place>Venedig</printing_place>
+	<printer>Giunta</printer>
+	<printing_year>1547</printing_year>
+	<book_id>Uka Obr. 47:38</book_id>
+  </textblock>
+  <textblock>
+    <libris_id>12098679</libris_id>
+    <author>Arcolani Giovanni</author>
+	<title>Ioannis Hercvlani in Avicennae qvarti canonis fen primam</title>
+	<printing_place>Venedig</printing_place>
+	<printer>Valgrisi</printer>
+	<printing_year>1560</printing_year>
+	<book_id>Uka Obr. 47:38</book_id>
+  </textblock>
+  <origin>
+    <bookbinder>Jakob Preisger</bookbinder>
+    <signature>I P</signature>
+	<country>Germany</country>
+	<town>Wurzburg</town>
+	<date>1582</date>
+	<book_id>Uka Obr. 47:38</book_id>
+  </origin>
+  <provenance>
+    <name>Echter von Mespelbrunn, Julius</name>
+    <role>former owner</role>
+	<book_id>Uka Obr. 47:38</book_id>
+  </provenance>
+  <exlibris>
+	<transcription>IVLIVS DEI GRA(TIA) DVX 1582</transcription>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+	<book_id>Uka Obr. 47:38</book_id>
+  </exlibris>
+</root>
