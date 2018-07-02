@@ -12,8 +12,8 @@
 				<target_node>
                     <entity>
                         <type>crm:E22_Man-Made_Object</type>
-						<instance_generator name="URIorUUID">
-							<arg name="text">book_id/text()</arg>
+						<instance_generator name="UUID">
+							<arg name="text">book_uri/text()</arg>
 						</instance_generator>
 						<label_generator name="Literal">
 							<arg name="text">book_id/text()</arg>
@@ -45,7 +45,7 @@
                     </target_node>
                 </range>
             </link>
-			<link namedgraph="http://graphLink">
+			<!--<link namedgraph="http://graphLink">
                 <path>
                     <source_relation>
 						<relation>book_id == book_id</relation>
@@ -68,9 +68,9 @@
                         </entity>
                     </target_node>
                 </range>
-            </link>
+            </link> -->
 		</mapping>
-		<mapping>
+		<!--<mapping>
 			<domain>
 				<source_node>/root</source_node>
 				<target_node>
@@ -126,6 +126,6 @@
                     </target_node>
                 </range>
             </link>
-		</mapping> 
+		</mapping>  -->
 	</mappings>
 </x3ml>

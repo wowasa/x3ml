@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <book>
-	<book_id>Uka Obr. 47:38</book_id>
-	<book_title>IACOB(VS) FOROLIVIENSIS</book_title>
+	<book_id>Uka Obr. 47.38</book_id>
+	<book_uri>http://locahost/uka</book_uri>
+	<book_title>UKA book</book_title>
+	<coat_of_arms>red blue black</coat_of_arms>
+	<date>1582</date>
+  </book>
+  <book>
+	<book_id>Yannis marketakis</book_id>
+	<book_uri>http://locahost/yannis</book_uri>
+	<book_title>yannis book</book_title>
 	<coat_of_arms>red blue black</coat_of_arms>
 	<date>1582</date>
   </book>
