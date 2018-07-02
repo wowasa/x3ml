@@ -70,7 +70,7 @@ public class Range extends GeneratorContext {
                             X3ML.RootElement.hasNamedGraphs=true;
 
                             X3ML.LinkElement.namedGraphProduced=(linkNamedgraph.startsWith("http://") && !linkNamedgraph.isEmpty())?linkNamedgraph+"":"http://namedgraph/"+linkNamedgraph;
-    //                        X3ML.LinkElement.namedGraphProduced+=lastResource.getURI().replace("http://","_").replace("uuid:", "_");
+                            X3ML.LinkElement.namedGraphProduced+=lastResource.getURI().replace("http://","_").replace("uuid:", "_");
 
                             ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
