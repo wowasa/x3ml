@@ -1,8 +1,10 @@
 # Change Log
 
-## 18 June 2018: V 1.9.1 (by FORTH-ICS)
+## 12 Sep 2018: V 1.9.1 (by FORTH-ICS)
 * Fixed issues with inconsistencies in the error messages ([issue #126](https://github.com/isl/x3ml/issues/126))
 * Fixed (grammatically) a few error messages ([issue #127](https://github.com/isl/x3ml/issues/127))
+* Implemented a new generator (UriExistingOrNew) ([issue #129](https://github.com/isl/x3ml/issues/129))
+
 
 ## 04 June 2018: V 1.9.0 (by FORTH-ICS)
 * Update X3ML Schema (XSD) with the addition of a new mandatory field thesaurus_info ([issue #124](https://github.com/isl/x3ml/issues/124))
