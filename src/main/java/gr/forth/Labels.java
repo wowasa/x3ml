@@ -59,6 +59,7 @@ public class Labels {
     public static final String TTL="ttl";
     public static final String TURTLE="turtle";
     public static final String URI="URI";
+    public static final String URI_SEPARATOR="uri_separator";
     public static final String URIorUUID="URIorUUID";
     public static final String URN="URN";
     public static final String UUID="UUID";
