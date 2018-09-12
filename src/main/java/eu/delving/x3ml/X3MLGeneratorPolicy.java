@@ -44,6 +44,7 @@ import gr.forth.Utils;
 import static eu.delving.x3ml.X3MLEngine.exception;
 import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
+import gr.forth.UriValidator;
 import java.nio.ByteBuffer;
 import lombok.extern.log4j.Log4j;
 
@@ -235,11 +236,17 @@ public class X3MLGeneratorPolicy implements Generator {
             if (returnType.equals(Labels.URI)) {
 
                 if (generator.prefix != null) { // use URI template
-                    String namespaceUri = namespaceMap.get(generator.prefix);
-                    if (namespaceUri == null) {
-                        throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
+                    if(UriValidator.isValid(value)){
+                        log.debug("Skip the injection of namespace. "+value+" is already a valid URI"); // used from UriExistingOrNew generator
+                        return uriValue(value);
+                    }else{
+                        log.debug("injecting namespace for constructing a valid URI"); 
+                        String namespaceUri = namespaceMap.get(generator.prefix);
+                        if (namespaceUri == null) {
+                            throw exception("No namespace for prefix " + generator.prefix + "in generator policy");
+                        }
+                        return uriValue(namespaceUri + value);
                     }
-                    return uriValue(namespaceUri + value);
                 }else if(generator.custom.generatorClass.equals(TextualContent.class.getCanonicalName())){
                     return uriValue(Utils.urnValue(value));
                 }
