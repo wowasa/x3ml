@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+	
+	<generator name="UriExistingOrNew" prefix="ex">
+        <custom generatorClass="gr.forth.UriExistingOrNew">
+            <set-arg name="uri" type="xpath"/>
+			<set-arg name="text1"/>
+			<set-arg name="uri_separator1" type="constant"/>
+			<set-arg name="text2"/>
+			<set-arg name="uri_separator2" type="constant"/>
+        </custom>
+    </generator>
+		
+
+</generator_policy>
