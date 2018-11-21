@@ -44,7 +44,7 @@ public class BMdates implements CustomGenerator {
     enum Bounds {
         Upper, Lower
     }
-
+    
     /** Sets the value of the argument with the given value.
      * 
      * @param name the name of the argument (the generator recognizes the arguments "text" and "bound")
@@ -95,7 +95,7 @@ public class BMdates implements CustomGenerator {
         String xsdDate = "";
             Date formatDate = UtilsTime.validate(time_str, bounds);
             if (formatDate != null) {
-                xsdDate = UtilsTime.convertStringoXSDString(formatDate);
+                xsdDate = UtilsTime.convertStringoXSDString(formatDate, true);
             } else {
                 xsdDate = "Unknown-Format";
             }

@@ -87,7 +87,7 @@ public class GermanDate implements CustomGenerator {
         try {
             Date formatDate = UtilsTime.validate(time_str, bounds);
             if (formatDate != null) {
-                xsdDate = UtilsTime.convertStringoXSDString(formatDate);
+                xsdDate = UtilsTime.convertStringoXSDString(formatDate, true);
             } else {
                 xsdDate = "Unknown-Format";
             }

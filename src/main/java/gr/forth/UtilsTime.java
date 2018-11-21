@@ -235,15 +235,19 @@ public class UtilsTime {
         return c.getTime();
     }
 
-    public static String convertDateToString(Date date, boolean millis) {
+    public static String convertDateToString(Date date, boolean includeTime, boolean millis) {
         if (date == null) {
             return null;
         } else {
             DateFormat df;
-            if (millis) {
-                df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            } else {
-                df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            if(includeTime){
+                if (millis) {
+                    df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                } else {
+                    df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                }
+            }else{
+                df = new SimpleDateFormat("yyyy-MM-dd");
             }
             df.setTimeZone(TimeZone.getTimeZone("GMT"));
 
@@ -257,12 +261,12 @@ public class UtilsTime {
         }
     }
 
-    public static String convertStringoXSDString(Date date) {
+    public static String convertStringoXSDString(Date date, boolean includeTime) {
         if (date == null) {
             return null;
         }
         StringBuilder lexicalForm;
-        String dateTime = convertDateToString(date, false);
+        String dateTime = convertDateToString(date, includeTime, false);
         int len = dateTime.length() - 1;
         if (dateTime.indexOf('.', len - 4) != -1) {
             while (dateTime.charAt(len - 1) == '0') {

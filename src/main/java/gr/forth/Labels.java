@@ -54,6 +54,7 @@ public class Labels {
     public static final String SLASH_CHARACTER_ENCODED="%2F";
     public static final String TERM_TO_REMOVE="termToRemove";
     public static final String TEXT="text";
+    public static final String REPORT="report";
     public static final String TRIG="trig";
     public static final String TRUE="true";
     public static final String TTL="ttl";
