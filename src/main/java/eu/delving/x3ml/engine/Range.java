@@ -68,9 +68,13 @@ public class Range extends GeneratorContext {
                         lastResource.addProperty(path.lastProperty, resolvedResource);
                         if(linkNamedgraph!=null){
                             X3ML.RootElement.hasNamedGraphs=true;
-
-                            X3ML.LinkElement.namedGraphProduced=(linkNamedgraph.startsWith("http://") && !linkNamedgraph.isEmpty())?linkNamedgraph+"":"http://namedgraph/"+linkNamedgraph;
-                            X3ML.LinkElement.namedGraphProduced+=lastResource.getURI().replace("http://","_").replace("uuid:", "_");
+                            if(linkNamedgraph.isEmpty()){
+                                X3ML.LinkElement.namedGraphProduced=lastResource.getURI();
+                            }else if(linkNamedgraph.startsWith("http://") || linkNamedgraph.startsWith("https://") || linkNamedgraph.startsWith("uuid:") || linkNamedgraph.startsWith("urn:")){
+                                X3ML.LinkElement.namedGraphProduced=linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                            }else{
+                                X3ML.LinkElement.namedGraphProduced="http://"+linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                            }
 
                             ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
@@ -101,8 +105,14 @@ public class Range extends GeneratorContext {
                 }else{
                     lastResource.addLiteral(path.lastProperty, rangeResolver.literal);
                     if(linkNamedgraph!=null){
-                            String linkNamedGraphMerged=(linkNamedgraph.startsWith("http://") && !linkNamedgraph.isEmpty())?linkNamedgraph+"":"http://namedgraph/"+linkNamedgraph;
-                            linkNamedGraphMerged+=lastResource.getURI().replace("http://","_").replace("uuid:", "_");
+                        String linkNamedGraphMerged=null;
+                        if(linkNamedgraph.isEmpty()){
+                            linkNamedGraphMerged=lastResource.getURI();
+                        }else if(linkNamedgraph.startsWith("http://") || linkNamedgraph.startsWith("https://") || linkNamedgraph.startsWith("uuid:") || linkNamedgraph.startsWith("urn:")){
+                            linkNamedGraphMerged=linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                        }else{
+                            linkNamedGraphMerged="http://"+linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                        }
                             X3ML.RootElement.hasNamedGraphs=true;
                             ModelOutput.quadGraph.add(new ResourceImpl(linkNamedGraphMerged).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
