@@ -150,8 +150,6 @@ public class EntityResolver {
                             }else{
                                 namedGraph=X3ML.Mapping.namedGraphProduced;
                             }
-                                
-                            
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                             if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
                                 X3ML.DomainElement.namedGraphProduced=(domainNamedGraph.startsWith("http://") && !domainNamedGraph.isEmpty())?domainNamedGraph+"":"http://namedgraph/"+domainNamedGraph;
