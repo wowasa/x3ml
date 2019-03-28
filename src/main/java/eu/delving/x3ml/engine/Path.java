@@ -20,6 +20,7 @@ package eu.delving.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import org.w3c.dom.Node;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,6 +93,12 @@ public class Path extends GeneratorContext {
             }
             for (Resource lastResource : lastResources) {
                 for (Resource resolvedResource : intermediateNode.entityResolver.resources) {
+                    if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
+                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                                                      lastResource.asNode(), 
+                                                      lastProperty.asNode(),
+                                                      resolvedResource.asNode());
+                        }
                     lastResource.addProperty(lastProperty, resolvedResource);
                 }
             }

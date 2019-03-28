@@ -143,25 +143,36 @@ public class EntityResolver {
                             String namedGraph=null;
                             if(derivedBy==Derivation.Domain){
                                 if(mappingNamedGraph!=null){
-                                    namedGraph=(mappingNamedGraph.startsWith("http://") && !mappingNamedGraph.isEmpty())?mappingNamedGraph+"":"http://namedgraph/"+mappingNamedGraph;
-                                    namedGraph+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+                                    if(mappingNamedGraph.isEmpty()){
+                                        namedGraph=generatedValue.text;
+                                    }else if(mappingNamedGraph.startsWith("http://") || mappingNamedGraph.startsWith("https://") || mappingNamedGraph.startsWith("uuid:") || mappingNamedGraph.startsWith("urn:")){
+                                        namedGraph=mappingNamedGraph+generatedValue.text.replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                                    }else{
+                                        namedGraph="http://"+mappingNamedGraph+generatedValue.text.replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                                    }
                                     X3ML.Mapping.namedGraphProduced=namedGraph;
                                 }
                             }else{
                                 namedGraph=X3ML.Mapping.namedGraphProduced;
                             }
-                                
-                            
                             resources.add(modelOutput.createTypedResource(generatedValue.text, typeElement));
                             if(domainNamedGraph!=null && !domainNamedGraph.isEmpty()){
-                                X3ML.DomainElement.namedGraphProduced=(domainNamedGraph.startsWith("http://") && !domainNamedGraph.isEmpty())?domainNamedGraph+"":"http://namedgraph/"+domainNamedGraph;
-                                X3ML.DomainElement.namedGraphProduced+=generatedValue.text.replace("http://","_").replace("uuid:", "_");
+                                if(domainNamedGraph!=null){
+                                    if(domainNamedGraph.isEmpty()){
+                                        X3ML.DomainElement.namedGraphProduced=generatedValue.text;
+                                    }else if(domainNamedGraph.startsWith("http://") || domainNamedGraph.startsWith("https://") || domainNamedGraph.startsWith("uuid:") || domainNamedGraph.startsWith("urn:")){
+                                        X3ML.DomainElement.namedGraphProduced=domainNamedGraph+generatedValue.text.replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                                    }else{
+                                        X3ML.DomainElement.namedGraphProduced="http://"+domainNamedGraph+generatedValue.text.replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
+                                    }
+                                }
+
                                 X3ML.RootElement.hasNamedGraphs=true;
                                 ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(), 
                                         new ResourceImpl(generatedValue.text).asNode(), 
                                         new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
                                         new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
-                            }
+                            }                            
                             if(namedGraph!=null){
                                 ModelOutput.quadGraph.add(new ResourceImpl(namedGraph).asNode(),
                                         new ResourceImpl(generatedValue.text).asNode(), 
@@ -270,10 +281,22 @@ public class EntityResolver {
                 if (additionalEntityResolver.get(i).hasResources()) {
                     for (Resource resource : additionalEntityResolver.get(i).resources) {
                         lastResource.addProperty(property.get(i), resource);
+                        if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
+                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                                                      fromResource.asNode(), 
+                                                      property.get(i).asNode(),
+                                                      resource.asNode());
+                        }
                     }
                     lastResource=additionalEntityResolver.get(i).resources.get(0);
                 } else if (additionalEntityResolver.get(i).hasLiteral()) {
                     lastResource.addLiteral(property.get(i), additionalEntityResolver.get(i).literal);
+                    if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
+                        ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                                                  fromResource.asNode(), 
+                                                  property.get(i).asNode(),
+                                                  additionalEntityResolver.get(i).literal.asNode());
+                    }
                 } else {
                     throw exception("Cannot link without property or literal");
                 }
