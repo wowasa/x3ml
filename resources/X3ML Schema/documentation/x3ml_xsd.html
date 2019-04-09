@@ -94,8 +94,10 @@ var usedByBoxes= new Array('usedBy_source_node',
 				'usedBy_entity_global_variable', 
 				'usedBy_entity_variable_deprecated', 
 				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_namedgraph', 
+				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template', 
 				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip', 
 				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_namedgraph', 
+				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template', 
 				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_skip', 
 				'usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_namedgraph', 
 				'usedBy_x3ml_x3ml_mappings_namedgraph', 
@@ -166,8 +168,10 @@ var sourceBoxes= new Array('source_x3ml',
 				'source_entity_global_variable', 
 				'source_entity_variable_deprecated', 
 				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_namedgraph', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template', 
 				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip', 
 				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_namedgraph', 
+				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template', 
 				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_skip', 
 				'source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_namedgraph', 
 				'source_x3ml_x3ml_mappings_namedgraph', 
@@ -609,7 +613,7 @@ var modelBoxes= new Array('model_x3ml',
                                  </tr>
                                  <tr>
                                     <td class="firstColumn" style="white-space: nowrap;">version</td>
-                                    <td><b>1.4</b></td>
+                                    <td><b>1.5</b></td>
                                  </tr>
                               </table>
                            </div>
@@ -807,6 +811,7 @@ var modelBoxes= new Array('model_x3ml',
                         </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"comments"</span><span class="tAN"> type=</span><span class="tAV">"commentsType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
                       </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
                       </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+                      </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
                     </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
                   </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
                   </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"link"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
@@ -843,6 +848,7 @@ var modelBoxes= new Array('model_x3ml',
                       </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
                       </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"skip"</span><span class="tEl">/&gt;</span><span class="tI">
                       </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+                      </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
                     </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
                   </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
                 </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
@@ -1221,6 +1227,7 @@ var modelBoxes= new Array('model_x3ml',
                   </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"comments"</span><span class="tAN"> type=</span><span class="tAV">"commentsType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
                 </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
                 </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+                </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
               </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
             </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
             </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"link"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
@@ -1257,6 +1264,7 @@ var modelBoxes= new Array('model_x3ml',
                 </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
                 </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"skip"</span><span class="tEl">/&gt;</span><span class="tI">
                 </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+                </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
               </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
             </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
           </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
@@ -1353,8 +1361,8 @@ var modelBoxes= new Array('model_x3ml',
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;mapping</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;domain</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/domain&gt;</span><span class="tI">
-  </span><span class="tEl">&lt;link</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/link&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;domain</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">template=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/domain&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;link</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">template=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/link&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/mapping&gt;</span></pre></td>
                                  </tr>
                               </table>
@@ -1417,6 +1425,7 @@ var modelBoxes= new Array('model_x3ml',
             </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"comments"</span><span class="tAN"> type=</span><span class="tAV">"commentsType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
           </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
           </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
         </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
       </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"link"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
@@ -1453,6 +1462,7 @@ var modelBoxes= new Array('model_x3ml',
           </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
           </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"skip"</span><span class="tEl">/&gt;</span><span class="tI">
           </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
         </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
       </span><span class="tEl">&lt;/xs:element&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
@@ -1499,9 +1509,10 @@ var modelBoxes= new Array('model_x3ml',
                         <td class="diagram">
                            <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_domain.jpeg" usemap="#x3ml_xsd_Element_domain" /><map name="x3ml_xsd_Element_domain" id="x3ml_xsd_Element_domain">
                                  <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_namedgraph" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_namedgraph" coords="107,41,206,66" />
-                                 <area alt="x3ml_xsd.tmp#source_node" href="x3ml_xsd.html#source_node" coords="164,83,336,127" />
-                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" coords="164,137,349,181" />
-                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" coords="164,191,300,235" /></map></div>
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" coords="107,76,186,101" />
+                                 <area alt="x3ml_xsd.tmp#source_node" href="x3ml_xsd.html#source_node" coords="164,118,336,162" />
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" coords="164,172,349,216" />
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" coords="164,226,300,270" /></map></div>
                         </td>
                      </tr>
                      <tr>
@@ -1540,7 +1551,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div id="instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain" style="display:block">
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
-                                    <td width="100%"><pre><span class="tEl">&lt;domain</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
+                                    <td width="100%"><pre><span class="tEl">&lt;domain</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">template=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;source_node</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/source_node&gt;</span><span class="tI">
   </span><span class="tEl">&lt;target_node</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/target_node&gt;</span><span class="tI">
   </span><span class="tEl">&lt;comments</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/comments&gt;</span><span class="tI">
@@ -1574,6 +1585,14 @@ var modelBoxes= new Array('model_x3ml',
                                        <div class="annotation"></div>
                                     </td>
                                  </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">template</a></b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
                               </table>
                            </div>
                         </td>
@@ -1595,6 +1614,7 @@ var modelBoxes= new Array('model_x3ml',
       </span><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"comments"</span><span class="tAN"> type=</span><span class="tAV">"commentsType"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
                                  </tr>
@@ -1757,7 +1777,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node_2.jpeg" usemap="#x3ml_xsd_Element_target_node_2" /><map name="x3ml_xsd_Element_target_node_2" id="x3ml_xsd_Element_target_node_2">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node.jpeg" usemap="#x3ml_xsd_Element_target_node" /><map name="x3ml_xsd_Element_target_node" id="x3ml_xsd_Element_target_node">
                                  <area alt="x3ml_xsd.tmp#if" href="x3ml_xsd.html#if" coords="318,40,454,84" />
                                  <area alt="x3ml_xsd.tmp#entity" href="x3ml_xsd.html#entity" coords="318,94,375,119" />
                                  <area alt="x3ml_xsd.tmp#domain_target_nodeType" href="x3ml_xsd.html#domain_target_nodeType" coords="216,3,389,25" /></map></div>
@@ -4244,7 +4264,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_3.jpeg" usemap="#x3ml_xsd_Element_comments_3" /><map name="x3ml_xsd_Element_comments_3" id="x3ml_xsd_Element_comments_3">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments.jpeg" usemap="#x3ml_xsd_Element_comments" /><map name="x3ml_xsd_Element_comments" id="x3ml_xsd_Element_comments">
                                  <area alt="comment_xsd.tmp#comment" href="comment_xsd.html#comment" coords="269,44,343,69" />
                                  <area alt="x3ml_xsd.tmp#commentsType" href="x3ml_xsd.html#commentsType" coords="167,3,291,25" /></map></div>
                         </td>
@@ -4351,8 +4371,9 @@ var modelBoxes= new Array('model_x3ml',
                            <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_link.jpeg" usemap="#x3ml_xsd_Element_link" /><map name="x3ml_xsd_Element_link" id="x3ml_xsd_Element_link">
                                  <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip" coords="93,41,152,66" />
                                  <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_namedgraph" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_namedgraph" coords="93,76,192,101" />
-                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path" coords="150,118,202,143" />
-                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range" coords="150,153,209,178" /></map></div>
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" coords="93,111,172,136" />
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path" coords="150,153,202,178" />
+                                 <area alt="x3ml_xsd.tmp#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range" href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range" coords="150,188,209,213" /></map></div>
                         </td>
                      </tr>
                      <tr>
@@ -4399,7 +4420,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div id="instance_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link" style="display:block">
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
-                                    <td width="100%"><pre><span class="tEl">&lt;link</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
+                                    <td width="100%"><pre><span class="tEl">&lt;link</span><span class="tT"> </span><span class="tAN">namedgraph=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">skip=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">template=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tI">
   </span><span class="tEl">&lt;path</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/path&gt;</span><span class="tI">
   </span><span class="tEl">&lt;range</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/range&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/link&gt;</span></pre></td>
@@ -4434,6 +4455,14 @@ var modelBoxes= new Array('model_x3ml',
                                  </tr>
                                  <tr>
                                     <td class="firstColumn"><b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">skip</a></b></td>
+                                    <td></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">template</a></b></td>
                                     <td></td>
                                     <td>optional</td>
                                     <td>
@@ -4487,6 +4516,7 @@ var modelBoxes= new Array('model_x3ml',
     </span><span class="tEl">&lt;/xs:sequence&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"skip"</span><span class="tEl">/&gt;</span><span class="tI">
     </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span><span class="tI">
   </span><span class="tEl">&lt;/xs:complexType&gt;</span><span class="tI">
 </span><span class="tEl">&lt;/xs:element&gt;</span></pre></td>
                                  </tr>
@@ -4997,7 +5027,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_2.jpeg" usemap="#x3ml_xsd_Element_comments_2" /><map name="x3ml_xsd_Element_comments_2" id="x3ml_xsd_Element_comments_2">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_path_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_3.jpeg" usemap="#x3ml_xsd_Element_comments_3" /><map name="x3ml_xsd_Element_comments_3" id="x3ml_xsd_Element_comments_3">
                                  <area alt="comment_xsd.tmp#comment" href="comment_xsd.html#comment" coords="269,44,343,69" />
                                  <area alt="x3ml_xsd.tmp#commentsType" href="x3ml_xsd.html#commentsType" coords="167,3,291,25" /></map></div>
                         </td>
@@ -5208,7 +5238,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node.jpeg" usemap="#x3ml_xsd_Element_target_node" /><map name="x3ml_xsd_Element_target_node" id="x3ml_xsd_Element_target_node">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node_1.jpeg" usemap="#x3ml_xsd_Element_target_node_1" /><map name="x3ml_xsd_Element_target_node_1" id="x3ml_xsd_Element_target_node_1">
                                  <area alt="x3ml_xsd.tmp#if" href="x3ml_xsd.html#if" coords="312,40,448,84" />
                                  <area alt="x3ml_xsd.tmp#entity" href="x3ml_xsd.html#entity" coords="312,94,369,119" />
                                  <area alt="x3ml_xsd.tmp#range_target_nodeType" href="x3ml_xsd.html#range_target_nodeType" coords="210,3,377,25" /></map></div>
@@ -5310,7 +5340,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments.jpeg" usemap="#x3ml_xsd_Element_comments" /><map name="x3ml_xsd_Element_comments" id="x3ml_xsd_Element_comments">
+                           <div id="diagram_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_range_comments" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_comments_2.jpeg" usemap="#x3ml_xsd_Element_comments_2" /><map name="x3ml_xsd_Element_comments_2" id="x3ml_xsd_Element_comments_2">
                                  <area alt="comment_xsd.tmp#comment" href="comment_xsd.html#comment" coords="269,44,343,69" />
                                  <area alt="x3ml_xsd.tmp#commentsType" href="x3ml_xsd.html#commentsType" coords="167,3,291,25" /></map></div>
                         </td>
@@ -5518,7 +5548,7 @@ var modelBoxes= new Array('model_x3ml',
                            <div class="floatRight"><input id="button_diagram_target_node" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_target_node');" class="control" /></div>
                         </td>
                         <td class="diagram">
-                           <div id="diagram_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node_1.jpeg" usemap="#x3ml_xsd_Element_target_node_1" /><map name="x3ml_xsd_Element_target_node_1" id="x3ml_xsd_Element_target_node_1">
+                           <div id="diagram_target_node" style="display:block"><img alt="Diagram" border="0" src="img/x3ml_xsd_Element_target_node_2.jpeg" usemap="#x3ml_xsd_Element_target_node_2" /><map name="x3ml_xsd_Element_target_node_2" id="x3ml_xsd_Element_target_node_2">
                                  <area alt="x3ml_xsd.tmp#if" href="x3ml_xsd.html#if" coords="312,40,448,84" />
                                  <area alt="x3ml_xsd.tmp#entity" href="x3ml_xsd.html#entity" coords="312,94,369,119" />
                                  <area alt="x3ml_xsd.tmp#range_target_nodeType" href="x3ml_xsd.html#range_target_nodeType" coords="210,3,377,25" /></map></div>
@@ -7157,6 +7187,63 @@ var modelBoxes= new Array('model_x3ml',
             <td class="rt_lineBottom"></td>
             <td class="rt_cornerBottomRight"></td>
          </tr>
+      </table><a id="x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="x3ml_xsd.html#x3ml" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">x3ml</a></b> / <b><a href="x3ml_xsd.html#x3ml_mappings" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mappings</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_mapping" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mapping</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">domain</a></b> / @template</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">x3ml/mappings/mapping/domain</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" type="image" src="img/btM.gif" value="-" onclick="switchState('source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_domain_template" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
       </table><a id="x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_skip"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="x3ml_xsd.html#x3ml" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">x3ml</a></b> / <b><a href="x3ml_xsd.html#x3ml_mappings" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mappings</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_mapping" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mapping</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">link</a></b> / @skip</span></div>
       <table class="rt">
          <tr>
@@ -7256,6 +7343,63 @@ var modelBoxes= new Array('model_x3ml',
                               <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
                                  <tr>
                                     <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"namedgraph"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template"></a><div class="componentTitle">Attribute <span class="qname"><b><a href="x3ml_xsd.html#x3ml" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">x3ml</a></b> / <b><a href="x3ml_xsd.html#x3ml_mappings" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mappings</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_mapping" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">mapping</a></b> / <b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">link</a></b> / @template</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="x3ml_xsd.html#x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link" target="mainFrame" title="No namespace" onclick="updatePageTitle('Schema documentation for x3ml.xsd')">x3ml/mappings/mapping/link</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" type="image" src="img/btM.gif" value="-" onclick="switchState('source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_x3ml_x3ml_mappings_x3ml_x3ml_mappings_mapping_link_template" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"template"</span><span class="tEl">/&gt;</span></pre></td>
                                  </tr>
                               </table>
                            </div>
