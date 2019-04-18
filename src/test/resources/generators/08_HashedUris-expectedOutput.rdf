@@ -1,24 +1,25 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:crm="http://www.cidoc-crm.org/"
+    xmlns:loc="http://localhost/"
+    xmlns:crm="http://www.cidoc-crm.org/cidoc-crm/"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <crm:E22_Man-Made_Object rdf:about="uuid:A">
+  <crm:E22_Man-Made_Object rdf:about="http://localhost/94F6D7E0-4A4D-3520-B530-0F18B984988C">
     <crm:P1_is_identified_by>
-      <crm:E41_Appellation rdf:about="http://www.cidoc-crm.org/1iyexaop5iaud"/>
+      <crm:E41_Appellation rdf:about="http://localhost/coin/appellation/0F966246-FDF3-3DB0-A6E7-38CCA4DB8A71"/>
     </crm:P1_is_identified_by>
   </crm:E22_Man-Made_Object>
-  <crm:E22_Man-Made_Object rdf:about="uuid:C">
+  <crm:E22_Man-Made_Object rdf:about="http://localhost/3644A684-F98E-38FE-A23C-713B77189A77">
     <crm:P1_is_identified_by>
-      <crm:E41_Appellation rdf:about="http://www.cidoc-crm.org/urek7ffq7sc4"/>
+      <crm:E41_Appellation rdf:about="http://localhost/coin/appellation/802DE79F-E672-3EDE-9A69-0C64B5A391E0"/>
     </crm:P1_is_identified_by>
   </crm:E22_Man-Made_Object>
-  <crm:E22_Man-Made_Object rdf:about="uuid:B">
-    <crm:P1_is_identified_by>
-      <crm:E41_Appellation rdf:about="http://www.cidoc-crm.org/trwcnd0watlu"/>
-    </crm:P1_is_identified_by>
+  <crm:E22_Man-Made_Object rdf:about="http://localhost/E27D0E9B-8189-366C-8C75-692C4B11D176">
+    <crm:P1_is_identified_by rdf:resource="http://localhost/coin/appellation/0F966246-FDF3-3DB0-A6E7-38CCA4DB8A71"/>
   </crm:E22_Man-Made_Object>
-  <crm:E22_Man-Made_Object rdf:about="uuid:D">
-    <crm:P1_is_identified_by rdf:resource="http://www.cidoc-crm.org/urek7ffq7sc4"/>
+  <crm:E22_Man-Made_Object rdf:about="http://localhost/F899139D-F5E1-3593-9643-1415E770C6DD">
+    <crm:P1_is_identified_by>
+      <crm:E41_Appellation rdf:about="http://localhost/coin/appellation/36D87D09-5A3A-3528-987B-3CF767966D0B"/>
+    </crm:P1_is_identified_by>
   </crm:E22_Man-Made_Object>
 </rdf:RDF>

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator_policy>
     
-	<generator name="LocalTermURIShorten" prefix="crm" shorten="yes">
-        <pattern>{hierarchy}/{term}</pattern>	
+	<generator name="ShortUriGen_1" prefix="loc" shorten="yes">
+        <pattern>{term}</pattern>
     </generator>
-
+	<generator name="ShortUriGen_2" prefix="loc" shorten="yes">
+        <pattern>{object}/{type}/{term}</pattern>
+    </generator>
+	
 </generator_policy>
