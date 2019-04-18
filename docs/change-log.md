@@ -1,5 +1,9 @@
 # Change Log
 
+## 18 Apr 2019: V 1.9.2 (by FORTH-ICS)
+* Enhanced built-in generators with UUID-suffixed IRIs ([issue #132](https://github.com/isl/x3ml/issues/132))
+
+
 ## 12 Sep 2018: V 1.9.1 (by FORTH-ICS)
 * Fixed issues with inconsistencies in the error messages ([issue #126](https://github.com/isl/x3ml/issues/126))
 * Fixed (grammatically) a few error messages ([issue #127](https://github.com/isl/x3ml/issues/127))
