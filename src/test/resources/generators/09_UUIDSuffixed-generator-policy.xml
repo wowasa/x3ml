@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+    
+	<generator name="uuid_suffixed_generator_1_term" prefix="loc" uuid="yes">
+        <pattern>{hierarchy}/</pattern>	
+    </generator>
+	
+	<generator name="uuid_suffixed_generator_2_terms" prefix="loc" uuid="yes">
+        <pattern>{hierarchy}/{term}/</pattern>	
+    </generator>
+
+</generator_policy>
