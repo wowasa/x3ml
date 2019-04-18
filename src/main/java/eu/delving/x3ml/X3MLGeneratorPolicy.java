@@ -291,7 +291,11 @@ public class X3MLGeneratorPolicy implements Generator {
                 }
                 uriTemplate.set(argument, argValue.string);
             }
-            if(Utils.isAffirmative(generator.shorten)){
+            if(Utils.isAffirmative(generator.uuid)){
+                return uriValue(namespaceUri
+                               +uriTemplate.expand()
+                               +UUID.randomUUID().toString().toUpperCase());
+            }else if(Utils.isAffirmative(generator.shorten)){
                 UUID uuid = java.util.UUID.nameUUIDFromBytes(uriTemplate.expand().getBytes());
                 long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
                 String shortenedSuffix=Long.toString(l, Character.MAX_RADIX);
