@@ -1019,6 +1019,9 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String shorten;
+        
+        @XStreamAsAttribute
+        public String uuid;
 
         public CustomGenerator custom;
 
