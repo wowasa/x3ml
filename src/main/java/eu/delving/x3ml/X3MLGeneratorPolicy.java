@@ -296,10 +296,19 @@ public class X3MLGeneratorPolicy implements Generator {
                                +uriTemplate.expand()
                                +UUID.randomUUID().toString().toUpperCase());
             }else if(Utils.isAffirmative(generator.shorten)){
-                UUID uuid = java.util.UUID.nameUUIDFromBytes(uriTemplate.expand().getBytes());
-                long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
-                String shortenedSuffix=Long.toString(l, Character.MAX_RADIX);
-                return uriValue(namespaceUri + shortenedSuffix);
+                String expandedUriPart1=uriTemplate.expand();
+                String expandedUriPart2="";
+                if(uriTemplate.expand().contains("/")){
+                    expandedUriPart1=expandedUriPart1.substring(0, expandedUriPart1.lastIndexOf("/")+1);
+                    expandedUriPart2=uriTemplate.expand().substring(uriTemplate.expand().lastIndexOf("/")+1);
+                }
+                if(expandedUriPart2.isEmpty()){
+                    UUID uuid = java.util.UUID.nameUUIDFromBytes(expandedUriPart1.getBytes());
+                    return uriValue(namespaceUri + uuid.toString().toUpperCase());
+                }else{
+                    UUID uuid = java.util.UUID.nameUUIDFromBytes(expandedUriPart2.getBytes());
+                    return uriValue(namespaceUri + expandedUriPart1 + uuid.toString().toUpperCase());
+                }
             }
             return uriValue(namespaceUri + uriTemplate.expand()
 //                                                                 .replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER)
