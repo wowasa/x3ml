@@ -61,7 +61,7 @@ import static org.joox.JOOX.$;
 @Log4j
 public class XPathInput {
 
-    private final XPathFactory pathFactory = net.sf.saxon.xpath.XPathFactoryImpl.newInstance();
+    private final XPathFactory pathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
     private final NamespaceContext namespaceContext;
     private final String languageFromMapping;
     private final Node rootNode;
