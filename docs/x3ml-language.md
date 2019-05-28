@@ -25,35 +25,35 @@ For the time being, X3ML will be restricted to consuming XML records and produci
 
 The following figure shows the global stracture of X3ML. It consists of some prerequisite information and then the actual declaration of the mappings. The yellow rectangles include informative information about the mappings (metadata) and are therefore optional elements. The main parts are *mapping* elements, that contain a *domain* and one or more *link* elements. The latter consists of exactly one *path* and one *range* element. 
 
----
 ![](images/x3ml_overview.png "An overview of X3ML")
----
 
 X3ML mappings are serialized using XML. The structure in XML is simple and intuituve as well. 
 
 ```xml
 <x3ml>
-    <namespaces/>
-    <mappings>
-	<mapping>
-	    <domain>
-		<source_node/>
-		<target_node/>
-	    </domain>
-	    <link>
-		<path>
-		    <source_relation/>
-		    <target_relation/>
-		</path>
-		<range>
-		    <source_node/>
-		    <target_node/>
-		</range>
-	    </link>
-	    ... more links ...
-	</mapping>
-	... more mappings ...
-    </mappings>
+	<info>...</info>
+	<comments>...</comments>
+	<namespaces>...</namespaces>
+    	<mappings>
+		<mapping>
+	    		<domain>
+				<source_node>...</source_node>
+				<target_node>...</target_node>
+	    		</domain>
+	    		<link>
+				<path>
+		    			<source_relation>...</source_relation>
+		    			<target_relation>...</target_relation>
+				</path>
+				<range>
+					<source_node>...</source_node>
+					<target_node>...</target_node>
+				</range>
+	    		</link>
+	    		... more links ...
+		</mapping>
+		... more mappings ...
+    	</mappings>
 </x3ml>
 ```
 	
