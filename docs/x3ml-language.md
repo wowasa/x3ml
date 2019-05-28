@@ -186,7 +186,53 @@ The relationship URI is specified either with a prefix and local name or a full 
 
 ## An Indicative Mapping
 
-This section describes an indicative mapping of some source data about ancient coins. More specifically we describe a mapping from the source schema to [CIDOC-CRM](http://www.cidoc-crm.org) instances. 
+This section describes an indicative mapping of some source data about ancient coins. More specifically we describe a mapping from the source schema to [CIDOC-CRM](http://www.cidoc-crm.org) instances. More specifically, the source data is a plain XML document with a simple structure; it contains a *COIN* element with a sub-element called *ID*. The mapping we describe below maps: 
+
+* occurences of the element *COIN* as instances of the CIDOC CRM class E22_Man-Made_Object
+* occurrences of the element *ID* as instances of the CIDOC CRM class E42_Identifier and linked with the E22 created before using the CIDOC CRM property P1_is_identified_by.
+
+![](images/indicative_mapping.png "An indicative mapping")
+
+The XML serialization of the mapping is shown below. We omit the declaration of generators in this example.
+
+```xml
+<namespaces>
+	<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+</namespaces>
+<mappings>
+	<mapping>
+		<domain>
+			<source_node>/COIN</source_node>
+			<target_node>
+				<entity>
+					<type>crm:E22_Man-Made_Object</type>
+					...generators...
+				</entity>
+			</target_node>
+		</domain>
+		<link>
+			<path>
+				<source_relation>
+					<relation>ID</relation>
+				</source_relation>
+				<target_relation>
+					<relationship>crm:P1_is_identified_by</relationship>
+				</target_relation>
+			</path>
+			<range>
+				<source_node>ID</source_node>
+				<target_node>
+					<entity>
+						<type>crm:E42_Identifier</type>
+						...generators...
+					</entity>
+				</target_node>
+			</range>
+		</link>
+	</mapping>
+</mappings>
+```
+
 
 # Variables
 
