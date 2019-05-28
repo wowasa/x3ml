@@ -473,24 +473,39 @@ This is formulated using the intermediate node, which is simply a *relationship*
 
 The X3ML Engine takes source XML records and generates RDF triples consisting of subject, predicate, and object.  The subject and the object are "values", generally consisting of Uniform Resource Identifier, but objects can also be labels or literal values.
 
-Value generation is a separate process from the schema mapping of X3ML, so the X3ML Engine delegates this work to a **Generator** by making calls with arguments.  A call is made to generate an **instance** from within X3ML looks like this:
+Value generation is a separate process from the schema mapping of X3ML, so the X3ML Engine delegates this work to a **Generator** by making calls with particular arguments. X3ML supports two types of generators: *instance_generator* and *label_generator*. 
 
-	<instance_generator name="[gen-name]">
-	    <arg name="[arg-name]" type="[arg-type]">[arg-value]</arg>
-	    ...
-	</instance_generator>
+*instance_generator* is responsible for constructing a URI for a particular instance (of the class given under the *type* element in the *entity*), or for creating a literal. It is mandatory to have exactly one *instance_generator* per *entity*.
 
-To generate a **label** instead, an identical structure is used:
-
-	<label_generator name="[gen-name]">
-	    <arg name="[arg-name]" type="[arg-type]">[arg-value]</arg>
-	    <arg name="language" type="constant">[language-code]</arg>
-	    ...
-	</label_generator>
+*label_generator* is responsible for constructing a label (e.g. rdfs:label, skos:prefLabel). An *entity* can have zero, one or more *label_generator* attached to it.
 
 For any one entity there can be an *instance_generator* and any number of subsequent *label_generator* blocks.
 
-The argument type allows for choosing between *xpath* and *constant* and there is a special argument type called *position* which gives the value generator access to the index position of the source node within its context.
+The following image shows the structure of the generators and in the sequel we demonstrate their XML representation.
+
+```xml
+<instance_generator name="[gen-name]">
+	<arg name="[arg-name]" type="[arg-type]">[arg-value]</arg>
+	...more arguments...
+</instance_generator>
+```
+```xml
+<label_generator name="[gen-name]">
+	<arg name="[arg-name]" type="[arg-type]">[arg-value]</arg>
+	...more arguments...
+	<arg name="language" type="[arg-type]">[lang-code]</arg> <!-- optional -->
+</label_generator>
+```
+
+Below we describe the details of the generators. 
+
+* *gen-name*: it is used for identifying the generator. There are some default names (for the default generators) and user-defined ones.
+* *arg-name*: it is used for identifying the name of the particular argument. Each generator can have many different arguments. This value is used for separating them.
+* *arg-type*: it is used for specifying how the value of the generator will be retrieved. The supported types are: 
+	* *xpath*: it denotes that the value should be retrieved by evaluating the XPATH expression given in the [arg-value]
+	* *constant*: it denotes that the value should be retrieved as it is in the field [arg-value]
+	* *position*: it denotes that the value should be retrieved by accessed the index position of the source node within its context
+* *arg-value*: it is used for expressing either the XPATH expression or the constant value to be used for the specific argument, depending on the value of the [arg-type]
 
 The *language* argument is used if it is present, and if its value is present but empty the implication is that the label or instance will be generated with no language determination (number literals, for example)
 
