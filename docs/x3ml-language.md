@@ -369,7 +369,7 @@ Multiple conditions can also be combined into boolean expressions:
 
 Several times it is required to created an extended target from the source data resources. The extension could be: (a) by extending the a target node with more resources using an *additional* node, and/or (b) by intervening more resources in the target path using *intermediate* nodes. The following image depicts these extensions. 
 
-![](images/mapping_structure.png "Extending mappings using additional and intermediate nodes")
+![](images/mapping_extensions.png "Extending mappings using additional and intermediate nodes")
 
 ## Additional Nodes
 
