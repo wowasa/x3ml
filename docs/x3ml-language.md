@@ -317,6 +317,60 @@ A few default generators are provided in order to create some basic forms of URI
 		<label_generator name="Constant">
 		    <arg>production</arg>
 		</label_generator>
+		
+## Template Generators
+
+In order to support more options for generating URIs and values, there is a default implementation of generators based on simple templates. The rationale is that users will define a new generator with a particular template for generating the URI or value, and use it within mappings. The definition of the new generator is done in a Generator Policy file. The syntaxt of these generators is the following:
+
+```xml
+<generator_policy>
+	<generator name="[gen-name]">
+		<pattern>[gen-pattern]</pattern>
+	</generator>
+</generator_policy>
+```
+
+* *gen-name*: is the name/identifier of the generator. This is the name that will be used within X3ML mappings
+* *gen-pattern*: defines the pattern that will be used for generating the value. In general the values between braces are used two define the names of the generator arguments. Everything else (outside braces) is a constant value. 
+
+### Literals and Labels
+
+```xml
+<generator_policy>
+	<generator name="two_parts_generator">
+		<pattern>{part1} - {part2}</pattern>
+	</generator>
+</generator_policy>
+```
+
+The above declaration creates a new generator with name *two_parts_generator*, that contains two arguments with names *part1* and *part2*. . Having defined the generator shown above (in the generator policy file), we can use it for generating a value within our mappings. The example shown below will create a new *instance_generator* that will contains the value derived from the XPATH shown in argument *part1*, followed by " - " and the constant value that is described for argument *part2*. Assuming that the evaluation of the XPATH provides the value: "input text", the generated literal will be: "input text - last part". 
+
+```xml
+<instance_generator name="two_parts_generator">
+	<arg name="part1" type="xpath"> element/name/text() </arg>
+	<arg name="part2" type="constant"> last part </arg>
+</instance_generator>
+```
+
+The generator can also be used as a *label_generator*. The only difference is that the generated value will be an rdfs:label.
+```xml
+<label_generator name="two_parts_generator">
+	<arg name="part1" type="xpath"> element/name/text() </arg>
+	<arg name="part2" type="constant"> last part </arg>
+</label_generator>
+```
+
+### URIs 
+
+//TBD
+
+### Shortner URIs
+
+//TBD
+
+### UUID-suffixed URIs
+
+//TBD
 
 ## Generator Policy File
 
