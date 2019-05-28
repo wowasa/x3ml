@@ -14,8 +14,8 @@
 * **[Conditions](#conditions)**
 	* **[exists](#exists)**
 	* **[equals](#equals)**
-	* **[skos:exact_match](#skos:exact_match)**
-	* **[skos:broader](#skos:broader)**
+	* **[skos:exact_match](#skosexact_match)**
+	* **[skos:broader](#skosbroader)**
 	* **[Multiple Conditions](#multiple-conditions)**
 * **[Extensions](#extensions)**
 	* **[Additional Nodes](#additional-nodes)**
