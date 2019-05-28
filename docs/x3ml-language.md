@@ -464,7 +464,7 @@ This is formulated using the intermediate node, which is simply a *relationship*
 			...generators...
 		</entity>
 		<relationship>...</relationship>
-		...more entity => relationship
+		...more entity => relationship...
 	</target>
 </path>
 ```
