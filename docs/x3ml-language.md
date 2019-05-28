@@ -373,70 +373,101 @@ Several times it is required to created an extended target from the source data 
 
 ## Additional Nodes
 
-When additional properties and entities need to be added to a target entity, the *additional* element can be used.  It contains the entity which will be attached to the target entity, and the relationship describing the link.
+When additional properties and entities need to be added to a target entity, the *additional* element can be used.  It contains the entity which will be attached to the target entity, and the relationship describing the link. 
 
-	<range>
-		<source_node/>
-		<target_node>
+	source:
+	coin => id
+	
+	target:
+	E22_Man-Made_Object => crm:P1_is_identified_by => E42_Identifier => P2_has_type => E55_Type
+
+We should note that multiple *additional* nodes are allowed in the target. Furthermore an *additional* node, is allowed to have an internal *additional* node. Below we demostrate these use cases (we omit the declaration of the generators). 
+
+```xml
+<target_node>
+	<entity>
+		<type>...</type>
+		...generators...
+		<additional>
+			<relationship>...</relationship>
 			<entity>
+				<type>...</type>
+				...generators...
+		</additional>
+		...more additionals...
+	</entity>
+</target_node>
+```
+```xml
+<target_node>
+	<entity>
+		<type>...</type>
+		...generators...
+		<additional>
+			<relationship>...</relationship>
+			<entity>
+				<type>...</type>
+				...generators...
 				<additional>
-					<relationship/>
-					<entity/>
+					<relationship>...</relationship>
+					<entity>
+						<type>...</type>
+						...generators...
 				</additional>
-				... more additionals ...
 			</entity>
-		</target_node>
-	</range>
-
-Note that the target allows multiple additional nodes.
-
-
-
----
-![Fig 2](images/X3ML-2.png?raw=true =680x540)
-
-**Figure 2**: Extension of the Source Domain
-
----
-
-
-
----
-![Fig 3](images/X3ML-3.png?raw=true =680x480)
-
-**Figure 3**: Extension of the Source Range
-
----
+		</additional>
+	</entity>
+</target_node>
+```
 
 ## Intermediate Nodes
 
 Sometimes a path in the source schema needs to become more than just a path in the output.  Instead, an intermediate entity must be introduced.
 
 	source:
-	record => has_descriptor => term
+	coin => type
 	
 	target:
-	man-made-object => was_produced_by => PRODUCTION => used_general_technique => type
+	E22_Man-Made_Object => crm:P108i_was_produced_by => E12_Production => P32_used_general_technique => E55_Type
 
-This is formulated using the *intermediate* element:
+This is formulated using the intermediate node, which is simply a *relationship* => *entity* chain added in the *target_relation*.  We should note that multiple intermediate nodes are supported, by supplying several *relationship* => *entity* chains. Below we demostrate these use cases (we omit the declaration of the generators).
 
-	<path>
-		<source_relation/>
-		<target_relation>
-			<relationship/>
-			<entity/>
-			<relationship/>
-		</target>
-	</path>
-
-
----
-![Fig 4](images/X3ML-4.png?raw=true =680x480)
-
-**Figure 3**
-
----
-
+```xml
+<path>
+	<source_relation>
+		<relation>...</relation>
+	</source_relation>
+	<target_relation>
+		<relationship>...</relationship>
+		<entity>
+			<type>...</type>
+			...generators...
+		</entity>
+		<relationship>...</relationship>
+	</target>
+</path>
+```
+```xml
+<path>
+	<source_relation>
+		<relation>...</relation>
+	</source_relation>
+	<target_relation>
+		<relationship>...</relationship>
+		<entity>
+			<type>...</type>
+			...generators...
+		</entity>
+		<relationship>...</relationship>
+		<entity>
+			<type>...</type>
+			...generators...
+		</entity>
+		<relationship>...</relationship>
+		...more entity => relationship
+	</target>
+</path>
+```
 
 # Value Generation
 
