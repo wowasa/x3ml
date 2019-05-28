@@ -1,4 +1,23 @@
-# X3ML Language
+### Table of Contents
+
+* **[Introduction](#introduction)**
+* **[Info block and Comments](#info-block-and-comments)**
+* **[Structure of a Mapping](#structure-of-a-mapping)**
+	* **[Source Node and Relation](#source-node-and-relation)**
+ 	* **[Target Entities and Relations](#target-entities-and-relations)**
+* **[Variables](#variables)**
+	* **[Simple Variables](#simple-variables)**
+	* **[Global Variables](#global-variables)**
+	* **[Type-Aware Variables](#type-aware-variables)**
+* **[Conditions](#conditions)**
+* **[Extensions](#extensions)**
+	* **[Additional Nodes](#additional-nodes)**
+	* **[Intermediate Nodes](#intermediate-nodes)**
+* **[Value Generation](#value-generation)**
+	* **[Default Generators](#default-generators)**	
+
+
+# Introduction
 
 The X3ML language was designed on the basis of work that was done by FORTH around 2006. It was adapted primarily to be more according to the DRY principle (avoiding repetition) and to be more explicit in its contract with the URI Generating process.
 
@@ -32,7 +51,7 @@ At first glance, the global structure of X3ML is quite easy to understand. It co
 
 The *source_node* element, described in more detail below, provides the information needed to navigate to the source record. The *source_node* of the domain is used as an “anchor” in order to use multiple links which are traversed in order to determine the statements that are made about the source. The *source_node* and *source_relation* elements are also present in path and range, and these sources are evaluated within the context of the *domain/source_node*. The two are typically identical, but they represent a statement about the semantic origin of the resulting relationship and entity. When they are not identical, the *range/source_node* extends the *path/source_relation*.
 
-### Info and Comments
+# Info block and Comments
 
 The X3ML format intended to bridge the gap between human author and machine executor, so the format allows for *info* and *comment* blocks throughout the mapping specification. These blocks can contain the information needed for humans to understand what the mapping instructions are to accomplish.
 
@@ -71,7 +90,7 @@ Tools for managing X3ML will make use of these note elements to record all infor
 
 From the point of view of the Mapping Engine, the content of a note can be any arbitrary XML, and it will ignore these blocks.
 
-## Structure of a Mapping
+# Structure of a Mapping
 
 The domain and range contain target blocks, which can either contain or generate URIs or represent literals to identify the schema elements to which the sources are matched.  The target blocks can also contain criteria upon which the mapping to a target will take place, and they allow for extensions generating intermediate nodes and relations.  The basic structure of an individual mapping with its six components is represented graphically in Figure 1.
 
@@ -118,7 +137,7 @@ Relations are simpler because they do not depend on the generation of URIs:
 
 The relationship URI is specified either with a prefix (defined above in *namespaces*) and local name or a full URI value.
 
-### Variables
+# Variables
 
 Sometimes it is necessary to generate an instance in X3ML only once for a given input record, and re-use it in a number of locations in the mapping.  For example, in the example above for Intermediate Nodes there is a value **PRODUCTION** (a production event) introduced.  It could be that several different mappings in the same X3ML file need to re-use this single production event for attaching several things to it.  In these cases, an entity can be assigned to a variable:
 ```
@@ -131,19 +150,23 @@ Entity blocks with their variables set will only generate the associated values 
 X3ML supports 3 different types of variables: (a) simple variables, (b) global variables and (c) type-aware variables. Below we describe their functionality and their differences.
 
 
-#### Variables
+## Simple Variables
 Variables are used for the cases where we want to reuse the generated value for some piece of input on a different place, or when we want to create (and reuse) different values for the same piece of input. For example an element from the input will be assigned a particular value, and if it is exploited in other location in the mappings, the generated value will be reused. This happens because the generation of URIs or UUIDs is bound to the input; in the sense that the same piece of input should be assigned the same URI or UUID no matter how many times it is being exploited or how many type it is mapped into. Sometimes this behavior is not the desired one, so we want a way to declare that we want a new value to be generated (and of course re-used if needed). Variables of this type are declared as follows:
 ```
 <entity variable=”v1”>
 ```
 
-#### Global variables
+## Global variables
 Unlike simple variables that are valid only within the scope of the mapping they are declared, global variables are valid through all the mappings. This means that whenever they are used, the values of the corresponding entities will be generated only once and reused whenever it is required. Variables of this type are declared as follows:
 ```
 <entity global_variable=”gv1”>
 ```
 
-### Conditions
+## Type-Aware Variables
+
+//TBD
+
+# Conditions
 
 The conditional expressions within the *target_node* and *target_relation* can check for existence and equality of values and can be combined into boolean expressions.  Conditions check existence or equality, and between the tags is the XPath expression to evaluate:
 
@@ -176,13 +199,13 @@ Multiple conditions can also be combined into boolean expressions:
         <or> <if/> <if/> [more...] </or>
     </if>
 
-## Extensions
+# Extensions
 
 Beyond the six-component structure of a mapping in Figure 1, X3ML allows for extending the generated graph for a mapping in each of the three pairs of source-target blocks.
 
 The extensions are placed witin the *entity* tags when there is to be additional nodes containing more information about the source domain or the source range.
 
-### Additional Nodes
+## Additional Nodes
 
 When additional properties and entities need to be added to a target entity, the *additional* element can be used.  It contains the entity which will be attached to the target entity, and the relationship describing the link.
 
@@ -219,7 +242,7 @@ Note that the target allows multiple additional nodes.
 
 ---
 
-### Intermediate Nodes
+## Intermediate Nodes
 
 Sometimes a path in the source schema needs to become more than just a path in the output.  Instead, an intermediate entity must be introduced.
 
@@ -435,24 +458,7 @@ The set methods are called at the moment that the X3ML Engine is executed so tha
 
 ---
 
-Contact: Gerald de Jong &lt;gerald@delving.eu&gt;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Last updated: May 28, 2019
 
 
 --
