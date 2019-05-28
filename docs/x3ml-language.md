@@ -7,6 +7,7 @@
 * **[Structure of a Mapping](#structure-of-a-mapping)**
 	* **[Source Node and Relation](#source-node-and-relation)**
  	* **[Target Entities and Relations](#target-entities-and-relations)**
+	* **[An Indicative Mapping](#an-indicative-mapping)**
 * **[Variables](#variables)**
 	* **[Simple Variables](#simple-variables)**
 	* **[Global Variables](#global-variables)**
@@ -140,14 +141,10 @@ This elements is intended to be used only by humans. It includes various human-r
 
 # Structure of a Mapping
 
-The domain and range contain target blocks, which can either contain or generate URIs or represent literals to identify the schema elements to which the sources are matched.  The target blocks can also contain criteria upon which the mapping to a target will take place, and they allow for extensions generating intermediate nodes and relations.  The basic structure of an individual mapping with its six components is represented graphically in Figure 1.
+The actual part of the mappings is added under the *mappings* element. It consists of one or more *mapping* elements. 
+The *domain* and *range* contain target blocks, which can either contain or generate URIs or represent literals to identify the schema elements to which the sources are matched.  The target blocks can also contain criteria upon which the mapping to a target will take place, and they allow for extensions generating intermediate nodes and relations (more about URI and literals generation, as well as intermediate nodes are available in subsequent sections). The basic structure of an individual mapping with its six components is represented graphically below.
 
----
-![Fig 1](images/X3ML-1.png?raw=true =680x480)
-
-**Figure 1**: Basic Structure of an Individual Mapping
-
----
+![](images/X3ML-1.png "The general structure of a mapping")
 
 ## Source Node and Relation
 
@@ -155,35 +152,41 @@ The source element provides the engine with the information needed to navigate t
 
 First, the source of the *domain* is used as a kind of "anchor" and then the *links* are traversed such that their rules determine what RDF statements can be made about the source.
 
-	<source_node>[xpath]</source_node>
-	<source_relation>[xpath]</source_relation>
+```xml
+<source_node>[xpath]</source_node>
+<source_relation>[xpath]</source_relation>
+```
 
 The *source* element is also present in path and range, and these sources are evaluated within the context of the domain/source.  The two are typically identical, but they represent a statement about the semantic origin of the resulting relationship and entity.  When they are not identical, the range/source extends the path/source.
 
 ## Target Entities and Relations
 
-As we have seen in Figure 1, the *target_node* contains an *entity* block, and this is the information leading to the generation of resource URIs for output graph.
+As shown above, the *target_node* contains an *entity* block, and this is the information leading to the generation of a new instance with a particular URI and/or literal value. The declaration of an entity is shown below. The *instance_generator* element is used for creating a new instance of *type*, and *label_generator* element is used for constructing the corresponding literal values (if needed). More information about the generation of values will be given later.
 
-	<entity>
-	    <type>[prefix:localName or URI]</type>
-	    <instance_generator name="[name]">
-	        ... arguments ...
-	    </instance_generator>
-	    <label_generator name="[name]">
-			... [arguments] ...
-	    </label_generator>
-	    ... more label generators ...
-	</entity>
+```xml
+<entity>
+	<type>...</type>
+	<instance_generator name="...">
+		<arg name="..." type="...">...</arg>
+	</instance_generator>
+	<label_generator name="...">
+		<arg name="..." type="...">...</arg>
+	</label_generator>
+</entity>
 
-The typed resources and labels resulting from an *entity* block are generated on the basis of constants and data extracted from the source document.  This is described more in detail below in the **Value Generation**.
+Relations are simpler because they do not depend on the generation of URIs
 
-Relations are simpler because they do not depend on the generation of URIs:
+```xml
+<target_relation>
+	<relationship>...</relationship>
+</target_relation>
+```
 
-	<target_relation>
-	    <relationship>[prefix:localName or URI]</relationship>
-	</target_relation>
+The relationship URI is specified either with a prefix and local name or a full URI value, and it practically points to a property found in the target schemata.
 
-The relationship URI is specified either with a prefix (defined above in *namespaces*) and local name or a full URI value.
+## An Indicative Mapping
+
+This section describes an indicative mapping of some source data about ancient coins. More specifically we describe a mapping from the source schema to [CIDOC-CRM](http://www.cidoc-crm.org) instances. 
 
 # Variables
 
