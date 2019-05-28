@@ -501,8 +501,8 @@ Below we describe the details of the generators.
 
 * *gen-name*: it is used for identifying the generator. There are some default names (for the default generators) and user-defined ones.
 * *arg-name*: it is used for identifying the name of the particular argument. Each generator can have many different arguments. This value is used for separating them.
-* *arg-type*: it is used for specifying how the value of the generator will be retrieved. The supported types are: 
-	* *xpath*: it denotes that the value should be retrieved by evaluating the XPATH expression given in the [arg-value]
+* *arg-type*: it is used for specifying how the value of the generator will be retrieved. The attribute is optional. The supported types are: 
+	* *xpath*: it denotes that the value should be retrieved by evaluating the XPATH expression given in the [arg-value]. This is the default type that is inferred if [arg-type] has not been defined.
 	* *constant*: it denotes that the value should be retrieved as it is in the field [arg-value]
 	* *position*: it denotes that the value should be retrieved by accessed the index position of the source node within its context
 * *arg-value*: it is used for expressing either the XPATH expression or the constant value to be used for the specific argument, depending on the value of the [arg-type]
@@ -511,24 +511,69 @@ The *language* argument is used if it is present, and if its value is present bu
 
 ## Default Generators
 
-A few default generators are provided in order to create some basic forms of URIs.
+A few default generators are provided in order to create some basic resource values. More specifically the following default generators are supported.
 
-* **UUID** - use the operating system's UUID function to create a string as URI
-	
-		<instance_generator name="UUID"/>
-		
-* **Literal** - use XPath to fetch content for a literal value
+### UUID
 
-		<label_generator name="Literal">
-		    <arg name="text">text()</arg>
-		    <arg name="language"/>
-		</label_generator>
+It uses the operating system's UUID function to create a string as URN (e.g. urn:uuid:b15a486b-b1df-4f7c-89bd-bc2226f0e78f). This generator constructs a new UUID without using anything from the source data. The generator can only be used as *instance_generator*. It does not have any argument. 
 
-* **Constant** - take the content verbatim for a literal value, single argument
+```xml
+<instance_generator name="UUID"/>
+```
 
-		<label_generator name="Constant">
-		    <arg>production</arg>
-		</label_generator>
+### Literal
+
+It is used for constructing a literal element. The generator is used as *instance_generator*. It has the following arguments:
+* *text*: it is used for defining the value to be used, either using XPATH or a constant value (depending on the type of the argument). This argument is mandatory.
+* *language*: it is used for defining the language of the generated literal (e.g. "en"). This argument is optional.
+
+```xml
+<instance_generator name="Literal">
+	<arg name="text" type="xpath">text()</arg>
+	<arg name="language" type="constant">en</arg>
+</instance_generator>
+```
+```xml
+<instance_generator name="Literal">
+	<arg name="text" type="constant">This is a constant value</arg>
+</instance_generator>
+```
+
+### rdfs:label
+
+It is used for constructing an rdfs:label. The generator is used as *label_generator*. It has the following arguments:
+* *text*: it is used for defining the value to be used, either using XPATH or a constant value (depending on the type of the argument). This argument is mandatory.
+* *language*: it is used for defining the language of the generated literal (e.g. "en"). This argument is optional.
+
+```xml
+<label_generator name="Literal">
+	<arg name="text" type="xpath">text()</arg>
+	<arg name="language" type="constant">en</arg>
+</label_generator>
+```
+```xml
+<label_generator name="Literal">
+	<arg name="text" type="constant">This is a constant value</arg>
+</label_generator>
+```
+
+### skos:prefLabel
+
+It is used for constructing an skos:prefLabel. The generator is used as *label_generator*. It has the following arguments:
+* *text*: it is used for defining the value to be used, either using XPATH or a constant value (depending on the type of the argument). This argument is mandatory.
+* *language*: it is used for defining the language of the generated literal (e.g. "en"). This argument is optional.
+
+```xml
+<label_generator name="prefLabel">
+	<arg name="text" type="xpath">text()</arg>
+	<arg name="language" type="constant">en</arg>
+</label_generator>
+```
+```xml
+<label_generator name="prefLabel">
+	<arg name="text" type="constant">This is a constant value</arg>
+</label_generator>
+```
 
 ## Generator Policy File
 
