@@ -11,7 +11,6 @@
 * **[Variables](#variables)**
 	* **[Simple Variables](#simple-variables)**
 	* **[Global Variables](#global-variables)**
-	* **[Type-Aware Variables](#type-aware-variables)**
 * **[Conditions](#conditions)**
 * **[Extensions](#extensions)**
 	* **[Additional Nodes](#additional-nodes)**
@@ -244,24 +243,20 @@ Sometimes it is necessary to generate an instance in X3ML only once for a given 
 ```
 Entity blocks with their variables set will only generate the associated values once, and then re-use it whenever the variable name (in this cases *p1*) is used again, in the scope of the whole X3ML file.
 
-X3ML supports 3 different types of variables: (a) simple variables, (b) global variables and (c) type-aware variables. Below we describe their functionality and their differences.
+X3ML supports 3 different types of variables: (a) simple variables, and (b) global variables. Below we describe their functionality and their differences.
 
 
 ## Simple Variables
 Variables are used for the cases where we want to reuse the generated value for some piece of input on a different place, or when we want to create (and reuse) different values for the same piece of input. For example an element from the input will be assigned a particular value, and if it is exploited in other location in the mappings, the generated value will be reused. This happens because the generation of URIs or UUIDs is bound to the input; in the sense that the same piece of input should be assigned the same URI or UUID no matter how many times it is being exploited or how many type it is mapped into. Sometimes this behavior is not the desired one, so we want a way to declare that we want a new value to be generated (and of course re-used if needed). Variables of this type are declared as follows:
-```
+```xml
 <entity variable=”v1”>
 ```
 
 ## Global variables
 Unlike simple variables that are valid only within the scope of the mapping they are declared, global variables are valid through all the mappings. This means that whenever they are used, the values of the corresponding entities will be generated only once and reused whenever it is required. Variables of this type are declared as follows:
-```
+```xml
 <entity global_variable=”gv1”>
 ```
-
-## Type-Aware Variables
-
-//TBD
 
 # Conditions
 
