@@ -260,36 +260,105 @@ Unlike simple variables that are valid only within the scope of the mapping they
 
 # Conditions
 
-The conditional expressions within the *target_node* and *target_relation* can check for existence and equality of values and can be combined into boolean expressions.  Conditions check existence or equality, and between the tags is the XPath expression to evaluate:
+The conditional expressions within the *target_node* and *target_relation* can check for existence and equality of values and can be combined into boolean expressions.  Conditions check existence or equality, and between the tags is the XPath expression to evaluate. We support the conditional expressions that are described below.
 
-    <if>
-       <exists>[xpath]</exists>
-    </if>
-    
-    <if><not>
-       <if><exists>[xpath]</exists></if>
-    </not></if>
-    
-    <if>
-       <equals value="[value-for-comparison]">[xpath]</equals>
-    </if>
-    
-    <if><not>
-       <if><equals value="[value-for-comparison]">[xpath]</equals></if>
-    </not></if>
+### exists
 
-An option that will be implemented later when there is a SKOS vocabulary available for querying:
+This condition checks if there is an element or attribute in the source data described using an XPATH attribute. Non-existence is supported as well, if we add the negation element. 
 
-    <if><narrower value="[URI-value]">[xpath]</narrower></if>
+```xml
+<if>
+	<exists>[XPATH]</exists>
+</if>
+```
+```xml
+<if>
+	<not>
+		<if>
+			<exists>[XPATH]</exists>
+		</if>
+	</not>
+</if>
+```
+
+### equals
+
+This condition checks if the text retrieved from the evaluation of the given XPATH expressions equals the text given in the attribute. The text comparison is case sensitive. Non-equality is supported as well, if we add the negation element. 
+
+```xml
+<if>
+	<equals value="...">[XPATH]</equals>
+</if>
+```
+```xml
+<if>
+	<not>
+		<if>
+			<equals value="...">[XPATH]</equals>
+		</if>
+	</not>
+</if>
+```
+
+### skos:exact_match
+
+This condition checks if the (textual) value (say value1) retrieved from the given XPATH expression has exact match with the value given in the attribute *value* (say value2). This means that there is the following expression in the SKOS terminology: value1 skos:exactMatch value2. Negation is supported as well.
+
+```xml
+<if>
+	<exact_match value="...">[XPATH]</equals>
+</if>
+```
+```xml
+<if>
+	<not>
+		<if>
+			<exact_match value="...">[XPATH]</equals>
+		</if>
+	</not>
+</if>
+```
+
+### skos:broader
+
+This condition checks if the (textual) value (say value1) retrieved from the given XPATH expression is broader than the value given in the attribute *value* (say value2). This means that there is the following expression in the SKOS terminology: value1 skos:broaderTransitive value2. Negation is supported as well.
+
+```xml
+<if>
+	<broader value="...">[XPATH]</equals>
+</if>
+```
+```xml
+<if>
+	<not>
+		<if>
+			<broader value="...">[XPATH]</equals>
+		</if>
+	</not>
+</if>
+```
+### Multiple conditions
 
 Multiple conditions can also be combined into boolean expressions:
 
-    <if>
-        <and> <if/> <if/> [more...] </and>
-    </if>
-    <if>
-        <or> <if/> <if/> [more...] </or>
-    </if>
+```xml
+<if>
+	<and>
+		<if>...</if>
+		<if>...</if>
+		...more ifs...
+	</and>
+</if>
+```
+```xml
+<if>
+	<or>
+		<if>...</if>
+		<if>...</if>
+		...more ifs...
+	</or>
+</if>
+```
 
 # Extensions
 
