@@ -23,7 +23,16 @@ The X3ML language was designed on the basis of work that was done by FORTH aroun
 
 For the time being, X3ML will be restricted to consuming XML records and producing RDF in various serializations.  As a result, XPath will be the source access used.
 
-At first glance, the global structure of X3ML is quite easy to understand. It consists of some prerequisite information, and then a series of mappings. Each mapping contains a domain and a number of links, and links are built of a path and a range.
+The following figure shows the global stracture of X3ML. It consists of some prerequisite information and then the actual declaration of the mappings. The yellow rectangles include informative information about the mappings (metadata) and are therefore optional elements. The main parts are *mapping* elements, that contain a *domain* and one or more *link* elements. The latter consists of exactly one *path* and one *range* element. 
+
+---
+![](images/x3ml_overview.png?raw=true =680x480)
+
+**Fig.1**: An overview of X3ML
+
+---
+
+X3ML mappings are serialized using XML. The structure in XML is simple and intuituve as well. 
 
 	<x3ml>
 	    <namespaces/>
