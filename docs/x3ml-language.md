@@ -367,9 +367,9 @@ Multiple conditions can also be combined into boolean expressions:
 
 # Extensions
 
-Beyond the six-component structure of a mapping in Figure 1, X3ML allows for extending the generated graph for a mapping in each of the three pairs of source-target blocks.
+Several times it is required to created an extended target from the source data resources. The extension could be: (a) by extending the a target node with more resources using an *additional* node, and/or (b) by intervening more resources in the target path using *intermediate* nodes. The following image depicts these extensions. 
 
-The extensions are placed witin the *entity* tags when there is to be additional nodes containing more information about the source domain or the source range.
+![](images/mapping_structure.png "Extending mappings using additional and intermediate nodes")
 
 ## Additional Nodes
 
