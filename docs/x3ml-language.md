@@ -12,6 +12,11 @@
 	* **[Simple Variables](#simple-variables)**
 	* **[Global Variables](#global-variables)**
 * **[Conditions](#conditions)**
+	* **[exists](#exists)**
+	* **[equals](#equals)**
+	* **[skos:exact_match](#skos:exact_match)**
+	* **[skos:broader](#skos:broader)**
+	* **[Multiple Conditions](#multiple-conditions)**
 * **[Extensions](#extensions)**
 	* **[Additional Nodes](#additional-nodes)**
 	* **[Intermediate Nodes](#intermediate-nodes)**
@@ -337,7 +342,7 @@ This condition checks if the (textual) value (say value1) retrieved from the giv
 	</not>
 </if>
 ```
-### Multiple conditions
+### Multiple Conditions
 
 Multiple conditions can also be combined into boolean expressions:
 
