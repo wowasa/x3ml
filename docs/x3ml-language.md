@@ -2,8 +2,8 @@
 
 * **[Introduction](#introduction)**
 * **[Mapping Metadata and Comments](#mapping-metadata-and-comments)**
-	**[Info Element](#info-block)**
-	**[Comments Element](#comments-element)**
+	* **[Info Element](#info-block)**
+	* **[Comments Element](#comments-element)**
 * **[Structure of a Mapping](#structure-of-a-mapping)**
 	* **[Source Node and Relation](#source-node-and-relation)**
  	* **[Target Entities and Relations](#target-entities-and-relations)**
@@ -68,8 +68,55 @@ X3ML format is intended to bridge the gap between human author and machine execu
 
 ## Info Element
 
-//TBD
+This element is used for storing various metadata information about the mapping. Among others it contains information about the source schemata that will be exploited, the target schemata, as well as indicative examples of source and target data. Despite the fact that the element is optional, it contains information that are useful for the mappings and the transformation and URI generation process (i.e. the namespaces of the source and target schemata. As a result, if the element exists, then the namespaces (found in the elements *source_info* and *target_info*) are used normally. Practically if there is a declaration of a namespace (with a particular prefix) there, then the prefix can be used normally in the *mappings* section. The following figure shows an overview of the *info* element and below you will find the XML serialization of the element. 
 
+![](images/info_element_overview.png "An overview of info element")
+
+```xml
+<info>
+	<title>...</title>
+	<general_description>...</general_description>
+	<source>
+		<source_info>
+			<source_schema schema_file="..." type="..." version="...">...</source_schema>
+			<namespaces>
+				<namespace prefix="..." uri="..."/>
+			</namespaces>
+		</source_info>
+		</source>
+		<target>
+			<target_info>
+				<target_schema schema_file="..." type="..." version="...">...</target_schema>
+				<namespaces>
+					<namespace prefix="..." uri="..."/>
+				</namespaces>
+			</target_info>
+			</target_info>
+		</target>
+	<mapping_info>
+		<mapping_created_by_org>...</mapping_created_by_org>
+		<mapping_created_by_person>...</mapping_created_by_person>
+		<in_collaboration_with>...</in_collaboration_with>
+	</mapping_info>
+	<example_data_info>
+		<example_data_from>...</example_data_from>
+		<example_data_contact_person>...</example_data_contact_person>
+		<example_data_source_record>...</example_data_source_record>
+		<generator_policy_info>...</generator_policy_info>
+		<example_data_target_record>...</example_data_target_record>
+		<thesaurus_info>...</thesaurus_info>
+	</example_data_info>
+</info>
+```
+
+In the sequel, we describe the main elements on the *info* element. 
+
+* *title*: the title for the mappings
+* *general_description*: a short narrative describing the mappings and their corresponding attributes
+* *source*: it contains information about the source schemata that are exploited, including their namespaces (the prefix and the actual URI)
+* *target*: it contains information about the target schemata that are used, including their namespaces (the prefix and the actual URI)
+* *mapping_info*: it contains information about the creators and maintainers of the mappings
+* *example_data_info*: it contains various example resources (e.g. source data, target data, thesauri, etc.)
 
 ## Comment Element
 
