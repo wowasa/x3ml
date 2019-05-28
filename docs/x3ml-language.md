@@ -1,7 +1,9 @@
 ### Table of Contents
 
 * **[Introduction](#introduction)**
-* **[Info block and Comments](#info-block-and-comments)**
+* **[Mapping Metadata and Comments](#mapping-metadata-and-comments)**
+	**[Info Element](#info-block)**
+	**[Comments Element](#comments-element)**
 * **[Structure of a Mapping](#structure-of-a-mapping)**
 	* **[Source Node and Relation](#source-node-and-relation)**
  	* **[Target Entities and Relations](#target-entities-and-relations)**
@@ -60,10 +62,18 @@ X3ML mappings are serialized using XML. The structure in XML is simple and intui
 
 The *source_node* element, described in more detail below, provides the information needed to navigate to the source record. The *source_node* of the domain is used as an “anchor” in order to use multiple links which are traversed in order to determine the statements that are made about the source. The *source_node* and *source_relation* elements are also present in path and range, and these sources are evaluated within the context of the *domain/source_node*. The two are typically identical, but they represent a statement about the semantic origin of the resulting relationship and entity. When they are not identical, the *range/source_node* extends the *path/source_relation*.
 
-# Info block and Comments
+# Mapping Metadata and Comments
 
-The X3ML format intended to bridge the gap between human author and machine executor, so the format allows for *info* and *comment* blocks throughout the mapping specification. These blocks can contain the information needed for humans to understand what the mapping instructions are to accomplish.
+X3ML format is intended to bridge the gap between human author and machine executor. To this end, it enables adding particular metadata information about the mappings in the *info* and *comments* elements. Although these elements are optional, users are encouraged to use them and add the appropriate information since they contain the information needed for humans to understand what the mapping instructions are for.
 
+## Info Element
+
+//TBD
+
+
+## Comment Element
+
+//TBD 
 	<x3ml>
 		<info>
 			... various fields describing the mapping ...
