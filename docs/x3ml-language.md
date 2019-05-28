@@ -2,7 +2,7 @@
 
 * **[Introduction](#introduction)**
 * **[Mapping Metadata and Comments](#mapping-metadata-and-comments)**
-	* **[Info Element](#info-block)**
+	* **[Info Element](#info-element)**
 	* **[Comments Element](#comments-element)**
 * **[Structure of a Mapping](#structure-of-a-mapping)**
 	* **[Source Node and Relation](#source-node-and-relation)**
@@ -118,43 +118,25 @@ In the sequel, we describe the main elements on the *info* element.
 * *mapping_info*: it contains information about the creators and maintainers of the mappings
 * *example_data_info*: it contains various example resources (e.g. source data, target data, thesauri, etc.)
 
-## Comment Element
+## Comments Element
 
-//TBD 
-	<x3ml>
-		<info>
-			... various fields describing the mapping ...
-		</info>
-	    <namespaces/>
-	    <mappings>
-	        <mapping>
-	            <domain>
-					<comments>
-						... various notes about the domain ...
-					</comments>
-	            </domain>
-	            <link>
-	                <path>
-						<comments>
-							... various notes about the path ...
-						</comments>
-	                </path>
-	                <range>
-						<comments>
-							... various notes about the range ...
-						</comments>
-	                </range>
-	            </link>
-	        </mapping>
-	    </mappings>
-		<comments>
-			... various notes about the mappings ...
-		</comments>
-	</x3ml>
+This elements is intended to be used only by humans. It includes various human-readable comments. The following image shows the structure of the *comments* elements and below its XML serialization.
 
-Tools for managing X3ML will make use of these note elements to record all information arising from the mapping building process which may be useful people accessing the *Mapping Memory* in the future.  
+![](images/comments_element_overview.png "An overview of comments element")
 
-From the point of view of the Mapping Engine, the content of a note can be any arbitrary XML, and it will ignore these blocks.
+```xml
+<comments>
+	<comment type="...">
+		<rationale>...</rationale>
+		<alternatives>...</alternatives>
+		<typical_mistakes>...</typical_mistakes>
+		<local_habits>...</local_habits>
+		<link_to_cook_book>...</link_to_cook_book>
+		<example>...</example>
+		<comments_last_update>...</comments_last_update>
+	</comment>
+</comments>
+```
 
 # Structure of a Mapping
 
