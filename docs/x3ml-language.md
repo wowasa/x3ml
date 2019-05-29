@@ -22,7 +22,17 @@
 	* **[Intermediate Nodes](#intermediate-nodes)**
 * **[Value Generation](#value-generation)**
 	* **[Default Generators](#default-generators)**	
-
+		* **[UUID](#uuid)**
+		* **[Literal](#literal)**
+		* **[rdfs:label](#rdfslabel)**
+		* **[skos:prefLabel](#skospreflabel)**
+	* **[Generator Policy File](#generator-policy-file)**
+	* **[Simple Templates](#simple-templates)**
+		* **[Literals with Templates](#literals-with-templates)**
+		* **[URIs with Templates](#uris-with-templates)**
+		* **[Hashed URIs with Templates](#hashed-uris-with-templates)**
+		* **[UUID-suffixed URIs with Templates](#uuid-suffixed-uris-with-templates)**
+	* **[Custom Generators](#custom-generators)**
 
 # Introduction
 
@@ -574,6 +584,36 @@ It is used for constructing an skos:prefLabel. The generator is used as *label_g
 	<arg name="text" type="constant">This is a constant value</arg>
 </label_generator>
 ```
+
+## Generator Policy File
+
+//TBD
+
+## Simple Templates
+
+//TBD
+
+### Literals with Templates
+
+//TBD
+
+### URIs with Templates 
+
+//TBD
+
+### Hashed URIs with Templates
+
+//TBD
+
+### UUID-suffixed URIs with Templates
+
+//TBD
+
+## Custom Generators
+
+//TBD
+
+---
 
 ## Generator Policy File
 
