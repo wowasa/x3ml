@@ -101,9 +101,10 @@ public class X3MLCommandLine {
         );
         
         Option outputFormatOption = new Option(Labels.FORMAT_SHORT, Labels.FORMAT, true,
-                "Output format. Options:\n -"+Labels.FORMAT+" application/n-triples\n "
-                                        +" -"+Labels.FORMAT+" text/turtle \n"
-                                        +" -"+Labels.FORMAT+" application/rdf+xml (default)"
+                "Output format. Options:\n -"+Labels.FORMAT+" application/rdf+xml (default)\n "
+                                        +" -"+Labels.FORMAT+" application/n-triples \n"
+                                        +" -"+Labels.FORMAT+" application/trig \n"
+                                        +" -"+Labels.FORMAT+" text/turtle"
         );
         
         Option uuidTestSizeOption = new Option(Labels.UUID_TEST_SIZE_SHORT, Labels.UUID_TEST_SIZE, true,
