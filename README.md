@@ -137,12 +137,7 @@ X3ML Engine is released under Apache License 2.0. It is A permissive license who
 
 # How to Execute
 
-//TBD
-
-
-X3ML console started now supports importing multiple input files and folders, and multiple x3ml mappings files. Furthermore they allow adding URLs of input and X3ML mappings resources (both single and multiple).
-
-Furthermore the option parameters have been updated and introduced short parameters as well. The detailed usage help menu is shown when running X3ML Engine console starter and is shown below.
+X3ML Engine can be used either programmatically or directly from console. 
 
 ## Run from console
 
@@ -163,15 +158,16 @@ To run the x3ml engine from the console you need to download the x3ml engine exe
 * *-o,--output <arg>*: The RDF output file name: -output output.rdf
 * *-u,--uuidTestSize <arg>*:  Create a test UUID generator of the given size.
 * *-f,--format <arg>*: Output format. Options:
-  * format application/n-triples
-  * -format text/turtle
-  * -format application/rdf+xml (default)
+	* -format application/rdf+xml (default)
+ 	* -format application/n-triples
+ 	* -format application/trig
+  	* -format text/turtle
 * *-a,--assocTable <arg>*: export the contents of the association table in XML format
 * *-m,--mergeAssocWithRDF*:merge the contents of the association table with the RDF output
 	
 A simple example looks like:
 
-```
+```shell
 java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o output.rdf -u 4
 ```
 
