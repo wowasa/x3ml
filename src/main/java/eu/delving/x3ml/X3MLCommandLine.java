@@ -93,7 +93,7 @@ public class X3MLCommandLine {
         x3mlOption.setRequired(true);
         
         Option outputOption = new Option(Labels.OUTPUT_SHORT, Labels.OUTPUT, true,
-                "The RDF output file name: -"+Labels.OUTPUT+" output.rdf"
+                "The output file name: -"+Labels.OUTPUT+" output.rdf"
         );
         
         Option policyOption = new Option(Labels.POLICY_SHORT, Labels.POLICY, true,
