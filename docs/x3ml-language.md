@@ -655,15 +655,71 @@ we can include information about the language of the generated value, by adding 
 when the generator is used (in the X3ML mapping definition).
 It is not required to add the *language* argument in the definition of the generator in the Generator Policy file.
 
-
-
 ### URIs with Templates 
 
-//TBD
+User-defined generators can be used also for creating URIs. 
+In order to use a user-defined generator as a URI generator, it is required to fill the attribute *prefix* during the definition 
+of the generator in the generator policy file. 
+The attribute should contain the prefix of the namespace that will be used for constructing the URI. 
+The namespace (and its prefix) are declared in the X3ML mappings definition file (under the *namespaces* elements).
+The generated URI will be the concatenation of the namespace with the given prefix, and the values of the arguments.  
+The user-defined generator shown below will create URIs of the form: "http://www.example.com/product/id1"
+
+```xml
+<generator_policy>
+	<generator name="simple-uri-gen" uri="ex">
+		<pattern>{category}/{id}</pattern>
+	</generator>
+</generator_policy>
+```
+```xml
+...
+<namespaces>
+	<namespace prefix="ex" uri="http://www.example.com/"/>
+</namespaces>
+...
+
+<entity>
+	<type>crm:E1_CRM_Entity</type>
+	<instance_generator name="simple-uri-gen">
+		<arg name="category" type="xpath">item/cat/text()</arg>
+		<arg name="id" type="xpath">item/id/text()</arg>
+	</instance_generator>
+</entity>
+```
 
 ### Hashed URIs with Templates
 
-//TBD
+Many times it is required to create hashed URIs. The main benefits for this are: 
+* It constructs URIs of constant length, no matter how big or small the used values are
+* It constucts the same URI for the same value, since the hash is applied over the used values.
+The hash is applied on the last part of the URI (practically the content after the last '/' character) and 
+has the form of a UUID (e.g. 0c17c4bf-25c0-43eb-b92c-ae2e6c679aa5). 
+In order to enable this functionality the optional attribute *shorten* must be used, with its value set to *yes*. 
+The user-defined generator shown below will create URIs of the form: "http://www.example.com/product/0c17c4bf-25c0-43eb-b92c-ae2e6c679aa5" 
+
+```xml
+<generator_policy>
+	<generator name="simple-uri-gen" uri="ex" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+	</generator>
+</generator_policy>
+```
+```xml
+...
+<namespaces>
+	<namespace prefix="ex" uri="http://www.example.com/"/>
+</namespaces>
+...
+
+<entity>
+	<type>crm:E1_CRM_Entity</type>
+	<instance_generator name="simple-uri-gen">
+		<arg name="category" type="xpath">item/cat/text()</arg>
+		<arg name="id" type="xpath">item/id/text()</arg>
+	</instance_generator>
+</entity>
+```
 
 ### UUID-suffixed URIs with Templates
 
