@@ -594,11 +594,68 @@ which afterwards can be used in the X3ML mappings.
 
 ## Simple Templates
 
-//TBD
+Generators can be defined using a pattern-based logic. Practically users define how a value (either URI or literal or label) will be 
+constructed using a template pattern. 
+This is done by defining the template pattern of the generator, using constant fields and arguments. 
+The following example shows the definition of a user-defined generator. 
+The name of the generator (i.e. simple-gen) should be unique in the generator policy file. 
+This generator can be used in the X3ML mappings definition using its name. 
+The *pattern* element is used for describing the template pattern of the generator. The values withing braces are the arguments of the generator. All the rest are constant values.
+
+```xml
+<generator_policy>
+	<generator name="simple-gen">
+		<pattern>{part1} - {part2}</pattern>
+	</generator>
+</generator_policy>
+```
 
 ### Literals with Templates
 
-//TBD
+Below we will describe how to construct a literal value with a user defined generator. We will use the generator with the name simple-gen that is shown below.
+
+```xml
+<generator_policy>
+	<generator name="simple-gen">
+		<pattern>{part1} - {part2}</pattern>
+	</generator>
+</generator_policy>
+```
+
+In order to create a literal value using this generator, we have to define the following *instance_generator* in the X3ML mapping definition. 
+The first argument that is defined in the generator (i.e. *part1*) is considered to be the result of the XPATH expression 
+over the ipnut sources, while the second argument (i.e. *part2*) is a constant value. 
+Assuming that ther result of the evaluation of the XPATH expression over the input sources is "example" then the generated literal value will be: "example - last part text".
+
+```xml
+<entity>
+	<type>xsd:string</type>
+	<instance_generator name="simple-gen">
+		<arg name="part1" type="xpath">/root/item/value/text()</arg>
+		<arg name="part2" type="constant">last part text</arg>
+	</instance_generator>
+</entity>
+```
+
+In a similar manner, we can use the user-defined generator called simple-gen to construct the corresponding label. 
+This is done by using a *label-generator* with the same argument as above.
+
+```xml
+<entity>
+	<type>xsd:string</type>
+	<label_generator name="simple-gen">
+		<arg name="part1" type="xpath">/root/item/value/text()</arg>
+		<arg name="part2" type="constant">last part text</arg>
+	</label_generator>
+</entity>
+```
+
+Similarly to the default generators that construct literals and labels,
+we can include information about the language of the generated value, by adding the corresponding argument (with name *language*) 
+when the generator is used (in the X3ML mapping definition).
+It is not required to add the *language* argument in the definition of the generator in the Generator Policy file.
+
+
 
 ### URIs with Templates 
 
