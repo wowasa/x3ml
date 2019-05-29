@@ -10,6 +10,9 @@
 	* **[Project Structure](#project-structure)**
 	* **[Design Principles](#design-principles)**
 * **[Download](#download)**
+	* **[Official Releases](#official-releases)**
+	* **[Maven Releases](#maven-releases)**
+	* **[Maven SNAPSHOTs](#maven-snapshots)**
 * **[License](#license)**
 * **[How to Execute](#how-to-execute)**
 	* **[Run from console](#run-from-console)**
