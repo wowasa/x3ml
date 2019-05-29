@@ -1,22 +1,39 @@
 # X3ML Engine
 ---
-## Introduction
+
+### Table of Contents
+
+* **[Introduction](#introduction)**
+* **[X3ML Language](#x3ml-language)**
+* **[X3ML Language](#x3ml-language)**
+* **[Development](#development)**
+	* **[Project Structure](#project-structure)**
+	* **[Design Principles](#design-principles)**
+* **[Download](#download)**
+* **[How to Execute](#how-to-execute)**
+	* **[Run from console](#run-from-console)**
+	* **[Run through JAVA API](#run-through-java-api)**
+* **[Relavant Publications](#relavant-publications)**
+
+---
+
+# Introduction
 
 The X3ML engine handles the URI generation and the data transformation steps of the data provision and aggregation process. It realizes the transformation of the source records to the target's format. The engine takes as input the source data (currently in the form of an XML document), the description of the mappings in the X3ML mapping definition file and the URI generation policy file and is responsible for transforming the XML document into a valid RDF document which is equivalent with the XML input, with respect to the given mappings and policy. The engine has been originally implemented in the context of the CultureBrokers project co-funded by the Swedish Arts Council and the British Museum.
 
-## X3ML Language
+# X3ML Language
 
 The X3ML mapping definition language is an XML based language which describes schema mappings in such a way that they can be collaboratively created and discussed by experts. The X3ML language was designed on the basis of work that started in FORTH in 2006 and emphasizes on establishing a standardized mapping description which lends itself to collaboration and the building of a mapping memory to accumulate knowledge and experience. It was adapted primarily to be more according to the DRY principle (avoiding repetition) and to be more explicit in its contract with the URI Generating process. X3ML separates schema mapping from the concern of generating proper URIs so that different expertise can be applied to these two very different responsibilities.
 
 * **[X3ML Language](https://github.com/isl/x3ml/blob/master/docs/x3ml-language.md)** - the mapping language
 
-## Development
+# Development
 
 This project is a straightforward Maven 3 project, producing a single artifact in the form of a JAR file which contains the engine software.  The artifact will be used in a variety of different contexts, so the main focus of this project is to create exhaustively tested transformation engine.  Examples of input and expected output have been prepared by the participating organizations.
 
 * **[Change Log](https://github.com/isl/x3ml/blob/master/docs/change-log.md)** - Changes between versions
 
-### Project Structure
+## Project Structure
 
 The project is structured with respect to Maven principles and any important or useful resources are categorized to different folders. More specifically it contains the following folders:
 
@@ -51,18 +68,21 @@ The project is structured with respect to Maven principles and any important or 
 	
 	When [instance matching](http://prezi.com/povcuuboyyg5/culture-brokers-enrichment/) is performed and URIs are found, it must be explcitly known how to substitute them back into the source data.  The X3ML engine will decorate the source record tree with placeholders so that the results of the instance matching can find their way back to the right locations in the source.
 
+# Download
 
-## Publications
+//TBD
 
-* 	Nikos Minadakis, Yannis Marketakis, Haridimos Kondylakis, Giorgos Flouris, Maria Theodoridou, Martin Doerr, and Gerald de Jong. X3ML Framework: An effictive suite for supporting data mappings. Workshop for Extending, Mapping and Focusing the CRM - co-located with TPDL'2015, Poznan, Poland, September 2015. [PDF] (http://users.ics.forth.gr/~marketak/download/x3mlEngine_tpdl2015.pdf)
-* 	Yannis Marketakis, Nikos Minadakis, Haridimos Kondylakis, Konstantina Konsolaki, Georgios Samaritakis, Maria Theodoridou, Giorgos Flouris, Martin Doerr . X3ML Mapping Framework for Information Integration in Cultural Heritage and beyond. International Journal on Digital Libraries, Special Issue: Extending, Mapping and Focusing the CIDOC CRM (to be published 2016). [PDF] (http://users.ics.forth.gr/~marketak/download/X3ML_Framework_IJDL_2016.pdf)	
+# How to Execute
+
+//TBD
 
 
 X3ML console started now supports importing multiple input files and folders, and multiple x3ml mappings files. Furthermore they allow adding URLs of input and X3ML mappings resources (both single and multiple).
 
 Furthermore the option parameters have been updated and introduced short parameters as well. The detailed usage help menu is shown when running X3ML Engine console starter and is shown below.
 
-## Console run
+## Run from console
+
 To run the x3ml engine from the console you need to download the x3ml engine executable .jar and execute it according to the following instructions:
 
 * *-i,--input <arg>*: XML input records.
@@ -92,6 +112,15 @@ A simple example looks like:
 java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o output.rdf -u 4
 ```
 
+## Run through JAVA API
+
+//TBD
+
+# Relavant Publications
+
+* 	Nikos Minadakis, Yannis Marketakis, Haridimos Kondylakis, Giorgos Flouris, Maria Theodoridou, Martin Doerr, and Gerald de Jong. X3ML Framework: An effictive suite for supporting data mappings. Workshop for Extending, Mapping and Focusing the CRM - co-located with TPDL'2015, Poznan, Poland, September 2015. [PDF] (http://users.ics.forth.gr/~marketak/download/x3mlEngine_tpdl2015.pdf)
+* 	Yannis Marketakis, Nikos Minadakis, Haridimos Kondylakis, Konstantina Konsolaki, Georgios Samaritakis, Maria Theodoridou, Giorgos Flouris, Martin Doerr . X3ML Mapping Framework for Information Integration in Cultural Heritage and beyond. International Journal on Digital Libraries, Special Issue: Extending, Mapping and Focusing the CIDOC CRM (to be published 2016). [PDF] (http://users.ics.forth.gr/~marketak/download/X3ML_Framework_IJDL_2016.pdf)
+
 ---
 
 ## Contacts
@@ -99,3 +128,5 @@ java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o outp
 * Martin Doerr &lt;martin@ics.forth.gr&gt;
 * Minadakis Nikos &lt;minadakn@ics.forth.gr&gt;
 * Marketakis Yannis &lt;marketak@ics.forth.gr&gt;
+
+Last update: May 29, 2019
