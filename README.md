@@ -17,7 +17,7 @@
 * **[How to Execute](#how-to-execute)**
 	* **[Run from console](#run-from-console)**
 	* **[Run through JAVA API](#run-through-java-api)**
-* **[Relavant Publications](#relavant-publications)**
+* **[Relevant Publications](#relevant-publications)**
 
 ---
 
@@ -173,9 +173,33 @@ java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o outp
 
 ## Run through JAVA API
 
-//TBD
+X3ML Engine can created and executed programmatically using the X3MLEngineFactory class. 
+A basic usage of the factory class is shown below.
 
-# Relavant Publications
+```java
+X3MLEngineFactory.create()
+ 		 .withInputFiles(new File("input.xml")) 
+		 .withMappings(new File("mappings.x3ml"))
+		 .withGeneratorPolicy(new File("generator-policy.xml"))
+		 .withOutput(new File("output.rdf"), X3MLEngineFactory.OutputFormat.RDF_XML)
+		 .execute();
+```
+
+Below we provide an explanation of the methods of the X3MLEngineFactory. 
+Detailed documentation is available for developers in the form of Javadoc comments. 
+* *create()*: creates a new instance of X3MLEngineFactory.
+* *withInput()*: includes all the input resources to be transformed in the form of InputStreams, URLs. If more than one resources are provided, they should contain the same root element.
+* *withInputFiles()*: includes all the input resources to be transformed in the form of Files. If more than one resources are provided, they should contain the same root element.
+* *withInputFolder()*: includes all the input resources to be transformed in the form of a folder. If the folder contains more than  one resources, they should contain the same root element.
+* *withMappings()*: includes the X3ML mappings in the form of Files, InputStreams, or URLs.
+* *withGeneratoryPolicy()*: includes the generator policy in the form of a File, InputStream, or URL.
+* *withOutput()*: identifies the output resource where the transformed data will be exported. The output resource can be either a File or an OutputStream. The output format can be one of: RDF_XML, NTRIPLES, TRIG, TURTLE.
+* *withUuidSize()*: identifies the size of the UUID (works only for the default generator with name UUID).
+* *withTerminology()*: identifies the terminology resources that will be used.
+* *execute()*: executes the X3ML Engine using all the provided resources. If all the mandatory information are provided (i.e. input and mapping resources) it will result with the transformation of the data resources.
+
+
+# Relevant Publications
 
 * 	Nikos Minadakis, Yannis Marketakis, Haridimos Kondylakis, Giorgos Flouris, Maria Theodoridou, Martin Doerr, and Gerald de Jong. X3ML Framework: An effictive suite for supporting data mappings. Workshop for Extending, Mapping and Focusing the CRM - co-located with TPDL'2015, Poznan, Poland, September 2015. [PDF] (http://users.ics.forth.gr/~marketak/download/x3mlEngine_tpdl2015.pdf)
 * 	Yannis Marketakis, Nikos Minadakis, Haridimos Kondylakis, Konstantina Konsolaki, Georgios Samaritakis, Maria Theodoridou, Giorgos Flouris, Martin Doerr . X3ML Mapping Framework for Information Integration in Cultural Heritage and beyond. International Journal on Digital Libraries, Special Issue: Extending, Mapping and Focusing the CIDOC CRM (to be published 2016). [PDF] (http://users.ics.forth.gr/~marketak/download/X3ML_Framework_IJDL_2016.pdf)
