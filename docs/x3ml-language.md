@@ -731,7 +731,7 @@ This facility will create a URI using all the arguments of the user-defined gene
 with a random UUID. It is evident that in comparison with the previous generator (Hashed URI generator) this one 
 will create a different URI every time (since the UUID is created in a random manner). 
 In order to enable this functionality the optional attribute *uuid* must be used, with its value set to *yes*. 
-The user-defined generator shown below will create URIs of the form: "http://www.example.com/product/id/37252d3b-244f-4d10-85e4-c2415dac2453" 
+The user-defined generator shown below will create URIs of the form: "http://www.example.com/product/identifier/37252d3b-244f-4d10-85e4-c2415dac2453" 
 
 ```xml
 <generator_policy>
@@ -751,7 +751,7 @@ The user-defined generator shown below will create URIs of the form: "http://www
 	<type>crm:E1_CRM_Entity</type>
 	<instance_generator name="simple-uri-gen">
 		<arg name="category" type="xpath">item/cat/text()</arg>
-		<arg name="id" type="constant">id</arg>
+		<arg name="id" type="constant">identifier</arg>
 	</instance_generator>
 </entity>
 ```
