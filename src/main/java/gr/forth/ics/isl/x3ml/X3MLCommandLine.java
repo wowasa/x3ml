@@ -16,9 +16,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml;
+package gr.forth.ics.isl.x3ml;
 
-import eu.delving.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.Generator;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -34,8 +34,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import eu.delving.x3ml.engine.GeneratorContext;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import gr.forth.ics.isl.x3ml.engine.GeneratorContext;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTableResources;

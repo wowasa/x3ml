@@ -18,8 +18,8 @@ under the License.
 ==============================================================================*/
 package gr.forth;
 
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import java.util.TreeMap;
 import java.util.Map;
 import lombok.extern.log4j.Log4j;

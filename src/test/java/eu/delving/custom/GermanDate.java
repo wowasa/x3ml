@@ -18,8 +18,8 @@ under the License.
 ==============================================================================*/
 package eu.delving.custom;
 
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 
 /**
  * a date interpreter

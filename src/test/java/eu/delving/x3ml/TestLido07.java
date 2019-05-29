@@ -18,6 +18,7 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import java.util.Queue;

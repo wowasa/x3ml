@@ -16,12 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
-import static eu.delving.x3ml.engine.X3ML.ArgValue;
-import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
-import eu.delving.x3ml.engine.X3ML.GeneratorElement;
-import static eu.delving.x3ml.engine.X3ML.SourceType;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.ArgValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratedValue;
+import gr.forth.ics.isl.x3ml.engine.X3ML.GeneratorElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType;
 
 /**
  * This is what a generator looks like to the internal code.

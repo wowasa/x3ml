@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -32,9 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
-import static eu.delving.x3ml.engine.X3ML.Helper.argVal;
-import static eu.delving.x3ml.engine.X3ML.SourceType;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratorElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.argVal;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.StringWriter;
@@ -45,7 +45,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import static eu.delving.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import lombok.extern.log4j.Log4j;
 import static org.joox.JOOX.$;
 

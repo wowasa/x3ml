@@ -18,6 +18,7 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 

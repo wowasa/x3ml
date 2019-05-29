@@ -1,6 +1,6 @@
-package gr.forth.ics.isl.example;
+package gr.forth.ics.isl.x3ml.example;
 
-import eu.delving.x3ml.X3MLEngineFactory;
+import gr.forth.ics.isl.x3ml.X3MLEngineFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -18,9 +18,11 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
+import gr.forth.ics.isl.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import eu.delving.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.Generator;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.w3c.dom.Element;
@@ -48,7 +50,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static eu.delving.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.jena.riot.Lang;
 import static org.junit.Assert.assertTrue;

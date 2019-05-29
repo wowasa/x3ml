@@ -19,9 +19,9 @@ under the License.
 
 package gr.forth;
 
-import static eu.delving.x3ml.X3MLEngine.exception;
-import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
-import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import java.util.Map;
 import java.util.TreeMap;
 import lombok.extern.log4j.Log4j;

@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package gr.forth.ics.isl.example;
+package gr.forth.ics.isl.x3ml.example;
 
-import eu.delving.x3ml.X3MLEngine;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import eu.delving.x3ml.X3MLGeneratorPolicy;
-import eu.delving.x3ml.engine.Generator;
-import eu.delving.x3ml.engine.GeneratorContext;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy;
+import gr.forth.ics.isl.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.GeneratorContext;
 import gr.forth.Labels;
 import java.io.File;
 import java.io.FileInputStream;

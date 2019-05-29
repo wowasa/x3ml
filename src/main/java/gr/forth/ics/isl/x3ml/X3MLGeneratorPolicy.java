@@ -16,12 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml;
+package gr.forth.ics.isl.x3ml;
 
 import com.damnhandy.uri.template.MalformedUriTemplateException;
 import com.damnhandy.uri.template.UriTemplate;
 import com.damnhandy.uri.template.VariableExpansionException;
-import eu.delving.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.Generator;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -33,16 +33,16 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static eu.delving.x3ml.engine.X3ML.*;
-import static eu.delving.x3ml.engine.X3ML.Helper.generatorStream;
-import static eu.delving.x3ml.engine.X3ML.Helper.typedLiteralValue;
-import static eu.delving.x3ml.engine.X3ML.Helper.uriValue;
-import static eu.delving.x3ml.engine.X3ML.SourceType.constant;
-import static eu.delving.x3ml.engine.X3ML.SourceType.xpath;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.*;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.generatorStream;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.typedLiteralValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.uriValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType.constant;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType.xpath;
 import gr.forth.Labels;
 import gr.forth.Utils;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.Helper.literalValue;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
 import gr.forth.UriValidator;
 import java.nio.ByteBuffer;
