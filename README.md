@@ -188,4 +188,6 @@ java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o outp
 * Minadakis Nikos &lt;minadakn@ics.forth.gr&gt;
 * Marketakis Yannis &lt;marketak@ics.forth.gr&gt;
 
+--- 
+
 Last update: May 29, 2019
