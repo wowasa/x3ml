@@ -133,7 +133,7 @@ as well as the dependency for the SNAPSHOT version you are looking for.
 
 # License
 
-//TBD
+X3ML Engine is released under Apache License 2.0. It is A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code. You can find more detailed about the license in the corresponding [LICENSE file](https://github.com/isl/x3ml/blob/master/LICENSE) and at [https://www.apache.org/licenses/LICENSE-2.0.html](https://www.apache.org/licenses/LICENSE-2.0.html).
 
 # How to Execute
 
