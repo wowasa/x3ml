@@ -103,7 +103,8 @@ public class X3MLEngineFactory {
     RDF_XML, 
     RDF_XML_PLAIN, 
     NTRIPLES, 
-    TURTLE
+    TURTLE,
+    TRIG
     }
     
     /* Instantiate the factory with the default values */
@@ -557,6 +558,13 @@ public class X3MLEngineFactory {
                     engineOutput.write(System.out,"text/turtle");
                 }else{
                     engineOutput.write(this.output.getLeft(), "text/turtle");
+                }
+                break;
+            case TRIG:
+                if(this.output.getLeft()==null){
+                    engineOutput.write(System.out,"application/trig");
+                }else{
+                    engineOutput.write(this.output.getLeft(), "application/trig");
                 }
                 break;
         }
