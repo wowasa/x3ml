@@ -587,7 +587,10 @@ It is used for constructing an skos:prefLabel. The generator is used as *label_g
 
 ## Generator Policy File
 
-//TBD
+Apart from the default generators that are described above, X3ML allows the definition of generators from users.
+These generators are being defined in a different location (with respect to the actual X3ML mappings); they are defined in a *Generator Policy* file. 
+The *Generator Policy* file contains the definition of the generator (described in details in the following subsections), 
+which afterwards can be used in the X3ML mappings.
 
 ## Simple Templates
 
