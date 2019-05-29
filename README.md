@@ -5,7 +5,6 @@
 
 * **[Introduction](#introduction)**
 * **[X3ML Language](#x3ml-language)**
-* **[X3ML Language](#x3ml-language)**
 * **[Development](#development)**
 	* **[Project Structure](#project-structure)**
 	* **[Design Principles](#design-principles)**
@@ -70,7 +69,7 @@ The project is structured with respect to Maven principles and any important or 
 
 	An application of X3ML which came up during discussions at the beginning of this project involved extracting semantic information with the intent of finding correct instance URIs.  This implies a relatively small extension to the original idea of the X3ML engine because it will have to provide modified source records as well as RDF in its output.
 	
-	When [instance matching](http://prezi.com/povcuuboyyg5/culture-brokers-enrichment/) is performed and URIs are found, it must be explcitly known how to substitute them back into the source data.  The X3ML engine will decorate the source record tree with placeholders so that the results of the instance matching can find their way back to the right locations in the source.
+	When [instance matching](http://prezi.com/povcuuboyyg5/culture-brokers-enrichment/) is performed and URIs are found, it must be explicitly known how to substitute them back into the source data.  The X3ML engine will decorate the source record tree with placeholders so that the results of the instance matching can find their way back to the right locations in the source.
 
 # Download
 
@@ -79,7 +78,7 @@ The project is structured with respect to Maven principles and any important or 
 We regularly publish new [releases](https://github.com/isl/x3ml/releases) of the X3ML engine.
 Each release contains the following: 
 * *X3ML-Engine.jar*: it is a typical JAR files that contains all the functionalities of the X3ML Engine (without its dependent JARs).
-* *X3ML-Engine-exejar.jar*: it is an executable JAR that contains all the functionalities of the X3ML Engine. This JAR file incorporates all the dependencies of the X3ML Engine and delivered as a single file. It is mainly procuded and disseminated for executing X3ML Engine from [console](#run-from-console).
+* *X3ML-Engine-exejar.jar*: it is an executable JAR that contains all the functionalities of the X3ML Engine. This JAR file incorporates all the dependencies of the X3ML Engine and delivered as a single file. It is mainly produced and disseminated for executing X3ML Engine from [console](#run-from-console).
 
  More specifically we publish both official releases and releases under development. 
 
