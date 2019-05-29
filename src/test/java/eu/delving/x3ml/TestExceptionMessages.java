@@ -18,10 +18,12 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
+import gr.forth.ics.isl.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy;
 import static eu.delving.x3ml.AllTests.document;
 import static eu.delving.x3ml.AllTests.engine;
 import static eu.delving.x3ml.AllTests.xmlToNTriples;
-import eu.delving.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.Generator;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

@@ -16,10 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml;
+package gr.forth.ics.isl.x3ml;
 
-import eu.delving.x3ml.engine.Generator;
-import eu.delving.x3ml.engine.Root;
+import gr.forth.ics.isl.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.Root;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.ls.LSInput;
@@ -28,8 +28,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import com.hp.hpl.jena.rdf.model.Model;
-import eu.delving.x3ml.engine.Domain;
-import eu.delving.x3ml.engine.X3ML;
+import gr.forth.ics.isl.x3ml.engine.Domain;
+import gr.forth.ics.isl.x3ml.engine.X3ML;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.stream.StreamSource;
@@ -47,10 +47,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import static eu.delving.x3ml.engine.X3ML.Helper.x3mlStream;
-import static eu.delving.x3ml.engine.X3ML.MappingNamespace;
-import static eu.delving.x3ml.engine.X3ML.RootElement;
-import eu.delving.x3ml.engine.X3ML.TargetInfo;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.x3mlStream;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.MappingNamespace;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.RootElement;
+import gr.forth.ics.isl.x3ml.engine.X3ML.TargetInfo;
 import gr.forth.Labels;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;

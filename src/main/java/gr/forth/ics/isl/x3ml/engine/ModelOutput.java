@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.rdf.model.Literal;
@@ -32,9 +32,9 @@ import com.hp.hpl.jena.sparql.core.Quad;
 import javax.xml.namespace.NamespaceContext;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static eu.delving.x3ml.X3MLEngine.Output;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.Output;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.TypeElement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import java.util.Iterator;

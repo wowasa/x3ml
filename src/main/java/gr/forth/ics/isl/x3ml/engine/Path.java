@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -25,10 +25,10 @@ import org.w3c.dom.Node;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.PathElement;
-import static eu.delving.x3ml.engine.X3ML.RangeElement;
-import static eu.delving.x3ml.engine.X3ML.Relationship;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.PathElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.RangeElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Relationship;
 
 /**
  * The path relationship handled here. Intermediate nodes possible. Expecting

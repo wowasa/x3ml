@@ -16,15 +16,15 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
-import eu.delving.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import org.w3c.dom.Node;
-import static eu.delving.x3ml.engine.X3ML.ArgValue;
-import static eu.delving.x3ml.engine.X3ML.Condition;
-import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
-import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
-import static eu.delving.x3ml.engine.X3ML.SourceType;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.ArgValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Condition;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratedValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratorElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType;
 import gr.forth.ics.isl.x3ml_reverse_utils.AssociationTable;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import org.w3c.dom.Attr;
-import static eu.delving.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import gr.forth.Labels;
 import lombok.extern.log4j.Log4j;
 import static org.joox.JOOX.$;

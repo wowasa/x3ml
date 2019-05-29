@@ -16,11 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import eu.delving.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import javax.xml.namespace.NamespaceContext;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratedValue;
 import gr.forth.Utils;
 import java.io.InputStream;
 import lombok.extern.log4j.Log4j;

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -34,12 +34,12 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.naming.NoNameCoder;
 import com.thoughtworks.xstream.io.xml.XppDriver;
-import eu.delving.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import gr.forth.Utils;
-import static eu.delving.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import lombok.extern.log4j.Log4j;
 import org.w3c.dom.Node;
 

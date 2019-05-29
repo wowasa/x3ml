@@ -16,24 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
-import eu.delving.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import java.util.ArrayList;
 import java.util.List;
-import static eu.delving.x3ml.engine.X3ML.Additional;
-import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
-import static eu.delving.x3ml.engine.X3ML.GeneratorElement;
-import eu.delving.x3ml.engine.X3ML.LabelGeneratorElement;
-import static eu.delving.x3ml.engine.X3ML.TypeElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.Additional;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratedValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratorElement;
+import gr.forth.ics.isl.x3ml.engine.X3ML.LabelGeneratorElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.TypeElement;
 import gr.forth.Utils;
 import java.util.Set;
 import java.util.TreeSet;
-import static eu.delving.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import org.w3c.dom.Node;
 
 /**

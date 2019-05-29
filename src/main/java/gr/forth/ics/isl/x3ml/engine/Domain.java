@@ -16,19 +16,19 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import org.w3c.dom.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import static eu.delving.x3ml.X3MLEngine.exception;
-import static eu.delving.x3ml.engine.X3ML.DomainElement;
-import static eu.delving.x3ml.engine.X3ML.GeneratedValue;
-import static eu.delving.x3ml.engine.X3ML.LinkElement;
-import static eu.delving.x3ml.engine.X3ML.PathElement;
-import static eu.delving.x3ml.engine.X3ML.RangeElement;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.DomainElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.GeneratedValue;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.LinkElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.PathElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.RangeElement;
 import gr.forth.Utils;
 import static org.joox.JOOX.$;
 

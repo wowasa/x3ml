@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
 
-package eu.delving.x3ml;
+package gr.forth.ics.isl.x3ml;
 
-import static eu.delving.x3ml.X3MLEngine.exception;
-import eu.delving.x3ml.engine.Generator;
-import eu.delving.x3ml.engine.GeneratorContext;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import gr.forth.ics.isl.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.engine.GeneratorContext;
 import gr.forth.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.File;

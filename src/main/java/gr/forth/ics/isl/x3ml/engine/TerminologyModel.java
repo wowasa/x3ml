@@ -1,4 +1,4 @@
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -11,7 +11,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
-import eu.delving.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
 import gr.forth.Labels;
 import java.io.InputStream;
 import java.util.ArrayList;

@@ -21,8 +21,8 @@ package gr.forth;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
-import static eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import static gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
 import lombok.extern.log4j.Log4j;
 
 /** The URIorUUID generator is responsible for generating a URI and in the cases 

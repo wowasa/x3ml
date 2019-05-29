@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ==============================================================================*/
-package eu.delving.x3ml.engine;
+package gr.forth.ics.isl.x3ml.engine;
 
 import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import org.w3c.dom.Node;
-import static eu.delving.x3ml.engine.X3ML.RangeElement;
+import static gr.forth.ics.isl.x3ml.engine.X3ML.RangeElement;
 
 /**
  * The range entity handled here. Resolution delegated.

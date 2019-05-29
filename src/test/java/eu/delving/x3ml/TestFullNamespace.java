@@ -18,7 +18,9 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
-import eu.delving.x3ml.engine.Generator;
+import gr.forth.ics.isl.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy;
+import gr.forth.ics.isl.x3ml.engine.Generator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;

@@ -18,6 +18,8 @@ under the License.
 ==============================================================================*/
 package eu.delving.x3ml;
 
+import gr.forth.ics.isl.x3ml.X3MLEngine;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy;
 import static eu.delving.x3ml.AllTests.compareNTriples;
 import static eu.delving.x3ml.AllTests.document;
 import static eu.delving.x3ml.AllTests.engine;

@@ -15,8 +15,8 @@
  */
 package gr.forth;
 
-import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
-import eu.delving.x3ml.X3MLGeneratorPolicy.CustomGenerator;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGeneratorException;
+import gr.forth.ics.isl.x3ml.X3MLGeneratorPolicy.CustomGenerator;
 import lombok.extern.log4j.Log4j;
 
 /** The generator is responsible for constructing values (either URIs, or literals)
