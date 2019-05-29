@@ -10,6 +10,10 @@
 	* **[Project Structure](#project-structure)**
 	* **[Design Principles](#design-principles)**
 * **[Download](#download)**
+	* **[Official Releases](#official-releases)**
+	* **[Maven Releases](#maven-releases)**
+	* **[Maven SNAPSHOTs](#maven-snapshots)**
+* **[License](#license)**
 * **[How to Execute](#how-to-execute)**
 	* **[Run from console](#run-from-console)**
 	* **[Run through JAVA API](#run-through-java-api)**
@@ -70,16 +74,70 @@ The project is structured with respect to Maven principles and any important or 
 
 # Download
 
-//TBD
+## Official Releases
+
+We regularly publish new [releases](https://github.com/isl/x3ml/releases) of the X3ML engine.
+Each release contains the following: 
+* *X3ML-Engine.jar*: it is a typical JAR files that contains all the functionalities of the X3ML Engine (without its dependent JARs).
+* *X3ML-Engine-exejar.jar*: it is an executable JAR that contains all the functionalities of the X3ML Engine. This JAR file incorporates all the dependencies of the X3ML Engine and delivered as a single file. It is mainly procuded and disseminated for executing X3ML Engine from [console](#run-from-console).
+
+ More specifically we publish both official releases and releases under development. 
+
+## Maven Releases
+
+In addition, we publish X3ML Engine releases in a Maven repository so that they can be used from other JAVA developers. 
+To use X3ML Engine simply use the repository shown below, as well as the dependency for the version you are looking for.
+
+```xml
+<repositories>
+	<repository>
+		<id>FORTH-ISL-releases</id>
+		<name>FORTH ISL Nexus repository - Releases</name>		
+		<url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-releases/</url>
+        </repository>
+</repositories>
+
+<dependencies>
+	<dependency>
+		<groupId>gr.forth.ics.isl</groupId>
+		<artifactId>x3ml-engine</artifactId>
+		<version>1.9.1</version>
+	</dependency>
+</dependencies>
+```
+
+## Maven SNAPSHOTs
+
+Furthermore, we publish the releases under development (SNAPSHOTs) in a Maven repository.
+They are published every time new changes are pushed to [master branch](https://github.com/isl/x3ml/tree/master). 
+To use a SNAPSHOT version of X3ML Engine, use the repository shown below,
+as well as the dependency for the SNAPSHOT version you are looking for.
+
+```xml
+<repositories>
+	<repository>
+		<id>FORTH-ISL-snapshots</id>
+		<name>FORTH ISL Nexus repository - Snapshots</name>		
+		<url>http://athena.ics.forth.gr:8081/repository/FORTH-ISL-snapshots/</url>
+        </repository>
+</repositories>
+
+<dependencies>
+	<dependency>
+		<groupId>gr.forth.ics.isl</groupId>
+		<artifactId>x3ml-engine</artifactId>
+		<version>1.9.2-SNAPSHOT</version>
+	</dependency>
+</dependencies>
+```
+
+# License
+
+X3ML Engine is released under Apache License 2.0. It is A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code. You can find more detailed about the license in the corresponding [LICENSE file](https://github.com/isl/x3ml/blob/master/LICENSE) and at [https://www.apache.org/licenses/LICENSE-2.0.html](https://www.apache.org/licenses/LICENSE-2.0.html).
 
 # How to Execute
 
-//TBD
-
-
-X3ML console started now supports importing multiple input files and folders, and multiple x3ml mappings files. Furthermore they allow adding URLs of input and X3ML mappings resources (both single and multiple).
-
-Furthermore the option parameters have been updated and introduced short parameters as well. The detailed usage help menu is shown when running X3ML Engine console starter and is shown below.
+X3ML Engine can be used either programmatically or directly from console. 
 
 ## Run from console
 
@@ -100,15 +158,16 @@ To run the x3ml engine from the console you need to download the x3ml engine exe
 * *-o,--output <arg>*: The RDF output file name: -output output.rdf
 * *-u,--uuidTestSize <arg>*:  Create a test UUID generator of the given size.
 * *-f,--format <arg>*: Output format. Options:
-  * format application/n-triples
-  * -format text/turtle
-  * -format application/rdf+xml (default)
+	* -format application/rdf+xml (default)
+ 	* -format application/n-triples
+ 	* -format application/trig
+  	* -format text/turtle
 * *-a,--assocTable <arg>*: export the contents of the association table in XML format
 * *-m,--mergeAssocWithRDF*:merge the contents of the association table with the RDF output
 	
 A simple example looks like:
 
-```
+```shell
 java -jar x3ml.jar -i input.xml -x mappings.x3ml -p generator-policy.xml -o output.rdf -u 4
 ```
 
