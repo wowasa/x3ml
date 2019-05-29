@@ -40,11 +40,11 @@ The X3ML language was designed on the basis of work that was done by FORTH aroun
 
 For the time being, X3ML will be restricted to consuming XML records and producing RDF in various serializations.  As a result, XPath will be the source access used.
 
-The following figure shows the global stracture of X3ML. It consists of some prerequisite information and then the actual declaration of the mappings. The yellow rectangles include informative information about the mappings (metadata) and are therefore optional elements. The main parts are *mapping* elements, that contain a *domain* and one or more *link* elements. The latter consists of exactly one *path* and one *range* element. 
+The following figure shows the global structure of X3ML. It consists of some prerequisite information and then the actual declaration of the mappings. The yellow rectangles include informative information about the mappings (metadata) and are therefore optional elements. The main parts are *mapping* elements, that contain a *domain* and one or more *link* elements. The latter consists of exactly one *path* and one *range* element. 
 
 ![](images/x3ml_overview.png "An overview of X3ML")
 
-X3ML mappings are serialized using XML. The structure in XML is simple and intuituve as well. 
+X3ML mappings are serialized using XML. The structure in XML is simple and intuitive as well. 
 
 ```xml
 <x3ml>
@@ -202,7 +202,7 @@ The relationship URI is specified either with a prefix and local name or a full 
 
 This section describes an indicative mapping of some source data about ancient coins. More specifically we describe a mapping from the source schema to [CIDOC-CRM](http://www.cidoc-crm.org) instances. More specifically, the source data is a plain XML document with a simple structure; it contains a *COIN* element with a sub-element called *ID*. The mapping we describe below maps: 
 
-* occurences of the element *COIN* as instances of the CIDOC CRM class E22_Man-Made_Object
+* occurrences of the element *COIN* as instances of the CIDOC CRM class E22_Man-Made_Object
 * occurrences of the element *ID* as instances of the CIDOC CRM class E42_Identifier and linked with the E22 created before using the CIDOC CRM property P1_is_identified_by.
 
 ![](images/indicative_mapping.png "An indicative mapping")
@@ -391,7 +391,7 @@ When additional properties and entities need to be added to a target entity, the
 	target:
 	E22_Man-Made_Object => crm:P1_is_identified_by => E42_Identifier => P2_has_type => E55_Type
 
-We should note that multiple *additional* nodes are allowed in the target. Furthermore an *additional* node, is allowed to have an internal *additional* node. Below we demostrate these use cases (we omit the declaration of the generators). 
+We should note that multiple *additional* nodes are allowed in the target. Furthermore an *additional* node, is allowed to have an internal *additional* node. Below we demonstrate these use cases (we omit the declaration of the generators). 
 
 ```xml
 <target_node>
@@ -440,7 +440,9 @@ Sometimes a path in the source schema needs to become more than just a path in t
 	target:
 	E22_Man-Made_Object => crm:P108i_was_produced_by => E12_Production => P32_used_general_technique => E55_Type
 
-This is formulated using the intermediate node, which is simply a *relationship* => *entity* chain added in the *target_relation*.  We should note that multiple intermediate nodes are supported, by supplying several *relationship* => *entity* chains. Below we demostrate these use cases (we omit the declaration of the generators).
+This is formulated using the intermediate node, which is simply a *relationship* => *entity* chain added in the *target_relation*.  
+We should note that multiple intermediate nodes are supported, by supplying several *relationship* => *entity* chains.
+Below we demonstrate these use cases (we omit the declaration of the generators).
 
 ```xml
 <path>
@@ -600,7 +602,7 @@ This is done by defining the template pattern of the generator, using constant f
 The following example shows the definition of a user-defined generator. 
 The name of the generator (i.e. simple-gen) should be unique in the generator policy file. 
 This generator can be used in the X3ML mappings definition using its name. 
-The *pattern* element is used for describing the template pattern of the generator. The values withing braces are the arguments of the generator. All the rest are constant values.
+The *pattern* element is used for describing the template pattern of the generator. The values within braces are the arguments of the generator. All the rest are constant values.
 
 ```xml
 <generator_policy>
@@ -624,8 +626,8 @@ Below we will describe how to construct a literal value with a user defined gene
 
 In order to create a literal value using this generator, we have to define the following *instance_generator* in the X3ML mapping definition. 
 The first argument that is defined in the generator (i.e. *part1*) is considered to be the result of the XPATH expression 
-over the ipnut sources, while the second argument (i.e. *part2*) is a constant value. 
-Assuming that ther result of the evaluation of the XPATH expression over the input sources is "example" then the generated literal value will be: "example - last part text".
+over the input sources, while the second argument (i.e. *part2*) is a constant value. 
+Assuming that the result of the evaluation of the XPATH expression over the input sources is "example" then the generated literal value will be: "example - last part text".
 
 ```xml
 <entity>
@@ -692,7 +694,7 @@ The user-defined generator shown below will create URIs of the form: "http://www
 
 Many times it is required to create hashed URIs. The main benefits for this are: 
 * It constructs URIs of constant length, no matter how big or small the used values are
-* It constucts the same URI for the same value, since the hash is applied over the used values.
+* It constructs the same URI for the same value, since the hash is applied over the used values.
 
 The hash is applied on the last part of the URI (practically the content after the last '/' character) and 
 has the form of a UUID (e.g. 0c17c4bf-25c0-43eb-b92c-ae2e6c679aa5). 
