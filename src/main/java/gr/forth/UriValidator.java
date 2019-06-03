@@ -48,7 +48,7 @@ public class UriValidator {
     }
     
     /** The method encodes the given URI by replacing any special characters that 
-     * cannot be used as part of the URI (i.e. whitespace, '>', '|', etc.).
+     * cannot be used as part of the URI (i.e. whitespace, '&gt;', '|', etc.).
      * 
      * @param uriString the URI string that will be encoded
      * @return the encoded URI string */

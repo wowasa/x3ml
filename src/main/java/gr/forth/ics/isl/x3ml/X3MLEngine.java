@@ -141,7 +141,7 @@ public class X3MLEngine {
      * 
      * @param inputStream the X3ML mappings file as an input stream
      * @return the validated inputStream (returned because the offset of the initial inputStream has been moved to EOF)
-     * @throws eu.delving.x3ml.X3MLEngine.X3MLException if the X3ML mappings file is not valid */
+     * @throws X3MLException if the X3ML mappings file is not valid */
     public static InputStream validateX3MLMappings(InputStream inputStream) throws X3MLException{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ByteArrayOutputStream baosForValidation = new ByteArrayOutputStream();
