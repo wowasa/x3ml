@@ -1,6 +1,6 @@
 # Change Log
 
-## 18 Apr 2019: V 1.9.2 (by FORTH-ICS)
+## 3 June 2019: V 1.9.2 (by FORTH-ICS)
 * Enhanced built-in generators with UUID-suffixed IRIs ([issue #132](https://github.com/isl/x3ml/issues/132))
 * Updated functionality for shortening URIs ([issue #115](https://github.com/isl/x3ml/issues/115))
 
