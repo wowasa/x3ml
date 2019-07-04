@@ -1022,10 +1022,15 @@ public interface X3ML {
         
         @XStreamAsAttribute
         public String uuid;
+        
+        @XStreamAsAttribute
+        public String type;
 
         public CustomGenerator custom;
 
         public String pattern;
+        
+        public String description;
 
         @Override
         public String toString() {
