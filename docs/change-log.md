@@ -2,6 +2,7 @@
 
 
 ## 4 July 2019: V 1.9.3 (by FORTH-ICS)
+* Enhanced information in the definition of generators (description and type) ([issue #134](https://github.com/isl/x3ml/issues/134))
 * Improved performance for the transformation/values generation process ([issue #133](https://github.com/isl/x3ml/issues/133))
 
 ## 3 June 2019: V 1.9.2 (by FORTH-ICS)
