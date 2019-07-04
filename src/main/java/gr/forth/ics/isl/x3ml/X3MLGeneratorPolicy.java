@@ -116,6 +116,9 @@ public class X3MLGeneratorPolicy implements Generator {
                 if (generatorMap.containsKey(generator.name)) {
                     throw exception("Duplicate generator name: " + generator.name);
                 }
+                if(generator.type!=null && !generator.type.equalsIgnoreCase(Labels.INSTANCE) && !generator.type.equalsIgnoreCase(Labels.LABEL) && !generator.type.equalsIgnoreCase(Labels.ANY)){
+                    throw exception("Unknown type for gerator: " + generator.name+". The declared type is \""+generator.type+"\" which is uknown. One of the following types are allowed {"+Labels.INSTANCE+" | "+Labels.LABEL+" | "+Labels.ANY+"}");
+                }    
                 generatorMap.put(generator.name, generator);
             }
         }
