@@ -80,7 +80,6 @@ public class Root {
 
             @Override
             public GeneratedValue getGeneratedValue(String xpath) {
-                log.debug("All context keys: "+generated.keySet());
                 return generated.get(xpath);
             }
 
@@ -95,7 +94,6 @@ public class Root {
                     case TYPED_LITERAL:
                         break;
                 }
-                log.debug("All context keys: "+generated.keySet());
             }
         };
         if(terminologyStream!=null){
