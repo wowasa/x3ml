@@ -27,6 +27,7 @@ package gr.forth;
  */
 public class Labels {
     
+    public static final String ANY="any";
     public static final String BOUND="bound";
     public static final String BROADER_TRANSITIVE="broaderTransitive";
     public static final String CONSTANT="Constant";
@@ -34,6 +35,7 @@ public class Labels {
     public static final String EN_LANGUAGE="en";
     public static final String EXACT_MATCH="exactMatch";
     public static final String HTTP="http";
+    public static final String INSTANCE="instance";
     public static final String LABEL="label";
     public static final String LANG="lang";
     public static final String LANGUAGE="language";
