@@ -1,5 +1,9 @@
 # Change Log
 
+
+## 4 July 2019: V 1.9.3 (by FORTH-ICS)
+* Improved performance for the transformation/values generation process ([issue #133](https://github.com/isl/x3ml/issues/133))
+
 ## 3 June 2019: V 1.9.2 (by FORTH-ICS)
 * Enhanced built-in generators with UUID-suffixed IRIs ([issue #132](https://github.com/isl/x3ml/issues/132))
 * Updated functionality for shortening URIs ([issue #115](https://github.com/isl/x3ml/issues/115))
