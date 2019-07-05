@@ -105,7 +105,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.delving.x3ml.X3MLCommandLine</mainClass>
+                            <mainClass>gr.forth.ics.isl.x3ml.X3MLCommandLine</mainClass>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
