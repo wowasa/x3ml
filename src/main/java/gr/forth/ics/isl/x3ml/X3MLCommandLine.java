@@ -77,34 +77,34 @@ public class X3MLCommandLine {
     /* Creates the available options for parameterizing X3ML Engine from console */
     private static void createOptionsList(){
         Option inputOption = new Option(Labels.INPUT_SHORT, Labels.INPUT, true,
-                "XML input records.\n Option A-single file: -"+Labels.INPUT+" input.xml\n"
-                                   +" Option B-multiple files (comma-sep): -"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
-                                   +" Option C-folder: -"+Labels.INPUT+" #_folder_path\n"
-                                   +" Option D-URL: -"+Labels.INPUT+" @input_url\n"
-                                   +" Option E-multiple URLs: -"+Labels.INPUT+" @input_url1,input_url2,input_url3\n"
-                                   +" Option F-stdin: -"+Labels.INPUT+" @\n");
+                "XML input records.\n Option A-single file: --"+Labels.INPUT+" input.xml\n"
+                                   +" Option B-multiple files (comma-sep): --"+Labels.INPUT+" input1.xml,input2.xml,input3.xml\n"
+                                   +" Option C-folder: --"+Labels.INPUT+" #_folder_path\n"
+                                   +" Option D-URL: --"+Labels.INPUT+" @input_url\n"
+                                   +" Option E-multiple URLs: --"+Labels.INPUT+" @input_url1,input_url2,input_url3\n"
+                                   +" Option F-stdin: --"+Labels.INPUT+" @\n");
         inputOption.setRequired(true);
         
         Option x3mlOption = new Option(Labels.X3ML_SHORT, Labels.X3ML, true,
-                "X3ML mapping definition. \n Option A-single file: -"+Labels.X3ML+" mapping.x3ml \n"
-                                          +" Option B-multiple files (comma-sep): -"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
-                                          +" Option C-URL: -"+Labels.X3ML+" @mappings_url\n"
-                                          +" Option D-stdin: -"+Labels.X3ML+" @");
+                "X3ML mapping definition. \n Option A-single file: --"+Labels.X3ML+" mapping.x3ml \n"
+                                          +" Option B-multiple files (comma-sep): --"+Labels.X3ML+" mappings1.x3ml,mappings2.x3ml\n"
+                                          +" Option C-URL: --"+Labels.X3ML+" @mappings_url\n"
+                                          +" Option D-stdin: --"+Labels.X3ML+" @");
         x3mlOption.setRequired(true);
         
         Option outputOption = new Option(Labels.OUTPUT_SHORT, Labels.OUTPUT, true,
-                "The output file name: -"+Labels.OUTPUT+" output.rdf"
+                "The output file name: --"+Labels.OUTPUT+" output.rdf"
         );
         
         Option policyOption = new Option(Labels.POLICY_SHORT, Labels.POLICY, true,
-                "The value policy file: -"+Labels.POLICY+" policy.xml"
+                "The value policy file: --"+Labels.POLICY+" policy.xml"
         );
         
         Option outputFormatOption = new Option(Labels.FORMAT_SHORT, Labels.FORMAT, true,
-                "Output format. Options:\n -"+Labels.FORMAT+" application/rdf+xml (default)\n "
-                                        +" -"+Labels.FORMAT+" application/n-triples \n"
-                                        +" -"+Labels.FORMAT+" application/trig \n"
-                                        +" -"+Labels.FORMAT+" text/turtle"
+                "Output format. Options:\n --"+Labels.FORMAT+" application/rdf+xml (default)\n "
+                                        +" --"+Labels.FORMAT+" application/n-triples \n"
+                                        +" --"+Labels.FORMAT+" application/trig \n"
+                                        +" --"+Labels.FORMAT+" text/turtle"
         );
         
         Option uuidTestSizeOption = new Option(Labels.UUID_TEST_SIZE_SHORT, Labels.UUID_TEST_SIZE, true,
@@ -121,8 +121,8 @@ public class X3MLCommandLine {
         );
         
         Option termsOption = new Option(Labels.TERMS_SHORT, Labels.TERMS, true, 
-                "the SKOS taxonomy \n Option A-single file: -"+Labels.TERMS+" skosTerms.nt \n"
-                                   +" Option B-URL: -"+Labels.TERMS+" @skos_terms_url\n");
+                "the SKOS taxonomy \n Option A-single file: --"+Labels.TERMS+" skosTerms.nt \n"
+                                   +" Option B-URL: --"+Labels.TERMS+" @skos_terms_url\n");
         
         Option reportProgressOption = new Option(Labels.REPORT_PROGRESS_SHORT,Labels.REPORT_PROGRESS, false, 
                 "reports the progress of the transformations"
