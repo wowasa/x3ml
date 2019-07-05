@@ -143,24 +143,27 @@ X3ML Engine can be used either programmatically or directly from console.
 To run the x3ml engine from the console you need to download the x3ml engine executable .jar and execute it according to the following instructions:
 
 * *-i,--input <arg>*: XML input records.
-  * Option A-single file: -input input.xml
-  * Option B-multiple files (comma-sep): -input input1.xml,input2.xml,input3.xml
-  * Option C-folder: -input #_folder_path
-  * Option D-URL: -input @input_url
-  * Option E-multiple URLs: -input @input_url1,input_url2,input_url3
-  * Option F-stdin: -input @
+  * Option A-single file: --input input.xml
+  * Option B-multiple files (comma-sep): --input input1.xml,input2.xml,input3.xml
+  * Option C-folder: --input #_folder_path
+  * Option D-URL: --input @input_url
+  * Option E-multiple URLs: --input @input_url1,input_url2,input_url3
+  * Option F-stdin: --input @
 * *-x,--x3ml <arg>*: X3ML mapping definition.
-  * Option A-single file: -x3ml mapping.x3ml
-  * Option B-multiple files (comma-sep): -x3ml mappings1.x3ml,mappings2.x3ml
-  * Option C-stdin: -x3ml @
-* *-p,--policy <arg>*: The value policy file: -policy policy.xml
-* *-o,--output <arg>*: The RDF output file name: -output output.rdf
+  * Option A-single file: --x3ml mapping.x3ml
+  * Option B-multiple files (comma-sep): --x3ml mappings1.x3ml,mappings2.x3ml
+  * Option C-stdin: --x3ml @
+* *-p,--policy <arg>*: The value policy file: --policy policy.xml
+* *-o,--output <arg>*: The RDF output file name: --output output.rdf
 * *-u,--uuidTestSize <arg>*:  Create a test UUID generator of the given size.
 * *-f,--format <arg>*: Output format. Options:
-	* -format application/rdf+xml (default)
- 	* -format application/n-triples
- 	* -format application/trig
-  	* -format text/turtle
+	* --format application/rdf+xml (default)
+ 	* --format application/n-triples
+ 	* --format application/trig
+  	* --format text/turtle
+* *-t,--terms <arg>*: the SKOS taxonomy 
+  * Option A-single file: --terms skosTerms.nt
+  * Option B-URL file: --terms @skos_terms_url
 * *-a,--assocTable <arg>*: export the contents of the association table in XML format
 * *-m,--mergeAssocWithRDF*:merge the contents of the association table with the RDF output
 	
