@@ -16,6 +16,7 @@
 * **[How to Execute](#how-to-execute)**
 	* **[Run from console](#run-from-console)**
 	* **[Run through JAVA API](#run-through-java-api)**
+	* **[Run using GUI application](#run-using-gui-application)**
 * **[Relevant Publications](#relevant-publications)**
 
 ---
@@ -200,6 +201,13 @@ Detailed documentation is available for developers in the form of Javadoc commen
 * *withTerminology()*: identifies the terminology resources that will be used.
 * *execute()*: executes the X3ML Engine using all the provided resources. If all the mandatory information are provided (i.e. input and mapping resources) it will result with the transformation of the data resources.
 
+
+## Run using GUI application
+
+X3ML Engine can be executed using a simple GUI application. The following figure shows an indicative snapshot of the application.
+The GUI application can be downloaded from https://github.com/ymark/X3MLEngine-gui/releases/. 
+
+![](images/X3ML_Engine_GUI.jpg "The X3ML Engine GUI Application")
 
 # Relevant Publications
 
