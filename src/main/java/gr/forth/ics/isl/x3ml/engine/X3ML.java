@@ -430,7 +430,7 @@ public interface X3ML {
                         }
                     }
                 }catch(X3MLEngine.X3MLException ex){
-                        X3MLEngine.exceptionMessagesList+=ex.toString();
+                        X3MLEngine.exceptionMessagesList+=ex.toString()+"\n";
                         Utils.printErrorMessages(ex.getMessage());
                 }
             }

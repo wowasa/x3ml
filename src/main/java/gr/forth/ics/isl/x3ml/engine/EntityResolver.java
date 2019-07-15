@@ -126,7 +126,7 @@ public class EntityResolver {
                 try{
                     generatedValue = entityElement.getInstance(generatorContext, uniqueValue);
                 }catch(Exception ex){
-                    X3MLEngine.exceptionMessagesList+=ex.toString();
+                    X3MLEngine.exceptionMessagesList+=ex.toString()+"\n";
                     Utils.printErrorMessages(ex.toString());
                 }
             }
@@ -315,7 +315,7 @@ public class EntityResolver {
                     }
                     }catch(X3MLEngine.X3MLException ex){
                         String errorMessage=Utils.produceLabelGeneratorEmptyArgumentError(generator);
-                        X3MLEngine.exceptionMessagesList+=errorMessage;
+                        X3MLEngine.exceptionMessagesList+=errorMessage+"\n";
                         Utils.printErrorMessages(errorMessage);
                     }
             }
