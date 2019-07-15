@@ -207,7 +207,7 @@ Detailed documentation is available for developers in the form of Javadoc commen
 X3ML Engine can be executed using a simple GUI application. The following figure shows an indicative snapshot of the application.
 The GUI application can be downloaded from https://github.com/ymark/X3MLEngine-gui/releases/. 
 
-![](images/X3ML_Engine_GUI.jpg "The X3ML Engine GUI Application")
+![](docs/images/X3ML_Engine_GUI.jpg "The X3ML Engine GUI Application")
 
 # Relevant Publications
 
