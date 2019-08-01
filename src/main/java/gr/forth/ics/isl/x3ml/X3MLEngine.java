@@ -206,6 +206,22 @@ public class X3MLEngine {
                 generator.setNamespace(mn.prefix, mn.uri);
             }
         }
+        if(this.rootElement.info !=null){
+            for(X3ML.SourceInfo sourceInfoBlock : this.rootElement.info.source.source_info){
+                if(sourceInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : sourceInfoBlock.namespaces){
+                        generator.setNamespace(namespace.prefix, namespace.uri);
+                    }
+                }
+            }
+            for(TargetInfo targetInfoBlock : this.rootElement.info.target.target_info){
+                if(targetInfoBlock.namespaces != null){
+                    for(MappingNamespace namespace : targetInfoBlock.namespaces){
+                        generator.setNamespace(namespace.prefix, namespace.uri);
+                    }
+                }
+            }
+        }
         this.initializeAll();  
         rootElement.apply(rootContext);
         return rootContext.getModelOutput();
