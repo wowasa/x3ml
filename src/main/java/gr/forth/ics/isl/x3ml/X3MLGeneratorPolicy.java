@@ -314,7 +314,7 @@ public class X3MLGeneratorPolicy implements Generator {
                 }
             }
             return uriValue(namespaceUri + uriTemplate.expand()
-//                                                                 .replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER)
+                                                               .replaceAll(Labels.SLASH_CHARACTER_ENCODED, Labels.SLASH_CHARACTER)
                                                                .replaceAll(Labels.PERCENT_CHARACTER_ENCODED, Labels.PERCENT_CHARACTER)
                                                           
             );
