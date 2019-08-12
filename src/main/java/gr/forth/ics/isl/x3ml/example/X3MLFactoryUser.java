@@ -53,7 +53,7 @@ public class X3MLFactoryUser {
         X3MLEngineFactory.create()
                          .withMappings(new File("example/mappingsWithoutGenerator.x3ml"))
                          .withInputFiles(new File("example/input.xml"))
-                         .withInputFolder(new File("example/moreExamples"), true)
+                         .withInputFolder(new File("example/moreExamples/input"), true)
                          .execute();
     }
     
@@ -124,8 +124,8 @@ public class X3MLFactoryUser {
         X3MLEngineFactory.create()
                          .withMappings(new FileInputStream(new File("example/mappingsWithoutGenerator.x3ml")))
                          .withInput(new FileInputStream(new File("example/input.xml")))
-                         .withInput(new FileInputStream(new File("example/moreExamples/input1.xml")),
-                                    new FileInputStream(new File("example/moreExamples/input2.xml")))
+                         .withInput(new FileInputStream(new File("example/moreExamples/input/input1.xml")),
+                                    new FileInputStream(new File("example/moreExamples/input/input2.xml")))
                          .execute();
     }
     
