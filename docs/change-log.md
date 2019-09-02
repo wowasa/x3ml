@@ -5,6 +5,7 @@
 * Enhanced information in the definition of generators (description and type) ([issue #134](https://github.com/isl/x3ml/issues/134))
 * Improved performance for the transformation/values generation process ([issue #133](https://github.com/isl/x3ml/issues/133))
 
+
 ## 3 June 2019: V 1.9.2 (by FORTH-ICS)
 * Enhanced built-in generators with UUID-suffixed IRIs ([issue #132](https://github.com/isl/x3ml/issues/132))
 * Updated functionality for shortening URIs ([issue #115](https://github.com/isl/x3ml/issues/115))
@@ -53,7 +54,6 @@
 * Enhanced RemoveTerm generator to support constructing URIs from simple textual labels using a namespace prefix ([issue #107](https://github.com/isl/x3ml/issues/107))
 
 
-
 ## 12 Sep 2017: V 1.8.2 (by FORTH-ICS)
 * Implemented new MERGE functionality ([issue #97](https://github.com/isl/x3ml/issues/97))
 * Updated X3ML Engine to support termonilogy functionalities (e.g. broader and exactMatch terms) ([issue #98](https://github.com/isl/x3ml/issues/98))
@@ -66,6 +66,7 @@
 * Implemented new Generator RemoveTerm ([issue #95](https://github.com/isl/x3ml/issues/95))
 * Enhanced the functionality of conditionals ([issue #92](https://github.com/isl/x3ml/issues/96))
 
+
 ## 17 July 2017: V 1.8.0 (by FORTH-ICS)
 * Fixed isuue with ConcatMultipleTerms generator ([issue #91](https://github.com/isl/x3ml/issues/91))
 * Fixed isuue with TextualContent generator ([issue #92](https://github.com/isl/x3ml/issues/92))
@@ -74,6 +75,7 @@
 * Support a new type for exporting RDF data called RDF/XML_Plain ([issue #94](https://github.com/isl/x3ml/issues/94))
 * Fixed issue related to updating the logging levels of X3MLEngineFactory class ([issue #88](https://github.com/isl/x3ml/issues/88))
 * Harmonized the version of X3ML XSD files ([issue #89](https://github.com/isl/x3ml/issues/89))
+
 
 ## 21 Mar 2017: V 1.7.5 (by FORTH-ICS)
 * Fixed a bug with the URIorUUID instance generator ([issue #72](https://github.com/isl/x3ml/issues/72))
@@ -88,13 +90,16 @@
 * Support OutputStream resources in the X3MLEngineFactory class (([issue #76](https://github.com/isl/x3ml/issues/76)))
 * Support adding input resources (Input data, mappings, generator-policy) from publicly available remote locations (e.g. URLs)  ([issue #78](https://github.com/isl/x3ml/issues/78))
 
+
 ## 8 Feb 2017: V 1.7.4 (by FORTH-ICS)
 * Updated the functionality of the custom generator MultipleConcatTerms, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
 * Changed the dependencies of the X3ML-Engine (([issue #73](https://github.com/isl/x3ml/issues/73)))
 * Support InputStream resources in the X3MLEngineFactory class (([issue #74](https://github.com/isl/x3ml/issues/74)))
 
+
 ## 1 Nov 2016: V 1.7.3 (by FORTH-ICS)
 * Changed the names of the variables ([issue #70](https://github.com/isl/x3ml/issues/70))
+
 
 ## 21 Oct 2016: V 1.7.2 (by FORTH-ICS)
 * Fixed a bug that was raised with multiple input files ([issue #49](https://github.com/isl/x3ml/issues/49))
@@ -110,10 +115,12 @@
 * NEW functionality for parsing mulitple X3ML mapping files ([issue #61](https://github.com/isl/x3ml/issues/61), [issue #62](https://github.com/isl/x3ml/issues/62),[issue #65](https://github.com/isl/x3ml/issues/65))
 * NEW custom generator, that concatenates multiple terms from the input ([issue #69](https://github.com/isl/x3ml/issues/69))
 
+
 ## 1 July 2016: V 1.7.1 (by FORTH-ICS)
 * Fixed bug with the generation of entities from attribute values in the XML input ([issue #45](https://github.com/isl/x3ml/issues/45))
 * Throw more infomative error messages if the XML input or the X3ML mappings file are not valid XML files ([issue #44](https://github.com/isl/x3ml/issues/44))
 * NEW functionality for merging the contents of the association table with the RDF output ([issue #43](https://github.com/isl/x3ml/issues/43))
+
 
 ## 23 Feb 2016: V 1.7.0 (by FORTH-ICS)
 * Fixed bug with the creation of Literal instances (i.e. text nodes), if the same XPATH has been used for creating another instance ([issue #33](https://github.com/isl/x3ml/issues/33))
@@ -130,8 +137,8 @@
 * NEW functionality - introduced global_variable for supporting global scope for variables ([issue #34](https://github.com/isl/x3ml/issues/34))
 * NEW functionality - introduced type_aware_vars for supporting the generation of different URIs for the same XPATH input ([issue #40](https://github.com/isl/x3ml/issues/40))
 
-## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
 
+## 11 Jan 2016: V 1.6.2 (by FORTH-ICS)
 * Support for multiple instatiations ([issue #1](https://github.com/isl/x3ml/issues/1))
 * fixed bug with empty elements ([issue #4](https://github.com/isl/x3ml/issues/4), [issue #21](https://github.com/isl/x3ml/issues/21))
 * fixed bug with namespaces not declared in the namespace section ([issue #5](https://github.com/isl/x3ml/issues/5))
@@ -142,47 +149,47 @@
 * fixed issue with the creation of labels when they are found only in the domain ([issue #3](https://github.com/isl/x3ml/issues/3))
 * support exporting the contents of the association table during runtime ([issue #30](https://github.com/isl/x3ml/issues/30))
 
-## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 
+## 19 Nov 2015: V 1.6.1 (by FORTH-ICS)
 * Added an implementation of the association table
 * Added junit tests (for testing nested mappings, multiple instantiations, preflabels)
 * Removed System.out messages from junit tests
 * Merged previous branches.
 
-## 14 Oct 2015: V 1.6 (by FORTH-ICS)
 
+## 14 Oct 2015: V 1.6 (by FORTH-ICS)
 * Exceptions are also added in a static variable so that they can be exploited after the execution (i.e. by the 3M Editor)
 * Support for generation of skos:prefLabel labels
 * removed a lot of debug messages (completely useless)
 
-## 07 Aug 2015: V 1.5 (by FORTH-ICS)
 
+## 07 Aug 2015: V 1.5 (by FORTH-ICS)
 * Elimination of relation2 elements. Multiple joins are supported by simply using sequences of relation elements.
 * fixed bug with empty elements in the input.
 * Added support for AuthorityPrirefCounter and generators based on XPATH position
 * fixed bug to support fully qualified URIs
 
-## 27 Feb 2014: V 1.4 (by FORTH-ICS)
 
+## 27 Feb 2014: V 1.4 (by FORTH-ICS)
 * Added a new Relation (named relation2) to support double joins
 
-## 23 Oct 2014: V 1.3 (by Delving BV)
 
+## 23 Oct 2014: V 1.3 (by Delving BV)
 * variables moved back to <entity> but passed into instance generator
 * incorporated changes regarding getValueType in CustomGenerator
 * integrated URIorUUID custom generator
 * fixed bug involving creating new path instances when doing a join
 
-## 2 Aug 2014: V 1.2.2 (by Delving BV)
 
+## 2 Aug 2014: V 1.2.2 (by Delving BV)
 * variables moved to <instance-generator>
 
-## 21 July 2014: V 1.2.1 (by Delving BV)
 
+## 21 July 2014: V 1.2.1 (by Delving BV)
 * fixed bug with variables - labels and additionals were ignored if not in the first var usage
 
-## 6 July 2014: V 1.2 (by Delving BV)
 
+## 6 July 2014: V 1.2 (by Delving BV)
 * Entity element now has *instance_info* attribute 
 * *type* attribute added to instance_generator arg
 * *ArgValues* interface moved inside *Generator* interface
@@ -193,8 +200,8 @@
 * *DomainContext(path)* syntax added to XPath for non-hierarchical source
 * Removed *namespaces* from generator policy, inheriting from X3ML namespaces instead
 
-## 29 April 2014: V 1.1 (by Delving BV)
 
+## 29 April 2014: V 1.1 (by Delving BV)
 * Major refactor for code legibility, licensing, and javadoc
 * The *property* no longer contains *class* but instead itself holds the qualified name
 * The tag *property* has been replaced with *relationship*.
@@ -208,8 +215,8 @@
 	* Generators can override using *language* attribute, language="" for none at all
 * Command line formats now "application/rdf+xml", "text/turtle" and "application/n-triples"
 
-## 27 Mar 2014: Initial release v1.0 (by Delving BV)
 
+## 27 Mar 2014: Initial release v1.0 (by Delving BV)
 * XSD Schema validation of X3ML integrated
 * Command line has -validation option
 * Multiple <class> within <entity> needs some work
