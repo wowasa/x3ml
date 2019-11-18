@@ -1,6 +1,10 @@
 # Change Log
 
 
+## 18 November 2019: V 1.9.4 (by FORTH-ICS)
+* Generator Policy file validation ([issue #138](https://github.com/isl/x3ml/issues/138))
+
+
 ## 2 September 2019: V 1.9.3 (by FORTH-ICS)
 * Enhanced information in the definition of generators (description and type) ([issue #134](https://github.com/isl/x3ml/issues/134))
 * Improved performance for the transformation/values generation process ([issue #133](https://github.com/isl/x3ml/issues/133))
