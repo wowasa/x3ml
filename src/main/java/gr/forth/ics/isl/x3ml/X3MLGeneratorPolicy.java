@@ -41,12 +41,24 @@ import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType.constant;
 import static gr.forth.ics.isl.x3ml.engine.X3ML.SourceType.xpath;
 import gr.forth.Labels;
 import gr.forth.Utils;
-import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
 import static gr.forth.ics.isl.x3ml.engine.X3ML.Helper.literalValue;
 import gr.forth.TextualContent;
 import gr.forth.UriValidator;
-import java.nio.ByteBuffer;
+import gr.forth.ics.isl.x3ml.X3MLEngine.X3MLException;
+import static gr.forth.ics.isl.x3ml.X3MLEngine.exception;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import lombok.extern.log4j.Log4j;
+import org.xml.sax.SAXException;
 
 /**
  * @author Gerald de Jong &lt;gerald@delving.eu&gt;
@@ -56,6 +68,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class X3MLGeneratorPolicy implements Generator {
     private static final Pattern BRACES = Pattern.compile("\\{[?;+#]?([^}]+)\\}");
+    private static final String GENERATOR_POLICY_SCHEMA_FOLDER="/schema/";
+    private static final String GENERATOR_POLICY_SCHEMA_FILENAME="generatorPolicy.xsd";
     private Map<String, GeneratorSpec> generatorMap = new TreeMap<>();
     private Map<String, String> namespaceMap = new TreeMap<>();
     private UUIDSource uuidSource;
@@ -111,7 +125,8 @@ public class X3MLGeneratorPolicy implements Generator {
 
     private X3MLGeneratorPolicy(InputStream inputStream, UUIDSource uuidSource) {
         if (inputStream != null) {
-            GeneratorPolicy policy = (GeneratorPolicy) generatorStream().fromXML(inputStream);
+            InputStream is=validateGeneratorPolicyFile(inputStream);
+            GeneratorPolicy policy = (GeneratorPolicy) generatorStream().fromXML(is);
             for (GeneratorSpec generator : policy.generators) {
                 if (generatorMap.containsKey(generator.name)) {
                     throw exception("Duplicate generator name: " + generator.name);
@@ -397,5 +412,50 @@ public class X3MLGeneratorPolicy implements Generator {
             if (language.isEmpty()) language = null; // to strip language
         }
         return language;
+    }
+    
+    /** Validates XML document containing XML Generator Policy definitions, w.r.t. to
+     * the default XSD definitions.
+     * 
+     * @param inputStream the XML serialization of the generator policy definitions
+     * @return the validated inputStream (returned because the offset of the initial inputStream has been moved to EOF)
+     * @throws X3MLException if the generator policy definitions are not valid */
+    public static InputStream validateGeneratorPolicyFile(InputStream inputStream) throws X3MLException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baosForValidation = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        try{
+            while ((len = inputStream.read(buffer)) > -1 ) {
+                baos.write(buffer, 0, len);
+                baosForValidation.write(buffer, 0, len);
+            }
+            baos.flush();
+            baosForValidation.flush();
+        }catch(IOException ex){
+            throw new X3MLException("Cannot read the contents of Generator Policy file. Detailed log:\n"+ex.toString());
+        }
+        InputStream is = new ByteArrayInputStream(baos.toByteArray()); 
+        try{
+            DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+        }catch(IOException | ParserConfigurationException | SAXException ex){
+            throw new X3MLException("Cannot parse the contents of the Generator policy file. Check that is is a valid XML file. Detailed log:\n"+ex.toString());
+        }
+        X3MLGeneratorPolicy.validateGeneratorPolicyFileWithSchema(new ByteArrayInputStream(baosForValidation.toByteArray()));
+        return new ByteArrayInputStream(baos.toByteArray());
+    }
+    
+    /* validates the XML serialization of the generator policy definitions w.r.t. the default schema */
+    private static void validateGeneratorPolicyFileWithSchema(InputStream inputStream){
+        try{
+            URL schemaUrl=X3MLEngine.class.getResource(X3MLGeneratorPolicy.GENERATOR_POLICY_SCHEMA_FOLDER+X3MLGeneratorPolicy.GENERATOR_POLICY_SCHEMA_FILENAME);
+            javax.xml.transform.Source policyFile=new StreamSource(inputStream);
+            SchemaFactory schemaFactory=SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema=schemaFactory.newSchema(schemaUrl);
+            Validator validator=schema.newValidator();
+            validator.validate(policyFile);
+        }catch(SAXException | IOException ex){
+            throw exception("An error occurred while validating the contents of the XML generator policy file", ex);
+        }
     }
 }
