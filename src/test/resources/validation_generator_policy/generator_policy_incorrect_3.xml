@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+    
+    <generator name="generator1" wrong="text">
+        <pattern>{label}</pattern>
+    </generator>
+
+</generator_policy>

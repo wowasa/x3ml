@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+    
+    <generator name="generator1" prefix="pre" uuid="yes" shorten="yes">
+        <pattern>{label}</pattern>
+    </generator>
+	
+	<generator name="generator2">
+        <pattern>{label}</pattern>
+		<description>a small description of the generator</description>
+    </generator>
+	
+	<generator name="generator3">
+        <custom generatorClass="gr.forth.URIorUUID">
+            <set-arg name="text"/>
+			<set-arg name="text1" type="type"/>
+        </custom>
+    </generator>
+	
+</generator_policy>

@@ -14,7 +14,7 @@
 </generator>
 
 <generator name="Literal">
-        <pattern name="text">text()</pattern>
+        <pattern>text()</pattern>
 </generator>
 
 <generator name="AuthorityPrirefThingThing" prefix="rma">

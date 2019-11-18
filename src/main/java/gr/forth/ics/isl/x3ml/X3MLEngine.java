@@ -78,6 +78,7 @@ public class X3MLEngine {
     private static final String VERSION = "1.0";
     private static final String X3ML_SCHEMA_FOLDER="/schema/";
     private static final String X3ML_SCHEMA_FILENAME="x3ml.xsd";
+    private static final String GENERATOR_POLICY_SCHEMA_FILENAME="generatorPolicy.xsd";
     public static boolean ENABLE_ASSOCIATION_TABLE=false;
     public static boolean REPORT_PROGRESS=false;
     private RootElement rootElement;
