@@ -48,7 +48,7 @@ import org.w3c.dom.Node;
  */
 public class EntityResolver {
 
-    public static ModelOutput modelOutput;
+    public ModelOutput modelOutput;
     public final X3ML.EntityElement entityElement;
     public final GeneratorContext generatorContext;
     public List<LabelNode> labelNodes;
@@ -60,7 +60,7 @@ public class EntityResolver {
     public static int namedGraphUriCounter=1;
 
     EntityResolver(ModelOutput modelOutput, X3ML.EntityElement entityElement, GeneratorContext generatorContext) {
-        EntityResolver.modelOutput = modelOutput;
+        this.modelOutput = modelOutput;
         this.entityElement = entityElement;
         this.generatorContext = generatorContext;
     }
@@ -168,13 +168,13 @@ public class EntityResolver {
                                 }
 
                                 X3ML.RootElement.hasNamedGraphs=true;
-                                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(), 
+                                this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(),
                                         new ResourceImpl(generatedValue.text).asNode(), 
                                         new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
                                         new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
                             }                            
                             if(namedGraph!=null){
-                                ModelOutput.quadGraph.add(new ResourceImpl(namedGraph).asNode(),
+                                this.modelOutput.quadGraph.add(new ResourceImpl(namedGraph).asNode(),
                                         new ResourceImpl(generatedValue.text).asNode(), 
                                         new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(),
                                         new ResourceImpl(modelOutput.getNamespace(typeElement)).asNode());
@@ -282,7 +282,7 @@ public class EntityResolver {
                     for (Resource resource : additionalEntityResolver.get(i).resources) {
                         lastResource.addProperty(property.get(i), resource);
                         if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                            this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
                                                       fromResource.asNode(), 
                                                       property.get(i).asNode(),
                                                       resource.asNode());
@@ -292,7 +292,7 @@ public class EntityResolver {
                 } else if (additionalEntityResolver.get(i).hasLiteral()) {
                     lastResource.addLiteral(property.get(i), additionalEntityResolver.get(i).literal);
                     if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
-                        ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                        this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
                                                   fromResource.asNode(), 
                                                   property.get(i).asNode(),
                                                   additionalEntityResolver.get(i).literal.asNode());
@@ -357,18 +357,18 @@ public class EntityResolver {
         public void linkFrom(Resource fromResource, Derivation derivedBy) {
             fromResource.addLiteral(property, literal);
             if(X3ML.Mapping.namedGraphProduced!=null && !X3ML.Mapping.namedGraphProduced.isEmpty()){
-                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
+                EntityResolver.this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(),
                                         fromResource.asNode(), 
                                         property.asNode(),
                                         literal.asNode());
             }if(X3ML.DomainElement.namedGraphProduced!=null && !X3ML.DomainElement.namedGraphProduced.isEmpty() && derivedBy==Derivation.Domain){
-                ModelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(),
+                EntityResolver.this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.DomainElement.namedGraphProduced).asNode(),
                                         fromResource.asNode(), 
                                         property.asNode(),
                                         literal.asNode());
             }if(derivedBy==Derivation.Path || derivedBy==Derivation.Range){
                 if(X3ML.LinkElement.namedGraphProduced!=null && !X3ML.LinkElement.namedGraphProduced.isEmpty()){
-                    ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(),
+                    EntityResolver.this.modelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(),
                                         fromResource.asNode(), 
                                         property.asNode(),
                                         literal.asNode());

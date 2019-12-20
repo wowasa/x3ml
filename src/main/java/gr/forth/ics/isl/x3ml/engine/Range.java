@@ -76,16 +76,16 @@ public class Range extends GeneratorContext {
                                 X3ML.LinkElement.namedGraphProduced="http://"+linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
                             }
 
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
+/*                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(),
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
                             ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                     resolvedResource.asNode(), new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(), 
     //                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
                                     new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
-                            rangeResolver.link(Derivation.Range);
+                            rangeResolver.link(Derivation.Range);*/
 
                         }
-                        if(mappingNamedgraph!=null){
+/*                        if(mappingNamedgraph!=null){
                             X3ML.RootElement.hasNamedGraphs=true;
                             ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
@@ -94,7 +94,7 @@ public class Range extends GeneratorContext {
 
     //                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
                                     new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
-                        }
+                        }*/
                     }
                 }
             }
@@ -105,7 +105,7 @@ public class Range extends GeneratorContext {
                 }else{
                     lastResource.addLiteral(path.lastProperty, rangeResolver.literal);
                     if(linkNamedgraph!=null){
-                        String linkNamedGraphMerged=null;
+/*                        String linkNamedGraphMerged=null;
                         if(linkNamedgraph.isEmpty()){
                             linkNamedGraphMerged=lastResource.getURI();
                         }else if(linkNamedgraph.startsWith("http://") || linkNamedgraph.startsWith("https://") || linkNamedgraph.startsWith("uuid:") || linkNamedgraph.startsWith("urn:")){
@@ -115,12 +115,12 @@ public class Range extends GeneratorContext {
                         }
                             X3ML.RootElement.hasNamedGraphs=true;
                             ModelOutput.quadGraph.add(new ResourceImpl(linkNamedGraphMerged).asNode(), 
-                                    lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
+                                    lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());*/
                     }
                     if(mappingNamedgraph!=null){
-                         X3ML.RootElement.hasNamedGraphs=true;
+/*                         X3ML.RootElement.hasNamedGraphs=true;
                          ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
-                                    lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
+                                    lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());*/
                     }
                 }   
             }
