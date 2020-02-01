@@ -76,24 +76,24 @@ public class Range extends GeneratorContext {
                                 X3ML.LinkElement.namedGraphProduced="http://"+linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
                             }
 
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
+                            context.output().getQuadGraph().add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
+                            context.output().getQuadGraph().add(new ResourceImpl(X3ML.LinkElement.namedGraphProduced).asNode(), 
                                     resolvedResource.asNode(), new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(), 
     //                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
-                                    new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
+                                    new ResourceImpl(rangeResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
                             rangeResolver.link(Derivation.Range);
 
                         }
                         if(mappingNamedgraph!=null){
                             X3ML.RootElement.hasNamedGraphs=true;
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
+                            context.output().getQuadGraph().add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), resolvedResource.asNode());
-                            ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
+                            context.output().getQuadGraph().add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
                                     resolvedResource.asNode(), new ResourceImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").asNode(), 
 
     //                                new ResourceImpl(rangeResolver.entityElement.typeElements.get(0).namespaceUri+rangeResolver.entityElement.typeElements.get(0).getLocalName()).asNode());
-                                    new ResourceImpl(EntityResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
+                                    new ResourceImpl(rangeResolver.modelOutput.getNamespace(rangeResolver.entityElement.typeElements.get(0))).asNode());
                         }
                     }
                 }
@@ -114,12 +114,12 @@ public class Range extends GeneratorContext {
                             linkNamedGraphMerged="http://"+linkNamedgraph+lastResource.getURI().replace("http://","_").replace("https://","_").replace("uuid:", "_").replace("urn:","_");
                         }
                             X3ML.RootElement.hasNamedGraphs=true;
-                            ModelOutput.quadGraph.add(new ResourceImpl(linkNamedGraphMerged).asNode(), 
+                            context.output().getQuadGraph().add(new ResourceImpl(linkNamedGraphMerged).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
                     }
                     if(mappingNamedgraph!=null){
                          X3ML.RootElement.hasNamedGraphs=true;
-                         ModelOutput.quadGraph.add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
+                         context.output().getQuadGraph().add(new ResourceImpl(X3ML.Mapping.namedGraphProduced).asNode(), 
                                     lastResource.asNode(), path.lastProperty.asNode(), rangeResolver.literal.asNode());
                     }
                 }   

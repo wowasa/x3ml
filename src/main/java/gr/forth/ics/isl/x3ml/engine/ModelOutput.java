@@ -57,8 +57,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ModelOutput implements Output {
 
-    public static final DatasetGraph quadGraph=new DatasetGraphSimpleMem();
-    private final Model model;
+    private final DatasetGraph quadGraph=new DatasetGraphSimpleMem();
+    public DatasetGraph getQuadGraph() {
+      return quadGraph;
+   }
+
+   private final Model model;
     private final NamespaceContext namespaceContext;
 
     public ModelOutput(Model model, NamespaceContext namespaceContext) {
